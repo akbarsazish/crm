@@ -13,7 +13,7 @@ document.querySelector('.fa-bars').parentElement.addEventListener('click', () =>
 });
 
 
-var baseUrl = "http://192.168.10.27:8080";
+var baseUrl = "http://192.168.10.26:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
 $(element).find('input:radio').prop('checked', true);

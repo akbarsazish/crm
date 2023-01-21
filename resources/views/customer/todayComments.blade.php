@@ -1,25 +1,18 @@
 @extends('layout')
 @section('content')
-<main>
-    <div class="container" style="margin-top:4%;">
-     <h3 class="page-title">لیست نظر سنجی </h3> 
-    <div class="card mb-4" style="margin: 0; padding:0;">
-        <div class="card-body">
-        <div class="row">
-        <div class="col-sm-12">
-                    <div class="well">
-                        <div class="row">
-                            <div class="alert col-sm-8">
-                                <input type="text" id="customerSn" style="display:none"  value="" />
-                                <input type="text" id="factorSn" style="display:none"  value="" />
+    <div class="container-fluid" style="margin-top:60px;  position:fixed; overflow:hidden;">
+             <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                        <input type="text" id="customerSn" style="display:none"  value="" />
+                        <input type="text" id="factorSn" style="display:none"  value="" />
+                        <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
+                        <button class="btn btn-primary btn-sm text-warning" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                            <div class="row contentHeader">
+
                             </div>
-                            <div class="col-sm-4 mb-2" style="display:flex; justify-content:flex-end;">
-                               <button class='enableBtn btn btn-primary btn-sm buttonHover text-warning mx-1' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
-                               <button class="enableBtn btn btn-primary btn-sm buttonHover text-warning mx-1" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
-                            </div>
-                        </div> 
-                            <div class="col-sm-12">
-                                <table class='table-striped table-bordered table-sm'>
+                             <table class='table-striped table-bordered table-sm'>
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -42,18 +35,19 @@
                                                 <td> <input class="customerList form-check-input" name="factorId" type="radio" value="{{$customer->PSN.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                             @empty
-                                            <h3> داده ای وجود ندارد.</h3>
+                                            
                                         @endforelse
                                     
                                     </tbody>
                                 </table>
+                                <div class="row contentFooter">
+                        
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+    
 {{-- dashbor modal --}}
 <div class="modal fade dragableModal" id="customerDashboard"  data-backdrop="static"  aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable  modal-dialog-scrollable modal-xl">
@@ -431,5 +425,5 @@
                 </div>
                 </div>
             </div>
-</main>
+
 @endsection
