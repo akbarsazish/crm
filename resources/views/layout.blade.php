@@ -76,6 +76,13 @@
                                                         <li class=''> <a class="mySidenav__item" href="{{url('/crmSetting')}}"> <i class="fas fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i> &nbsp;  تنظیمات دیگر </a> </li>
                                                     </ul>
                                                 </li>
+                                        <li class='has-sub'><a class="mySidenav__item" href="#"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تنظیمات    </span></a>
+                                            <ul>
+                                                <li></li>
+                                                <li class=''> <a class="mySidenav__item" href="{{url('/bonusSetting')}}"><i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات امتیاز </span></a></li>
+                                                <li class=''> <a class="mySidenav__item" href="{{url('/crmSetting')}}"> <i class="fas fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i> &nbsp;  تنظیمات دیگر </a> </li>
+                                            </ul>
+                                        </li>
                                         </ul>
                                     </li>
                                     <li class='has-sub'>
@@ -108,6 +115,7 @@
                                             <li class=''><a class="mySidenav__item" href="{{url('/assignCustomer')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; تخصیص به کاربر </span></a> </li>
                                             <li class=''><a class="mySidenav__item" href="{{url('/listKarbaran')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; لیست کاربران</span></a> </li>
                                             <li class=''><a class="mySidenav__item" href="{{url('/driverService')}}"> &nbsp;&nbsp; <i class="fas fa-car fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; سرویس راننده ها </span></a></li>
+                                            <li class=''><a class="mySidenav__item" href="{{url('/commentToday')}}"><span><i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; نظر سنجی  </span></a>
                                             @if(Session::get("hasAsses")=="on")
                                                 <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; نظر سنجی  </span></a>
                                                     <ul>

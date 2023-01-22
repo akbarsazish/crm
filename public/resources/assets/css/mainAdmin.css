@@ -306,7 +306,7 @@ header .top-nav {
     background-color: #00bfd6;
     border: 1px solid #41a7b4;
     color: #fff;
-    overflow: hidden;
+overflow: hidden;
     letter-spacing: -.6px;
     position: relative;
     margin-bottom: 12px
@@ -4019,7 +4019,7 @@ span.full-address {
   }
  
 .tableBody {
-      height:500px !important; 
+      height:410px !important; 
       overflow-y:scroll !important;
       display:block !important;
   }
@@ -6913,11 +6913,100 @@ span.content{
 	border-radius:6px;
 }
 
-li.newSub span.cnt .fa-caret-down:before{
-    color:#ba7802 !important;
+
+
+.saleExpert-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 5px;
+  }
+  
+  
+  .grid-item {
+    background-color: #85baef;
+    padding: 6px;
+    font-size: 14px;
+    text-align: center;
+    margin:5px;
+    border-radius:5px;
+  }
+  .grid-item:hover {
+      background-color: #0b2d62;
+      color:#fff;
+  }
+
+  .grid-item a{
+    font-size: 12px;
+    color:#000;
+  }
+  
+  .grid-item a:hover{
+    background-color: #0b2d62;
+    color:#fff;
+  }
+  
+  .allNasbGrid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 5px;
+  }
+  
+  
+  .nasb-grid-item {
+    background-color: #85baef;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+    margin:4px;
+    border-radius:5px;
+  } 
+
+  .nasb-grid-item a{
+    font-size: 12px;
+    color:black;
+  }
+  @media(max-width:920px){
+      .allNasbGrid {
+          display: grid;
+          grid-template-columns: auto auto;
+      }
+  }
+  
+
+  @media only screen and (max-width: 920px) {
+    .mobileDisplay{ display:none;}
+    .bazarYabTable, tr{ font-size:10px !important;}
+    .selectTr{width:20px !important; padding:0px;}
+    
 }
 
-.newSubli li {
-    background-color: #a1cded !important;
-    color:#fff !important;
+
+
+.containerDiv {
+    margin-top:60px;  position:fixed; overflow:hidden;
+}
+
+@media only screen and (min-width: 1380px) {
+    .contentDiv{ 
+        min-height: 93vh !important
+    }
+
+    .containerDiv {
+        margin-top:60px;  position:relative;
+    }
+    
+    
+}
+.sideBar {
+    min-height: 90vh !important;
+    background-color: #b3d1ef;
+    
+}
+
+.contentHeader, .contentFooter {
+    background-color: #b3d1ef;
+    height: 8%;
+}
+.mainContent {
+    min-height: 84% !important;
 }

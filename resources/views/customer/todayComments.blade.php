@@ -1,25 +1,48 @@
 @extends('layout')
 @section('content')
-<main>
-    <div class="container" style="margin-top:4%;">
-     <h3 class="page-title">لیست نظر سنجی </h3> 
-    <div class="card mb-4" style="margin: 0; padding:0;">
-        <div class="card-body">
-        <div class="row">
-        <div class="col-sm-12">
-                    <div class="well">
-                        <div class="row">
-                            <div class="alert col-sm-8">
-                                <input type="text" id="customerSn" style="display:none"  value="" />
-                                <input type="text" id="factorSn" style="display:none"  value="" />
+    <div class="container-fluid containerDiv">
+             <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                        
+                            <fieldset class="border rounded mt-5">
+                              <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
+                                    <div class="mb-1">
+                                        <input type="text" id="sefTarafHisabName" placeholder="جستجو " class="form-control form-control-sm">
+                                    </div>
+                                    <div class="input-group input-group-sm mb-1">
+                                         <span class="input-group-text" id="inputGroup-sizing-sm">تاریخ </span>
+                                         <input type="text" class="form-control" id="sefFirstDate">
+                                     </div>
+                                     <div class="input-group input-group-sm mb-1">
+                                         <span class="input-group-text" id="inputGroup-sizing-sm"> الی </span>
+                                         <input type="text" class="form-control" id="sefSecondDate">
+                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="sefNewOrderRadio">
+                                                <label class="form-check-label me-4" for="sefNewOrderRadio"> نظرات امروز </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="sefRemainOrderRadio">
+                                            <label class="form-check-label me-4" for="sefRemainOrderRadio"> نظرات گذشته </label>
+                                       </div>
+                                       <div class="form-check">
+                                          <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="sefSentOrderRadio">
+                                                <label class="form-check-label me-4" for="sefSentOrderRadio"> نظرات انجام شده </label>
+                                       </div>
+                              </fieldset>
+                    </div>
+                    <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                            <div class="row contentHeader">
+                                <div class="col-lg-12 text-start mt-3">
+                                    <input type="text" id="customerSn" style="display:none"  value="" />
+                                    <input type="text" id="factorSn" style="display:none"  value="" />
+                                    <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
+                                    <button class="btn btn-primary btn-sm text-warning" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
+                                </div>
                             </div>
-                            <div class="col-sm-4 mb-2" style="display:flex; justify-content:flex-end;">
-                               <button class='enableBtn btn btn-primary btn-sm buttonHover text-warning mx-1' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
-                               <button class="enableBtn btn btn-primary btn-sm buttonHover text-warning mx-1" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
-                            </div>
-                        </div> 
-                            <div class="col-sm-12">
-                                <table class='table-striped table-bordered table-sm'>
+                            <div class="row mainContent">
+
+                              <table class='table-striped table-bordered table-sm'>
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -42,18 +65,20 @@
                                                 <td> <input class="customerList form-check-input" name="factorId" type="radio" value="{{$customer->PSN.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                             @empty
-                                            <h3> داده ای وجود ندارد.</h3>
+                                            
                                         @endforelse
                                     
                                     </tbody>
-                                </table>
+                                </table> 
+                            </div>
+                                <div class="row contentFooter">
+                        
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+    
 {{-- dashbor modal --}}
 <div class="modal fade dragableModal" id="customerDashboard"  data-backdrop="static"  aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable  modal-dialog-scrollable modal-xl">
@@ -431,5 +456,5 @@
                 </div>
                 </div>
             </div>
-</main>
+
 @endsection
