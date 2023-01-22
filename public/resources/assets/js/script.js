@@ -13,7 +13,7 @@ document.querySelector('.fa-bars').parentElement.addEventListener('click', () =>
 });
 
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
 $(element).find('input:radio').prop('checked', true);
@@ -8103,12 +8103,33 @@ if(data[0].userType==2){
             }
         });
         e.preventDefault();
-        
-        
     })
+$("#getAssesBtn").on("click",function(){
+    let assesDay="today";
+    if($("#assesToday").is(":checked")){
+        assesDay="today";
+    }
+    if($("#assesPast").is(":checked")){
+        assesDay="past";
+    }
+    if($("#assesDone").is(":checked")){
+        assesDay="done";
+    }
+    $.ajax({
+        method:"get",
+        url:baseUrl+'/getAsses',
+        async:true,
+        data:{_token:"{{@csrf}}",
+        dayAsses:assesDay
+        },
+        success:function(response) {
+            console.log(response);
+        },
+        error:function(error){
 
-
-
+        }
+    })
+});
     // تنظیمات 
 			
 $(document).on('click', '#loadMore', ()=> {

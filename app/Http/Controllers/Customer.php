@@ -153,34 +153,77 @@ class Customer extends Controller
             $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
         }
         $adminId=Session::get('asn');
-        $customers = DB::select("SELECT * from(
+        $customers = DB::select("SELECT * FROM(
             SELECT NetPriceHDS as TotalPriceHDS,* FROM (
-            SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate from
-            (select * from(
-            SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
-            join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
-            join (SELECT Name,PSN,PCode,GroupCode FROM Shop.dbo.Peopels)e on d.CustomerSn=e.PSN)f 
+            SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate FROM
+            (SELECT * FROM(
+            SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a
+            JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+            JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+            JOIN (SELECT Name,PSN,PCode,GroupCode FROM Shop.dbo.Peopels)e on d.CustomerSn=e.PSN)f 
+            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+            FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON f.CustomerSn=g.SnPeopel
             where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
-                        and SerialNoHDS  NOT IN (select factorId from CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                        and SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
                         and FactDate='$yesterday'
             and  GroupCode in (291,297,299,312,313,314)");
 		
                          
-        foreach ($customers as $customer) {
-            $sabit="";
-            $hamrah="";
-            $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
-            foreach ($phones as $phone) {
-                if($phone->PhoneType==1){
-                $sabit.=$phone->PhoneStr."\n";
-                }else{
-                    $hamrah.=$phone->PhoneStr."\n";   
-                }
-            }
-            $customer->sabit=$sabit;
-            $customer->hamrah=$hamrah;
-        }
+        
         return view ("customer.todayComments",['customers'=>$customers]);
+    }
+    public function getAsses(Request $request)
+    {
+        if($request->get("dayAsses")=="today"){
+            $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+            $yesterday;
+            if($yesterdayOfWeek==6){
+                $yesterday = Jalalian::fromCarbon(Carbon::yesterday()->subDays(1))->format('Y/m/d');
+            }else{
+                $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+            }
+            $adminId=Session::get('asn');
+            $customers = DB::select("SELECT * FROM(
+                SELECT NetPriceHDS as TotalPriceHDS,* FROM (
+                SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate FROM
+                (SELECT * FROM(
+                SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a
+                JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+                JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+                JOIN (SELECT Name,PSN,PCode,GroupCode FROM Shop.dbo.Peopels)e on d.CustomerSn=e.PSN)f 
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON f.CustomerSn=g.SnPeopel
+                where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
+                            and SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                            and FactDate='$yesterday'
+                and  GroupCode in (291,297,299,312,313,314)");
+                return Response::json($customers);
+        }
+
+        if($request->get("dayAsses")=="past"){
+            $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+            $yesterday;
+            
+            $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+            $today = Jalalian::fromCarbon(Carbon::today())->format('Y/m/d');
+            $customers = DB::select("SELECT NetPriceHDS as TotalPriceHDS,* FROM (
+                                    SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate FROM
+                                    (SELECT * FROM(
+                                    SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a
+                                        JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+                                        JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+                                        JOIN Shop.dbo.Peopels on d.CustomerSn=Peopels.PSN
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                        FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON Peopels.PSN=g.SnPeopel
+                                        where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
+                                        AND SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                                        AND  GroupCode in (291,297,299,312,313,314)
+                                        AND FactDate<'$yesterday'
+                                        AND FactDate>'1401/07/17'
+                                        order by FactDate desc");
+            return Response::json($customers);
+        }
+
     }
     public function inactiveCustomer(Request $request)
     {

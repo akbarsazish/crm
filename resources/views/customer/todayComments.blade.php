@@ -6,6 +6,7 @@
                         
                             <fieldset class="border rounded mt-5">
                               <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
+                              <form action="{{url('/getAsses')}}" method="get">
                                     <div class="mb-1">
                                         <input type="text" id="sefTarafHisabName" placeholder="جستجو " class="form-control form-control-sm">
                                     </div>
@@ -18,17 +19,19 @@
                                          <input type="text" class="form-control" id="sefSecondDate">
                                      </div>
                                     <div class="form-check">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="sefNewOrderRadio">
-                                                <label class="form-check-label me-4" for="sefNewOrderRadio"> نظرات امروز </label>
+                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesToday">
+                                                <label class="form-check-label me-4" for="assesToday"> نظرات امروز </label>
                                       </div>
                                       <div class="form-check">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="sefRemainOrderRadio">
-                                            <label class="form-check-label me-4" for="sefRemainOrderRadio"> نظرات گذشته </label>
+                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesPast">
+                                            <label class="form-check-label me-4" for="assesPast"> نظرات گذشته </label>
                                        </div>
                                        <div class="form-check">
-                                          <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="sefSentOrderRadio">
-                                                <label class="form-check-label me-4" for="sefSentOrderRadio"> نظرات انجام شده </label>
+                                          <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesDone">
+                                                <label class="form-check-label me-4" for="assesDone"> نظرات انجام شده </label>
                                        </div>
+                                       <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'>بازخوانی<i class="fal fa-dashboard fa-lg"></i></button>
+                                       </form>
                               </fieldset>
                     </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">

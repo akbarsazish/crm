@@ -236,3 +236,8 @@ Route::get("/getServiceInfo",[DriverController::class,"getServiceInfo"])->middle
 Route::get("/editDriverService",[DriverController::class,"editDriverService"])->middleware('CheckCommon');
 Route::get('/randt',[Customer::class,'randt'])->middleware('CheckCommon');
 Route::post('/addRandT',[Customer::class,'addRandT'])->middleware('CheckCommon');
+
+
+
+//بعد از تغیر ساختار
+Route::get('/getAsses',[Customer::class,'getAsses'])->middleware('CheckCommon');
