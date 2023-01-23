@@ -13,7 +13,7 @@ document.querySelector('.fa-bars').parentElement.addEventListener('click', () =>
 });
 
 
-var baseUrl = "http://192.168.10.27:8080";
+var baseUrl = "http://192.168.10.26:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
 $(element).find('input:radio').prop('checked', true);
@@ -7263,6 +7263,7 @@ alert ("data server error");
 });
 
 
+
  function showThisDayMyCustomer(thisDayDate,iteration){
         var date = moment();
 
@@ -8017,6 +8018,8 @@ if(data[0].userType==2){
         $("#serviceSn").val(serviceId);
     }
     
+
+
     $("#editDriverServicesBtn").on("click", ()=> {
         $.ajax({method:'get',
                 url:baseUrl+'/getServiceInfo',
@@ -8067,6 +8070,8 @@ if(data[0].userType==2){
             });
     });
 
+
+
     $("#editServiceForm").on("submit",function(e){
         
         $.ajax({
@@ -8104,6 +8109,9 @@ if(data[0].userType==2){
         });
         e.preventDefault();
     })
+
+
+  
 $("#getAssesBtn").on("click",function(){
     let assesDay="today";
     if($("#assesToday").is(":checked")){
@@ -8130,8 +8138,35 @@ $("#getAssesBtn").on("click",function(){
         }
     })
 });
+
+
+$("#settingAndTargetRadio").on("change", ()=>{
+    $("#targetAndSettingContent").css("display", "block");
+    $("#elseSettings").css("display", "none");
+})
+$("#elseSettingsRadio").on("change", ()=>{
+    $("#elseSettings").css("display", "block");
+    $("#targetAndSettingContent").css("display", "none");
+})
+
+$("#firstManger").on("change", ()=>{
+    $("#relatedHeadOfficer").css("display", "flex");
+})
+$("#firstHeadOfficer").on("change", ()=>{
+    $("#tableGroupList").css("display", "block");
+    $(".forSecondHeadOfficer").css("display", "none");
+})
+
+$("#secondHeadOfficer").on("change", ()=>{
+    $(".forSecondHeadOfficer").css("display", "block");
+    $("#tableGroupList").css("display", "none");
+})
+
+
+
     // تنظیمات 
-			
+
+    
 $(document).on('click', '#loadMore', ()=> {
 	$(".showLater").css("display", "block");
 });
@@ -8278,4 +8313,5 @@ xAxis.set("tooltip", am5.Tooltip.new(root, {
 yAxis.set("tooltip", am5.Tooltip.new(root, {
   themeTags: ["axis"]
 }));
+
 

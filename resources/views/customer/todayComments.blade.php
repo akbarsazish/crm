@@ -4,7 +4,7 @@
              <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                         
-                            <fieldset class="border rounded mt-5">
+                            <fieldset class="border rounded mt-5 sidefieldSet">
                               <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
                               <form action="{{url('/getAsses')}}" method="get">
                                     <div class="mb-1">
@@ -30,13 +30,13 @@
                                           <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesDone">
                                                 <label class="form-check-label me-4" for="assesDone"> نظرات انجام شده </label>
                                        </div>
-                                       <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'>بازخوانی<i class="fal fa-dashboard fa-lg"></i></button>
+                                       <button class='btn btn-primary btn-sm text-warning refreshBtn' type="button" id='getAssesBtn'>بازخوانی<i class="fal fa-dashboard fa-lg"></i></button>
                                        </form>
                               </fieldset>
                     </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                             <div class="row contentHeader">
-                                <div class="col-lg-12 text-start mt-3">
+                                <div class="col-lg-12 text-start mt-2">
                                     <input type="text" id="customerSn" style="display:none"  value="" />
                                     <input type="text" id="factorSn" style="display:none"  value="" />
                                     <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>

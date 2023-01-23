@@ -1,17 +1,132 @@
 @extends('layout')
 @section('content')
-    <div class="container" style="margin-top:6%;">
+
+   <div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                    <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> کاربران </legend>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="firstManger">
+                            <label class="form-check-label me-4" for="assesPast">  مدیر 1 </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="secondManager">
+                            <label class="form-check-label me-4" for="assesPast">  مدیر 2 </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="thirdManager">
+                            <label class="form-check-label me-4" for="assesPast">  مدیر 3 </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="thirdManager">
+                            <label class="form-check-label me-4" for="assesPast">  کاربران بدون مدیر </label>
+                        </div>
+                        <div class="col-lg-12" style="margin-top:40vh">
+                            <div class="row px-3">
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" id="newAdminBtn">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true" style="color:red;"></i></button>
+                                <input type="hidden" id="AdminForAdd"/>
+                           </div>
+                        </div>
+                    </fieldset>
+                  </div>
+                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader"> </div>
+                    <div class="row mainContent"> 
+                        <div class="col-lg-12 p-3">
+                            <div class="row" id="relatedHeadOfficer" style="display:none;">
+                                <div class="col-lg-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="firstHeadOfficer">
+                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="secondHeadOfficer">
+                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 2 </label>
+                                    </div>
+                                </div>
+                            </div> <hr>
+                        </div>
+                        <div class="col-lg-12">
+                            <table class="select-highlight table table-bordered table-striped" id="tableGroupList" style="display:none">
+                                    <thead class="tableHeader">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام کاربر</th>
+                                            <th>نقش کاربری</th>
+                                            <th>توضیحات</th>
+                                            <th>فعال</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tableBody" id="adminGroupList" style="height:300px">
+                                        @foreach ($admins as $admin)
+                                            @if($admin->adminTypeId==1 or $admin->adminTypeId==5)
+                                                
+                                            <tr onclick="setAdminListStuff(this,{{$admin->adminTypeId}},{{$admin->id}},{{Session::get('asn')}})">
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
+                                                    <td>{{trim($admin->adminType)}}</td>
+                                                    <td>{{trim($admin->discription)}}</td>
+                                                    <td>
+                                                        <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
+                                                    </td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+
+                                    </tbody>
+                            </table>
+
+                            <table class="select-highlight table table-bordered table-striped forSecondHeadOfficer" id=" " style="display:none;">
+                             <thead class="tableHeader">
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>نام کاربر</th>
+                                    <th>نقش کاربری</th>
+                                    <th>توضیحات</th>
+                                    <th>فعال</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tableBody" id="adminGroupList">
+                            @foreach ($admins as $admin)
+                                @if($admin->adminTypeId==4)
+
+                                    <tr onclick="setAdminListStuff(this,{{$admin->adminTypeId}},{{$admin->id}},{{Session::get('asn')}})">
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
+                                        <td>{{trim($admin->adminType)}}</td>
+                                        <td>{{trim($admin->discription)}}</td>
+                                        <td>
+                                            <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        </div>
+                        
+                    </div>
+                    <div class="row contentFooter"> </div>
+                 </div>
+        </div>
+      </div>
+
+
+
     <div class="row">
         <div class="col-md-6">
-         <fieldset class="rounded">
+         <!-- <fieldset class="rounded">
              <legend class="float-none w-auto">ادمین ها</legend>
                 <div class="row">
                     <div class="col-sm-6"></div>
                     <div class="col-sm-6" style="display:flex; justify-content:flex-end;">
-                        <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" id="newAdminBtn">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-                        <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true"></i></button>
-                        <input type="hidden" id="AdminForAdd"/>
+                        
                     </div>
                 </div>
                 
@@ -43,11 +158,11 @@
 
                         </tbody>
                     </table>
-                 </fieldset>
+                 </fieldset> -->
             </div>
 
             <div class="col-md-6">
-                <fieldset class="rounded">
+                <!-- <fieldset class="rounded">
                 <legend  class="float-none w-auto"> راننده ها</legend>
                 <div class="row">
                     <div class="col-sm-6"></div>
@@ -84,12 +199,12 @@
                             @endforeach
                             </tbody>
                         </table>
-                      </fieldset>
+                      </fieldset> -->
                 </div>
             </div>
         <div class="row" style="margin-top:2%">
             <div class="col-md-6">
-                <fieldset class="rounded">
+                <!-- <fieldset class="rounded">
                     <legend  class="float-none w-auto">  پشتیبان ها</legend>
                     <div class="row">
                        <div class="col-sm-6"></div>
@@ -127,11 +242,11 @@
 
                             </tbody>
                         </table>
-                     </fieldset>
+                     </fieldset> -->
                 </div>
 
                 <div class="col-md-6">
-                <fieldset class="rounded">
+                <!-- <fieldset class="rounded">
                     <legend  class="float-none w-auto">  بازاریاب ها</legend>
                     <div class="row">
                        <div class="col-sm-6"></div>
@@ -170,17 +285,21 @@
 
                             </tbody>
                         </table>
-                     </fieldset>
+                     </fieldset> -->
                 </div>
             </div>
         </div>
         
+
+
+
+
         <!-- modal of new Brand -->
         <div class="modal fade dragableModal" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header" style="margin:0; border:none">
-                        <button type="button" class="btn-close btn-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-header py-2 text-white" style="margin:0; border:none">
+                        <button type="button" class="btn-close bg-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLongTitle"> کابر جدید</h5>
                     </div>
                     <div class="modal-body">
