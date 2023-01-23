@@ -1854,6 +1854,40 @@ $("#customerIdForAssesment").val(input.val().split("_")[0]);
 $("#factorIdForAssesment").val(input.val().split("_")[1]);
 $("#openAssesmentModal").prop('disabled',false);
 $("#openDashboard").prop('disabled',false);
+
+$.ajax({
+    method: 'get',
+    url: baseUrl + "/getFactorDetail",
+    data: {
+        _token: "{{ csrf_token() }}",
+        FactorSn: $("#factorSn").val()
+    },
+    async: true,
+    success: function(msg) {
+$("#factorInfo").css({"display":"block"});
+        let factor = msg[0];
+        $("#factorDateP").text(factor.FactDate);
+        $("#customerNameFactorP").text(factor.Name);
+        $("#customerComenterP").text(factor.Name);
+        $("#Admin1P").text(factor.lastName);
+        $("#customerAddressFactorP").text(factor.peopeladdress);
+        $("#customerPhoneFactorP").text(factor.sabit);
+        $("#factorSnFactorP").text(factor.FactNo);
+        $("#productListP").empty();
+        msg.forEach((element, index) => {
+            $("#productListP").append(`                                  <tr>
+            <td class="driveFactor">` + (index + 1) + `</td>
+            <td>` + element.GoodName + ` </td>
+            <td class="driveFactor">` + element.Amount / 1 + `</td>
+            <td>` + element.UName + `</td>
+            <td>` + (element.Fi / 10).toLocaleString("en-us") + `</td>
+            <td style="width:111px;">` + (element.goodPrice / 10).toLocaleString("en-us") + `</td>
+            </tr>`);
+        });
+    },
+    error: function(data) {}
+});
+
 }
 
 function checkExistance(element) {
@@ -2114,6 +2148,19 @@ $.ajax({
 });
 
 function openAssesmentStuff() {
+    if($("#assesToday").is(":checked")){}
+        $("#assesType").val('TODAY');
+    if($("#assesPast").is(":checked")){
+        $("#assesType").val('PAST');
+    }
+    if($("#assesDone").is(":checked")){
+        $("#openAssesmentStuffBtn").prop('disabled',true);
+    }
+
+    if(!($("#assesToday").is(":checked")) && !($("#assesPast").is(":checked")) && !($("#assesDone").is(":checked"))){
+        $("#assesType").val('TODAY');
+    }
+
 $("#assesmentDashboard").modal("show");
 $.ajax({
     method: 'get',
@@ -2148,6 +2195,42 @@ $.ajax({
     error: function(data) {}
 });
 }
+
+function showDoneCommentDetail(element) {
+    let input = $(element).find('input:radio').prop("checked", true);
+    $("#customerSn").val(input.val().split("_")[0]);
+    $("#factorSn").val(input.val().split("_")[1]);
+    $("#customerIdForAssesment").val(input.val().split("_")[0]);
+    $("#factorIdForAssesment").val(input.val().split("_")[1]);
+    $("#openAssesmentModal").prop('disabled',false);
+    $("#openDashboard").prop('disabled',false);
+    $.ajax({
+        method:'get',
+        url:baseUrl+'/getDonCommentInfo',
+        data:{
+            _token:"{{@csrf}}",
+            factorSn:$("#factorSn").val()
+        },
+        async:true,
+        success:function(response){
+            $("#customerListBodyDoneDetail").empty();
+            response.forEach((element,index)=>{
+                $("#customerListBodyDoneDetail").append(`
+                <tr>
+                    <td>`+(index+1)+`</td>
+                    <td>`+element.TimeStamp+`</td>
+                    <td>`+element.assessComment+` </td>
+                    <td>`+element.alarmDate+`</td>
+                    <td>درست نشده است</td>
+                </tr>`);
+            })
+        },
+        error:function(error){
+            alert("bad")
+        }
+    })
+}
+
 $("#inactiveButton").on("click", () => {
 $("#inactiveId").val($("#customerSn").val());
 		
@@ -2198,9 +2281,9 @@ $.ajax({
     url: $(this).attr('action'),
     data: $(this).serialize(),
     success: function(data) {
-        $("#customerListBody1").empty();
+        $("#customersAssesBody").empty();
         data.forEach((element,index)=>{
-            $("#customerListBody1").append(`
+            $("#customersAssesBody").append(`
             <tr onclick="assesmentStuff(this)">
             <td class="no-sort" style="width:40px">`+(index+1)+`</td>
             <td>`+element.Name+`</td>
@@ -4022,12 +4105,11 @@ onSelect:()=>{
             $("#customerListBodyDone").empty();
             msg.forEach((element,index)=>{
                 $("#customerListBodyDone").append(`
-                <tr>
+                <tr onclick="showDoneCommentDetail(this)">
                     <td>`+(index+1)+`</td>
                     <td>`+element.Name+`</td>
                     <td>`+element.PhoneStr+`</td>
                     <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D') +`</td>
-                    <td data-bs-toggle="modal" data-bs-target="#owdati">`+element.comment+` <i class="fas fa-comment-dots float-end"> </i></td>
                     <td data-bs-toggle="modal" data-bs-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
                 </tr> `);
             });
@@ -8200,14 +8282,12 @@ $("#getAssesBtn").on("click",function(){
                 $("#customerListBodyDone").empty();
                 response.forEach((element,index)=>{
                     $("#customerListBodyDone").append(`
-                        <tr onclick="assesmentStuff(this)">
+                        <tr  onclick="showDoneCommentDetail(this)">
                             <td>`+(index+1)+`</td>
                             <td>`+element.Name+`</td>
                             <td>`+element.PhoneStr+`</td>
                             <td>`+moment(element.TimeStamp , 'YYYY/M/D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-                            <td onclick='showAssesComment("`+element.assesId+`")'>`+element.comment+` <i class="fas fa-comment-dots float-end"> </i></td>
                             <td>`+element.AdminName+` `+element.lastName+`</td>
-                            <td data-toggle="modal" data-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
                             <td> <input class="customerList form-check-input" name="factorId" type="radio" value="`+element.PSN+`_`+element.SerialNoHDS+`"></td>
                         </tr>`);
                     });
@@ -8272,7 +8352,7 @@ root.setThemes([
   am5themes_Animated.new(root)
 ]);
 
-var chart = root.container.children.push( 
+var chart = root.container.children.push(
   am5xy.XYChart.new(root, {
     wheelY: "zoomX"
   }) 

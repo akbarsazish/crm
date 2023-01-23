@@ -241,3 +241,4 @@ Route::post('/addRandT',[Customer::class,'addRandT'])->middleware('CheckCommon')
 
 //بعد از تغیر ساختار
 Route::get('/getAsses',[Customer::class,'getAsses'])->middleware('CheckCommon');
+Route::get('/getDonCommentInfo',[Customer::class,'getDonCommentInfo'])->middleware('CheckCommon');

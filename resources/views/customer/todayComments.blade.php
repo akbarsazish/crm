@@ -43,8 +43,8 @@
                                 </div>
                             </div>
                             <div class="row mainContent">
-
-                              <table class='table-striped table-bordered table-sm' id="assesNotDone">
+                            <div id="assesNotDone">
+                              <table class='table-striped table-bordered table-sm'>
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -57,7 +57,6 @@
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="customersAssesBody">
                                         @forelse ($customers as $customer)
-                                            
                                             <tr onclick="assesmentStuff(this)">
                                                 <td class="no-sort">{{$loop->iteration}}</td>
                                                 <td>{{trim($customer->Name)}}</td>
@@ -69,27 +68,71 @@
                                             @empty
                                             دیتایی وجود ندارد
                                         @endforelse
-                                    
                                     </tbody>
                                 </table> 
+                                <hr>
+                                <div id="factorInfo">
+                                <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
+                                <h6 style="padding:10px; text-align:center;">فاکتور فروش </h6>
+							    <div class="grid-container">
+									<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDateP">  </span> </div>
+									<div class="item2"> <b> مشتری  :  </b> <span  id="customerNameFactorP"> </span>    </div>
+									<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactorP"> </span>   </div>
+									<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactorP"> </span></div>
+									<div class="item5"><span> کاربر :  </span>   <span id="Admin1P"> </span></div>
+									<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactorP">  </span></div>
+								</div>
+                            </div>
+                            <div class="row">
+                                <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
+                                    <thead class="tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام کالا </th>
+                                        <th>تعداد/مقدار</th>
+                                        <th>واحد کالا</th>
+                                        <th>فی (تومان)</th>
+                                        <th style="width:122px">مبلغ (تومان)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="productListP" class="tableBody">
 
-                                <table id="assesDoneT" class='table table-bordered table-striped table-sm' style="display:none">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                
+                            <div id="assesDoneT" style="display:none">
+                                <table id="" class='table table-bordered table-striped table-sm' >
                                     <thead class="tableHeader">
                                         <tr>
                                             <th>ردیف</th>
                                             <th>اسم</th>
-                                            <th>همراه</th>
+                                            <th>شماره تماس</th>
                                             <th>تاریخ </th>
-                                            <th>کامنت </th>
-                                            <th> نظر دهنده</th>
-											<th>عودتی</th>
+                                            <th>نظر دهنده</th>
 											<th>انتخاب</th>
                                         </tr>
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="customerListBodyDone">
                                     </tbody>
                                 </table>
-
+                                <hr>
+                                <table id="" class='table table-bordered table-striped table-sm'>
+                                    <thead class="tableHeader">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>تاریخ </th>
+                                            <th>کامنت </th>
+                                            <th>آلارم</th>
+											<th>عودتی</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="select-highlight tableBody" id="customerListBodyDoneDetail">
+                                    </tbody>
+                                </table>
+                            </div>
                             </div>
                                 <div class="row contentFooter">
                         
@@ -98,6 +141,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
     
 {{-- dashbor modal --}}
 <div class="modal fade dragableModal" id="customerDashboard"  data-backdrop="static"  aria-hidden="true">
@@ -110,12 +154,12 @@
             <div class="modal-body"  style="background-color:#d2e9ff;">
                 <div class="row">
                     <div class="col-lg-12">
-                       <button class="btn btn-primary btn-sm buttonHover float-start" onclick="openAssesmentStuff()"  type="button" > افزودن نظر <i class="fa fa-address-card fa-lg"> </i> </Button>
-						           <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                                    <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
-                                    <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                    <Button class="btn btn-primary btn-sm float-start" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
-                                </form>
+                       <button class="btn btn-primary btn-sm buttonHover float-start" onclick="openAssesmentStuff()" id="openAssesmentStuffBtn" type="button" > افزودن نظر <i class="fa fa-address-card fa-lg"> </i> </Button>
+                        <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
+                            <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                            <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                            <Button class="btn btn-primary btn-sm float-start" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
+                        </form>
                     </div>
                 </div>
 				   <div class="row">
@@ -396,7 +440,7 @@
                         <form action="{{url('/addAssessment')}}" id="addAssesment" method="get" style="background-color:transparent; box-shadow:none;">
                         <div class="row mb-2">
                             <div class="col-lg-10">
-                              <label for="tahvilBar"> مشتری: &nbsp; </label>
+                              <label for="tahvilBar"> مشتری: &nbsp;</label>
                                 <span id="customerComenter" style="font-size:18px;margin-bottom:11px;"></span>
                             </div>
                             <div class="col-lg-2" style="display:flex; justify-content:flex-end;">
@@ -416,6 +460,7 @@
                                      <input type="text" name="customerId" id="customerIdForAssesment" style="display:none;">
                                     <input type="text" name="factorId" id="factorIdForAssesment" style="display:none;">
                                  </div>
+                                 <input type="text" name="assesType" id="assesType">
                                 <div class="col-lg-12 mb-2">
                                     <select class="form-select form-select-sm" name="behavior">
                                         <option hidden>برخورد راننده</option>
