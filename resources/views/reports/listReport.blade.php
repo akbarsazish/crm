@@ -1,106 +1,118 @@
 @extends('layout')
 @section('content')
-<main>
-    <div class="container"style="margin-top:3.5%;">
-        <h3 style="width:40%; border-bottom:2px solid blue;"> عملکرد مشتری </h3>
-     <div class="card mb-4">
-          <div class="card-body">
-            <div class="row">
-                <div class="col-sm-10">
-                    <div class="row">
-                            <div class="form-group col-sm-3 mt-2">
-                                 <input type="text" name="" size="20" placeholder="جستجو" class="form-control publicTop" id="searchAllName">
+
+
+
+<div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> عملکرد مشتریان </legend>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
+                                <label class="form-check-label me-4" for="assesPast">  گزارش ورود </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast"> غیرفعال </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast"> فاقد کاربر </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast"> ارجاعی</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast"> موقعیت </label>
+                            </div>
+                            <div class="form-group col-sm-12 mt-2">
+                                 <input type="text" name="" size="20" placeholder="جستجو" class="form-control form-control-sm publicTop" id="searchAllName">
                              </div>
-							<div class="form-group col-sm-2 mt-2">
-								<select class="form-select publicTop" id="searchAllActiveOrNot">
+							<div class="form-group col-sm-12 mt-2">
+								<select class="form-select form-select-sm publicTop" id="searchAllActiveOrNot">
 									<option value="-1" hidden>وضعیت</option>
 									<option value="0">همه</option>
 									<option value="1">فعال</option>
 									<option value="2"> غیر فعال</option>
 								</select>
 							</div>
-							<div class="form-group col-sm-2 mt-2">
-								<select class="form-select publicTop" id="locationOrNot">
+							<div class="form-group col-sm-12 mt-2">
+								<select class="form-select form-select-sm  publicTop" id="locationOrNot">
 									<option value="0" hidden>موقعیت</option>
 									<option value="1">همه</option>
 									<option value="2">موقعیت دار </option>
 									<option value="3">بدون موقعیت</option>
 								</select>
 							</div>
-						  <div class="form-group col-sm-2 mt-2">
-							<select class="form-select publicTop" id="searchAllFactorOrNot">
+						  <div class="form-group col-sm-12 mt-2">
+							<select class="form-select form-select-sm publicTop" id="searchAllFactorOrNot">
 								<option value="-1" hidden>فاکتور</option>
 								<option value="0">همه</option>
 								<option value="1">دارد</option>
 								<option value="2">ندارد</option>
 							</select>
 						 </div>
-						 <div class="form-group col-sm-2 mt-2">
-							<select class="form-select publicTop" id="searchAllBasketOrNot">
+						 <div class="form-group col-sm-12 mt-2">
+							<select class="form-select form-select-sm publicTop" id="searchAllBasketOrNot">
 								<option value="-1">وضعیت سبد</option>
 								<option value="0">همه</option>
 								<option value="2"> نگذاشته اند</option>
 								<option value="1">گذاشته اند</option>
 							</select>
 						 </div>
-                      </div>
-                    <div class="row">
-                    <div class="form-group col-sm-3 mt-2">
-                        <select class="form-select publicTop" id="searchAllLoginOrNot">
-                            
-                            <option value="-1" hidden>ورودبه سیستم </option>
-                            <option value="0">همه</option>
-                            <option value="1">وارد شده</option>
-                            <option value="2">وارد نشده</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-2 mt-2">
-                        <select class="form-select publicTop" id="searchByAdmin">
-                        <option value="0" hidden> کاربر</option>
-                        <option value="0"> همه</option>
+                        <div class="form-group col-sm-12 mt-2">
+                            <select class="form-select form-select-sm publicTop" id="searchAllLoginOrNot">
+                                <option value="-1" hidden>ورودبه سیستم </option>
+                                <option value="0">همه</option>
+                                <option value="1">وارد شده</option>
+                                <option value="2">وارد نشده</option>
+                            </select>
+                        </div>
+                       <div class="form-group col-sm-12 mt-2">
+                        <select class="form-select form-select-sm publicTop" id="searchByAdmin">
+                            <option value="0" hidden> کاربر</option>
+                            <option value="0"> همه</option>
                             @foreach($amdins as $admin)
-
                             <option value="{{$admin->id}}"> {{trim($admin->name)}} {{trim($admin->lastName)}}</option>
                             @endforeach
-
                         </select>
                     </div>
-                    <div class="form-group col-sm-2 mt-2">
-                        <select class="form-select publicTop" id="searchByCity">
-                        <option value="0" hidden> شهر</option>
-                        <option value="0"> همه</option>
+                    <div class="form-group col-sm-12 mt-2">
+                        <select class="form-select form-select-sm publicTop" id="searchByCity">
+                          <option value="0" hidden> شهر</option>
+                          <option value="0"> همه</option>
                             @foreach($cities as $city)
-
                             <option value="{{$city->SnMNM}}"> {{trim($city->NameRec)}}</option>
                             @endforeach
-                            
                         </select>
                     </div>
-                    <div class="form-group col-sm-2 mt-2">
-                        <select class="form-select publicTop" id="searchByMantagheh">
-                        <option value="0" hidden>منطقه</option>
-                        <option value="0">همه</option>
-                        </select>
-                    </div>
-                    </div>
+                        <div class="form-group col-sm-12 mt-2">
+                            <select class="form-select form-select-sm publicTop" id="searchByMantagheh">
+                            <option value="0" hidden>منطقه</option>
+                            <option value="0">همه</option>
+                            </select>
+                        </div>
+              
+                    </fieldset>
                 </div>
-                <div class="col-sm-2">
-                <button class='enableBtn btn btn-primary btn-md text-warning' data-toggle="modal" data-target="#reportCustomerModal" disabled  type="button" id="openCustomerActionModal">داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="well">
-                            <div class="col-sm-12">
-                                <table class='table table-bordered table-striped table-hover mt-4'>
-                                    <thead class="tableHeader">
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader"> 
+                        <div class="col-sm-12 text-start">
+                              <button class='btn btn-primary btn-sm text-warning' data-toggle="modal" data-target="#reportCustomerModal" disabled  type="button" id="openCustomerActionModal"> داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
+                        </div>
+                    </div>
+                    <div class="row mainContent">
+                          <table class='table table-bordered table-striped table-hover'>
+                              <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
-                                        <th style="width:222px">اسم</th>
+                                        <th style="width:166px">اسم</th>
                                         <th>همراه</th>
-                                        <th style="width:333px">آدرس</th>
-                                        <th style="width:88px"> فاکتورها  </th>
+                                        <th style="width:277px">آدرس</th>
+                                        <th style="width:80px"> فاکتورها  </th>
                                         <th>تاریخ فاکتور</th>
                                         <th> تاریخ ورود </th>
 										<th>کاربر</th>
@@ -110,13 +122,12 @@
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="allCustomerReportyBody">
                                         @forelse ($customers as $customer)
-
                                         <tr>
                                             <td >{{$loop->iteration}}</td>
-                                            <td style="width:222px">{{trim($customer->Name)}}</td>
+                                            <td style="width:177px">{{trim($customer->Name)}}</td>
                                             <td >{{trim($customer->hamrah)}}</td>
-                                            <td style="width:333px">{{trim($customer->peopeladdress)}}</td>
-                                            <td style="width:88px">{{trim($customer->countFactor)}}</td>
+                                            <td style="width:266px">{{trim($customer->peopeladdress)}}</td>
+                                            <td style="width:80px">{{trim($customer->countFactor)}}</td>
                                             <td >{{trim($customer->lastDate)}}</td>
                                             <td >هنوز نیست</td>
                                             <td >{{trim($customer->adminName).' '.trim($customer->lastName)}}</td>
@@ -127,13 +138,14 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                            </div>
-                        </div>
-                    </div>
+                      </div>
+                    <div class="row contentFooter"> </div>
                 </div>
-            </div>
         </div>
     </div>
+
+    
+
 
 <div class="modal fade dragModal" id="reportCustomerModal"  data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable  modal-xl">

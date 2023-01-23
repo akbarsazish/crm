@@ -8243,6 +8243,16 @@ $("#secondHeadOfficer").on("change", ()=>{
 })
 
 
+$("#karbarnRadioBtn").on("change", ()=>{
+    $("#karbaranActionContainer").css("display", "block");
+    $("#lowlevelEmployee").css("display", "none");
+})
+$("#bazarYabRadioBtn").on("change", ()=>{
+    $("#lowlevelEmployee").css("display", "block");
+    $("#karbaranActionContainer").css("display", "none");
+})
+
+
 
     // تنظیمات 
 

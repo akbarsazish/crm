@@ -35,7 +35,7 @@
                  <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> </div>
                     <div class="row mainContent"> 
-                        <div class="col-lg-12 p-3">
+                        <div class="col-lg-12 p-3" style="border-bottom:2px solid #b3d1ef; height:55px;">
                             <div class="row" id="relatedHeadOfficer" style="display:none;">
                                 <div class="col-lg-2">
                                     <div class="form-check">
@@ -49,7 +49,7 @@
                                         <label class="form-check-label me-4" for="assesPast"> سرپرست 2 </label>
                                     </div>
                                 </div>
-                            </div> <hr>
+                            </div> 
                         </div>
                         <div class="col-lg-12">
                             <table class="select-highlight table table-bordered table-striped" id="tableGroupList" style="display:none">

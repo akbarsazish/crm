@@ -623,7 +623,11 @@ select Name,PSN,PhoneStr from (
         $admins=DB::table("CRM.dbo.crm_admin")->where("bossId",Session::get("asn"))->where('deleted',0)->get();
         //لیست سرپرستها
         $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',4)->where('adminType','!=',5)->where('deleted',0)->get();
-        return View("salesExpert.subList",['admins'=>$admins,'bosses'=>$bosses]);
+
+        $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("crm_admin.adminType",2)->orwhere("crm_admin.adminType",3)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType")->get();
+        $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
+
+        return View("salesExpert.subList",['admins'=>$admins,'bosses'=>$bosses, 'admins'=>$admins,'adminTypes'=>$adminTypes]);
     }
     public function getAllBuyAghlamSelf(Request $request)
     {
@@ -743,6 +747,10 @@ select Name,PSN,PhoneStr from (
 
     }
 	
+
+
+
+
 	
 	
 }

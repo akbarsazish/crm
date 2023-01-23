@@ -3,7 +3,6 @@
     <div class="container-fluid containerDiv">
              <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
-                        
                             <fieldset class="border rounded mt-5">
                                 <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
                                 <form action="{{url('/getAsses')}}" method="get">
@@ -342,47 +341,47 @@
 
         <!-- Modal for reading factor Detail -->
         <div class="modal fade dragableModal" id="viewFactorDetail" tabindex="-1" data-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog  modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h5 class="modal-title" id="exampleModalLabel">جزئیات فاکتور</h5>
-                </div>
-                <div class="modal-body" id="readCustomerComment">
-                    <div class="container">
-                        <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
-                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
-								<div class="grid-container">
-									<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate1">  </span> </div>
-									<div class="item2"> <b> مشتری  :  </b> <span id="customerNameFactor1"> </span>    </div>
-									<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactor1"> </span>   </div>
-									<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactor1"> </span></div>
-									<div class="item5"><span> کاربر :  </span>   <span id="Admin2"> </span></div>
-									<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactor1">  </span></div>
-								</div>
-                            </div>
-                            <div class="row">
-                                <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
-                                    <thead class="tableHeader">
-                                    <tr>
-                                        <th scope="col">ردیف</th>
-                                        <th scope="col">نام کالا </th>
-                                        <th scope="col">تعداد/مقدار</th>
-                                        <th scope="col">واحد کالا</th>
-                                        <th scope="col">فی (تومان)</th>
-                                        <th scope="col" style="width:122px">مبلغ (تومان)</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="productList1" class="tableBody">
-                                    </tbody>
-                                </table>
+            <div class="modal-dialog  modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">جزئیات فاکتور</h5>
+                    </div>
+                    <div class="modal-body" id="readCustomerComment">
+                        <div class="container">
+                            <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
+                                    <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
+                                    <div class="grid-container">
+                                        <div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate1">  </span> </div>
+                                        <div class="item2"> <b> مشتری  :  </b> <span id="customerNameFactor1"> </span>    </div>
+                                        <div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactor1"> </span>   </div>
+                                        <div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactor1"> </span></div>
+                                        <div class="item5"><span> کاربر :  </span>   <span id="Admin2"> </span></div>
+                                        <div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactor1">  </span></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
+                                        <thead class="tableHeader">
+                                        <tr>
+                                            <th scope="col">ردیف</th>
+                                            <th scope="col">نام کالا </th>
+                                            <th scope="col">تعداد/مقدار</th>
+                                            <th scope="col">واحد کالا</th>
+                                            <th scope="col">فی (تومان)</th>
+                                            <th scope="col" style="width:122px">مبلغ (تومان)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="productList1" class="tableBody">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     
             {{-- modal for adding comments --}}
@@ -472,8 +471,8 @@
                         </div>
                     </div>
                 </form>
-                </div>
-                </div>
-            </div>
+             </div>
+           </div>
+        </div>
 
 @endsection

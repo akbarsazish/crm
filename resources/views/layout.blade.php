@@ -162,6 +162,7 @@
                                     <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; گزارشات   </span></a>
                                         <ul>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/subTrees')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد کارمندان </a></li>
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/reports')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد مشتریان </a></li>
                                             <li class='has-sub newSub'><a class="mySidenav__item" href="#"><span> <i class="fa fa-check fa-lg" style="color:#ba7802; margin-right:15px;"></i> عملکرد کارمندان </span></a>
                                                 <ul class="newSubli">
                                                     <li></li>

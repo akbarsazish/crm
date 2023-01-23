@@ -40,12 +40,12 @@ text-align:right;
 </style>
 <main>
 
-    <div class="container" style="margin-top:5%;">
+<div class="container" style="margin-top:5%;">
         <h3 class="page-title"> عملکرد کاربران </h3>
 		
-		      <div class="spinner-border text-primary" role="status" id="waitToDashboard" style="display:none;">
-                   <span class="visually-hidden">Loading...</span>
-             </div>
+    <div class="spinner-border text-primary" role="status" id="waitToDashboard" style="display:none;">
+          <span class="visually-hidden">Loading...</span>
+    </div>
     <div class="card mb-4" style="margin: 0; padding:0;">
         <div class="card-body">
             <div class="row">
