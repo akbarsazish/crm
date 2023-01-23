@@ -1701,34 +1701,74 @@ public function searchAllCustomerByMantagheh(Request $request)
         $fsn=$request->get('factorId');
         $comment=$request->get("comment");
         $alarmDate=$request->get("alarmDate");
+        $customers;
         $result=DB::table("CRM.dbo.crm_assesment")->insert(['adminId'=>$adminId,'shipmentProblem'=>$shipmentProblem,'driverBehavior'=>"".$behavior."",'comment'=>"".$comment."",'factorId'=>$fsn]);
         DB::table("CRM.dbo.crm_alarm")->insert(['comment'=>"".$comment."",'adminId'=>$adminId,'state'=>0,'alarmDate'=>"".$alarmDate."",'factorId'=>$fsn]);
-        $customers = DB::select("SELECT * from(
-            SELECT NetPriceHDS as TotalPriceHDS,* FROM (
-            SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate from
-            (select * from(
-            SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
-            join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
-            join (SELECT Name,PSN,PCode,GroupCode FROM Shop.dbo.Peopels)e on d.CustomerSn=e.PSN)f 
-            where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
-                        and SerialNoHDS  NOT IN (select factorId from CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
-                        and FactDate='$yesterday'
-            and  GroupCode in (291,297,299,312,313,314)");
-        foreach ($customers as $customer) {
-            $sabit="";
-            $hamrah="";
-            $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
-            foreach ($phones as $phone) {
-                if($phone->PhoneType==1){
-                $sabit.=$phone->PhoneStr."\n";
-                }else{
-                    $hamrah.=$phone->PhoneStr."\n";   
+        if($request->get("assesType")=='TODAY'){
+            $customers = DB::select("SELECT * from(
+                SELECT NetPriceHDS as TotalPriceHDS,* FROM (
+                SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate from
+                (select * from(
+                SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+                join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+                join (SELECT Name,PSN,PCode,GroupCode FROM Shop.dbo.Peopels)e on d.CustomerSn=e.PSN)f 
+                where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
+                            and SerialNoHDS  NOT IN (select factorId from CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                            and FactDate='$yesterday'
+                and  GroupCode in (291,297,299,312,313,314)");
+            foreach ($customers as $customer) {
+                $sabit="";
+                $hamrah="";
+                $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
+                foreach ($phones as $phone) {
+                    if($phone->PhoneType==1){
+                    $sabit.=$phone->PhoneStr."\n";
+                    }else{
+                        $hamrah.=$phone->PhoneStr."\n";   
+                    }
                 }
+                $customer->sabit=$sabit;
+                $customer->hamrah=$hamrah;
             }
-            $customer->sabit=$sabit;
-            $customer->hamrah=$hamrah;
         }
+        if($request->get("assesType")=='PAST'){
+            $customers = DB::select("SELECT NetPriceHDS as TotalPriceHDS,* FROM (
+                SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate from
+                (select * from(
+                SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+                            join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+                            join Shop.dbo.Peopels on d.CustomerSn=Peopels.PSN
+                            where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
+                            and SerialNoHDS  NOT IN (select factorId from CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                            and  GroupCode in (291,297,299,312,313,314)
+                            and FactDate<'$yesterday'
+                            and FactDate>'1401/07/17'
+                            order by FactDate desc");
+            foreach ($customers as $customer) {
+                $sabit="";
+                $hamrah="";
+                $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
+                foreach ($phones as $phone) {
+                    if($phone->PhoneType==1){
+                    $sabit.=$phone->PhoneStr."\n";
+                    }else{
+                        $hamrah.=$phone->PhoneStr."\n";   
+                    }
+                }
+                $customer->sabit=$sabit;
+                $customer->hamrah=$hamrah;
+            }
+        }
+
         return Response::json($customers);
+    }
+
+    public function getDonCommentInfo(Request $request)
+    {
+        $factorSn=$request->get("factorSn");
+        $doneDetail=DB::select("select *,crm_assesment.comment AS assessComment from CRM.dbo.crm_assesment join (select * from CRM.dbo.crm_alarm where crm_alarm.id =(select MIN(id) from CRM.dbo.crm_alarm where factorId=$factorSn))b on crm_assesment.factorId=b.factorId 
+        ");
+        return Response::json($doneDetail);
     }
 	
     public function addAssessmentPast(Request $request){
