@@ -1954,6 +1954,7 @@ $.ajax({
 $("#openDashboard").on("click", () => {
 let csn = ($("#customerSn").val()).split(" ")[0];
 $("#customerSnLogin").val(($("#customerSn").val()).split(" ")[0]);
+
 $("#customerProperty").val("");
 let commentSn = $("#commentSn").val();
 $("#lastCommentId").val(commentSn);
@@ -3928,6 +3929,19 @@ $.ajax({
 
 }
 
+$("#assesFirstDate").persianDatepicker({
+    cellWidth: 32,
+    cellHeight: 22,
+    fontSize: 14,
+    formatDate: "YYYY/0M/0D",
+    });
+
+    $("#assesSecondDate").persianDatepicker({
+        cellWidth: 32,
+        cellHeight: 22,
+        fontSize: 14,
+        formatDate: "YYYY/0M/0D",
+        });
 
 $("#altime").persianDatepicker({
 cellWidth: 32,
@@ -8104,6 +8118,39 @@ if(data[0].userType==2){
         });
         e.preventDefault();
     })
+
+    $("#assesToday").on("change",()=>{
+        if($("#assesToday").is(":checked")){
+            $("#assesSecondDate").prop("disabled",true);
+            $("#assesFirstDate").prop("disabled",true);
+            $("#assesDoneT").css({"display":"none"});
+            $("#assesNotDone").css({"display":"block"});
+        }else{
+            $("#assesSecondDate").prop("disabled",false);
+            $("#assesFirstDate").prop("disabled",false);
+        }
+    });
+
+    $("#assesPast").on("change",()=>{
+        if($("#assesPast").is(":checked")){
+            $("#assesSecondDate").prop("disabled",false);
+            $("#assesFirstDate").prop("disabled",false);
+            $("#assesDoneT").css({"display":"none"});
+            $("#assesNotDone").css({"display":"block"});
+        }
+    });
+
+    $("#assesDone").on("change",()=>{
+        if($("#assesDone").is(":checked")){
+            $("#assesNotDone").css({"display":"none"});
+            $("#assesDoneT").css({"display":"block"});
+        }
+    });
+
+
+    
+    
+
 $("#getAssesBtn").on("click",function(){
     let assesDay="today";
     if($("#assesToday").is(":checked")){
@@ -8115,20 +8162,56 @@ $("#getAssesBtn").on("click",function(){
     if($("#assesDone").is(":checked")){
         assesDay="done";
     }
+
+    let assescustomerName=$("#assescustomerName").val();
+    let fromDate=$("#assesFirstDate").val();
+    let toDate=$("#assesSecondDate").val();
     $.ajax({
         method:"get",
         url:baseUrl+'/getAsses',
         async:true,
         data:{_token:"{{@csrf}}",
-        dayAsses:assesDay
+        dayAsses:assesDay,
+        assescustomerName:assescustomerName,
+        formatDate:""+fromDate+"",
+        toDate:""+toDate+""
         },
         success:function(response) {
             console.log(response);
-        },
-        error:function(error){
+            if(assesDay!='done'){
+            $("#customersAssesBody").empty();
+            response.forEach((element,index)=>{
+                $("#customersAssesBody").append(`
+                <tr onclick="assesmentStuff(this)">
+                    <td class="no-sort">`+(index+1)+`</td>
+                    <td>`+element.Name+`</td>
+                    <td>`+parseInt(element.TotalPriceHDS/10).toLocaleString("en-us")+` تومان</td>
+                    <td>`+element.FactDate+`</td>
+                    <td>`+element.FactNo+`</td>
+                    <td> <input class="customerList form-check-input" name="factorId" type="radio" value="`+element.PSN+`_`+element.SerialNoHDS+`"></td>
+                </tr>`);  
+            });
+            }else{
+                $("#customerListBodyDone").empty();
+                response.forEach((element,index)=>{
+                    $("#customerListBodyDone").append(`
+                        <tr onclick="assesmentStuff(this)">
+                            <td>`+(index+1)+`</td>
+                            <td>`+element.Name+`</td>
+                            <td>`+element.PhoneStr+`</td>
+                            <td>`+moment(element.TimeStamp , 'YYYY/M/D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+                            <td onclick='showAssesComment("`+element.assesId+`")'>`+element.comment+` <i class="fas fa-comment-dots float-end"> </i></td>
+                            <td>`+element.AdminName+` `+element.lastName+`</td>
+                            <td data-toggle="modal" data-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
+                            <td> <input class="customerList form-check-input" name="factorId" type="radio" value="`+element.PSN+`_`+element.SerialNoHDS+`"></td>
+                        </tr>`);
+                    });
+                }
+            },
+            error:function(error){
 
         }
-    })
+    });
 });
     // تنظیمات 
 			

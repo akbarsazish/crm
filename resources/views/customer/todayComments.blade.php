@@ -5,34 +5,34 @@
                     <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                         
                             <fieldset class="border rounded mt-5">
-                              <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
-                              <form action="{{url('/getAsses')}}" method="get">
+                                <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
+                                <form action="{{url('/getAsses')}}" method="get">
+                                    <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="assesToday">
+                                        <label class="form-check-label me-4" for="assesToday"> نظرات امروز </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="assesPast">
+                                        <label class="form-check-label me-4" for="assesPast"> نظرات گذشته </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="assesDone">
+                                        <label class="form-check-label me-4" for="assesDone"> نظرات انجام شده </label>
+                                    </div>
                                     <div class="mb-1">
-                                        <input type="text" id="sefTarafHisabName" placeholder="جستجو " class="form-control form-control-sm">
+                                        <input type="text" id="assescustomerName" placeholder="جستجو " class="form-control form-control-sm">
                                     </div>
                                     <div class="input-group input-group-sm mb-1">
-                                         <span class="input-group-text" id="inputGroup-sizing-sm">تاریخ </span>
-                                         <input type="text" class="form-control" id="sefFirstDate">
-                                     </div>
-                                     <div class="input-group input-group-sm mb-1">
-                                         <span class="input-group-text" id="inputGroup-sizing-sm"> الی </span>
-                                         <input type="text" class="form-control" id="sefSecondDate">
-                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesToday">
-                                                <label class="form-check-label me-4" for="assesToday"> نظرات امروز </label>
-                                      </div>
-                                      <div class="form-check">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesPast">
-                                            <label class="form-check-label me-4" for="assesPast"> نظرات گذشته </label>
-                                       </div>
-                                       <div class="form-check">
-                                          <input class="form-check-input p-2 float-end" type="radio" name="analyzIdea" id="assesDone">
-                                                <label class="form-check-label me-4" for="assesDone"> نظرات انجام شده </label>
-                                       </div>
-                                       <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'>بازخوانی<i class="fal fa-dashboard fa-lg"></i></button>
-                                       </form>
-                              </fieldset>
+                                        <span class="input-group-text" id="inputGroup-sizing-sm">تاریخ </span>
+                                        <input type="text" class="form-control" id="assesFirstDate">
+                                    </div>
+                                    <div class="input-group input-group-sm mb-1">
+                                        <span class="input-group-text" id="inputGroup-sizing-sm"> الی </span>
+                                        <input type="text" class="form-control" id="assesSecondDate">
+                                    </div>
+                                    <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'>بازخوانی<i class="fal fa-dashboard fa-lg"></i></button>
+                                </form>
+                            </fieldset>
                     </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                             <div class="row contentHeader">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="row mainContent">
 
-                              <table class='table-striped table-bordered table-sm'>
+                              <table class='table-striped table-bordered table-sm' id="assesNotDone">
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -59,7 +59,7 @@
                                     <tbody class="select-highlight tableBody" id="customersAssesBody">
                                         @forelse ($customers as $customer)
                                             
-                                        <tr onclick="assesmentStuff(this)">
+                                            <tr onclick="assesmentStuff(this)">
                                                 <td class="no-sort">{{$loop->iteration}}</td>
                                                 <td>{{trim($customer->Name)}}</td>
                                                 <td>{{number_format($customer->TotalPriceHDS/10)}} تومان</td>
@@ -68,11 +68,29 @@
                                                 <td> <input class="customerList form-check-input" name="factorId" type="radio" value="{{$customer->PSN.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                             @empty
-                                            
+                                            دیتایی وجود ندارد
                                         @endforelse
                                     
                                     </tbody>
                                 </table> 
+
+                                <table id="assesDoneT" class='table table-bordered table-striped table-sm' style="display:none">
+                                    <thead class="tableHeader">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>اسم</th>
+                                            <th>همراه</th>
+                                            <th>تاریخ </th>
+                                            <th>کامنت </th>
+                                            <th> نظر دهنده</th>
+											<th>عودتی</th>
+											<th>انتخاب</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="select-highlight tableBody" id="customerListBodyDone">
+                                    </tbody>
+                                </table>
+
                             </div>
                                 <div class="row contentFooter">
                         
@@ -97,7 +115,7 @@
 						           <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
                                     <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
                                     <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                    <Button type="button" class="btn btn-primary btn-sm float-start" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
+                                    <Button class="btn btn-primary btn-sm float-start" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
                                 </form>
                     </div>
                 </div>
@@ -386,8 +404,6 @@
                                 <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save"></i></button>
                             </div>
                         </div>
-							
-							
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="row">

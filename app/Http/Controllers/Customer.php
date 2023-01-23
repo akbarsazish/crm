@@ -174,6 +174,10 @@ class Customer extends Controller
     }
     public function getAsses(Request $request)
     {
+        $name=$request->get("assescustomerName");
+        $fromDate=$request->get("formatDate");
+        $toDate=$request->get("toDate");
+
         if($request->get("dayAsses")=="today"){
             $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
             $yesterday;
@@ -196,11 +200,11 @@ class Customer extends Controller
                 where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
                             and SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
                             and FactDate='$yesterday'
-                and  GroupCode in (291,297,299,312,313,314)");
+                and  GroupCode in (291,297,299,312,313,314) AND Name LIKE N'%$name%'");
                 return Response::json($customers);
         }
 
-        if($request->get("dayAsses")=="past"){
+        if($request->get("dayAsses")=="past" and strlen($fromDate)<1 and strlen($toDate)<1){
             $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
             $yesterday;
             
@@ -217,10 +221,106 @@ class Customer extends Controller
                                         FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON Peopels.PSN=g.SnPeopel
                                         where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
                                         AND SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
-                                        AND  GroupCode in (291,297,299,312,313,314)
+                                        AND  GroupCode in (291,297,299,312,313,314) AND Peopels.Name LIKE N'%$name%'
                                         AND FactDate<'$yesterday'
                                         AND FactDate>'1401/07/17'
                                         order by FactDate desc");
+            return Response::json($customers);
+        }
+
+        if($request->get("dayAsses")=="past" and strlen($fromDate)>3 and strlen($toDate)<1){
+            $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+            $yesterday;
+            
+            $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+            $today = Jalalian::fromCarbon(Carbon::today())->format('Y/m/d');
+            $customers = DB::select("SELECT NetPriceHDS as TotalPriceHDS,* FROM (
+                                    SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate FROM
+                                    (SELECT * FROM(
+                                    SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a
+                                        JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+                                        JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+                                        JOIN Shop.dbo.Peopels on d.CustomerSn=Peopels.PSN
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                        FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON Peopels.PSN=g.SnPeopel
+                                        where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
+                                        AND SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                                        AND  GroupCode in (291,297,299,312,313,314) AND Peopels.Name LIKE N'%$name%'
+                                        AND FactDate>='$fromDate'
+                                        order by FactDate desc");
+            return Response::json($customers);
+        }
+
+        if($request->get("dayAsses")=="past" and strlen($fromDate)>3 and strlen($toDate)>3){
+            $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+            $yesterday;
+            
+            $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+            $today = Jalalian::fromCarbon(Carbon::today())->format('Y/m/d');
+            $customers = DB::select("SELECT NetPriceHDS as TotalPriceHDS,* FROM (
+                                    SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate FROM
+                                    (SELECT * FROM(
+                                    SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a
+                                    JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
+                                    JOIN Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
+                                    JOIN Shop.dbo.Peopels on d.CustomerSn=Peopels.PSN
+                                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                    FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON Peopels.PSN=g.SnPeopel
+                                    where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
+                                    AND SerialNoHDS  NOT IN (select factorId FROM CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
+                                    AND  GroupCode in (291,297,299,312,313,314) AND Peopels.Name LIKE N'%$name%'
+                                    AND FactDate>='$fromDate' AND FactDate<='$toDate' order by FactDate desc");
+            return Response::json($customers);
+        }
+        if($request->get("dayAsses")=='done' and strlen($fromDate)<1 and strlen($toDate)<1){
+            $customers=DB::select("SELECT * from(
+                SELECT * from(
+                SELECT * from(
+                SELECT distinct crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id as assesId FROM CRM.dbo.crm_assesment)a on crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c on c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name as AdminName,lastName from CRM.dbo.crm_admin)h on f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                WHERE f.SerialNoHDS  NOT IN (SELECT factorId FROM CRM.dbo.crm_alarm WHERE factorId IS NOT NULL and state=0) AND Name like N'%$name%'
+                order by TimeStamp desc
+                ");
+            return Response::json($customers);
+        }
+
+        if($request->get("dayAsses")=='done' and strlen($fromDate)>3 and strlen($toDate)<1){
+            $customers=DB::select("SELECT * from(
+                SELECT * from(
+                SELECT * from(
+                SELECT distinct crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id as assesId FROM CRM.dbo.crm_assesment)a on crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c on c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name as AdminName,lastName from CRM.dbo.crm_admin)h on f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                WHERE f.SerialNoHDS  NOT IN (SELECT factorId FROM CRM.dbo.crm_alarm WHERE factorId IS NOT NULL and state=0)
+                AND Name like N'%$name%'  and Format(TimeStamp,'yyyy/MM/dd','Fa-IR')>='$fromDate'
+                order by TimeStamp desc
+                ");
+            return Response::json($customers);
+        }
+        if($request->get("dayAsses")=='done' and strlen($fromDate)>3 and strlen($toDate)>3){
+            $customers=DB::select("SELECT * from(
+                SELECT * from(
+                SELECT * from(
+                SELECT distinct crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id as assesId FROM CRM.dbo.crm_assesment)a on crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c on c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name as AdminName,lastName from CRM.dbo.crm_admin)h on f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                WHERE f.SerialNoHDS  NOT IN (SELECT factorId FROM CRM.dbo.crm_alarm WHERE factorId IS NOT NULL and state=0)
+                AND Name like N'%$name%'  and Format(TimeStamp,'yyyy/MM/dd','Fa-IR')>='$fromDate' and Format(TimeStamp,'yyyy/MM/dd','Fa-IR')<='$toDate'
+                order by TimeStamp desc
+                ");
             return Response::json($customers);
         }
 

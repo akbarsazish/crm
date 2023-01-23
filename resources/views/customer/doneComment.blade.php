@@ -47,7 +47,6 @@
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="customerListBodyDone">
                                         @foreach ($customers as $customer)
-
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{trim($customer->Name)}}</td>
@@ -56,7 +55,7 @@
                                             <td onclick='showAssesComment("{{$customer->assesId}}")'>{{substr($customer->comment,0,10).'...'}} <i class="fas fa-comment-dots float-end"> </i></td>
                                             <td>{{trim($customer->AdminName.' '.$customer->lastName)}}</td>
 											 <td data-toggle="modal" data-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
-                                        </tr>    
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
