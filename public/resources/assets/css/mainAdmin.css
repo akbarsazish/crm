@@ -21,11 +21,12 @@ button{
     margin:5px;
 }
 .rounded{
-    border:2px solid blue;
+    border:1px solid blue;
 }
 legend{
-    color:#cdb038;
+    color:#0058db;
     font-weight:bold;
+    font-size:16px;
 }
 .alert button{
 margin-left:5px;
@@ -6977,30 +6978,21 @@ span.content{
     .mobileDisplay{ display:none;}
     .bazarYabTable, tr{ font-size:10px !important;}
     .selectTr{width:20px !important; padding:0px;}
-    
+ 
 }
 
 
 
 .containerDiv {
-    margin-top:60px;  position:fixed; overflow:hidden;
+    margin-top:60px;
+    position:fixed;
+    overflow:hidden;
 }
 
-@media only screen and (min-width: 1380px) {
-    .contentDiv{ 
-        min-height: 93vh !important
-    }
 
-    .containerDiv {
-        margin-top:60px;  position:relative;
-    }
-    
-    
-}
 .sideBar {
     min-height: 90vh !important;
-    background-color: #b3d1ef;
-    
+    background-color: #b3d1ef; 
 }
 
 .contentHeader, .contentFooter {
@@ -7009,4 +7001,39 @@ span.content{
 }
 .mainContent {
     min-height: 84% !important;
+     
+}
+
+
+
+.sidefieldSet {
+    min-height: 77vh !important;
+}
+
+.refreshBtn {
+    margin-top: 58vh;
+    position: absolute;
+}
+
+@media only screen and (max-width: 920px) {
+    .containerDiv {
+        margin-top:60px;
+        position:relative !important;
+        overflow:scroll !important;
+    }
+    .sideBar {
+        min-height: 5vh !important;
+        background-color: #b3d1ef;
+        
+    }
+
+    .refreshBtn {
+        margin-top: 20px !important;
+        position: relative;
+    }
+
+   .sidefieldSet {
+        min-height: 20px !important;
+    }
+    
 }

@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                             <div class="row contentHeader">
-                                <div class="col-lg-12 text-start mt-3">
+                                <div class="col-lg-12 text-start mt-2">
                                     <input type="text" id="customerSn" style="display:none"  value="" />
                                     <input type="text" id="factorSn" style="display:none"  value="" />
                                     <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
