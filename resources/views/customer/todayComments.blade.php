@@ -29,7 +29,7 @@
                                         <span class="input-group-text" id="inputGroup-sizing-sm"> الی </span>
                                         <input type="text" class="form-control" id="assesSecondDate">
                                     </div>
-                                    <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'>بازخوانی<i class="fal fa-dashboard fa-lg"></i></button>
+                                    <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                                 </form>
                             </fieldset>
                     </div>
@@ -38,7 +38,7 @@
                                 <div class="col-lg-12 text-start mt-2">
                                     <input type="text" id="customerSn" style="display:none"  value="" />
                                     <input type="text" id="factorSn" style="display:none"  value="" />
-                                    <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard'>داشبورد<i class="fal fa-dashboard fa-lg"></i></button>
+                                    <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard' >داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
                                     <button class="btn btn-primary btn-sm text-warning" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                         <th>انتخاب</th>
                                     </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="customersAssesBody">
+                                    <tbody class="select-highlight tableBody" id="customersAssesBody" style="height:250px !important">
                                         @forelse ($customers as $customer)
                                             <tr onclick="assesmentStuff(this)">
                                                 <td class="no-sort">{{$loop->iteration}}</td>
@@ -72,17 +72,17 @@
                                 </table> 
                                 <hr>
                                 <div id="factorInfo">
-                                <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
-                                <h6 style="padding:10px; text-align:center;">فاکتور فروش </h6>
-							    <div class="grid-container">
-									<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDateP">  </span> </div>
-									<div class="item2"> <b> مشتری  :  </b> <span  id="customerNameFactorP"> </span>    </div>
-									<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactorP"> </span>   </div>
-									<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactorP"> </span></div>
-									<div class="item5"><span> کاربر :  </span>   <span id="Admin1P"> </span></div>
-									<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactorP">  </span></div>
-								</div>
-                            </div>
+                                 <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
+                                    <h6 style=" text-align:center;">فاکتور فروش </h6>
+                                    <div class="grid-container">
+                                        <div class="item1"> <b style="color:red; bold">تاریخ فاکتور   :  </b> <span id="factorDateP">  </span> </div>
+                                        <div class="item2"> <b style="color:red; bold"> مشتری  :  </b> <span  id="customerNameFactorP"> </span>    </div>
+                                        <div class="item3"> <b style="color:red; bold"> آدرس  :  </b> <span id="customerAddressFactorP"> </span>   </div>
+                                        <div class="item4"> <b style="color:red; bold"> تلفن :</b>    <span id="customerPhoneFactorP"> </span></div>
+                                        <div class="item5"> <b style="color:red; bold"> کاربر :  </b>   <span id="Admin1P"> </span></div>
+                                        <div class="item6"> <b style="color:red; bold">  شماره فاکتور :</b>  <span id="factorSnFactorP">  </span></div>
+                                    </div>
+                               </div>
                             <div class="row">
                                 <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
                                     <thead class="tableHeader">
@@ -95,7 +95,7 @@
                                         <th style="width:122px">مبلغ (تومان)</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="productListP" class="tableBody">
+                                    <tbody id="productListP" class="tableBody" style="height:250px !important">
 
                                     </tbody>
                                 </table>
@@ -115,7 +115,7 @@
 											<th>انتخاب</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="customerListBodyDone">
+                                    <tbody class="select-highlight tableBody" id="customerListBodyDone" style="height:250px !important">
                                     </tbody>
                                 </table>
                                 <hr>
@@ -129,13 +129,17 @@
 											<th>عودتی</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="customerListBodyDoneDetail">
+                                    <tbody class="select-highlight tableBody" id="customerListBodyDoneDetail" style="height:250px !important">
                                     </tbody>
                                 </table>
                             </div>
                             </div>
                                 <div class="row contentFooter">
-                        
+                                        <div class="col-lg-12 mt-3 text-start">
+                                            <button type="button" class="btn btn-sm btn-primary footerButton"> نظرات امروز  <i class="fa fa-comments"></i> </button>
+                                            <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز  <i class="fa fa-comments"></i> </button>
+                                            <button type="button" class="btn btn-sm btn-primary footerButton"> صدتای آخر  <i class="fa fa-comments"></i></button>
+                                        </div>
                                 </div>
                             </div>
                         </div>

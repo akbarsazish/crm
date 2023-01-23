@@ -101,7 +101,7 @@
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> 
                         <div class="col-sm-12 text-start">
-                              <button class='btn btn-primary btn-sm text-warning' data-toggle="modal" data-target="#reportCustomerModal" disabled  type="button" id="openCustomerActionModal"> داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
+                            <button class='btn btn-primary btn-sm text-warning' data-toggle="modal" data-target="#reportCustomerModal" disabled  type="button" id="openCustomerActionModal"> داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
                         </div>
                     </div>
                     <div class="row mainContent">
@@ -124,7 +124,7 @@
                                         @forelse ($customers as $customer)
                                         <tr>
                                             <td >{{$loop->iteration}}</td>
-                                            <td style="width:177px">{{trim($customer->Name)}}</td>
+                                            <td style="width:166px">{{trim($customer->Name)}}</td>
                                             <td >{{trim($customer->hamrah)}}</td>
                                             <td style="width:266px">{{trim($customer->peopeladdress)}}</td>
                                             <td style="width:80px">{{trim($customer->countFactor)}}</td>
