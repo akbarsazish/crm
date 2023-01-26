@@ -1852,8 +1852,10 @@ $("#customerSn").val(input.val().split("_")[0]);
 $("#factorSn").val(input.val().split("_")[1]);
 $("#customerIdForAssesment").val(input.val().split("_")[0]);
 $("#factorIdForAssesment").val(input.val().split("_")[1]);
-$("#openAssesmentModal").prop('disabled',false);
 $("#openDashboard").prop('disabled',false);
+$("#openAssessmentModal1").prop('disabled',false);
+$("#customerSnLogin").val($("#customerSn").val());
+$("#fakeLogin").prop("disabled",false);
 
 $.ajax({
     method: 'get',
@@ -2229,6 +2231,36 @@ function showDoneCommentDetail(element) {
             alert("bad")
         }
     })
+}
+function getDonComment(history){
+$.ajax({
+    method:'get',
+    url:baseUrl+'/getDoneAsses',
+    async:true,
+    data:{
+        _token:"{{@csrf}}",
+        history:history
+    },
+    success:function(response){
+        console.log(response)
+        $("#customerListBodyDone").empty();
+        response.forEach((element,index)=>{
+            $("#customerListBodyDone").append(`
+                <tr  onclick="showDoneCommentDetail(this)">
+                    <td>`+(index+1)+`</td>
+                    <td>`+element.Name+`</td>
+                    <td>`+element.PhoneStr+`</td>
+                    <td>`+moment(element.TimeStamp , 'YYYY/M/D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+                    <td>`+element.AdminName+` `+element.lastName+`</td>
+                    <td> <input class="customerList form-check-input" name="factorId" type="radio" value="`+element.PSN+`_`+element.SerialNoHDS+`"></td>
+                </tr>`);
+            });
+        },
+    error:function(){
+        alert("error occored")
+    }
+    
+    });
 }
 
 $("#inactiveButton").on("click", () => {
@@ -3583,7 +3615,7 @@ $("#moveKarbar").modal("show");
 });
 
 function setKarbarEditStuff() {
-let asn = $("#asn").val();
+let asn = $("#editAdmin").val();
 
 let admyTypes;
 let sexes;
@@ -3599,11 +3631,11 @@ $.ajax({
     success: function(msg) {
         let adminArray = msg[0];
         let admin = adminArray[0];
-   console.log(admin);
         let otherAdmins = msg[1];
         let adminType = "";
         let discription = "توضیحی ندارد.";
         let bossAdmins=msg[2];
+        $("#adminId").val(admin.id);
         if(admin.adminType==5 || admin.adminType==4 || admin.adminType==1){
             $("#assignBossDiv").css({"display":"none"});
         }else{
@@ -3620,41 +3652,85 @@ $.ajax({
 
         if(admin.poshtibanType==1){
             $("#poshtibanType").append(`
-            <option selected value="1">حضوری</option>
-            <option value="2">هماهنگی</option>
-            <option value="3">تلفنی</option>
-            <option value="4"> راننده </option>`);
+            <option selected value="1">پشتیبان حضوری</option>
+            <option value="2">پشتیبان هماهنگی</option>
+            <option value="3">پشتیبان تلفنی</option>
+            <option value="4"> راننده </option>
+            <option  value="5">بازاریاب حضوری</option>
+            <option value="6">بازاریاب هماهنگی</option>
+            <option value="7">بازاریاب تلفنی</option>`);
         }
 
         if(admin.poshtibanType==2){
             $("#poshtibanType").append(`
-            <option value="1">حضوری</option>
-            <option selected value="2">هماهنگی</option>
-            <option value="3">تلفنی</option>
-            <option value="4"> راننده </option>`);
+            <option  value="1">پشتیبان حضوری</option>
+            <option selected value="2">پشتیبان هماهنگی</option>
+            <option value="3">پشتیبان تلفنی</option>
+            <option value="4"> راننده </option>
+            <option  value="5">بازاریاب حضوری</option>
+            <option value="6">بازاریاب هماهنگی</option>
+            <option value="7">بازاریاب تلفنی</option>`);
         }
 
         if(admin.poshtibanType==3){
             $("#poshtibanType").append(`
-            <option value="1">حضوری</option>
-            <option value="2">هماهنگی</option>
-            <option selected value="3">تلفنی</option>
-            <option value="4"> راننده </option>`);
+            <option value="1">پشتیبان حضوری</option>
+            <option value="2">پشتیبان هماهنگی</option>
+            <option selected value="3">پشتیبان تلفنی</option>
+            <option value="4"> راننده </option>
+            <option  value="5">بازاریاب حضوری</option>
+            <option value="6">بازاریاب هماهنگی</option>
+            <option value="7">بازاریاب تلفنی</option>`);
         }
         if(admin.poshtibanType==0){
             $("#poshtibanType").append(`
-            <option value="1">حضوری</option>
-            <option value="2">هماهنگی</option>
-            <option value="3">تلفنی</option>
-            <option value="4"> راننده </option>`);
+            <option value="1">پشتیبان حضوری</option>
+            <option value="2">پشتیبان هماهنگی</option>
+            <option value="3">پشتیبان تلفنی</option>
+            <option value="4"> راننده </option>
+            <option value="5">بازاریاب حضوری</option>
+            <option value="6">بازاریاب هماهنگی</option>
+            <option value="7">بازاریاب تلفنی</option>`);
         }
         if(admin.poshtibanType==4){
             $("#poshtibanType").append(`
-            <option value="1">حضوری</option>
-            <option value="2">هماهنگی</option>
-            <option value="3">تلفنی</option>
-            <option value="4" selected> راننده </option>`);
+            <option selected value="1">پشتیبان حضوری</option>
+            <option value="2">پشتیبان هماهنگی</option>
+            <option value="3">پشتیبان تلفنی</option>
+            <option selected value="4"> راننده </option>
+            <option  value="5">بازاریاب حضوری</option>
+            <option value="6">بازاریاب هماهنگی</option>
+            <option value="7">بازاریاب تلفنی</option>`);
         }
+        
+            if(admin.employeeType==1){
+                $("#managerEdit").prop("selected",true);
+                $("#saleLineWork"+admin.SaleLineId).prop("selected",true);
+                $("#saleLineDivEdit").css("display","inline");
+                $("#headDivEdit").css("display","none");
+                $("#managerDivEdit").css("display","none");
+                $("#employeeJobDivEdit").css("display","none");
+            }
+        
+            if(admin.employeeType==2){
+                $("#headEdit").prop("selected",true);
+                $("#manageWork"+admin.bossId).prop("selected",true);
+                $("#managerDivEdit").css("display","inline");
+                $("#saleLineDivEdit").css("display","none");
+                $("#headDivEdit").css("display","none");
+                $("#employeeJobDivEdit").css("display","none");
+            }
+        
+            if(admin.employeeType==3){
+                $("#jobEdit"+admin.poshtibanType).prop("selected",true);
+                $("#headWork"+admin.bossId).prop("selected",true);
+                $("#employeeEdit").prop("selected",true);
+                $("#headDivEdit").css("display","inline");
+                $("#employeeJobDivEdit").css("display","inline");
+                $("#saleLineDivEdit").css("display","none");
+                $("#managerDivEdit").css("display","none");
+            }
+
 
         $("#bosses").empty();
         let hasBoss=false;
@@ -7155,7 +7231,171 @@ $('#thirdTarget').on("keyup", ()=>{
 
 });
 
+function setEditRTStuff(csn){
+    $("#editRTbtn").val(csn);
+}
+$("#editRTbtn").on("click",function() {
+    let customerId = $("#editRTbtn").val();
+    alert(customerId)
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/getRandTInfo",
+        data: {
+            _token: "{{ csrf_token() }}",
+            csn: customerId
+        },
+        async: true,
+        success: function(respond) {
+            let exactCustomerInfo=respond[0];
+            let phones=respond[1];
+            let cities=respond[2];
+            let mantagheh=respond[3];
+    
+            $("#customerID").val(exactCustomerInfo.PSN);
+            $("#name").val(exactCustomerInfo.Name);
+            $("#PCode").val(exactCustomerInfo.PCode);
+            $("#mobilePhone").val(phones[0].hamrah);
+            $("#sabitPhone").val(phones[0].sabit);
+            console.log(respond);
+            $("#discription").val(exactCustomerInfo.Description);
+            $("#gender").empty();
+            $("#gender").append(`
+                <option value="2" >مرد</option>
+                <option value="1" >زن</option>`);
+            $("#snNahiyehE").empty();
+            cities.forEach((element,index)=>{
+                let selectRec="";
+                if(element.SnMNM==exactCustomerInfo.SnNahiyeh){
+                    selectRec="selected";
+                }
+            $("#snNahiyehE").append(
+            `<option value="`+element.SnMNM+`" `+selectRec+`>`+element.NameRec+`</option>`);
+            });
+    
+            $("#snMantaghehE").empty();
+            mantagheh.forEach((element,index)=>{
+                let selectRec="";
+                if(element.SnMNM==exactCustomerInfo.SnMantagheh){
+                    selectRec="selected";
+                }
+            $("#snMantaghehE").append(
+            `<option value="`+element.SnMNM+`" `+selectRec+`>`+element.NameRec+`</option>`);
+            });
+            $("#peopeladdress").val(exactCustomerInfo.peopeladdress);
+            $("#password").val(exactCustomerInfo.customerPss);
+            
+              if (!($('.modal.in').length)) {
+                    $('.modal-dialog').css({
+                      top: 0,
+                      left: 0
+                    });
+                  }
+                  $('#editNewCustomer').modal({
+                    backdrop: false,
+                    show: true
+                  });
+                  
+                  $('.modal-dialog').draggable({
+                      handle: ".modal-header"
+                    });
+            $("#editNewCustomer").modal("show");
+        },
+        error: function(data) {}
+    });
+    
+    }
+);
 
+$("#addSaleLineBtn").on("click",function(){
+    $("#addSaleLineModal").modal("show");
+});
+
+$("#addSaleLineForm").on("submit",function(e){
+    $.ajax({
+        method:$(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function(data) {
+            $("#addSaleLineModal").modal("hide");
+            $("#saleLines").empty();
+            data.forEach((element,index)=>{
+                $("#saleLines").append(`<tr onclick="setSaleLineStuff(this,`+element.SaleLineSn+`)"><td>`+(index+1)+`</td><td>`+element.LineName+`</td> </tr>`);
+            })
+        },
+        error:function(error){
+            alert("data server error");
+            }
+        });
+    e.preventDefault();
+});
+
+$("#editSaleLineForm").on("submit",function(e){
+    $.ajax({
+        method:$(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function(data) {
+            $("#editSaleLineModal").modal("hide");
+            $("#saleLines").empty();
+            data.forEach((element,index)=>{
+                $("#saleLines").append(`<tr onclick="setSaleLineStuff(this,`+element.SaleLineSn+`)"><td>`+(index+1)+`</td><td>`+element.LineName+`</td> </tr>`);
+            })
+            
+        },
+        error:function(error){
+            alert("data server error");
+            }
+        });
+    e.preventDefault();
+});
+
+$("#editSaleLineBtn").on("click",function(){
+    $.ajax({method:'get',
+            url:baseUrl+'/getSaleLine',
+            data:{_token:"{{@csrf}}",saleLineSn:$("#editSaleLineBtn").val()},
+            async:true,
+            success:function(data){
+                $("#lineNameId").val(data[0].LineName);
+                $("#SaleLineId").val(data[0].SaleLineSn);
+                $("#editSaleLineModal").modal("show");
+            },
+            error:function(error){
+
+            }
+        });
+});
+
+$("#deleteSaleLineBtn").on("click",function(){
+    swal({
+        title: 'اخطار!',
+        text: 'آیا می خواهید حذف کنید؟',
+        icon: 'warning',
+        buttons: true
+    }).then(function(willAdd) {
+        if(willAdd) {
+            $.ajax({method:'get',
+            url:baseUrl+'/deleteSaleLine',
+            data:{_token:"{{@csrf}}",saleLineSn:$("#deleteSaleLineBtn").val()},
+            async:true,
+            success:function(data){
+                $("#saleLines").empty();
+                data.forEach((element,index)=>{
+                    $("#saleLines").append(`<tr onclick="setSaleLineStuff(this,`+element.SaleLineSn+`)"><td>`+(index+1)+`</td><td>`+element.LineName+`</td> </tr>`);
+                });
+            },
+            error:function(error){
+
+            }
+        });
+        }});
+});
+function setSaleLineStuff(element,snSaleLine){
+    
+    $('tr').removeClass('selected');
+    $(element).toggleClass('selected');
+    $("#deleteSaleLineBtn").val(snSaleLine);
+    $("#editSaleLineBtn").val(snSaleLine);
+}
 
 // filtering bargeri list base date 
 $("#bargeriFirstDate").persianDatepicker({
@@ -7187,7 +7427,7 @@ $("#bargeriFirstDate").persianDatepicker({
                 $("#crmDriverBargeri").empty();
                 msg.forEach((element,index)=>{
                     $("#crmDriverBargeri").append(`
-                    <tr onclick="setBargiryStuff(this)">
+                        <tr onclick="setBargiryStuff(this)">
                             <td>`+(index+1)+`</td>
                             <td>`+element.Name+`</td>
                             <td class="address">`+element.peopeladdress+`</td>
@@ -7195,8 +7435,7 @@ $("#bargeriFirstDate").persianDatepicker({
                             <td style="text-align: center;"><a style="text-decoration:none;" target="_blank" href="https://maps.google.com/?q=`+element.LonPers+','+element.LatPers+`"><i class="fas fa-map-marker-alt fa-1xl" style="color:#116bc7; "></i></a></td>
                             <td style="text-align: center; cursor:pointer;" data-toggle="modal" data-target="#factorDeatials"><i class="fa fa-eye fa-1xl"> </i> </td>
                             <td class="choice"> <input class="customerList form-check-input" name="element." type="radio" value="`+element.SnBargiryBYS+'_'+element.SerialNoHDS+'_'+element.TotalPriceHDS+`"></td>
-                    </tr>
-                    `);
+                        </tr>`);
                 });
             },
             error: function(data) { alert("جستجوی بارگیری مشکل دارد.")
@@ -7204,8 +7443,6 @@ $("#bargeriFirstDate").persianDatepicker({
         });
     }
     });
-
-
     $("#addingEmtyaz").on("submit",function(e){
 
         $.ajax({
@@ -7213,15 +7450,13 @@ $("#bargeriFirstDate").persianDatepicker({
             url: $(this).attr('action'),
             data: $(this).serialize(),
             success: function(data) {
-                
+                $("#creditSetting").modal("hide");
             },
             error:function(error){
 alert("data server error");
             }
         });
-
         e.preventDefault();
-
     });
 
     $("#showEmtiyazHistoryBtn").on("click",()=>{
@@ -7318,6 +7553,7 @@ $("#editingEmtyazForm").on("submit",function(e){
         url: $(this).attr('action'),
         data: $(this).serialize(),
         success: function(data) {
+            $("#editingEmtyaz").modal("hide");
             $("#adminEmtyasHistoryBody").empty();
             data.forEach((element,index)=>{
                 $("#adminEmtyasHistoryBody").append(`
@@ -8211,6 +8447,7 @@ if(data[0].userType==2){
             $("#assesSecondDate").prop("disabled",true);
             $("#assesFirstDate").prop("disabled",true);
             $("#assesDoneT").css({"display":"none"});
+            $(".donComment").css({"display":"none"});
             $("#assesNotDone").css({"display":"block"});
         }else{
             $("#assesSecondDate").prop("disabled",false);
@@ -8223,6 +8460,7 @@ if(data[0].userType==2){
             $("#assesSecondDate").prop("disabled",false);
             $("#assesFirstDate").prop("disabled",false);
             $("#assesDoneT").css({"display":"none"});
+            $(".donComment").css({"display":"none"});
             $("#assesNotDone").css({"display":"block"});
         }
     });
@@ -8230,6 +8468,7 @@ if(data[0].userType==2){
     $("#assesDone").on("change",()=>{
         if($("#assesDone").is(":checked")){
             $("#assesNotDone").css({"display":"none"});
+            $(".donComment").css({"display":"inline"});
             $("#assesDoneT").css({"display":"block"});
         }
     });
@@ -8333,21 +8572,182 @@ $("#bazarYabRadioBtn").on("change", ()=>{
 })
 
 
+$("#employeeType").on("change",function(){
+    if($("#employeeType").val()==1){
+        $("#saleLineDive").css("display","inline");
+        $("#headDiv").css("display","none");
+        $("#managerDiv").css("display","none");
+        $("#employeeJobDiv").css("display","none");
+    }
 
-    // تنظیمات 
+    if($("#employeeType").val()==2){
+        $("#managerDiv").css("display","inline");
+        $("#saleLineDive").css("display","none");
+        $("#headDiv").css("display","none");
+        $("#employeeJobDiv").css("display","none");
+    }
 
+    if($("#employeeType").val()==3){
+        $("#headDiv").css("display","inline");
+        $("#employeeJobDiv").css("display","inline");
+        $("#saleLineDive").css("display","none");
+        $("#managerDiv").css("display","none");
+    }
+
+
+});
+
+
+$("#employeeTypeEdit").on("change",function(){
+    if($("#employeeTypeEdit").val()==1){
+        $("#saleLineDivEdit").css("display","inline");
+        $("#headDivEdit").css("display","none");
+        $("#managerDivEdit").css("display","none");
+        $("#employeeJobDivEdit").css("display","none");
+        $("#managerIdEdit").prop("selected",true);
+        $("#headIdEdit").prop("selected",true);
+    }
+
+    if($("#employeeTypeEdit").val()==2){
+        $("#managerDivEdit").css("display","inline");
+        $("#saleLineDivEdit").css("display","none");
+        $("#headDivEdit").css("display","none");
+        $("#employeeJobDivEdit").css("display","none");
+        $("#headIdEdit").prop("selected",true);
+    }
+
+    if($("#employeeTypeEdit").val()==3){
+        $("#headDivEdit").css("display","inline");
+        $("#employeeJobDivEdit").css("display","inline");
+        $("#saleLineDivEdit").css("display","none");
+        $("#managerDivEdit").css("display","none");        
+        $("#managerIdEdit").prop("selected",true);
+    }
+
+
+});
+
+function setManagerStuff(element){
+    $(element).find('input:radio').prop('checked', true);
+    let input = $(element).find('input:radio');
+    $("#editAdmin").val($(input).val());
+    $("#editAdmin").prop("disabled",false);
+    $(".caret").css({"color":"gray"});
+    $(element).css({"color":"blue"})
+}
+
+function setHeadStuff(element,headId){
+    $(element).find('input:radio').prop('checked', true);
+    let input = $(element).find('input:radio');
+    $("#editAdmin").val($(input).val());
+    $("#editAdmin").prop("disabled",false);
+    $(".caret").css({"color":"gray"});
+    $(element).css({"color":"blue"})
+
+    $.ajax({
+        method:'get',
+        url:baseUrl+'/getEmployees',
+        data:{_token:"{{@csrf}}",
+                headId:headId},
+        async:true,
+        success:function(response){
+            $("#customerListBody").empty();
+            response.forEach((element,index)=>{
+                $("#customerListBody").append(`
+                <tr onclick="checkCheckBox(this,event)">
+                <td>`+(index+1)+`</td>
+                <td>`+element.name+` `+element.lastName+`</td>
+                <td>`+element.phone+`</td>
+                <td>`+element.discription+`</td>
+                <td>
+                    <input class="mainGroupId" type="checkbox" name="customerIDs[]" value="`+element.id+`">
+                </td>`) 
+            })
+
+        },
+        error:function(){
+
+        }
+    })
+}
+$("#moveEmployee").on("click",()=>{
+
+    $("#moveEmployeeModal").modal("show");
+    $.ajax({
+        method:'get',
+        url:baseUrl+"/getHeads",
+        async:true,
+        data:{_token:"{{@csrf}}"},
+        success:function(response){
+            $("#headList").empty();
+            response.forEach((element,index)=>{
+                $("#headList").append(`<tr onclick="setHeadSelectStuff(this,`+element.id+`)">
+                <td >`+(index+1)+`</td>
+                <td >`+element.name+` `+element.lastName+`</td>
+                <td >`+element.phone+`</td>
+                <td><input class="customerList form-check-input" name="adminId" type="radio" value="`+element.id+`"></td>
+            </tr>`);
+            })
+            console.log(response);
+        },
+        error:function(){
+
+        }
+    });
+});
+
+function setHeadSelectStuff(element,headId){
+    $("#moveEmployeeDoneBtn").val(headId);
     
+}
+
+$("#moveEmployeeDoneBtn").on("click",()=>{
+    var adminID = [];
+    $('input[name="customerIDs[]"]:checked').map(function() {
+        adminID.push($(this).val());
+    });
+    
+    $.ajax({
+        method:'get',
+        url:baseUrl+'/addToHeadEmployee',
+        data:{_token:"{{@csrf}}",
+            adminID:adminID,
+            headId:$("#moveEmployeeDoneBtn").val()
+            },
+        async:true,
+        success:function(response){
+            window.location.reload();
+        },
+        error:function(error){
+
+        }
+    })
+alert(customerID.length);
+});
+
+
+function setEmployeeStuff(element){
+    $(element).find('input:radio').prop('checked', true);
+    let input = $(element).find('input:radio');
+    $("#editAdmin").val($(input).val());
+    $("#editAdmin").prop("disabled",false);
+    $(".caret").css({"color":"gray"});
+    $(element).css({"color":"blue"})
+}
+
+// تنظیمات 
+
 $(document).on('click', '#loadMore', ()=> {
 	$(".showLater").css("display", "block");
 });
-    function openAddCommentModal(customerId){
-        $("#customerIdForComment").val(customerId);
-        $("#addComment").modal("show");   
-    }
+
+function openAddCommentModal(customerId){
+    $("#customerIdForComment").val(customerId);
+    $("#addComment").modal("show");   
+}
  
 // Create root and chart
 var root = am5.Root.new("chartdiv"); 
-
 root.setThemes([
   am5themes_Animated.new(root)
 ]);
