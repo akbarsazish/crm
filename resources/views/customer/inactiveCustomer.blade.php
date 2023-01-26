@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="row">
-                    <div class="form-group col-sm-3">
+                       <div class="form-group col-sm-3">
                             <input type="text" name="" size="20" placeholder="نام مشتری" class="form-control publicTop" id="searchInActiveByName">
                         </div>
                         <div class="form-group col-sm-3">
@@ -43,17 +43,17 @@
                         <div class="c-checkout container pb-4 rounded-3">
                             <div class="col-sm-12">
                                 <table class='table table-bordered table-striped table-sm'>
-                                <thead class="tableHeader">
-                                    <tr>
-                                        <th>ردیف</th>
-                                        <th>اسم</th>
-                                        <th  style="width:99px"> همراه</th>
-                                        <th>ت-غیرفعال</th>
-                                        <th>ک-غیرفعال</th>
-                                        <th style="width:88px">منطقه </th>
-                                        <th> کامنت  </th>
-                                        <th>انتخاب</th>
-                                    </tr>
+                                   <thead class="tableHeader">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>اسم</th>
+                                            <th  style="width:99px"> همراه</th>
+                                            <th>ت-غیرفعال</th>
+                                            <th>ک-غیرفعال</th>
+                                            <th style="width:88px">منطقه </th>
+                                            <th> کامنت  </th>
+                                            <th>انتخاب</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="inactiveCustomerBody">
                                         @foreach ($customers as $customer)
@@ -526,6 +526,7 @@
             });
         },
         error: function(data) {
+            
         }
 
     });

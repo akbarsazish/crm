@@ -1774,7 +1774,7 @@ $.ajax({
             <td>`+element.comment+`</td>
             <td>`+driverBehavior+`</td>
             <td>`+shipmentProblem+`</td>
-            <td><i class="fa fa-eye"/></td>
+            <td> <i class="fa fa-eye"/> </td>
             <td><input type="radio" class="form-input"/></td>
         </tr>
             `);
@@ -2213,17 +2213,9 @@ function showDoneCommentDetail(element) {
         },
         async:true,
         success:function(response){
-            $("#customerListBodyDoneDetail").empty();
-            response.forEach((element,index)=>{
-                $("#customerListBodyDoneDetail").append(`
-                <tr>
-                    <td>`+(index+1)+`</td>
-                    <td>`+element.TimeStamp+`</td>
-                    <td>`+element.assessComment+` </td>
-                    <td>`+element.alarmDate+`</td>
-                    <td>درست نشده است</td>
-                </tr>`);
-            })
+            $("#doneCommentDate").text(response[0].TimeStamp);
+            $("#doneCommentComment").text(response[0].assessComment);
+            $("#doneCommentAlarm").text(response[0].alarmDate);     
         },
         error:function(error){
             alert("bad")
@@ -2313,12 +2305,13 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
+            <td>`+element.countSameTime+`</td>
             </tr>`);
         });
     },
@@ -4238,14 +4231,11 @@ $.ajax({
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4348,17 +4338,14 @@ $.ajax({
             }
             $("#allCustomerReportyBody").append(`
             <tr  onclick="setAlarmCustomerStuff(this)">
-            <td>`+(index+1)+`</td>
-            <td>`+element.Name+`</td>
-            <td>`+element.hamrah+` `+element.sabit+`</td>
-            <td>`+element.peopeladdress+`</td>
-            <td>`+element.countFactor+`</td>
-            <td>`+element.lastDate+`</td>
-            <td>هنوز نیست</td>
-            <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-            <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
-            <td><input type="checkbox" disabled `+checkOrNot+` /></td>
-        </tr>`);
+                <td>`+(index+1)+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
+                <td>`+element.lastDate+`</td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td><input type="checkbox" disabled `+checkOrNot+` /></td>
+            </tr>`);
         });
     },
     error: function(data) {}
@@ -4388,14 +4375,12 @@ if(searchTerm!=0){
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td  style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
+              
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4428,14 +4413,11 @@ if(searchTerm>0){
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4468,14 +4450,11 @@ if(searchTerm>0){
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td  style="width:333px">`+element.Name+`</td>
+                <td  style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td >`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4573,8 +4552,8 @@ $.ajax({
                 $("#kalaContainer").append(`
                 <tr>
                 <td>`+(index+1)+`</td>
-                <td>`+element.GoodCde+`</td>
-                <td>`+element.GoodName+`</td>
+                <td  style="width:88px">`+element.GoodCde+`</td>
+                <td  style="width:333px">`+element.GoodName+`</td>
                 <td>`+element.maxFactDate+`</td>
                 <td>`+element.hideKala+`</td>
                 <td style="color:red;background-color:azure">`+element.Amount+`</td>
@@ -4605,8 +4584,8 @@ if(searchTerm>0){
                     $("#kalaContainer").append(`
                     <tr>
                     <td>`+(index+1)+`</td>
-                    <td>`+element.GoodCde+`</td>
-                    <td>`+element.GoodName+`</td>
+                    <td style="width:88px">`+element.GoodCde+`</td>
+                    <td style="width:333px">`+element.GoodName+`</td>
                     <td>`+element.maxFactDate+`</td>
                     <td>`+element.hideKala+`</td>
                     <td style="color:red;background-color:azure">`+element.Amount+`</td>
@@ -4637,8 +4616,8 @@ if(searchTerm>0){
                     $("#kalaContainer").append(`
                     <tr>
                     <td>`+(index+1)+`</td>
-                    <td>`+element.GoodCde+`</td>
-                    <td>`+element.GoodName+`</td>
+                    <td style="width:88px">`+element.GoodCde+`</td>
+                    <td style="width:333px">`+element.GoodName+`</td>
                     <td>`+element.maxFactDate+`</td>
                     <td>`+element.hideKala+`</td>
                     <td style="color:red;background-color:azure">`+element.Amount+`</td>
@@ -4966,10 +4945,9 @@ $.ajax({
             <tr onclick="setInActiveCustomerStuff(this)">
             <td>`+(index+1)+`</td>
             <td>`+element.CustomerName+`</td>
-            <td>`+element.PhoneStr+`</td>
-            <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-            <td>`+element.name+` `+element.lastName+`</td>
-            <td>بدست نیامده</td>
+            <td style="width:99px">`+element.PhoneStr+`</td>
+            <td style="width:133px">`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+            <td style="width:133px">`+element.name+` `+element.lastName+`</td>
             <td>`+element.comment+`</td>
             <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
         </tr>`);
@@ -4997,10 +4975,9 @@ if(searchTerm>-1){
                 <tr onclick="setInActiveCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
                 <td>`+element.CustomerName+`</td>
-                <td>`+element.PhoneStr+`</td>
-                <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-                <td>`+element.name+` `+element.lastName+`</td>
-                <td>بدست نیامده</td>
+                <td style="width:99px">`+element.PhoneStr+`</td>
+                <td style="width:133px">`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+                <td style="width:133px">`+element.name+` `+element.lastName+`</td>
                 <td>`+element.comment+`</td>
                 <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
             </tr>`);
@@ -5048,10 +5025,9 @@ if(searchTerm>-1){
                 <tr onclick="setInActiveCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
                 <td>`+element.CustomerName+`</td>
-                <td>`+element.PhoneStr+`</td>
-                <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-                <td>`+element.name+` `+element.lastName+`</td>
-                <td>بدست نیامده</td>
+                <td style="width:99px">`+element.PhoneStr+`</td>
+                <td style="width:133px">`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+                <td style="width:133px">`+element.name+` `+element.lastName+`</td>
                 <td>`+element.comment+`</td>
                 <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
             </tr>`);
@@ -5147,12 +5123,12 @@ onSelect:()=>{
             msg.forEach((element,index)=>{
                 $("#listVisitorBody").append(`<tr>
                 <td >`+(index+1)+`</td>
-                <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
+                <td > </td>
                 <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
-                <td >`+element.Name+`</td>
+                <td style="width:244px">`+element.Name+`</td>
                 <td >`+element.platform+`</td>
                 <td >`+element.browser+`</td>
-                <td >`+element.countLogin+`</td>
+                <td style="width:77px">`+element.countLogin+`</td>
                 <td >`+element.countSameTime+`</td>
                 </tr>`);
             });
@@ -5177,12 +5153,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5205,12 +5181,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td >  </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5234,12 +5210,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5263,12 +5239,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5300,12 +5276,12 @@ onSelect:()=>{
             msg.forEach((element,index)=>{
                 $("#listVisitorBody").append(`<tr>
                 <td >`+(index+1)+`</td>
-                <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
+                <td > </td>
                 <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
-                <td >`+element.Name+`</td>
+                <td style="width:244px">`+element.Name+`</td>
                 <td >`+element.platform+`</td>
                 <td >`+element.browser+`</td>
-                <td >`+element.countLogin+`</td>
+                <td style="width:77px">`+element.countLogin+`</td>
                 <td >`+element.countSameTime+`</td>
                 </tr>`);
             });
@@ -5630,10 +5606,10 @@ $.ajax({
             <td>` + (index + 1) + `</td>
             <td>` + element.Name + `</td>
             <td>` + element.peopeladdress + `</td>
-            <td>`+element.sabit.trim()+` `+element.hamrah.trim()+`</td>
-            <td>`+element.NameRec+`</td>
-            <td>`+element.assignedDays+`</td>
-            <td>`+element.PassedDays+`</td>
+            <td style="width:77px">`+element.sabit.trim()+` `+element.hamrah.trim()+`</td>
+            <td style="width:66px">`+element.NameRec+`</td>
+            <td style="width:66px">`+element.assignedDays+`</td>
+            <td style="width:166px">`+element.PassedDays+`</td>
             <td>` + element.Name + ' ' + element.lastName + `</td>
             <td><input class="customerList form-check-input" name="customerId" type="radio" value="` + element.PSN + '_' + element.admin_id + '_' + element.SerialNoHDS + `"></td>
         </tr>`);
@@ -8332,6 +8308,76 @@ $("#bazarYabRadioBtn").on("change", ()=>{
     $("#karbaranActionContainer").css("display", "none");
 })
 
+$("#customerLoginReportRadio").on("change", ()=>{
+    $("#staffVisitor").css("display", "flex");
+    $("#loginTosystemReport").css("display", "block");
+    $(".loginReport").css("display", "inline");
+    $("#allCustomerStaff").css("display", "none");
+    $("#customerActionTable").css("display", "none");
+    $(".inActiveBtn").css("display", "none");
+    $(".customerDashboarBtn ").css("display", "none");
+    $("#inActiveTools").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".evcuatedCustomer").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+})
+
+$("#customerInactiveRadio").on("change", ()=>{
+    $("#inActiveTools").css("display", "block");
+    $(".inactiveReport").css("display", "inline");
+    $("#allCustomerStaff").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
+    $(".inActiveBtn").css("display", "inline");
+    $("#inActiveCustomerTable").css("display", "block");
+    $("#customerActionTable").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $("#staffVisitor").css("display", "none");
+    $(".evcuatedCustomer").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".loginReport").css("display", "none");
+    
+})
+$("#evacuatedCustomerRadio").on("change", ()=>{
+    $(".evcuatedCustomer").css("display", "inline");
+    $("#allCustomerStaff").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
+    $(".inActiveBtn").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $("#customerActionTable").css("display", "none");
+    $("#inActiveTools").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $("#staffVisitor").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".loginReport").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+    
+    
+})
+
+$("#referentialCustomerRadio").on("change", ()=>{
+    $(".referencialTools").css("display", "inline");
+    $(".referencialReport").css("display", "inline");
+    $(".evcuatedCustomer").css("display", "none");
+    $("#allCustomerStaff").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
+    $(".inActiveBtn").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $("#customerActionTable").css("display", "none");
+    $("#inActiveTools").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $(".loginReport").css("display", "none");
+    $("#staffVisitor").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+    
+})
+
+$("#customerWithOutAlarm").on("change", ()=>{
+    $("#customerWithOutAlarmBuyOrNot").css("display", "block");
+})
 
 
     // تنظیمات 

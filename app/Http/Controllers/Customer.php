@@ -355,6 +355,7 @@ class Customer extends Controller
         }
         return Response::json($customers);
     }
+    
     public function searchInActiveCustomerByName(Request $request)
     {
         $searchTerm=$request->get("searchTerm");

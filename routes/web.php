@@ -44,6 +44,7 @@ Route::get("/searchDoneAssesByDate",[Customer::class,"searchDoneAssesByDate"])->
 Route::get("/searchCustomerByRegion",[Customer::class,"searchCustomerByRegion"])->middleware('CheckCommon');
 Route::get("/searchRegion",[Customer::class,"searchRegion"])->middleware('CheckCommon');
 Route::get("/searchAssignRegion",[Customer::class,"searchAssignRegion"])->middleware('CheckCommon');
+
 Route::get("/reports",[Admin::class,"report"])->middleware('CheckCommon');
 
 //[drivers]
@@ -238,7 +239,7 @@ Route::get('/randt',[Customer::class,'randt'])->middleware('CheckCommon');
 Route::post('/addRandT',[Customer::class,'addRandT'])->middleware('CheckCommon');
 
 
-
 //بعد از تغیر ساختار
 Route::get('/getAsses',[Customer::class,'getAsses'])->middleware('CheckCommon');
 Route::get('/getDonCommentInfo',[Customer::class,'getDonCommentInfo'])->middleware('CheckCommon');
+Route::get('/bonusIncreaseDecrease',[SalseExper::class,'bonusIncreaseDecrease'])->middleware('CheckCommon');

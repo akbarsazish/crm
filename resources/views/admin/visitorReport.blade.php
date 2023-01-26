@@ -31,11 +31,11 @@
                                                 <div class="form-group">
                                                   <label for="visitorPlatform">پلتفورم</label>
                                                    <select type="text" class="form-control" id="visitorPlatform">
-                                                   <option value='0'>همه</option>
-                                                    <option value='Android'>اندروید</option>
-                                                    <option value='iOS'>ios</option>
-                                                    <option value='Windows'>windows</option>
-  </select>
+                                                        <option value='0'>همه</option>
+                                                        <option value='Android'>اندروید</option>
+                                                        <option value='iOS'>ios</option>
+                                                        <option value='Windows'>windows</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
@@ -73,7 +73,7 @@
                                     <div class="row">
                                     <div class="well" style="margin-top:1%;">
                                       <div class="col-sm-12 " style="padding:0; padding-left:25px;  margin-top: 0;">
-                                          <table class='table table-bordered table-striped table-sm'  style='width:100%;'>
+                                        <table class='table table-bordered table-striped table-sm'>
                                           <thead class="tableHeader">
                                               <tr>
                                                 <th > ردیف</th>
