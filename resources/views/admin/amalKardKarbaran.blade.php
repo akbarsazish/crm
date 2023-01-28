@@ -24,7 +24,7 @@
                                     </select>
                                 </div>
                             </div>
-                        <button class='btn btn-sm btn-primary text-warning w-50' type="button" id='openDashboard' disabled style="margin-top:33vh"> تراز نامه  <i class="fal fa-dashboard"></i></button>
+                        <button class='btn btn-sm btn-primary text-warning w-50' type="button" id='openDashboard' style="margin-top:33vh"> تراز نامه  <i class="fal fa-dashboard"></i></button>
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">

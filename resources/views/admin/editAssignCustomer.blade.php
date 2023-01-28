@@ -12,7 +12,6 @@
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0">  تخصیص به کاربران   </legend>
                        
-                         -->
                          <div class="form-group mb-1 col-sm-12">
                             <input type="text" style="display:none" id="asn"/>
                                 <select name=""  class="form-select form-select-sm" id="searchCity">
@@ -31,8 +30,8 @@
                         <div class="form-group mb-2 col-sm-12">
                             <select name="" class="form-select form-select-sm" disabled id="activeOrInActive">
                                 <option hidden>نوعیت مشتری</option>
-                                <option value="1">فعال</option>
-                                <option value="2">غیر فعال</option>
+                                <option value="1">خرید کرده </option>
+                                <option value="2"> خرید نکرده </option>
                                 <option value="3">جدیدی ها</option>
                             </select>
                         </div>
@@ -71,7 +70,7 @@
                                             <th> <input type="checkbox" name="" class="selectAllFromTop form-check-input" id="selectAllTopRight"></th>
                                         </tr>
                                     </thead>
-                                    <tbody id="allCustomer" class="tableBody">
+                                    <tbody id="allCustomer" class="tableBody" style="height:633px !important;">
                                     </tbody>
                              </table>
                           </div>
@@ -92,7 +91,7 @@
                                         <th> <input type="checkbox" name="" class="selectAllFromTop form-check-input" id="selectAllTopLeft"></th>
                                     </tr>
                                 </thead>
-                                <tbody id="addedCustomer" class="tableBody" style="border-right:1px solid #cbcbcb;">
+                                <tbody id="addedCustomer" class="tableBody" style="border-right:1px solid #cbcbcb; height:633px !important;">
                                 </tbody>
                             </table>
                          </div>
