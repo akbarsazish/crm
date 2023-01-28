@@ -18,7 +18,9 @@
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> </div>
-                    <div class="row mainContent"></div>
+                    <div class="row mainContent">
+
+                    </div>
                     <div class="row contentFooter"> </div>
                 </div>
         </div>

@@ -1,32 +1,64 @@
 @extends('layout')
 @section('content')
+<style>
+        ul, #myUL {
+        list-style-type: none;
+        }
 
+        #myUL {
+        margin: 0;
+        padding: 0;
+        }
+
+        .caret {
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari 3.1+ */
+        -moz-user-select: none; /* Firefox 2+ */
+        -ms-user-select: none; /* IE 10+ */
+        user-select: none;
+        }
+        span.caret {
+            font-size:18px;
+            font-weight:bold;
+
+        }
+
+        .lowLevelManager{
+            font-size:16px;
+            color:#0b2d62;
+        }
+        .caret::before {
+        content: "\002B";
+        color: black;
+        display: inline-block;
+        margin-right: 6px;
+        }
+
+        .caret-down::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */'
+        transform: rotate(90deg);  
+        }
+
+        .nested {
+        display: none;
+        }
+
+        .active {
+        display: block;
+        }
+</style>
    <div class="container-fluid containerDiv">
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                     <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> کاربران </legend>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="firstManger">
-                            <label class="form-check-label me-4" for="assesPast">  مدیر 1 </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="secondManager">
-                            <label class="form-check-label me-4" for="assesPast">  مدیر 2 </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="thirdManager">
-                            <label class="form-check-label me-4" for="assesPast">  مدیر 3 </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="thirdManager">
-                            <label class="form-check-label me-4" for="assesPast">  کاربران بدون مدیر </label>
-                        </div>
                         <div class="col-lg-12" style="margin-top:40vh">
                             <div class="row px-3">
                                 <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" id="newAdminBtn">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
                                 <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
                                 <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true" style="color:red;"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover"  id="moveEmployee">انتقال<i class="fa fa-send fa-lg" aria-hidden="true" style="color:red;"></i></button>
                                 <input type="hidden" id="AdminForAdd"/>
                            </div>
                         </div>
@@ -35,22 +67,33 @@
                  <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> </div>
                     <div class="row mainContent"> 
-                        <div class="col-lg-12 p-3" style="border-bottom:2px solid #b3d1ef; height:55px;">
-                            <div class="row" id="relatedHeadOfficer" style="display:none;">
-                                <div class="col-lg-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="firstHeadOfficer">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="secondHeadOfficer">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 2 </label>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
+
+                    <!-- start tree view -->
+                     <div class="col-lg-12 rounded shadow bg-light">
+                         <ul id="myUL">
+                            @foreach($saleLines as $line)
+                                <li><span class="caret ">{{$line->LineName}} </span>
+                                    <ul class="nested">
+                                        @foreach($line->manager as $manager)
+                                            <li><span class="caret" onclick="setManagerStuff(this)">{{$manager->name .' '.$manager->lastName }} <input type="radio" class="form-check-input" style="display:none"  value="{{$manager->id}}" name="manager" id=""></span>
+                                                <ul class="nested">
+                                                    @foreach($manager->head as $head)
+                                                        <li>
+                                                            <span class="caret"  onclick="setHeadStuff(this,{{$head->id}})">{{$head->name .' '.$head->lastName }} <input type="radio" class="form-check-input"  style="display:none"   value="{{$head->id}}" name="head" id=""></span>
+                                                            
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach  
+                                    </ul>
+                                </li>
+                            @endforeach
+                            </ul> 
+
+                     </div>
+
+                    <!-- end tree view -->
                         <div class="col-lg-12">
                             <table class="select-highlight table table-bordered table-striped" id="tableGroupList" style="display:none">
                                     <thead class="tableHeader">
@@ -108,9 +151,23 @@
                             @endforeach
                             </tbody>
                         </table>
-
                         </div>
-                        
+                        <div class="row">
+                            <table class="select-highlight table table-bordered table-striped">
+                                <thead class="tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام </th>
+                                        <th>شماره تماس</th>
+                                        <th>توضیحات</th>
+                                        <th>انتخاب</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tableBody" id="customerListBody" style="height:300px">
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="row contentFooter"> </div>
                  </div>
@@ -327,12 +384,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <span id="existAlert" style="color: red"> </span>
                                     <div class="form-group">
-                                        <label class="form-label"> شماره تماس </label>
-                                        <input type="number"   minlength="11" maxlength="12" required class="form-control" autocomplete="off" name="phone">
+                                        <label class="form-label"> رمز</label>
+                                        <input type="text" onblur="clearRiplicateData()"  minlength="3" maxlength="12" required class="form-control" autocomplete="off" name="password" >
                                     </div>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="row">
@@ -343,18 +399,18 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <span id="existAlert" style="color: red"> </span>
                                     <div class="form-group">
-                                        <label class="form-label"> رمز</label>
-                                        <input type="text" onblur="clearRiplicateData()"  minlength="3" maxlength="12" required class="form-control" autocomplete="off" name="password" >
+                                        <label class="form-label"> شماره تماس </label>
+                                        <input type="number"   minlength="11" maxlength="12" required class="form-control" autocomplete="off" name="phone">
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="row"> 
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> جنسیت  </label>
                                         <select class="form-select" name="sex">
-                                                <option value="" >--</option>
                                                 <option value="1" >زن </option>
                                                 <option value="2" >مرد</option>
                                         </select>
@@ -363,15 +419,70 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نوع کاربر </label>
-                                        <select class="form-select" name="adminType">
-                                                <option value="" >--</option>
-                                                <option value="1" >ادمین</option>
-                                                <option value="2" >پشتیبان</option>
-                                                <option value="3" >بازاریاب</option>
+                                        <select class="form-select" name="employeeType"  id="employeeType">
+                                                <option value="1" > مدیر </option>
+                                                <option value="2" > سرپرست </option>
+                                                <option value="3" > کارمند </option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display:none" id="employeeJobDiv">
+                                        <label class="dashboardLabel form-label">وظیفه کارمند</label>
+                                        <select class="form-select" name="poshtibanType" >
+                                                <option value="1" >راننده</option>
+                                                <option value="2" >پشتیبان حضوری</option>
+                                                <option value="2" >پشتیبان هماهنگی</option>
+                                                <option value="2" >پشتیبان تلفنی</option>
+                                                <option value="3" >بازاریاب حضوری</option>
+                                                <option value="3" >بازاریاب هماهنگی</option>
+                                                <option value="3" >بازاریاب تلفنی</option>
+                                        </select>
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="display:none"  id="saleLineDive">
+                                        <label class="dashboardLabel form-label"> خط فروش </label>
+                                        <select class="form-select" name="saleLine">
+                                                <option value="0" > -- </option>
+                                            @foreach($saleLines as $saleLine)
+                                                <option value="{{$saleLine->SaleLineSn}}" >{{$saleLine->LineName}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row"> 
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display:none" id="managerDiv">
+                                        <label class="dashboardLabel form-label"> مدیر </label>
+                                        <select class="form-select" name="manager" id="manager">
+                                                <option value="0" > -- </option>
+                                            @foreach($managers as $manager)
+                                                <option value="{{$manager->id}}" > {{$manager->name .' '. $manager->lastName}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display:none" id="headDiv">
+                                        <label class="dashboardLabel form-label"> سرپرست </label>
+                                        <select class="form-select" name="head" id="head">
+                                                <option value="0" > -- </option>
+                                        @foreach($heads as $head)
+                                                <option value="{{$head->id}}" > {{$head->name .' '. $head->lastName}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">  
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -384,21 +495,6 @@
                                         <input class="form-check-input me-0" name="hasAsses" type="checkbox" id="flexSwitchCheckChecked" checked style="font-size:25px;">
                                         <label class="form-check-label" for="flexSwitchCheckChecked">آیا نظر سنجی داشته باشد؟</label>
                                     </div> <br>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 ps-5">
-                                    <div class="form-check form-switch mt-2">
-                                        <label class="form-check-label">زیر نظر</label>
-                                        <select class="form-select" name="bossId">
-                                            <option value="0">هیچکس</option>
-                                            @foreach($admins as $admin)
-                                            @if($admin->adminTypeId != 4)
-                                            <option value="{{$admin->id}}">{{$admin->name.' '.$admin->lastName}}</option>
-                                            @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -429,6 +525,47 @@
                 </div>
             </div>
         </div>
+
+
+                    <!-- Modal for reading comments-->
+    <div class="modal fade dragableModal" id="moveEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog   modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="exampleModalLabel">انتقال مشتری</h5>
+
+                </div>
+                <div class="modal-body" id="readCustomerComment">
+                    <div class="container">
+                        <div class="row" style=" border:1px solid #dee2e6; padding:10px">
+                        <div><button type="button" class="btn btn-sm btn-primary" id="moveEmployeeDoneBtn">انتقال <i class="fa fa-save fa-lg"></i></button></div>
+                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">انتقال مشتری</h4>
+                            </div>
+                            <div class="row">
+                                <table id="strCusDataTable"  class=' table table-bordered table-striped table-sm' style="background-color:#dee2e6">
+                                    <thead class="tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>اسم</th>
+                                        <th>شماره تماس</th>
+                                        <th>انتخاب</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="headList">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
               <!-- modal for editing user profile -->
               <div class="modal fade dragableModal" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
@@ -438,6 +575,7 @@
                         </div>
                         <div class="modal-body">
                                 <form action="{{url('/editAdmintListStuff')}}" method="POST"  enctype="multipart/form-data">
+                                    <input type="hidden" id="adminId" name="adminId">
                                     @csrf
                                     <div class="row"> 
                                         <div class="col-md-6">
@@ -482,22 +620,77 @@
                                         </div>
                                     </div>
                                     <div class="row"> 
-                                    <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> جنسیت  </label>
-                                        <select class="form-select" name="sex" id="adminSex">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="dashboardLabel form-label"> جنسیت  </label>
+                                                <select class="form-select" name="sex" id="adminSex">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="dashboardLabel form-label"> نوع کاربر </label>
+                                                <select class="form-select" name="employeeType"  id="employeeTypeEdit">
+                                                        <option value="1" id="managerEdit" > مدیر </option>
+                                                        <option value="2" id="headEdit"> سرپرست </option>
+                                                        <option value="3" id="employeeEdit"> کارمند </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="display:none" id="employeeJobDivEdit">
+                                        <label class="dashboardLabel form-label">وظیفه کارمند</label>
+                                        <select class="form-select" name="poshtibanType" >
+                                                <option value="1" id="jobEdit1">راننده</option>
+                                                <option value="2" id="jobEdit2">پشتیبان حضوری</option>
+                                                <option value="2" id="jobEdit3">پشتیبان هماهنگی</option>
+                                                <option value="2" id="jobEdit4">پشتیبان تلفنی</option>
+                                                <option value="3" id="jobEdit5">بازاریاب حضوری</option>
+                                                <option value="3" id="jobEdit6">بازاریاب هماهنگی</option>
+                                                <option value="3" id="jobEdit7">بازاریاب تلفنی</option>
                                         </select>
                                     </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> نوع کاربر </label>
-                                        <select class="form-select" name="adminType" id="editAdminType">
+                                </div> 
+
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="display:none"  id="saleLineDivEdit">
+                                        <label class="dashboardLabel form-label"> خط فروش </label>
+                                        <select class="form-select" name="saleLine">
+                                                <option value="0" > -- </option>
+                                            @foreach($saleLines as $saleLine)
+                                                <option value="{{$saleLine->SaleLineSn}}" id="saleLineWork{{$saleLine->SaleLineSn}}">{{$saleLine->LineName}}</option>
+                                            @endforeach
                                         </select>
-                                        <input class="form-control" style="display:none" name="adminId" id="editAdminID">
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="row"> 
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="display:none" id="managerDivEdit">
+                                        <label class="dashboardLabel form-label"> مدیر </label>
+                                        <select class="form-select" name="manager">
+                                                <option id="managerIdEdit" value=""> -- </option>
+                                            @foreach($managers as $manager)
+                                                <option value="{{$manager->id}}" id="manageWork{{$manager->id}}"> {{$manager->name .' '. $manager->lastName}} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group"  style="display:none" id="headDivEdit">
+                                        <label class="dashboardLabel form-label"> سرپرست </label>
+                                        <select class="form-select" name="head" id="head">
+                                                <option id="headIdEdit" value=""> -- </option>
+                                        @foreach($heads as $head)
+                                                <option value="{{$head->id}}" id="headWork{{$head->id}}"> {{$head->name .' '. $head->lastName}} </option>
+                                            @endforeach
+                                        </select>
                                     </div>
+                                </div>
+                            </div>
                                     <div class="row"> 
                                         <div class="col-md-6 ps-5">
                                             <div class="form-check form-switch mt-2">
@@ -512,22 +705,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row" >
-                                        <div class="col-lg-6 " id='assignBossDiv'>
-                                            <label class="form-check-label" for="flexSwitchCheckChecked">زیر نظر</label>
-                                                <select class="form-select" name="bossId" id="bosses">
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6"  id="poshtibanDiv">
-                                            <label class="form-check-label" for="flexSwitchCheckChecked">نوعیت کارمند</label>
-                                                <select class="form-select" name="poshtibanType" id="poshtibanType">
-                                                    <option value="1">پشتیبان حضوری</option>
-                                                    <option value="2">پشتیبان هماهنگی</option>
-                                                    <option value="3"> پشتیبان تلفنی</option>
-                                                    <option value="4"> راننده </option>
-                                                </select>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="row"> 
                                         <div class="col-md-6 ps-5">
                                             <div class="form-check form-switch mt-2">
@@ -578,5 +756,15 @@
 		$("#newAdmin").modal("show");
 	});
 	
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+    this.classList.toggle("caret-down");
+  });
+}
 </script>
 @endsection

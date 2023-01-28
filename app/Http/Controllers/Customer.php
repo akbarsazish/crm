@@ -273,19 +273,19 @@ class Customer extends Controller
             return Response::json($customers);
         }
         if($request->get("dayAsses")=='done' and strlen($fromDate)<1 and strlen($toDate)<1){
-            $customers=DB::select("SELECT * from(
-                SELECT * from(
-                SELECT * from(
-                SELECT distinct crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
-                JOIN (SELECT comment,factorId,TimeStamp,id as assesId FROM CRM.dbo.crm_assesment)a on crm_alarm.factorId=a.factorId)b
-                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c on c.SerialNoHDS=b.factorId)d
+            $toDay = Carbon::today()->format('Y-m-d');
+            $customers=DB::select("SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT DISTINCT crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id AS assesId FROM CRM.dbo.crm_assesment)a ON crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c ON c.SerialNoHDS=b.factorId)d
                 JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
-                JOIN (select id,name as AdminName,lastName from CRM.dbo.crm_admin)h on f.adminId=h.id
+                JOIN (select id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)h ON f.adminId=h.id
                 JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
                 FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
-                WHERE f.SerialNoHDS  NOT IN (SELECT factorId FROM CRM.dbo.crm_alarm WHERE factorId IS NOT NULL and state=0) AND Name like N'%$name%'
-                order by TimeStamp desc
-                ");
+                WHERE CONVERT(DATE,TimeStamp)='$toDay' AND Name like N'%$name%'
+                ORDER BY TimeStamp DESC");
             return Response::json($customers);
         }
 
@@ -1771,52 +1771,74 @@ public function searchAllCustomerByMantagheh(Request $request)
         ");
         return Response::json($doneDetail);
     }
-	
-    public function addAssessmentPast(Request $request){
-        $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
-        $yesterday;
-        if($yesterdayOfWeek==6){
-            $yesterday = Jalalian::fromCarbon(Carbon::yesterday()->subDays(1))->format('Y/m/d');
-        }else{
-            $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+    public function getDoneAsses(Request $request)
+    {
+
+        $history=$request->get("history");
+        $customers;
+        if($history=="TODAY"){
+            $toDay = Carbon::today()->format('Y-m-d');
+            $customers=DB::select("SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT DISTINCT crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id AS assesId FROM CRM.dbo.crm_assesment)a ON crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c ON c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)h ON f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                WHERE CONVERT(DATE,TimeStamp)='$toDay'
+                ORDER BY TimeStamp DESC");
         }
-        $adminId=Session::get('asn');
-        $shipmentProblem=$request->get("shipmentProblem");
-        $behavior=$request->get("behavior");
-        $customerId=$request->get("customerId");
-        $adminId=Session::get("asn");
-        $fsn=$request->get('factorId');
-        $comment=$request->get("comment");
-        $alarmDate=$request->get("alarmDate");
-        $result=DB::table("CRM.dbo.crm_assesment")->insert(['adminId'=>$adminId,'shipmentProblem'=>$shipmentProblem,'driverBehavior'=>"".$behavior."",'comment'=>"".$comment."",'factorId'=>$fsn]);
-        DB::table("CRM.dbo.crm_alarm")->insert(['comment'=>"".$comment."",'adminId'=>$adminId,'state'=>0,'alarmDate'=>"".$alarmDate."",'factorId'=>$fsn]);
-		$today = Jalalian::fromCarbon(Carbon::today())->format('Y/m/d');
-        $customers = DB::select("SELECT NetPriceHDS as TotalPriceHDS,* FROM (
-            SELECT maxFactorId as SerialNoHDS,a.CustomerSn,a.NetPriceHDS,a.FactNo,a.FactDate from
-            (select * from(
-            SELECT MAX(SerialNoHDS) as maxFactorId,CustomerSn as csn FROM Shop.dbo.FactorHDS group by FactorHDS.CustomerSn )a join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)a
-                        join Shop.dbo.FactorHDS on a.maxFactorId=FactorHDS.SerialNoHDS)d
-                        join Shop.dbo.Peopels on d.CustomerSn=Peopels.PSN
-                        where  CustomerSn in (SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null )
-                        and SerialNoHDS  NOT IN (select factorId from CRM.dbo.crm_assesment WHERE factorId IS NOT NULL)
-                        and  GroupCode in (291,297,299,312,313,314)
-                        and FactDate<'$yesterday'
-                        and FactDate>'1401/07/17'
-                        order by FactDate desc");
-        foreach ($customers as $customer) {
-            $sabit="";
-            $hamrah="";
-            $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
-            foreach ($phones as $phone) {
-                if($phone->PhoneType==1){
-                $sabit.=$phone->PhoneStr."\n";
-                }else{
-                    $hamrah.=$phone->PhoneStr."\n";   
-                }
+        if($history=="YESTERDAY"){
+            $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+            $yesterday;
+            if($yesterdayOfWeek==6){
+                $yesterday = Carbon::yesterday()->subDays(1)->format('Y-m-d');;
+            }else{
+                $yesterday = Carbon::yesterday()->format('Y-m-d');;
             }
-            $customer->sabit=$sabit;
-            $customer->hamrah=$hamrah;
+            $customers=DB::select("SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT DISTINCT crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id AS assesId FROM CRM.dbo.crm_assesment)a ON crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c ON c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)h ON f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                WHERE  CONVERT(DATE,TimeStamp)='$yesterday'
+                ORDER BY TimeStamp DESC");
         }
+        if($history=="LASTHUNDRED"){
+            $customers=DB::select("SELECT TOP 100 *  FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT DISTINCT crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id AS assesId FROM CRM.dbo.crm_assesment)a ON crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c ON c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)h ON f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                ORDER BY TimeStamp DESC");
+        }
+        if($history=="ALL"){
+            $customers=DB::select("SELECT *  FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT DISTINCT crm_alarm.factorId,state,a.comment,a.TimeStamp,assesId,adminId FROM CRM.dbo.crm_alarm
+                JOIN (SELECT comment,factorId,TimeStamp,id AS assesId FROM CRM.dbo.crm_assesment)a ON crm_alarm.factorId=a.factorId)b
+                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHDS)c ON c.SerialNoHDS=b.factorId)d
+                JOIN (SELECT PSN,Name FROM Shop.dbo.Peopels)e on e.PSN=d.CustomerSn)f
+                JOIN (select id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)h ON f.adminId=h.id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                ORDER BY TimeStamp DESC");
+        }
+
         return Response::json($customers);
     }
 
@@ -2727,7 +2749,6 @@ public function randt(Request $request)
 
     return View("RandT.randt",['cities'=>$cities,'admins'=>$admins,'mantagheh'=>$mantagheh,'phoeCodes'=>$phoeCodes,'todayDate'=>$todayDate, 'customers'=>$customers]);
 }
-
 public function addRandT(Request $request)
 {
     $password=$request->post("password");
@@ -2741,7 +2762,7 @@ public function addRandT(Request $request)
     $name=$request->post("name").'('.$request->post("restaurantName").')';
     $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
     $customerName=Session::get("username");
-    $description=$customerName.' '.$todayDate;
+    $description=$request->post("discription");
     // $timeStamp=$request->post("timeStamp");
     $peopeladdress=$request->post("peopeladdress");
     $peopelEghtesadiCode="";
@@ -2751,10 +2772,10 @@ public function addRandT(Request $request)
     $snMasir=79;
     $snNahiyeh=$request->post("snNahiyeh");
     $snMantagheh=$request->post("snMantagheh");
-    // $location=$request->post("location");
-    //    list($lonPers,$latPers)=explode(",",$location);
-    $latPers=0;
-    $lonPers=0;
+    $location=$request->post("location");
+    list($lonPers,$latPers)=explode(",",$location);
+    $latPers=$latPers;
+    $lonPers=$lonPers;
     DB::table("NewStarfood.dbo.Peopels")->insert(
     ['CompanyNo'=>5
     ,'GroupCode'=>$groupCode
@@ -2854,6 +2875,93 @@ public function addRandT(Request $request)
     }
     return redirect("/randt");
     
+}
+
+public function editRT(Request $request)
+{
+    $customerID=$request->post("customerId");
+    $hamrah=$request->post("mobilePhone");
+    $sabit=$request->post("sabitPhone");
+    $picture=$request->file('picture');
+    $secondGroupCode=$request->post("secondGroupCode");
+    $groupCode=314;
+    $name=$request->post("name");
+    $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+    $customerName=Session::get("username");
+    $description=$request->post("discription");
+    // $timeStamp=$request->post("timeStamp");
+    $peopeladdress=$request->post("peopeladdress");
+    $peopelEghtesadiCode="";
+    $companyCustName="";
+    $printName="";
+    $snMasir=79;
+    $snNahiyeh=$request->post("snNahiyeh");
+    $snMantagheh=$request->post("snMantagheh");
+
+    DB::table("NewStarfood.dbo.Peopels")->where('PSN',$customerID)->update(
+    [
+    'GroupCode'=>$groupCode
+    ,'Name'=>"$name"
+    ,'Description'=>"$description"
+    ,'CustomerIs'=>1
+    ,'FiscalYear'=>1399
+    ,'peopeladdress'=>"$peopeladdress"
+    ,'PeopelEghtesadiCode'=>"$peopelEghtesadiCode"
+    ,'CompanyCustName'=>"$companyCustName"
+    ,'PrintName'=>"$printName"
+    ,'SnGroupSecond'=>$secondGroupCode
+    ,'SnMasir'=>$snMasir
+    ,'SnNahiyeh'=>$snNahiyeh
+    ,'SnMantagheh'=>$snMantagheh]);
+    if($hamrah){
+    DB::table("NewStarfood.dbo.PhoneDetail")->where("SnPeopel",$customerID)->where('PhoneType',2)->update
+       (['PhoneStr'=>"$hamrah"]);
+    }
+
+    if($sabit){
+        DB::table("NewStarfood.dbo.PhoneDetail")->where("SnPeopel",$customerID)->where('PhoneType',1)->update
+       (['PhoneStr'=>"$sabit"]); 
+    }
+    if($hamrah){
+        $password =substr($hamrah,-4);
+        DB::table("NewStarfood.dbo.star_CustomerPass")->where('customerId',$customerID)->update
+        (['customerPss'=>"$password"
+        ,'userName'=>"$hamrah"]);
+    }else{
+        $password =substr($sabit,-4);
+        DB::table("NewStarfood.dbo.star_CustomerPass")->where('customerId',$customerID)->update
+        (['customerPss'=>"$password"
+        ,'userName'=>"$sabit"]);
+    }
+    if($picture){
+    $fileName=$customerID.".jpg";
+    $picture->move("resources/assets/images/customers/",$fileName);
+    }
+    return redirect("/randt");
+}
+public function getRandTInfo(Request $request)
+{
+    $csn=$request->get("csn");
+    $exactCustomer=DB::select("SELECT * FROM NewStarfood.dbo.Peopels JOIN Shop.dbo.MNM on Peopels.SnMantagheh=MNM.SnMNM where Peopels.PSN=".$csn);
+
+    $phones=DB::table("NewStarfood.dbo.PhoneDetail")->where("SnPeopel",$csn)->get();
+    $hamrah="";
+    $sabit="";
+    foreach ($phones as $phone) {
+
+        if($phone->PhoneType==2){
+            $hamrah.=$phone->PhoneStr;   
+        }
+
+        if($phone->PhoneType==1){
+            $sabit.=$phone->PhoneStr;   
+        }
+    }
+    $phones[0]->hamrah=$hamrah;
+    $phones[0]->sabit=$sabit;
+    $mantagheh=DB::table("Shop.dbo.MNM")->where("FatherMNM",$exactCustomer[0]->SnNahiyeh)->get();
+    $cities=DB::table("Shop.dbo.MNM")->where("FatherMNM",79)->get();
+    return Response::json([$exactCustomer[0],$phones,$cities,$mantagheh]);
 }
 
 }

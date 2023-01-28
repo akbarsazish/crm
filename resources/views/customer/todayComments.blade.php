@@ -41,6 +41,11 @@
                                 <div class="col-lg-4 text-start mt-2">
                                     <input type="text" id="customerSn" style="display:none"  value="" />
                                     <input type="text" id="factorSn" style="display:none"  value="" />
+                                    <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
+                                        <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                                        <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                        <Button class="btn btn-primary btn-sm float-start" id="fakeLogin" disabled type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
+                                    </form>
                                     <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard' >داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
                                     <button class="btn btn-primary btn-sm text-warning" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
                                 </div>
@@ -146,9 +151,10 @@
                             </div>
                                 <div class="row contentFooter">
                                         <div class="col-lg-12 mt-3 text-start">
-                                            <button type="button" class="btn btn-sm btn-primary footerButton"> نظرات امروز  <i class="fa fa-comments"></i> </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز  <i class="fa fa-comments"></i> </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton"> صدتای آخر  <i class="fa fa-comments"></i></button>
+                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('TODAY')"> نظرات امروز  <i class="fa fa-comments"></i> </button>
+                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('YESTERDAY')"> دیروز  <i class="fa fa-comments"></i> </button>
+                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('LASTHUNDRED')"> صدتای آخر  <i class="fa fa-comments"></i></button>
+                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('ALL')"> همه <i class="fa fa-comments"></i></button>
                                         </div>
                                 </div>
                             </div>
@@ -168,12 +174,7 @@
             <div class="modal-body"  style="background-color:#d2e9ff;">
                 <div class="row">
                     <div class="col-lg-12">
-                       <button class="btn btn-primary btn-sm buttonHover float-start" onclick="openAssesmentStuff()" id="openAssesmentStuffBtn" type="button" > افزودن نظر <i class="fa fa-address-card fa-lg"> </i> </Button>
-                        <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                            <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
-                            <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                            <Button class="btn btn-primary btn-sm float-start" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
-                        </form>
+
                     </div>
                 </div>
 				   <div class="row">
@@ -242,6 +243,7 @@
                             <li><a class="active" data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#custAddress"> فاکتور های ارسال شده </a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#moRagiInfo">  کالاهای خریداری کرده </a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#basketKalas"> کالاهای سبد خرید</a></li>
+                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#customerLoginInfo">ورود به سیستم</a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#returnedFactors"> فاکتور های برگشت داده </a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#comments">  کامنت ها </a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#assesments"> نظرسنجی ها</a></li>
@@ -332,6 +334,31 @@
                                 </div>
                             </div>
                         </div>
+                                
+                        <div class="row c-checkout rounded-3 tab-pane" id="customerLoginInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                            <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
+                                <div class="col-sm-12">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
+                                        <tr>
+                                            <th> ردیف</th>
+                                            <th>تاریخ</th>
+                                            <th>نوع پلتفورم</th>
+                                            <th>مرورگر</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="customerLoginInfoBody" class="tableBody">
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="c-checkout tab-pane talbeDashboardTop" id="comments">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
@@ -378,7 +405,7 @@
         </div>
     </div>
             <!-- Modal for reading comments-->
-            <div class="modal fade dragableModal" id="viewComment" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade dragableModal" id="viewComment" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -491,7 +518,7 @@
                             <div class="col-lg-9">
 							 <div class="row">
                                 <div class="col-lg-6">
-                                    <label for="tahvilBar" >کلاهای عودتی  </label>
+                                    <label for="tahvilBar" >کالاهای عودتی  </label>
                                     <textarea class="form-control  bg-light" style="position:relative" name="firstComment" rows="3"  ></textarea>
                                 </div>
                                 <div class="col-lg-6">
@@ -500,34 +527,6 @@
                                 </div>
                              </div>
                          </div>
-                         <div class="row mt-3" style=" border:1px solid #dee2e6; padding:5px; margin-right:3px;">
-                              <h6 style="padding:10px; text-align:center;">فاکتور فروش </h6>
-							    <div class="grid-container">
-									<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate">  </span> </div>
-									<div class="item2"> <b> مشتری  :  </b> <span  id="customerNameFactor"> </span>    </div>
-									<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactor"> </span>   </div>
-									<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactor"> </span></div>
-									<div class="item5"><span> کاربر :  </span>   <span id="Admin1"> </span></div>
-									<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactor">  </span></div>
-								</div>
-                            </div>
-                        <div class="row">
-                            <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
-                                <thead class="tableHeader">
-                                  <tr>
-                                    <th>ردیف</th>
-                                    <th>نام کالا </th>
-                                    <th>تعداد/مقدار</th>
-                                    <th>واحد کالا</th>
-                                    <th>فی (تومان)</th>
-                                    <th style="width:122px">مبلغ (تومان)</th>
-                                  </tr>
-                                </thead>
-                                <tbody id="productList" class="tableBody">
-
-                                </tbody>
-                              </table>
-                        </div>
                     </div>
                 </form>
              </div>

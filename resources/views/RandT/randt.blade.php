@@ -7,22 +7,17 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 920px) {
-    .mobileDisplay{ display:none;}
-    .bazarYabTable, tr{ font-size:10px !important;}
-    .selectTr{width:20px !important; padding:0px;}
-    
-}
+
 .bazarYabaction {
     min-width: 140px;
 }
 </style>
-    <div class="container" style="margin-top:6%;">
+    <div class="container-xl" style="margin-top:6%;">
             <div class="row">
-                <h3 class="page-title">  مشتری جدید </h3>
+                <h3 class="page-title"> مشتریان R&D </h3>
             </div>
             <div class="row">
-                     <div class="col-sm-2">
+                     <div class="col-sm-2 mb-1">
                         <div class="form-group ">
                             <input type="text" name="" size="20" placeholder="جستجو" class="form-control publicTop" id="allKalaFirst">
                         </div>
@@ -42,21 +37,20 @@
                         @if(Session::get('adminType')==1 or Session::get('adminType')==5)
                         <button class='enableBtn btn btn-primary btn-sm btn-md text-warning buttonHover'   style="width:170px;"  disabled id="takhsisButton">بررسی مشتری<i class="fal fa-tasks fa-lg"> </i> </button>
                         @endif
-                        @if(Session::get('adminType')==1 or Session::get('adminType')==3)
-                        <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" disabled onclick="openEditCustomerModalForm()">ویرایش مشتری<i class="fa fa-plus-square fa-lg"></i></button>            
-                        @endif
-                        <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" id="addingNewCustomerBtn">افزودن مشتری جدید  <i class="fa fa-plus-square fa-lg"></i></button>            
+                        
+                        <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" disabled id="editRTbtn">ویرایش <i class="fa fa-plus-square fa-lg"></i></button>            
+                       
+                        <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square fa-lg"></i></button>            
                     </div>
             </div>  
             <div class="row">
                 <div class="col-lg-12 p-2">
-                     <h1>لیست مشتریان جدید برای ادمین </h1>
                      <table class='table table-bordered table-striped homeTables'>
                         <thead class="tableHeader">
                         <tr>
                             <th class="mobileDisplay">ردیف</th>
                             <th style="width:122px;">اسم</th>
-                            <th style="width:111px;">شماره تماس</th>
+                            <th class="mobileDisplay" style="width:111px;">شماره تماس</th>
                             <th class="mobileDisplay" style="width:88px">منطقه </th>
                             <th style="width:88px">تاریخ ثبت</th>
                             <th> ادرس</th>
@@ -65,10 +59,10 @@
                         </thead>
                         <tbody class="select-highlight tableBody" id="customerListBody1">
                             @foreach($customers as $customer)
-                                <tr>
+                                <tr onclick="setEditRTStuff({{$customer->PSN}})">
                                     <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
                                     <td style="width:122px;">{{$customer->Name}}</td>
-                                    <td style="width:111px;">{{$customer->PhoneStr}}</td>
+                                    <td class="mobileDisplay" style="width:111px;">{{$customer->PhoneStr}}</td>
                                     <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
                                     <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
                                     <td>{{$customer->peopeladdress}}</td>
@@ -168,7 +162,7 @@
                                     </select>
                                 </div>
                             </div>
-							  <div class="col-md-2">
+							<div class="col-md-2">
                                  <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> نوع مشتری </label>
                                     <select class="form-select" name="secondGroupCode">
@@ -197,8 +191,10 @@
                             @endif
                             <div class="col-md-4">
                                <div class="form-group">
-                                    <label class="dashboardLabel dashboardLabel form-label"> عکس </label>
-								    <input type="file" class="form-control" name="picture" accept="image/*" capture="user">
+                               <div class="form-group">
+                                    <label class="dashboardLabel dashboardLabel form-label">توضیح</label>
+                                    <textarea name="discription"   required class="form-control" cols="20" rows="3"></textarea>
+                                </div>
                                 </div>
                             </div>  
 							<div class="col-md-3">           
@@ -209,7 +205,7 @@
                    
                         <div class="modal-footer mt-2">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                            <button type="submit" id="submitRT" disabled class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
                         </div>
                     </form>
                 </div>
@@ -226,7 +222,7 @@
                     <h5 class="modal-title" id="exampleModalLongTitle"> ویرایش مشتری</h5>
                 </div>
                 <div class="modal-body">
-                    <form action="{{url('/editCustomer')}}" method="POST"  enctype="multipart/form-data">
+                    <form action="{{url('/editRT')}}" method="POST"  enctype="multipart/form-data">
                     @csrf   
                     <input type="hidden" name="customerId" id="customerID" value="3004345"> 
                         <div class="row">
@@ -295,19 +291,20 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> نوع مشتری </label>
-                                    <select class="form-select" name="groupCode" id="groupCode">
-                                            <option value="314" >جدید</option>
+                                    <select class="form-select" name="secondGroupCode">
+										<option value="7" >رستوران</option>
+										<option value="8" >کترينگ</option>
+										<option value="9" >فست فود</option>
                                     </select>
-                                    <input type="hidden" name="adminId" id="adminId">
                                 </div>
                             </div>
 							<div class="col-md-6">           
                                 <div class="form-group">
-                                    <label class="dashboardLabel dashboardLabel form-label"> عکس </label>
-                                    <input type="file" class="form-control" name="picture"  name="image" accept="image/*" capture="user">
+                                    <label class="dashboardLabel dashboardLabel form-label">توضیح</label>
+                                    <textarea name="discription"  required class="form-control" id="discription" cols="20" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -403,6 +400,7 @@ function generatePassword() {
             map_init.fitBounds(featureGroup.getBounds());
 			$("#currentLocationInput").val(lat+','+long);
 			$("#saveLocationBtn").prop("disabled",false);
+            $("#submitRT").prop("disabled",false);
             //alert("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy);
         }
 	  
@@ -421,21 +419,7 @@ function generatePassword() {
 		$("#currentLocationModa").modal("hide");
 	}
 	
-$("#addingNewCustomerBtn").on("click", ()=>{
-  if (!($('.modal.in').length)) {
-                $('.modal-dialog').css({
-                  top: 0,
-                  left: 0
-                });
-              }
-              $('#addingNewCutomer').modal({
-                backdrop: false,
-                show: true
-              });
-              
-              $('.modal-dialog').draggable({
-                  handle: ".modal-header"
-                });	
+$("#addingNewCustomerBtn").on("click", ()=>{	
 		$("#addingNewCutomer").modal("show");
 
 });

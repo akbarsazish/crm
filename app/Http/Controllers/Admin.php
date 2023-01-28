@@ -34,8 +34,48 @@ class Admin extends Controller
         $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
         $regions=DB::select("SELECT * FROM Shop.dbo.MNM WHERE CompanyNo=5 and SnMNM>82");
         $cities=DB::select("Select * FROM Shop.dbo.MNM WHERE  CompanyNo=5 and RecType=1 AND FatherMNM=79");
-        return View('admin.listKarbaran',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities]);
+        $saleLines=DB::select("SELECT * FROM CRM.dbo.crm_SaleLine where deleted=0");
+        foreach ($saleLines as $line) {
+            $managers=DB::table("CRM.dbo.crm_admin")->where('saleLineId',$line->SaleLineSn)->where("employeeType",1)->get();
+            $line->manager=$managers;
+            foreach($line->manager as $manager){
+                $heads=DB::table("CRM.dbo.crm_admin")->where('bossId',$manager->id)->get();
+                $manager->head=$heads;
+                foreach($manager->head as $head){
+                    $employee=DB::table("CRM.dbo.crm_admin")->where('bossId',$head->id)->get();
+                    $head->employee=$employee;
+                }
+            }
+        }
+        $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=1 and deleted=0");
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=2  and deleted=0");
+
+        return View('admin.listKarbaran',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'saleLines'=>$saleLines,'managers'=>$managers,'heads'=>$heads]);
     }
+    public function karbaranOperations(Request $request)
+    {
+        $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
+        $regions=DB::select("SELECT * FROM Shop.dbo.MNM WHERE CompanyNo=5 and SnMNM>82");
+        $cities=DB::select("Select * FROM Shop.dbo.MNM WHERE  CompanyNo=5 and RecType=1 AND FatherMNM=79");
+        $saleLines=DB::select("SELECT * FROM CRM.dbo.crm_SaleLine where deleted=0");
+        foreach ($saleLines as $line) {
+            $managers=DB::table("CRM.dbo.crm_admin")->where('saleLineId',$line->SaleLineSn)->where("employeeType",1)->get();
+            $line->manager=$managers;
+            foreach($line->manager as $manager){
+                $heads=DB::table("CRM.dbo.crm_admin")->where('bossId',$manager->id)->get();
+                $manager->head=$heads;
+                foreach($manager->head as $head){
+                    $employee=DB::table("CRM.dbo.crm_admin")->where('bossId',$head->id)->get();
+                    $head->employee=$employee;
+                }
+            }
+        }
+        $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=1 and deleted=0");
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=2  and deleted=0");
+
+        return View('admin.karbaranOperation',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'saleLines'=>$saleLines,'managers'=>$managers,'heads'=>$heads]);
+    }
+
     public function allCustomers(Request $request)
     {
         $customers=DB::select("SELECT TOP 20 * FROM(
@@ -291,7 +331,7 @@ SELECT * FROM (
         $name=$request->post("name");
         $userName=$request->post("userName");
         $lastName=$request->post("lastName");
-        $bossId=$request->post("bossId");
+        
         $password=$request->post("password");
         $adminType=$request->post("adminType");
         $phone=$request->post("phone");
@@ -301,6 +341,27 @@ SELECT * FROM (
         $hasAsses=$request->post("hasAsses");
         $hasAllCustomer=$request->post("hasAllCustomer");
         $picture=$request->file('picture');
+        $poshtibanType=$request->post("poshtibanType");
+        $employeeType=$request->post("employeeType");
+        $manager=$request->post("manager");
+        $head=$request->post("head");
+        $saleLine=$request->post("saleLine");
+        $bossId=0;
+        $saleLineSn=0;
+
+        if($manager){
+            $bossId=$manager;  
+        }
+
+        if($head){
+            $bossId=$head;  
+        }
+        
+        
+        if($saleLine){
+            $saleLineSn=$saleLine;
+        }
+        
         if($picture){
             $fileName=$picture->getClientOriginalName();
             $maxId=0;
@@ -313,7 +374,10 @@ SELECT * FROM (
             $fileName=$maxId.".jpg";
             $picture->move("resources/assets/images/admins/",$fileName);
         }
-        DB::table("CRM.dbo.crm_admin")->insert(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'hasAllCustomer'=>$hasAllCustomer,'bossId'=>$bossId]);
+        DB::table("CRM.dbo.crm_admin")->insert(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",
+        'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,'address'=>$address,
+        'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'hasAllCustomer'=>$hasAllCustomer,
+        'bossId'=>$bossId,'employeeType'=>$employeeType,'SaleLineId'=>$saleLineSn,'poshtibanType'=>$poshtibanType]);
         return redirect("/listKarbaran");
     }
     public function addAdminFromList(Request $request)
@@ -1482,6 +1546,7 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         $otherAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id not in(SELECT DISTINCT admin_id FROM CRM.dbo.crm_customer_added WHERE  returnState=0) and id !=".$adminId." and (adminType=3 or adminType=2)");
         $bossAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id !=".$adminId." and deleted=0 and (adminType!=4)");
 
+
         return Response::json([$admin,$otherAdmins,$bossAdmins]);
     }
     
@@ -2251,14 +2316,15 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         $hasAsses=$request->post("hasAsses");
         $hasAllCustomer=$request->post("hasAllCustomer");
         $adminId=$request->post('adminId');
-        $bossId=$request->post('bossId');
-        
+
         if($request->file('picture')){
             $picture=$request->file('picture');
             $fileName=$adminId.".jpg";
             $picture->move("resources/assets/images/admins/",$fileName);
         }
-        DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'poshtibanType'=>$poshtibanType,'hasAllCustomer'=>$hasAllCustomer,'bossId'=>$bossId]);
+        DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['username'=>"".$userName."",'name'=>"".$name."",
+                                            'lastName'=>"".$lastName."",'adminType'=>$adminType,'password'=>"".$password."",
+                                            'activeState'=>1,'phone'=>$phone,'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'poshtibanType'=>$poshtibanType,'hasAllCustomer'=>$hasAllCustomer,'bossId'=>$bossId]);
         
         return redirect("/assignCustomer");
     }
@@ -2284,8 +2350,28 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         }
         $hasAllCustomer=$request->post("hasAllCustomer");
         $adminId=$request->post('adminId');
-        $bossId=$request->post('bossId');
+        $bossId=0;
+        $poshtibanType=$request->post("poshtibanType");
+        $employeeType=$request->post("employeeType");
+        $manager=$request->post("manager");
+        $head=$request->post("head");
+        $saleLine=$request->post("saleLine");
+       // $bossId=0;
+        $saleLineSn=0;
+
+        if($manager){
+            $bossId=$manager;  
+        }
+
+        if($head){
+            $bossId=$head;  
+        }
         
+        if($saleLine){
+            $saleLineSn=$saleLine;
+        }
+
+
         if($request->file('picture')){
             $picture=$request->file('picture');
             $fileName=$adminId.".jpg";
@@ -2294,9 +2380,13 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         
         DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",'poshtibanType'=>$poshtibanType,
                                                                         'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,
-                                                                        'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,
-                                                                        'driverId'=>0,'hasAllCustomer'=>$hasAllCustomer,'bossId'=>$bossId,'hasAlarm'=>$hasAlarm]);
+                                                                        'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'hasAllCustomer'=>$hasAllCustomer,'hasAlarm'=>$hasAlarm]);
         return redirect("/listKarbaran");
+    }
+    public function getHeads(Request $request)
+    {
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where employeeType=2 and deleted=0");
+        return Response::json($heads);
     }
 
     
@@ -2716,6 +2806,12 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
     {
         $positiveBonus=$request->get("positive");
         $negativeBonus=$request->get("negative");
+        if(!$positiveBonus){
+            $positiveBonus=0;
+        }
+        if(!$negativeBonus){
+            $negativeBonus=0;
+        }
         $discriptionBonus=$request->get("discription");
         $adminId=$request->get("adminId");
         DB::table("CRM.dbo.crm_adminUpDownBonus")
@@ -2755,6 +2851,15 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
                                 ON crm_admin.id=crm_adminUpDownBonus.adminId WHERE isUsed=0 AND adminId=$adminId");
 
         return Response::json($adminHistory);
+    }
+    public function addToHeadEmployee(Request $request)
+    {
+        $adminIDs=$request->get("adminID");
+        $headId=$request->get("headId");
+        foreach($adminIDs as $adminId){
+            DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['bossId'=>$headId]);
+        }
+        return Response::json("good");
     }
 
 

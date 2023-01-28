@@ -7,6 +7,7 @@ use App\Http\Middleware\CheckAdmin;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\SalseExper;
 use App\Http\Controllers\Poshtiban;
+use App\Http\Controllers\SaleLine;
 //poshtiban routes
 Route::get('/customers',[Customer::class,'index'])->middleware('CheckPoshtiban');
 Route::post('/changeDate',[Admin::class,'changeDate'])->middleware('CheckPoshtiban');
@@ -14,6 +15,9 @@ Route::get("/calendar",[Admin::class,"myCalendar"])->middleware('CheckPoshtiban'
 Route::get("/getCustomerForTimeTable",[Customer::class,"getCustomerForTimeTable"])->middleware('CheckPoshtiban');
 Route::get('/myCustomers',[Customer::class,'myCustomers'])->middleware('CheckPoshtiban');
 Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckPoshtiban');
+Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
+Route::get('/getRandTInfo',[Customer::class,'getRandTInfo'])->middleware('CheckPoshtiban');
+Route::post('/editRT',[Customer::class,'editRT'])->middleware('CheckPoshtiban');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
 //common routes for all
 Route::get("/addComment",[Customer::class,"addComment"])->middleware('CheckCommon');
@@ -246,4 +250,14 @@ Route::post('/addRandT',[Customer::class,'addRandT'])->middleware('CheckCommon')
 //بعد از تغیر ساختار
 Route::get('/getAsses',[Customer::class,'getAsses'])->middleware('CheckCommon');
 Route::get('/getDonCommentInfo',[Customer::class,'getDonCommentInfo'])->middleware('CheckCommon');
+Route::get('/getDoneAsses',[Customer::class,'getDoneAsses'])->middleware('CheckCommon');
+Route::get('/saleLine',[SaleLine::class,'index'])->middleware('CheckCommon');
+Route::get('/addSaleLine',[SaleLine::class,'addSaleLine'])->middleware('CheckCommon');
+Route::get('/getSaleLine',[SaleLine::class,'getSaleLine'])->middleware('CheckCommon');
+Route::get('/editSaleLine',[SaleLine::class,'editSaleLine'])->middleware('CheckCommon');
+Route::get('/deleteSaleLine',[SaleLine::class,'deleteSaleLine'])->middleware('CheckCommon');
+Route::get('/getEmployees',[SaleLine::class,'getEmployees'])->middleware('CheckCommon');
+Route::get('/getHeads',[Admin::class,'getHeads'])->middleware('CheckCommon');
+Route::get('/addToHeadEmployee',[Admin::class,'addToHeadEmployee'])->middleware('CheckCommon');
 Route::get('/bonusIncreaseDecrease',[SalseExper::class,'bonusIncreaseDecrease'])->middleware('CheckCommon');
+Route::get('/karbaranOperations',[Admin::class,'karbaranOperations'])->middleware('CheckCommon');
