@@ -1,30 +1,84 @@
 @extends('layout')
 @section('content')
-<main>
-    <div class="container" style="margin-top:4%;">
-         <h3 class="page-title">لیست آلارم  </h3>
-    <div class="card mb-4" style="margin: 0; padding:0;">
-        <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-7">
-                             <div class="row">
-                                  <div class="form-group col-sm-3 mt-2">
-                                        <input type="text" name="" size="20" placeholder="نام" class="form-control publicTop" id="searchCustomerAalarmName">
-                                    </div>
-                                    <div class="form-group col-sm-2 mt-2">
-                                        <input type="text" name="" placeholder="کد" class="form-control publicTop" id="searchCustomerAalarmCode">
-                                    </div>
-                             
-                                    <div class="form-group col-sm-3 mt-2">
-                                        <select class="form-select  publicTop" id="searchCustomerAaramOrder">
-                                            <option hidden>مرتب سازی</option>
-                                            <option value="0">اسم</option>
-                                            <option value="1">کد</option>
-                                        </select>
-                                    </div>
-                              </div>
+<style>
+    .loginReport {
+    width:122px;
+}
+#customerWithOutAlarmBuyOrNot {
+    display:none;
+}
+</style>
+<div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="customerWithAlarm">
+                                <label class="form-check-label me-4" for="assesPast"> آلارمها </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="">
+                                <label class="form-check-label me-4" for="assesDone"> آلارمهای انجام شده  </label>
+                            </div> <br>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="customerWithOutAlarm">
+                                <label class="form-check-label me-4" for="assesDone"> مشتریان فاقد آلارم </label>
+                            </div>
+                            <div class="form-group col-sm-12 mb-2" id="customerWithOutAlarmBuyOrNot">
+                                <select class="form-select form-select-sm" id="buyOrNot">
+                                    <option value="-1"> خرید  </option>
+                                    <option value="2"> دارد </option>
+                                    <option value="1"> ندارد </option>
+                                </select>
+                            </div> 
+                        
+                        <div class="row">
+                             <div class="form-group col-sm-12 mb-1">
+                                <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                            </div>
+                            <div class="form-group col-sm-12 mb-2">
+                                <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                            </div>
                         </div>
-                       <div class="col-sm-5 mt-2 text-start">
+                        
+                    </fieldset>
+                  </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader">
+                        <div class="col-sm-7 text-end">
+                            <div class="row">
+                                <div class="form-group col-sm-2 mt-2 px-1">
+                                    <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm " id="searchAllName">
+                                </div>
+                                <div class="form-group col-sm-2 mt-2 px-1">
+                                    <select class="form-select form-select-sm " id="searchByCity">
+                                       <option value="0" hidden> شهر</option>
+                                       <option value="0"> همه</option>
+                                       
+                                        <option value=""> تهران </option>
+                                     
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-2 mt-2 px-1">
+                                    <select class="form-select form-select-sm " id="searchByMantagheh">
+                                    <option value="0" hidden>منطقه</option>
+                                    <option value="0">همه</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-sm-2 mt-2 px-1">
+                                    <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                        <option value="-1">مرتب سازی</option>
+                                        <option value="2"> کد </option>
+                                        <option value="3">اسم</option>
+                                        <option value="1">همراه </option>
+                                        <option value="1"> تاریخ  </option>
+                                        <option value="1"> کاربر </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5 text-start">
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
                             <input type="text" id="adminSn" style="display: none" name="adminSn" value="" />
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id='openDashboardForAlarm'> داشبورد <i class="fal fa-dashboard "></i></button>
@@ -32,28 +86,20 @@
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"  onclick="alarmHistory()"> گردش آلارم  <i class="fal fa-history "></i></button>
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id="inactiveButton">غیر فعال <i class="fal fa-ban"></i> </button>
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
-                     </div>
-                 </div>
-           <div class="row">
-            <div class="col-sm-12">
-                    <div class="well" style="margin-top:2%;">
-                        <div class="row" style="margin: 0; padding:0;">
-                            <div class="alert col-sm-3" style="padding: 0; margin:0;">
-                                
-                            </div>
                         </div>
-                            <div class="col-sm-12">
-                                <table id="strCusDataTable" class='table table-bordered table-striped'>
+                   </div>
+                    <div class="row mainContent">
+                        <div class="col-lg-12">
+                            <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
                                     <thead class="tableHeader">
                                         <tr >
-											<th>ردیف</th>
-											<th style="width:188px">اسم</th>
-											<th style="width:333px">آدرس </th>
+											<th> ردیف </th>
+											<th >اسم</th>
 											<th> شماره تماس</th>
-											<th>منطقه </th>
-											<th> تعیین </th>
-											<th> گذشته </th>
-											<th> کاربر  </th>
+											<th style="width:77px">منطقه </th>
+											<th style="width:66px"> تعیین </th>
+											<th style="width:111px"> تاریخ  </th>
+											<th style="width:166px"> کاربر  </th>
 											<th>انتخاب</th>
                                        </tr>
                                     </thead>
@@ -61,25 +107,36 @@
                                         @foreach ($customers as $customer)
                                             <tr onClick="setAlarmCustomerStuff(this)">
                                                 <td >{{$loop->iteration}}</td>
-                                                <td style="width:188px">{{trim($customer->Name)}}</td>
-                                                <td style="width:333px; font-size:12px;">{{trim($customer->peopeladdress)}}</td>
+                                                <td>{{trim($customer->Name)}}</td>
                                                 <td>{{trim($customer->PhoneStr)}}</td>
-                                                <td>{{trim($customer->NameRec)}}</td>
-                                                <td>{{$customer->assignedDays}}</td>
-                                                <td>{{$customer->PassedDays}}</td>
-                                                <td>{{trim($customer->poshtibanName).' '.trim($customer->poshtibanLastName)}}</td>
+                                                <td style="width:77px">{{trim($customer->NameRec)}}</td>
+                                                <td style="width:66px">{{$customer->assignedDays}}</td>
+                                                <td style="width:111px; color:red"> 1401/08/12  </td>
+                                                <td style="width:166px">{{trim($customer->poshtibanName).' '.trim($customer->poshtibanLastName)}}</td>
                                                 <td><input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->adminId.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
-                                </table>
+                             </table>
+                             <div class="grid-today rounded-2">
+                                <div class="today-item"> <span style="color:red; font-weight:bold;">  تاریخ آخرین فاکتور : </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="today-item"> <span style="color:red; font-weight:bold;">  تاریخ آلارم : </span> <span id="loginTimeToday"></span>  </div>
                             </div>
                         </div>
+                     </div>
+                    <div class="row contentFooter"> 
+                    <div class="col-lg-12 text-start mt-2">
+                                <button type="button" class="btn btn-sm btn-primary loginReport"> امروز  : </button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport"> دیروز : </button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport"> صد تای آخر : 100</button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport"> همه : </button>
+                           </div>
+
                     </div>
                 </div>
-            </div>
         </div>
     </div>
+    
     <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-xl">
                 <div class="modal-content">

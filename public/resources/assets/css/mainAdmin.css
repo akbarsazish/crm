@@ -7039,3 +7039,18 @@ span.content{
     width: 111px;
     border: 1px solid white;
 }
+
+.grid-today {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    background-color: #b3d1ef;
+  }
+  .today-item {
+    font-size: 14px;
+    text-align: center;
+    margin-top:5px;
+    padding:3px;
+    color:#000;
+  }
+
+ 

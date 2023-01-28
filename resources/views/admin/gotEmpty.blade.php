@@ -37,7 +37,7 @@
                     <div class="well" style="margin-top:2%;">
                         <div class="c-checkout container p-1 pb-4 rounded-3">
                             <div class="col-sm-12 " style="padding:0; padding-left:25px;  margin-top: 0;">
-                                <table class=' table table-bordered table-striped table-sm' style='width:100%'>
+                                <table class=' table table-bordered table-striped table-sm'>
                                     <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -352,7 +352,8 @@
 <link rel="stylesheet" href="http://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script>
-    $("#searchEmptyFirstDate").persianDatepicker({
+    
+$("#searchEmptyFirstDate").persianDatepicker({
     cellWidth: 30,
     cellHeight: 12,
     fontSize: 12,

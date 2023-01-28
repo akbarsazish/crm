@@ -6,18 +6,7 @@
 		margin-top:22% !important;
 	}
 }
-.grid-today {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  background-color: #b3d1ef;
-}
-.today-item {
-  font-size: 14px;
-  text-align: center;
-  margin-top:5px;
-  padding:3px;
-  color:#000;
-}
+
 
 .fa-dashboard:hover{
         color:rgb(251, 162, 54)

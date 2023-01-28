@@ -18,9 +18,7 @@
                                         <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="assesDone">
                                         <label class="form-check-label me-4" for="assesDone"> نظرات انجام شده </label>
                                     </div>
-                                    <div class="mb-1">
-                                        <input type="text" id="assescustomerName" placeholder="جستجو " class="form-control form-control-sm">
-                                    </div>
+                                   
                                     <div class="input-group input-group-sm mb-1">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">تاریخ </span>
                                         <input type="text" class="form-control" id="assesFirstDate">
@@ -35,7 +33,12 @@
                     </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                             <div class="row contentHeader">
-                                <div class="col-lg-12 text-start mt-2">
+                                <div class="col-lg-8 text-end mt-2">
+                                    <div class="col-sm-2 mb-1">
+                                        <input type="text" id="assescustomerName" placeholder="جستجو " class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 text-start mt-2">
                                     <input type="text" id="customerSn" style="display:none"  value="" />
                                     <input type="text" id="factorSn" style="display:none"  value="" />
                                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
@@ -49,7 +52,7 @@
                             </div>
                             <div class="row mainContent">
                             <div id="assesNotDone">
-                              <table class='table-striped table-bordered table-sm'>
+                              <table class='table table-striped table-bordered table-sm'>
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -124,14 +127,21 @@
                                     </tbody>
                                 </table>
                                 <hr>
+
+                                <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
+                                    <div class="grid-container">
+                                        <div class="item1"> <b style="color:red; bold"> تاریخ   : </b> <span id="doneCommentDate">  </span> </div>
+                                        <div class="item3"> <b style="color:red; bold"> آلارم    : </b> <span id="doneCommentAlarm"> </span> </div>
+                                        <div class="item2"> <b style="color:red; bold"> کامنت   : </b> <span  id="doneCommentComment"> </span> </div>
+                                    </div>
+                                </div>
+                                
                                 <table id="" class='table table-bordered table-striped table-sm'>
                                     <thead class="tableHeader">
                                         <tr>
                                             <th>ردیف</th>
-                                            <th>تاریخ </th>
-                                            <th>کامنت </th>
-                                            <th>آلارم</th>
 											<th>عودتی</th>
+                                            <th> انتخاب </th>
                                         </tr>
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="customerListBodyDoneDetail" style="height:250px !important">

@@ -71,13 +71,13 @@
                                         <li class=''><a class="mySidenav__item" href="{{url('/randt')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; R&D</span></a> </li>
                                         <li class=''><a class="mySidenav__item" href="{{url('/saleLine')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; افزودن خط فروش</span></a> </li>
                                         <li class=''> <a class="mySidenav__item" href="{{url('/bonusSetting')}}"><i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات  </span></a></li>
-                                                <li class='has-sub'><a class="mySidenav__item" href="#"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تنظیمات    </span></a>
+                                                <!-- <li class='has-sub'><a class="mySidenav__item" href="#"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تنظیمات    </span></a>
                                                     <ul>
                                                         <li></li>
                                                         <li class=''> <a class="mySidenav__item" href="{{url('/bonusSetting')}}"><i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات امتیاز </span></a></li>
                                                         <li class=''> <a class="mySidenav__item" href="{{url('/crmSetting')}}"> <i class="fas fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i> &nbsp;  تنظیمات دیگر </a> </li>
                                                     </ul>
-                                                </li>
+                                                </li> -->
                                         
                                         </ul>
                                     </li>
@@ -110,10 +110,17 @@
                                         </a>
                                         <ul>
                                             <li class=''><a class="mySidenav__item" href="{{url('/assignCustomer')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; تخصیص به کاربر </span></a> </li>
-
+                                            <li class=''><a class="mySidenav__item" href="{{url('/karbaranOperations')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; کاربران </span></a> </li>
                                             <li class=''><a class="mySidenav__item" href="{{url('/driverService')}}"> &nbsp;&nbsp; <i class="fas fa-car fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; سرویس راننده ها </span></a></li>
-                                            <li class=''><a class="mySidenav__item" href="{{url('/commentToday')}}"><span><i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; نظر سنجی  </span></a>
-                                            @if(Session::get("hasAsses")=="on")
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/commentToday')}}"><span>  &nbsp; &nbsp; <i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp; نظر سنجی  </span></a>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bonusIncreaseDecrease')}}"><span>  &nbsp; &nbsp; <i class="fa-solid fa-plus-minus" style="color:#fff;"></i>  افزایش و کاهش امتیاز </span></a>
+                                            @php
+                                            $hasAlarm=Session::get("hasAlarm");
+                                            @endphp
+                                            @if(trim(Session::get("hasAlarm"))=="on")
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/alarm')}}">  &nbsp; &nbsp; <i class="fa fa-exclamation-triangle" style="color:#fff;"></i> &nbsp; آلارم   @if($countAlarms>0) <span class="position-absolute badge rounded-pill bg-danger"> {{$countAlarms}} </span>  @endif </a> </li>
+                                            @endif
+                                            <!-- @if(Session::get("hasAsses")=="on")
                                                 <li class='has-sub'><a class="mySidenav__item" href="{{url('/dashboardAdmin')}}"><span><i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; نظر سنجی  </span></a>
                                                     <ul>
                                                         <li><a class="mySidenav__item" href="{{url('/commentToday')}}">&nbsp;&nbsp;<i class="fa-regular fa-user fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp;  نظرات امروز </a></li>
@@ -121,16 +128,8 @@
                                                         <li><a class="mySidenav__item" href="{{url('/commentDone')}}">&nbsp;&nbsp;<i class="fa-regular fa-tasks fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp;  نظرات انجام شده </a></li>
                                                     </ul>
                                                 </li>
-                                            @endif
-                                            <li class=''> 
-                                                <a class="mySidenav__item" href="{{url('/message')}}">
-                                                    <span><i class="fas fa-message fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;پیام ها
-                                                        @if($inbox)
-                                                            <span class="position-absolute badge rounded-pill bg-danger"> {{$inbox}} </span>
-                                                        @endif
-                                                    </span>
-                                                </a> 
-                                            </li>
+                                            @endif -->
+                                        <li class=''> <a class="mySidenav__item text-white" href="{{url('/message')}}"> &nbsp; &nbsp; <span><i class="fas fa-message fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;پیام ها  @if($inbox) <span class="position-absolute badge rounded-pill bg-danger"> {{$inbox}} </span> @endif  </span></a>  </li>
                                         </ul>
                                     </li>
                                 @endif
@@ -164,6 +163,9 @@
                                         <ul>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/subTrees')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد کارمندان </a></li>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/reports')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد مشتریان </a></li>
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/kalaAction')}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد کالا </a></li>
+                                        
+                                        
                                             <li class='has-sub newSub'><a class="mySidenav__item" href="#"><span> <i class="fa fa-check fa-lg" style="color:#ba7802; margin-right:15px;"></i> عملکرد کارمندان </span></a>
                                                 <ul class="newSubli">
                                                     <li></li>
@@ -205,28 +207,7 @@
                                                     <li class=''><a class="mySidenav__item text-white" href="{{url('/customerLocation')}}"><i class="fas fa-map-marker-alt fa-lg" style="color:#fff; margin-right:20px;"></i> موقعیت  </a></li>
                                                 </ul>
                                             </li>
-                                            <li class='has-sub newSub' style="color:#ffc107;"><a class="mySidenav__item" href="{{url('/kalaAction')}}"> <i class="fa-regular fa-tasks fa-lg" style="margin-right:15px; color:#ba7802;"></i>عملکرد کالاها</a>
-                                                <ul class="newSubli">
-                                                    <li></li>
-                                                    <li class='has-sub'><a class="mySidenav__item text-white" href="{{url('/kalaAction')}}"> &nbsp;<i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> عملکرد عمومی</a></li>
-                                                </ul>
-                                            </li>
-                                            @php
-                                                $hasAlarm=Session::get("hasAlarm");
-                                            @endphp
-                                            @if(trim(Session::get("hasAlarm"))=="on")
-                                                <li class=''>
-                                                    <a class="mySidenav__item" href="{{url('/alarm')}}">
-                                                        <span>
-                                                            <i class="fa fa-exclamation-triangle" style="color:#fff;"></i>
-                                                            &nbsp;&nbsp;آلارم  
-                                                            @if($countAlarms>0)  
-                                                            <span class="position-absolute badge rounded-pill bg-danger"> {{$countAlarms}} </span>
-                                                            @endif
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            @endif
+                                          
                                         </ul>
                                     </li>
                                 @endif

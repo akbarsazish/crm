@@ -430,82 +430,82 @@ $.ajax({
 
 
 function setAdminStuff(element) {
-$(element).find('input:radio').prop('checked', true);
-let input = $(element).find('input:radio');
-let adminType = input.val().split('_')[1];
-let id = input.val().split('_')[0];
-$("#asn").val(id);
-$("#AdminForAdd").val(id);
-$("#adminTakerId").val(id);
-if ((adminType >1 & adminType <4)) {
-    $("#customerContainer").css("display", "flex");
-    $.ajax({
-        method: 'get',
-        url: baseUrl + "/getCustomer",
-        data: {
-            _token: "{{ csrf_token() }}"
-        },
-        async: true,
-        success: function(arrayed_result) {
-            
-            $('#allCustomer').empty();
-            
-            arrayed_result.forEach((element, index) => {
-                $('#allCustomer').append(`
-            <tr onclick="checkCheckBox(this,event)">
-                <td style="">` + (index + 1) +  `</td>
-                <td style="">` + element.PCode +  `</td>
-                <td>` + element.Name + `</td>
-                <td style="">
-                <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
-                </td>
-            </tr>
-        `);
-            });
+    $(element).find('input:radio').prop('checked', true);
+    let input = $(element).find('input:radio');
+    let adminType = input.val().split('_')[1];
+    let id = input.val().split('_')[0];
+    $("#asn").val(id);
+    $("#AdminForAdd").val(id);
+    $("#adminTakerId").val(id);
+    if ((adminType >1 & adminType <4)) {
+        $("#customerContainer").css("display", "flex");
+        $.ajax({
+            method: 'get',
+            url: baseUrl + "/getCustomer",
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            async: true,
+            success: function(arrayed_result) {
+                
+                $('#allCustomer').empty();
+                
+                arrayed_result.forEach((element, index) => {
+                    $('#allCustomer').append(`
+                <tr onclick="checkCheckBox(this,event)">
+                    <td style="">` + (index + 1) +  `</td>
+                    <td style="">` + element.PCode +  `</td>
+                    <td>` + element.Name + `</td>
+                    <td style="">
+                    <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
+                    </td>
+                </tr>
+            `);
+                });
 
-        },
-        error: function(data) {}
-    });
-    $.ajax({
-        method:'get',
-        url: baseUrl + "/getAddedCustomer",
-        data: {
-            _token:"{{ csrf_token() }}",
-            adminId: id
-        },
-        async: true,
-        success: function(arrayed_result) {
-            if(arrayed_result.length>0){
-                $("#emptyKarbarButton").prop("disabled",false);
-                $("#moveKarbarButton").prop("disabled",false);
-                $("#deleteAdmin").prop("disabled",true);
-            }else{
-                $("#emptyKarbarButton").prop("disabled",true);
-                $("#moveKarbarButton").prop("disabled",true);
-                $("#deleteAdmin").prop("disabled",false);
-            }
-            $('#addedCustomer').empty();
-            arrayed_result.forEach((element, index) => {
-                $('#addedCustomer').append(`
-            <tr onclick="checkCheckBox(this,event)">
-                <td id="radif" style="width:55px;">` + (index + 1) + `</td>
-                <td id="mCode" style="width:115px;">` + element.PCode +`</td>
-                <td >` + element.Name + `</td>
-                <td style="width:50px;">
-                    <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `" id="kalaId">
-                </td>
-            </tr>
-        `);
-            });
-        },
-        error: function(data) {}
-    });
-} else {
-    $("#emptyKarbarButton").prop("disabled",true);
-    $("#moveKarbarButton").prop("disabled",true);
-    $("#deleteAdmin").prop("disabled",true);
-    $("#customerContainer").css("display", "none");
-}
+            },
+            error: function(data) {}
+        });
+        $.ajax({
+            method:'get',
+            url: baseUrl + "/getAddedCustomer",
+            data: {
+                _token:"{{ csrf_token() }}",
+                adminId: id
+            },
+            async: true,
+            success: function(arrayed_result) {
+                if(arrayed_result.length>0){
+                    $("#emptyKarbarButton").prop("disabled",false);
+                    $("#moveKarbarButton").prop("disabled",false);
+                    $("#deleteAdmin").prop("disabled",true);
+                }else{
+                    $("#emptyKarbarButton").prop("disabled",true);
+                    $("#moveKarbarButton").prop("disabled",true);
+                    $("#deleteAdmin").prop("disabled",false);
+                }
+                $('#addedCustomer').empty();
+                arrayed_result.forEach((element, index) => {
+                    $('#addedCustomer').append(`
+                <tr onclick="checkCheckBox(this,event)">
+                    <td id="radif" style="width:55px;">` + (index + 1) + `</td>
+                    <td id="mCode" style="width:115px;">` + element.PCode +`</td>
+                    <td >` + element.Name + `</td>
+                    <td style="width:50px;">
+                        <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `" id="kalaId">
+                    </td>
+                </tr>
+            `);
+                });
+            },
+            error: function(data) {}
+        });
+    } else {
+        $("#emptyKarbarButton").prop("disabled",true);
+        $("#moveKarbarButton").prop("disabled",true);
+        $("#deleteAdmin").prop("disabled",true);
+        $("#customerContainer").css("display", "none");
+    }
 }
 function setAdminListStuff(element,adminType,adminId,logedInId) {
 
@@ -920,6 +920,9 @@ if (event.target.type == "checkbox") {
         }
     }
 }
+if($("#adminTasviyahBtn")){
+    $("#adminTasviyahBtn").prop("disabled",false);
+}
 }
 $(".selectAllFromTop").on("change", (e) => {
 if ($(e.target).is(':checked')) {
@@ -935,77 +938,151 @@ if ($(e.target).is(':checked')) {
 });
 
 $("#addCustomerToAdmin").on("click", () => {
-swal({
-    title: 'اخطار!',
-    text: 'آیا می خواهید مشتریان اضافه شوند؟',
-    icon: 'warning',
-    buttons: true
-}).then(function(willAdd) {
-    if(willAdd) {
-        $("#transferLoader").css("display", "block");
-$("#selectAllTopRight").prop("checked",false);
-let adminId = $("#AdminForAdd").val();
-var customerID = [];
-$('input[name="customerIDs[]"]:checked').map(function() {
-    customerID.push($(this).val());
-});
-$.ajax({
-    method: 'get',
-    url: baseUrl + "/AddCustomerToAdmin",
-    data: {
-        _token: "{{ csrf_token() }}",
-        adminId: adminId,
-        customerIDs: customerID
-    },
-    async: true,
-    success: function(arrayed_result) {
-        $("#transferLoader").css("display", "none");
-        $('#addedCustomer').empty();
-        arrayed_result.forEach((element, index) => {
-            $('#addedCustomer').append(`
+    swal({
+        title: 'اخطار!',
+        text: 'آیا می خواهید مشتریان اضافه شوند؟',
+        icon: 'warning',
+        buttons: true
+    }).then(function(willAdd) {
+        if(willAdd) {
+            $("#transferLoader").css("display", "block");
+    $("#selectAllTopRight").prop("checked",false);
+    let adminId = $("#AdminForAdd").val();
+    var customerID = [];
+    $('input[name="customerIDs[]"]:checked').map(function() {
+        customerID.push($(this).val());
+    });
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/AddCustomerToAdmin",
+        data: {
+            _token: "{{ csrf_token() }}",
+            adminId: adminId,
+            customerIDs: customerID
+        },
+        async: true,
+        success: function(arrayed_result) {
+            $("#transferLoader").css("display", "none");
+            $('#addedCustomer').empty();
+            arrayed_result.forEach((element, index) => {
+                $('#addedCustomer').append(`
+                <tr  onclick="checkCheckBox(this,event)">
+                    <td>` + (index + 1) + `</td>
+                    <td>` + element.PCode + `</td>
+                    <td>` + element.Name + `</td>
+                    <td>
+                    <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `">
+                    </td>
+                </tr>
+            `);
+            });
+        },
+        error: function(data) {}
+
+    });
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/getCustomer",
+        data: {
+            _token: "{{ csrf_token() }}"
+        },
+        async: true,
+        success: function(arrayed_result) {
+            $('#allCustomer').empty();
+            arrayed_result.forEach((element, index) => {
+                $('#allCustomer').append(`
             <tr  onclick="checkCheckBox(this,event)">
                 <td>` + (index + 1) + `</td>
                 <td>` + element.PCode + `</td>
                 <td>` + element.Name + `</td>
                 <td>
-                <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `">
+                <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
                 </td>
             </tr>
         `);
-        });
-    },
-    error: function(data) {}
+            });
+        },
+        error: function(data) {}
+    });
+    }else{ 
 
+    }
+    });
 });
-$.ajax({
-    method: 'get',
-    url: baseUrl + "/getCustomer",
-    data: {
-        _token: "{{ csrf_token() }}"
-    },
-    async: true,
-    success: function(arrayed_result) {
-        $('#allCustomer').empty();
-        arrayed_result.forEach((element, index) => {
-            $('#allCustomer').append(`
-        <tr  onclick="checkCheckBox(this,event)">
-            <td>` + (index + 1) + `</td>
-            <td>` + element.PCode + `</td>
-            <td>` + element.Name + `</td>
-            <td>
-            <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
-            </td>
-        </tr>
-    `);
-        });
-    },
-    error: function(data) {}
-});
-}else{ 
 
-}
+$("#addCustomerToAdminOp").on("click", () => {
+    swal({
+        title: 'اخطار!',
+        text: 'آیا می خواهید مشتریان اضافه شوند؟',
+        icon: 'warning',
+        buttons: true
+    }).then(function(willAdd) {
+        if(willAdd) {
+            $("#transferLoader").css("display", "block");
+    $("#selectAllTopRight").prop("checked",false);
+    let adminId = $("#takhsisToAdminBtn").val();
+    var customerID = [];
+    $('input[name="customerIDs[]"]:checked').map(function() {
+        customerID.push($(this).val());
+    });
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/AddCustomerToAdmin",
+        data: {
+            _token: "{{ csrf_token() }}",
+            adminId: adminId,
+            customerIDs: customerID
+        },
+        async: true,
+        success: function(arrayed_result) {
+            $("#transferLoader").css("display", "none");
+            $('#addedCustomer').empty();
+            arrayed_result.forEach((element, index) => {
+                $('#addedCustomer').append(`
+                <tr  onclick="checkCheckBox(this,event)">
+                    <td>` + (index + 1) + `</td>
+                    <td>` + element.PCode + `</td>
+                    <td>` + element.Name + `</td>
+                    <td>
+                    <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `">
+                    </td>
+                </tr>
+            `);
+            });
+        },
+        error: function(data) {}
+
+    });
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/getCustomer",
+        data: {
+            _token: "{{ csrf_token() }}"
+        },
+        async: true,
+        success: function(arrayed_result) {
+            $('#allCustomer').empty();
+            arrayed_result.forEach((element, index) => {
+                $('#allCustomer').append(`
+            <tr  onclick="checkCheckBox(this,event)">
+                <td>` + (index + 1) + `</td>
+                <td>` + element.PCode + `</td>
+                <td>` + element.Name + `</td>
+                <td>
+                <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
+                </td>
+            </tr>
+        `);
+            });
+        },
+        error: function(data) {}
+    });
+    }else{ 
+
+    }
+    });
 });
-});
+
 $("#removeCustomerFromAdmin").on("click", () => {
 var customerIDs = [];
 adminId = $("#AdminForAdd").val();
@@ -1095,6 +1172,127 @@ $.ajax({
 }
 });
 });
+
+$("#removeCustomerFromAdminOp").on("click", () => {
+    var customerIDs = [];
+    adminId = $("#takhsisToAdminBtn").val();
+    swal({
+        title: 'اخطار!',
+        text: 'آیا می خواهید مشتریان حذف شوند؟',
+        icon: 'warning',
+        buttons: true
+    }).then(function(willDelete) {
+        if(willDelete) {
+            $("#selectAllTopLeft").prop("checked",false);
+            $("#transferLoader").css("display", "block");
+            adminId = adminId;
+    $('input[name="addedCustomerIDs[]"]:checked').map(function() {
+        customerIDs.push($(this).val());
+    });
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/RemoveCustomerFromAdmin",
+        data: {
+            _token: "{{ csrf_token() }}",
+            adminId: adminId,
+            customerIDs: customerIDs
+        },
+        async: true,
+        success: function(arrayed_result) {
+            if(arrayed_result!=1){
+            $('#addedCustomer').empty();
+            arrayed_result.forEach((element, index) => {
+                $('#addedCustomer').append(`
+                <tr  onclick="checkCheckBox(this,event)">
+                    <td>` + (index + 1) + `</td>
+                    <td>` + element.PCode +`</td>
+                    <td>` + element.Name + `</td>
+                    <td>
+                    <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `">
+                    </td>
+                </tr>
+            `);
+            });
+        }else{
+            swal({
+                title: 'اخطار!',
+                text: 'تاریخچه ثبت نمی شود، می خواهید انجام شود؟',
+                icon: 'warning',
+                buttons: true
+            }).then(function(willDelete) {
+                if(willDelete) {
+                    $("#selectAllTopLeft").prop("checked",false);
+                    $("#transferLoader").css("display", "block");
+            $.ajax({
+                method: 'get',
+                url: baseUrl + "/RemoveCustomerAndEmpty",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    adminId: adminId,
+                    customerIDs: customerIDs
+                },
+                async: true,
+                success: function(arrayed_result) {
+                    $('#addedCustomer').empty();
+                    arrayed_result.forEach((element, index) => {
+                        $('#addedCustomer').append(`
+                        <tr  onclick="checkCheckBox(this,event)">
+                            <td>` + (index + 1) + `</td>
+                            <td>` + element.PCode +`</td>
+                            <td>` + element.Name + `</td>
+                            <td>
+                            <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `">
+                            </td>
+                        </tr>
+                    `);
+                    });
+                    $("#transferLoader").css("display", "none");
+                },
+                error: function(data) {}
+        
+            });
+            }
+            });
+        }
+            $("#transferLoader").css("display", "none");
+        },
+        error: function(data) {}
+    
+    });
+            //برای نمایش مشتریان بدون کاربر سمت راست 
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/getCustomer",
+        data: {
+            _token: "{{ csrf_token() }}"
+        },
+        async: true,
+        success: function(arrayed_result) {
+            
+            $('#allCustomer').empty();
+            
+            arrayed_result.forEach((element, index) => {
+                $('#allCustomer').append(`
+            <tr onclick="checkCheckBox(this,event)">
+                <td style="">` + (index + 1) +  `</td>
+                <td style="">` + element.PCode +  `</td>
+                <td>` + element.Name + `</td>
+                <td style="">
+                <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
+                </td>
+            </tr>
+        `);
+            });
+
+        },
+        error: function(data) {}
+    });
+
+
+    }
+    });
+    });
+
 $("#searchAddedCity").on("change",function(){
 $.ajax({
     method: 'get',
@@ -1774,7 +1972,7 @@ $.ajax({
             <td>`+element.comment+`</td>
             <td>`+driverBehavior+`</td>
             <td>`+shipmentProblem+`</td>
-            <td><i class="fa fa-eye"/></td>
+            <td> <i class="fa fa-eye"/> </td>
             <td><input type="radio" class="form-input"/></td>
         </tr>
             `);
@@ -2215,17 +2413,9 @@ function showDoneCommentDetail(element) {
         },
         async:true,
         success:function(response){
-            $("#customerListBodyDoneDetail").empty();
-            response.forEach((element,index)=>{
-                $("#customerListBodyDoneDetail").append(`
-                <tr>
-                    <td>`+(index+1)+`</td>
-                    <td>`+element.TimeStamp+`</td>
-                    <td>`+element.assessComment+` </td>
-                    <td>`+element.alarmDate+`</td>
-                    <td>درست نشده است</td>
-                </tr>`);
-            })
+            $("#doneCommentDate").text(response[0].TimeStamp);
+            $("#doneCommentComment").text(response[0].assessComment);
+            $("#doneCommentAlarm").text(response[0].alarmDate);     
         },
         error:function(error){
             alert("bad")
@@ -2345,12 +2535,13 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
+            <td>`+element.countSameTime+`</td>
             </tr>`);
         });
     },
@@ -3317,7 +3508,7 @@ e.preventDefault();
 
 
 
-function removeStaff() {
+function removeStaff(adminId) {
 swal({
     title: "مطمئین هستید؟",
     text: "پس از تخلیه نمی توانید این مشتریان را برگردانید !",
@@ -3326,18 +3517,16 @@ swal({
     dangerMode: true,
 }).then((willDelete) => {
     if (willDelete) {
-        $("#removeKarbar").modal("hide");
         $("#transferLoader").css("display", "block");
         $.ajax({
             method: 'get',
             url: baseUrl + "/emptyAdmin",
             data: {
                 _token: "{{ csrf_token() }}",
-                asn: $("#AdminForAdd").val()
+                asn: adminId
             },
             async: true,
             success: function(msg) {
-                console.log(msg);
                 if (msg == 1) {
                     $("#transferLoader").css("display", "none");
                     swal("مشتریان تخلیه گردید", {
@@ -4314,14 +4503,11 @@ $.ajax({
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4424,17 +4610,14 @@ $.ajax({
             }
             $("#allCustomerReportyBody").append(`
             <tr  onclick="setAlarmCustomerStuff(this)">
-            <td>`+(index+1)+`</td>
-            <td>`+element.Name+`</td>
-            <td>`+element.hamrah+` `+element.sabit+`</td>
-            <td>`+element.peopeladdress+`</td>
-            <td>`+element.countFactor+`</td>
-            <td>`+element.lastDate+`</td>
-            <td>هنوز نیست</td>
-            <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-            <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
-            <td><input type="checkbox" disabled `+checkOrNot+` /></td>
-        </tr>`);
+                <td>`+(index+1)+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
+                <td>`+element.lastDate+`</td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td><input type="checkbox" disabled `+checkOrNot+` /></td>
+            </tr>`);
         });
     },
     error: function(data) {}
@@ -4464,14 +4647,12 @@ if(searchTerm!=0){
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td  style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
+              
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4504,14 +4685,11 @@ if(searchTerm>0){
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td style="width:333px">`+element.Name+`</td>
+                <td style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td>`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4544,14 +4722,11 @@ if(searchTerm>0){
                 $("#allCustomerReportyBody").append(`
                 <tr  onclick="setAlarmCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
-                <td>`+element.Name+`</td>
-                <td>`+element.hamrah+` `+element.sabit+`</td>
-                <td>`+element.peopeladdress+`</td>
-                <td>`+element.countFactor+`</td>
+                <td  style="width:333px">`+element.Name+`</td>
+                <td  style="width:177px">`+element.hamrah+` `+element.sabit+`</td>
                 <td>`+element.lastDate+`</td>
-                <td>هنوز نیست</td>
-                <td style="width:60px">`+element.adminName+` `+element.lastName+`</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                <td >`+element.adminName+` `+element.lastName+`</td>
+                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
                 <td><input type="checkbox" disabled `+checkOrNot+` /></td>
             </tr>`);
             });
@@ -4649,8 +4824,8 @@ $.ajax({
                 $("#kalaContainer").append(`
                 <tr>
                 <td>`+(index+1)+`</td>
-                <td>`+element.GoodCde+`</td>
-                <td>`+element.GoodName+`</td>
+                <td  style="width:88px">`+element.GoodCde+`</td>
+                <td  style="width:333px">`+element.GoodName+`</td>
                 <td>`+element.maxFactDate+`</td>
                 <td>`+element.hideKala+`</td>
                 <td style="color:red;background-color:azure">`+element.Amount+`</td>
@@ -4681,8 +4856,8 @@ if(searchTerm>0){
                     $("#kalaContainer").append(`
                     <tr>
                     <td>`+(index+1)+`</td>
-                    <td>`+element.GoodCde+`</td>
-                    <td>`+element.GoodName+`</td>
+                    <td style="width:88px">`+element.GoodCde+`</td>
+                    <td style="width:333px">`+element.GoodName+`</td>
                     <td>`+element.maxFactDate+`</td>
                     <td>`+element.hideKala+`</td>
                     <td style="color:red;background-color:azure">`+element.Amount+`</td>
@@ -4713,8 +4888,8 @@ if(searchTerm>0){
                     $("#kalaContainer").append(`
                     <tr>
                     <td>`+(index+1)+`</td>
-                    <td>`+element.GoodCde+`</td>
-                    <td>`+element.GoodName+`</td>
+                    <td style="width:88px">`+element.GoodCde+`</td>
+                    <td style="width:333px">`+element.GoodName+`</td>
                     <td>`+element.maxFactDate+`</td>
                     <td>`+element.hideKala+`</td>
                     <td style="color:red;background-color:azure">`+element.Amount+`</td>
@@ -5042,10 +5217,9 @@ $.ajax({
             <tr onclick="setInActiveCustomerStuff(this)">
             <td>`+(index+1)+`</td>
             <td>`+element.CustomerName+`</td>
-            <td>`+element.PhoneStr+`</td>
-            <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-            <td>`+element.name+` `+element.lastName+`</td>
-            <td>بدست نیامده</td>
+            <td style="width:99px">`+element.PhoneStr+`</td>
+            <td style="width:133px">`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+            <td style="width:133px">`+element.name+` `+element.lastName+`</td>
             <td>`+element.comment+`</td>
             <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
         </tr>`);
@@ -5073,10 +5247,9 @@ if(searchTerm>-1){
                 <tr onclick="setInActiveCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
                 <td>`+element.CustomerName+`</td>
-                <td>`+element.PhoneStr+`</td>
-                <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-                <td>`+element.name+` `+element.lastName+`</td>
-                <td>بدست نیامده</td>
+                <td style="width:99px">`+element.PhoneStr+`</td>
+                <td style="width:133px">`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+                <td style="width:133px">`+element.name+` `+element.lastName+`</td>
                 <td>`+element.comment+`</td>
                 <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
             </tr>`);
@@ -5124,10 +5297,9 @@ if(searchTerm>-1){
                 <tr onclick="setInActiveCustomerStuff(this)">
                 <td>`+(index+1)+`</td>
                 <td>`+element.CustomerName+`</td>
-                <td>`+element.PhoneStr+`</td>
-                <td>`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
-                <td>`+element.name+` `+element.lastName+`</td>
-                <td>بدست نیامده</td>
+                <td style="width:99px">`+element.PhoneStr+`</td>
+                <td style="width:133px">`+moment(element.TimeStamp, 'YYYY-M-D HH:mm:ss').locale('fa').format('HH:mm:ss YYYY/M/D')+`</td>
+                <td style="width:133px">`+element.name+` `+element.lastName+`</td>
                 <td>`+element.comment+`</td>
                 <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
             </tr>`);
@@ -5223,12 +5395,12 @@ onSelect:()=>{
             msg.forEach((element,index)=>{
                 $("#listVisitorBody").append(`<tr>
                 <td >`+(index+1)+`</td>
-                <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
+                <td > </td>
                 <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
-                <td >`+element.Name+`</td>
+                <td style="width:244px">`+element.Name+`</td>
                 <td >`+element.platform+`</td>
                 <td >`+element.browser+`</td>
-                <td >`+element.countLogin+`</td>
+                <td style="width:77px">`+element.countLogin+`</td>
                 <td >`+element.countSameTime+`</td>
                 </tr>`);
             });
@@ -5253,12 +5425,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5281,12 +5453,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td >  </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5310,12 +5482,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5339,12 +5511,12 @@ $.ajax({
         msg.forEach((element,index)=>{
             $("#listVisitorBody").append(`<tr>
             <td >`+(index+1)+`</td>
-            <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
+            <td > </td>
             <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYY HH:mm:ss') +`</td>
-            <td >`+element.Name+`</td>
+            <td style="width:244px">`+element.Name+`</td>
             <td >`+element.platform+`</td>
             <td >`+element.browser+`</td>
-            <td >`+element.countLogin+`</td>
+            <td style="width:77px">`+element.countLogin+`</td>
             <td >`+element.countSameTime+`</td>
             </tr>`);
         });
@@ -5376,12 +5548,12 @@ onSelect:()=>{
             msg.forEach((element,index)=>{
                 $("#listVisitorBody").append(`<tr>
                 <td >`+(index+1)+`</td>
-                <td >`+moment(element.firstVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
+                <td > </td>
                 <td >`+moment(element.lastVisit, 'YYYY-M-D HH:mm:ss').locale('fa').format('D/M/YYYYY HH:mm:ss') +`</td>
-                <td >`+element.Name+`</td>
+                <td style="width:244px">`+element.Name+`</td>
                 <td >`+element.platform+`</td>
                 <td >`+element.browser+`</td>
-                <td >`+element.countLogin+`</td>
+                <td style="width:77px">`+element.countLogin+`</td>
                 <td >`+element.countSameTime+`</td>
                 </tr>`);
             });
@@ -5706,10 +5878,10 @@ $.ajax({
             <td>` + (index + 1) + `</td>
             <td>` + element.Name + `</td>
             <td>` + element.peopeladdress + `</td>
-            <td>`+element.sabit.trim()+` `+element.hamrah.trim()+`</td>
-            <td>`+element.NameRec+`</td>
-            <td>`+element.assignedDays+`</td>
-            <td>`+element.PassedDays+`</td>
+            <td style="width:77px">`+element.sabit.trim()+` `+element.hamrah.trim()+`</td>
+            <td style="width:66px">`+element.NameRec+`</td>
+            <td style="width:66px">`+element.assignedDays+`</td>
+            <td style="width:166px">`+element.PassedDays+`</td>
             <td>` + element.Name + ' ' + element.lastName + `</td>
             <td><input class="customerList form-check-input" name="customerId" type="radio" value="` + element.PSN + '_' + element.admin_id + '_' + element.SerialNoHDS + `"></td>
         </tr>`);
@@ -8571,6 +8743,76 @@ $("#bazarYabRadioBtn").on("change", ()=>{
     $("#karbaranActionContainer").css("display", "none");
 })
 
+$("#customerLoginReportRadio").on("change", ()=>{
+    $("#staffVisitor").css("display", "flex");
+    $("#loginTosystemReport").css("display", "block");
+    $(".loginReport").css("display", "inline");
+    $("#allCustomerStaff").css("display", "none");
+    $("#customerActionTable").css("display", "none");
+    $(".inActiveBtn").css("display", "none");
+    $(".customerDashboarBtn ").css("display", "none");
+    $("#inActiveTools").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".evcuatedCustomer").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+})
+
+$("#customerInactiveRadio").on("change", ()=>{
+    $("#inActiveTools").css("display", "block");
+    $(".inactiveReport").css("display", "inline");
+    $("#allCustomerStaff").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
+    $(".inActiveBtn").css("display", "inline");
+    $("#inActiveCustomerTable").css("display", "block");
+    $("#customerActionTable").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $("#staffVisitor").css("display", "none");
+    $(".evcuatedCustomer").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".loginReport").css("display", "none");
+    
+})
+$("#evacuatedCustomerRadio").on("change", ()=>{
+    $(".evcuatedCustomer").css("display", "inline");
+    $("#allCustomerStaff").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
+    $(".inActiveBtn").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $("#customerActionTable").css("display", "none");
+    $("#inActiveTools").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $("#staffVisitor").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".loginReport").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+    
+    
+})
+
+$("#referentialCustomerRadio").on("change", ()=>{
+    $(".referencialTools").css("display", "inline");
+    $(".referencialReport").css("display", "inline");
+    $(".evcuatedCustomer").css("display", "none");
+    $("#allCustomerStaff").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
+    $(".inActiveBtn").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $("#customerActionTable").css("display", "none");
+    $("#inActiveTools").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $(".loginReport").css("display", "none");
+    $("#staffVisitor").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+    
+})
+
+$("#customerWithOutAlarm").on("change", ()=>{
+    $("#customerWithOutAlarmBuyOrNot").css("display", "block");
+})
 
 $("#employeeType").on("change",function(){
     if($("#employeeType").val()==1){
@@ -8627,13 +8869,23 @@ $("#employeeTypeEdit").on("change",function(){
 
 });
 
-function setManagerStuff(element){
+function setManagerStuff(element,adminId){
     $(element).find('input:radio').prop('checked', true);
     let input = $(element).find('input:radio');
     $("#editAdmin").val($(input).val());
     $("#editAdmin").prop("disabled",false);
     $(".caret").css({"color":"gray"});
-    $(element).css({"color":"blue"})
+    $(element).css({"color":"blue"});
+
+    if($("#takhsisToAdminBtn")){
+        $("#takhsisToAdminBtn").val(adminId);
+        $("#takhsisToAdminBtn").prop('disabled',false);
+    }
+
+    if($("#adminTasviyahBtn")){
+        $("#adminTasviyahBtn").val(adminId);
+        $("#adminTasviyahBtn").prop("disabled",false);
+    }
 }
 
 function setHeadStuff(element,headId){
@@ -8642,7 +8894,11 @@ function setHeadStuff(element,headId){
     $("#editAdmin").val($(input).val());
     $("#editAdmin").prop("disabled",false);
     $(".caret").css({"color":"gray"});
-    $(element).css({"color":"blue"})
+    $(element).css({"color":"blue"});
+    
+    if($("#adminTasviyahBtn")){
+        $("#adminTasviyahBtn").prop("disabled",false);
+    }
 
     $.ajax({
         method:'get',
@@ -8670,6 +8926,127 @@ function setHeadStuff(element,headId){
         }
     })
 }
+function setHeadOpStuff(element,headId){
+    $(element).find('input:radio').prop('checked', true);
+    let input = $(element).find('input:radio');
+    $("#editAdmin").val($(input).val());
+    $("#editAdmin").prop("disabled",false);
+    $(".caret").css({"color":"gray"});
+    $(element).css({"color":"blue"})
+    if($("#takhsisToAdminBtn")){
+        $("#takhsisToAdminBtn").val(headId);
+    }
+    $.ajax({
+        method:'get',
+        url:baseUrl+'/getEmployees',
+        data:{_token:"{{@csrf}}",
+                headId:headId},
+        async:true,
+        success:function(response){
+            $("#customerListBody").empty();
+            response.forEach((element,index)=>{
+                $("#customerListBody").append(`
+                <tr onclick="setKarbarOpStuff(this,`+element.id+`)">
+                <td>`+(index+1)+`</td>
+                <td>`+element.name+` `+element.lastName+`</td>
+                <td>`+element.phone+`</td>
+                <td>`+element.discription+`</td>
+                <td>
+                    <input class="mainGroupId" type="radio" name="customerIDs[]" value="`+element.id+`">
+                </td>`) 
+            })
+
+        },
+        error:function(){
+
+        }
+    })
+}
+function setKarbarOpStuff(element,adminId){
+    $(element).find('input:radio').prop('checked', true);
+    let input = $(element).find('input:radio');
+    $("#takhsisToAdminBtn").val($(input).val());
+}
+$("#takhsisToAdminBtn").on("click",()=>{
+    let id = $("#takhsisToAdminBtn").val();
+    $.ajax({
+        method: 'get',
+        url: baseUrl + "/getAdminInfo",
+        data: {
+            _token: "{{ csrf_token() }}",
+            id:id
+        },
+        async: true,
+        success: function(msg) {
+            $("#takhsisAdminName").text(msg[3].name+' '+msg[3].lastName);
+        },
+        error:function(error){
+
+        }
+    });
+
+        $.ajax({
+            method: 'get',
+            url: baseUrl + "/getCustomer",
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            async: true,
+            success: function(arrayed_result) {
+                
+                $('#allCustomer').empty();
+                
+                arrayed_result.forEach((element, index) => {
+                    $('#allCustomer').append(`
+                <tr onclick="checkCheckBox(this,event)">
+                    <td style="">` + (index + 1) +  `</td>
+                    <td style="">` + element.PCode +  `</td>
+                    <td>` + element.Name + `</td>
+                    <td style="">
+                    <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` + element.PSN + `" id="customerId">
+                    </td>
+                </tr>
+            `);
+                });
+
+            },
+            error: function(data) {}
+        });
+        $.ajax({
+            method:'get',
+            url: baseUrl + "/getAddedCustomer",
+            data: {
+                _token:"{{ csrf_token() }}",
+                adminId: id
+            },
+            async: true,
+            success: function(arrayed_result) {
+                $('#addedCustomer').empty();
+                arrayed_result.forEach((element, index) => {
+                    $('#addedCustomer').append(`
+                        <tr onclick="checkCheckBox(this,event)">
+                            <td id="radif" style="width:55px;">` + (index + 1) + `</td>
+                            <td id="mCode" style="width:115px;">` + element.PCode +`</td>
+                            <td >` + element.Name + `</td>
+                            <td style="width:50px;">
+                                <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` + element.PSN + `" id="kalaId">
+                            </td>
+                        </tr>
+                    `);
+                });
+            },
+            error: function(data) {}
+        });
+
+    $("#takhsisCustomerModal").modal("show");
+});
+
+$("#adminTasviyahBtn").on("click",()=>{
+    
+    let id = $("#takhsisToAdminBtn").val();
+    removeStaff(id);
+});
+
 $("#moveEmployee").on("click",()=>{
 
     $("#moveEmployeeModal").modal("show");

@@ -748,6 +748,10 @@ select Name,PSN,PhoneStr from (
     }
 	
 
+public function bonusIncreaseDecrease(Request $request)
+{
+   return view("admin.bonusIncreaseDecrease");
+}
 
 
 
