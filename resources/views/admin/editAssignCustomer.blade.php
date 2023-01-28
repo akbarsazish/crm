@@ -46,12 +46,12 @@
                   </div>
                 <div class="col-sm-8 col-md-8 col-sm-12 contentDiv">
                     <div class="row contentHeader">
-                        <div class="col-lg-9">
+                        <div class="col-lg-9 mt-3">
                             <div class="form-group mt-2 col-sm-2">
                                 <input type="text" name="" placeholder="اسم" size="20" class="form-control form-control-sm" id="searchNameByMNM">
                             </div>
                         </div>
-                        <div class="col-lg-3 text-start">
+                        <div class="col-lg-3 text-start mt-3">
                               <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="cancelMoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
                               <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id="cancelMoveKarbar"> ثبت <i class="fa-solid fa-save"> </i> </button>
                         </div>
