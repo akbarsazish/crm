@@ -401,7 +401,6 @@
                         </table>
                             <div class="grid-today rounded-2">
                                 <div class="today-item"> <span style="color:red; font-weight:bold;">  تاریخ آخرین فاکتور : </span> <span id="loginTimeToday"></span>  </div>
-                               
                             </div>
                         </div>
 

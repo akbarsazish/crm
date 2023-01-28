@@ -46,12 +46,12 @@
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader">
-                        <div class="col-sm-7 text-end">
+                        <div class="col-sm-5 text-end">
                             <div class="row">
-                                <div class="form-group col-sm-2 mt-2 px-1">
+                                <div class="form-group col-sm-3 mt-2 px-1">
                                     <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm " id="searchAllName">
                                 </div>
-                                <div class="form-group col-sm-2 mt-2 px-1">
+                                <div class="form-group col-sm-3 mt-2 px-1">
                                     <select class="form-select form-select-sm " id="searchByCity">
                                        <option value="0" hidden> شهر</option>
                                        <option value="0"> همه</option>
@@ -60,16 +60,16 @@
                                      
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-2 mt-2 px-1">
+                                <div class="form-group col-sm-3 mt-2 px-1">
                                     <select class="form-select form-select-sm " id="searchByMantagheh">
                                     <option value="0" hidden>منطقه</option>
                                     <option value="0">همه</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-2 mt-2 px-1">
+                                <div class="form-group col-sm-3 mt-2 px-1">
                                     <select class="form-select form-select-sm" id="orderInactiveCustomers">
                                         <option value="-1">مرتب سازی</option>
-                                        <option value="2"> کد </option>
+                                        <option value="2"> آخرین فاکتور </option>
                                         <option value="3">اسم</option>
                                         <option value="1">همراه </option>
                                         <option value="1"> تاریخ  </option>
@@ -78,10 +78,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5 text-start">
+                        <div class="col-sm-7 text-start">
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
                             <input type="text" id="adminSn" style="display: none" name="adminSn" value="" />
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id='openDashboardForAlarm'> داشبورد <i class="fal fa-dashboard "></i></button>
+                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"> تخصیص <i class="fa-solid fa-list-check"></i> </button>
+                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"> تغییر کاربر  <i class="fa-solid fa-edit"></i> </button>
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"  onclick="changeAlarm()"> تغیر آلارم  <i class="fal fa-warning "></i></button>
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"  onclick="alarmHistory()"> گردش آلارم  <i class="fal fa-history "></i></button>
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id="inactiveButton">غیر فعال <i class="fal fa-ban"></i> </button>
@@ -94,8 +96,10 @@
                                     <thead class="tableHeader">
                                         <tr >
 											<th> ردیف </th>
+											<th  style="width:111px">آخرین فاکتور</th>
 											<th >اسم</th>
 											<th> شماره تماس</th>
+											<th  style="width:99px"> تعداد گردش  </th>
 											<th style="width:77px">منطقه </th>
 											<th style="width:66px"> تعیین </th>
 											<th style="width:111px"> تاریخ  </th>
@@ -107,8 +111,10 @@
                                         @foreach ($customers as $customer)
                                             <tr onClick="setAlarmCustomerStuff(this)">
                                                 <td >{{$loop->iteration}}</td>
+                                                <td  style="width:111px"> 1401/08/12 </td>
                                                 <td>{{trim($customer->Name)}}</td>
                                                 <td>{{trim($customer->PhoneStr)}}</td>
+                                                <td style="width:99px"> </td>
                                                 <td style="width:77px">{{trim($customer->NameRec)}}</td>
                                                 <td style="width:66px">{{$customer->assignedDays}}</td>
                                                 <td style="width:111px; color:red"> 1401/08/12  </td>

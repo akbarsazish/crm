@@ -53,6 +53,10 @@ text-align:right;
                         <legend  class="float-none w-auto legendLabel mb-0"> عملکرد کارمندان </legend>
                         <div class="form-check">
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="karbarnRadioBtn">
+                            <label class="form-check-label me-4" for="assesPast"> همه  </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="karbarnRadioBtn">
                             <label class="form-check-label me-4" for="assesPast"> کاربران </label>
                         </div>
                         <div class="form-check">
@@ -129,8 +133,8 @@ text-align:right;
                                 <fieldset class="rounded">
                                      <legend  class="float-none w-auto">  بازاریاب ها</legend>
                                     <div class="row">
-                                        <div class="col-lg-12">
-                                            <table class=" select-highlight homeTables table" id="tableGroupList"  style='width:100%;'>
+                                        <div class="col-lg-12 mx-0">
+                                            <table class=" select-highlight homeTables table mx-0" id="tableGroupList">
                                                 <thead style="position: sticky;top: 0;">
                                                     <tr>
                                                         <th style="width:50px">ردیف</th>
@@ -163,8 +167,8 @@ text-align:right;
 <!-- karbaran action code start -->
         
                     <div class="row" id="karbaranActionContainer">
-                        <div class="col-sm-12">
-                            <table class="table table-bordered table-hover table-striped" id="tableGroupList" style="width:100%;">
+                        <div class="col-sm-12 px-0">
+                            <table class="table table-bordered table-hover table-striped mx-0" id="tableGroupList">
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
