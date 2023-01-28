@@ -159,25 +159,20 @@
                                 </div>
 
                                 <div class="row">
-
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-label"> عکس </label>
                                             <input type="file" class="form-control" required name="picture" placeholder="">
                                         </div>
                                     </div>
-                                    
                                     <div class="col-lg-6 ps-5">
                                         <div class="form-check form-switch mt-2">
                                             <input class="form-check-input me-0" name="hasAsses" type="checkbox" checked style="font-size:25px;">
                                             <label class="form-check-label" for="flexSwitchCheckChecked">آیا نظر سنجی داشته باشد؟</label>
                                         </div> 
                                     </div>
-
                                 </div>
-
                                 <div class="row">
-
                                 <div class="col-lg-12 ps-5">
                                 <label class="form-check-label" for="flexSwitchCheckChecked">زیر نظر</label>
                                     <select class="form-select" name="bossId">
@@ -187,9 +182,7 @@
                                         @endforeach
                                 </select>
                                 </div>
-
                                 </div>
-
                                 <div class="row">
                                     <div class="col-lg-6 ps-5">
                                         <div class="form-check form-switch mt-2">
@@ -205,13 +198,11 @@
                                     </div>
                                 </div>
                             </div>
-                               
-                           
-                                <div class="form-group" style="margin-top:4%">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelAddAddmin"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                                    <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
-                                </div>
-                            </form>
+                            <div class="form-group" style="margin-top:4%">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelAddAddmin"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
