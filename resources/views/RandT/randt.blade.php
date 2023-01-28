@@ -1,78 +1,78 @@
 @extends('layout')
 @section('content')
 
-<style>
-    label { font-size:14px; font-weight: bold; }
-#getPassword {
-    cursor: pointer;
-}
-
-
-.bazarYabaction {
-    min-width: 140px;
-}
-</style>
-    <div class="container-xl" style="margin-top:6%;">
-            <div class="row">
-                <h3 class="page-title"> مشتریان R&D </h3>
-            </div>
-            <div class="row">
-                     <div class="col-sm-2 mb-1">
-                        <div class="form-group ">
+    <div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
+                            <label class="form-check-label me-4" for="assesPast">  سطح دسترسی  </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                            <label class="form-check-label me-4" for="assesPast"> تارگت ها و امتیازات </label>
+                        </div>
+                        
+                    </fieldset>
+                  </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader">
+                         <div class="form-group col-sm-2">
                             <input type="text" name="" size="20" placeholder="جستجو" class="form-control publicTop" id="allKalaFirst">
                         </div>
-                     </div>
-                     <div class="col-sm-2">
-                        <div class="form-group">
+                         <div class="form-group col-sm-2">
                             <select class="form-select publicTop" id="searchGroup">
                                 <option value="0"> موقعیت </option>
                                 <option value="0">موقعیت دار </option>
                                 <option value="0"> بدون موقعیت </option>
                             </select>
                         </div>
-                     </div>
-                     <div class="col-sm-8" style="display:flex; justify-content:flex-end">
-                        @csrf
-                        <!-- <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" disabled id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button> -->
-                        @if(Session::get('adminType')==1 or Session::get('adminType')==5)
-                        <button class='enableBtn btn btn-primary btn-sm btn-md text-warning buttonHover'   style="width:170px;"  disabled id="takhsisButton">بررسی مشتری<i class="fal fa-tasks fa-lg"> </i> </button>
-                        @endif
-                        
-                        <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" disabled id="editRTbtn">ویرایش <i class="fa fa-plus-square fa-lg"></i></button>            
-                       
-                        <button class='enableBtn btn btn-primary btn-sm text-warning mx-1' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square fa-lg"></i></button>            
+                        <div class="col-sm-8" style="display:flex; justify-content:flex-end">
+                          @if(Session::get('adminType')==1 or Session::get('adminType')==5)
+                           <button class='btn btn-primary btn-sm btn-md text-warning buttonHover' disabled id="takhsisButton"> بررسی مشتری <i class="fal fa-tasks fa-lg"> </i> </button>
+                          @endif
+                           <button class='btn btn-primary btn-sm text-warning' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square fa-lg"></i></button>            
+                           <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square fa-lg"></i></button>            
                     </div>
-            </div>  
-            <div class="row">
-                <div class="col-lg-12 p-2">
-                     <table class='table table-bordered table-striped homeTables'>
-                        <thead class="tableHeader">
-                        <tr>
-                            <th class="mobileDisplay">ردیف</th>
-                            <th style="width:122px;">اسم</th>
-                            <th class="mobileDisplay" style="width:111px;">شماره تماس</th>
-                            <th class="mobileDisplay" style="width:88px">منطقه </th>
-                            <th style="width:88px">تاریخ ثبت</th>
-                            <th> ادرس</th>
-                            <th>انتخاب</th>
-                        </tr>
-                        </thead>
-                        <tbody class="select-highlight tableBody" id="customerListBody1">
-                            @foreach($customers as $customer)
-                                <tr onclick="setEditRTStuff({{$customer->PSN}})">
-                                    <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
-                                    <td style="width:122px;">{{$customer->Name}}</td>
-                                    <td class="mobileDisplay" style="width:111px;">{{$customer->PhoneStr}}</td>
-                                    <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
-                                    <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
-                                    <td>{{$customer->peopeladdress}}</td>
-                                    <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                        
+                    </div>
+                    <div class="row mainContent">
+                         <div class="col-lg-12 p-0">
+                                <table class='table table-bordered table-striped homeTables'>
+                                    <thead class="tableHeader">
+                                    <tr>
+                                        <th class="mobileDisplay">ردیف</th>
+                                        <th style="width:122px;">اسم</th>
+                                        <th class="mobileDisplay" style="width:111px;">شماره تماس</th>
+                                        <th class="mobileDisplay" style="width:88px">منطقه </th>
+                                        <th style="width:88px">تاریخ ثبت</th>
+                                        <th> ادرس</th>
+                                        <th>انتخاب</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="select-highlight tableBody" id="customerListBody1">
+                                        @foreach($customers as $customer)
+                                            <tr onclick="setEditRTStuff({{$customer->PSN}})">
+                                                <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
+                                                <td style="width:122px;">{{$customer->Name}}</td>
+                                                <td class="mobileDisplay" style="width:111px;">{{$customer->PhoneStr}}</td>
+                                                <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
+                                                <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
+                                                <td>{{$customer->peopeladdress}}</td>
+                                                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                         </div>
+
+                    </div>
+                    <div class="row contentFooter"> </div>
                 </div>
-            </div>
+        </div>
+    </div>
 
 
     <!-- modal of adding new customer -->
