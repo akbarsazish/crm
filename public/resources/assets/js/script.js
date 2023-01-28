@@ -1480,7 +1480,7 @@ $.ajax({
     data: {
         _token: "{{ csrf_token() }}",
         rsn: $("#searchAddedMantagheh").val(),
-        asn:$("#asn").val()
+        asn:$("#takhsisToAdminBtn").val()
     },
     async: true,
     success: function(arrayed_result) {
@@ -1510,7 +1510,7 @@ $.ajax({
     data: {
         _token: "{{ csrf_token() }}",
         rsn: $("#searchAddedMantagheh").val(),
-        asn:$("#asn").val(),
+        asn:$("#takhsisToAdminBtn").val(),
         name:$("#searchAddedNameByMNM").val()
     },
     async: true,

@@ -2570,7 +2570,7 @@ public function searchAddedCustomerByNameMNM(Request $request)
     $customers=DB::select("SELECT * FROM (
                             SELECT * FROM Shop.dbo.Peopels where CompanyNo=5 AND GroupCode IN ( ".implode(",",Session::get("groups")).")
                             and PSN in(SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where admin_id=".$asn." and returnState=0))a
-                            where Name like '%".$name."%'");
+                            where Name like N'%".$name."%'");
     return Response::json($customers);
 }
 public function searchCustomerByNameMNM(Request $request)
@@ -2581,7 +2581,7 @@ public function searchCustomerByNameMNM(Request $request)
                             AND PSN NOT IN (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null AND state=1)
                             AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null and returnState=1)
                             AND CompanyNo=5 AND IsActive=1 AND GroupCode IN ( ".implode(",",Session::get("groups")).") And Name!=''
-                            and Name like '%".$name."%'");
+                            and Name like N'%".$name."%'");
     return Response::json($customers);
 }
 
