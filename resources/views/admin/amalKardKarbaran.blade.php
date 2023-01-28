@@ -35,59 +35,67 @@
                     <div class="row mainContent">
                         <div class="col-lg-12">
                               <div class="grid-today rounded-2 mx-0 mt-1">
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
+                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> نصب: </span> <span id="loginTimeToday"></span>  </div>
+                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> اقلام: </span> <span id="loginTimeToday"></span>  </div>
+                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> فاکتورها: </span> <span id="loginTimeToday"></span>  </div>
+                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> خرید اولیه: </span> <span id="loginTimeToday"></span>  </div>
                              </div>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="form-check bg-gray">
-                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
-                            </div>
-                            <div class="form-check bg-gray">
-                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
-                            </div>
-                            <div class="grid-today rounded-2 mx-0 mt-1">
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                             </div>
+                       <div class="row">
+                                <div class="col-lg-10">
+                                    <div class="form-check bg-gray">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
+                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
+                                    </div>
+                                    <div class="form-check bg-gray">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
+                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 p-0 m-0 text-start"> 
+                                    <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
+                                    <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
+                                </div>
+                        </div>
+                         <div class="grid-today rounded-2">
+                            <div class="today-item"> <span style="color:red; font-weight:bold;"> نصب: </span> <span id="loginTimeToday"></span>  </div>
+                            <div class="today-item"> <span style="color:red; font-weight:bold;"> اقلام: </span> <span id="loginTimeToday"></span>  </div>
+                            <div class="today-item"> <span style="color:red; font-weight:bold;"> فاکتورها: </span> <span id="loginTimeToday"></span>  </div>
+                            <div class="today-item"> <span style="color:red; font-weight:bold;"> خرید اولیه: </span> <span id="loginTimeToday"></span>  </div>
                         </div>
 
-                        <div class="col-lg-12">
-                            <div class="form-check bg-gray">
-                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                <label class="form-check-label me-4" for="assesPast"> بازاریاب 1 </label>
-                            </div>
-                            <div class="form-check bg-gray">
-                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                <label class="form-check-label me-4" for="assesPast"> بازاریاب 2 </label>
-                            </div> 
                             <div class="row">
-                                <div class="col-lg-12">
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> نصب امروز  </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> نصب </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> اقلام امروز </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> اقلام </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> فاکتورهای امروز  </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1">فاکتور ها   </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> خرید اولیه امروز  </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> خرید اولیه  </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1">  کل امتیاز (آذر) </button>
-                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1">  تاریخچه عملکرد </button>
+                                <div class="col-lg-10">
+                                    <div class="form-check bg-gray">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
+                                        <label class="form-check-label me-4" for="assesPast"> بازاریاب 1 </label>
+                                    </div>
+                                    <div class="form-check bg-gray">
+                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
+                                        <label class="form-check-label me-4" for="assesPast"> بازاریاب 2 </label>
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                                <button type="button" class="btn btn-sm btn-primary footerButton m-1"> نصب </button>
+                                                <button type="button" class="btn btn-sm btn-primary footerButton m-1"> اقلام </button>
+                                                <button type="button" class="btn btn-sm btn-primary footerButton m-1">فاکتور ها   </button>
+                                                <button type="button" class="btn btn-sm btn-primary footerButton m-1"> خرید اولیه  </button>
+                                                <button type="button" class="btn btn-sm btn-primary footerButton m-1">  کل امتیاز (آذر) </button>
+                                                <button type="button" class="btn btn-sm btn-primary footerButton m-1">  تاریخچه عملکرد </button>
+                                        </div>
+                                    </div>
+                                    <div class="grid-today rounded-2 mx-0 mt-1">
+                                        <div class="today-item"> <span style="color:red; font-weight:bold;">  نصب امروز: </span> <span id="loginTimeToday"></span>  </div>
+                                        <div class="today-item"> <span style="color:red; font-weight:bold;"> اقلام امروز: </span> <span id="loginTimeToday"></span>  </div>
+                                        <div class="today-item"> <span style="color:red; font-weight:bold;"> فاکتور امروز: </span> <span id="loginTimeToday"></span>  </div>
+                                        <div class="today-item"> <span style="color:red; font-weight:bold;"> خرید اولیه امروز: </span> <span id="loginTimeToday"></span>  </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 p-0 m-0 text-start"> 
+                                    <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
+                                    <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
                                 </div>
                             </div>
-                            <div class="grid-today rounded-2 mx-0 mt-1">
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                                 <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
-                             </div>
-                        </div>
                           <div class="col-lg-12 px-0">
                         <table class="table table-bordered table-striped" id="tableGroupList">
                             <thead class="tableHeader">
