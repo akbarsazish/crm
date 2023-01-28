@@ -629,6 +629,8 @@ select Name,PSN,PhoneStr from (
 
         return View("salesExpert.subList",['admins'=>$admins,'bosses'=>$bosses, 'admins'=>$admins,'adminTypes'=>$adminTypes]);
     }
+
+
     public function getAllBuyAghlamSelf(Request $request)
     {
         $adminId=$request->get("adminId");
@@ -750,7 +752,14 @@ select Name,PSN,PhoneStr from (
 
 public function bonusIncreaseDecrease(Request $request)
 {
-   return view("admin.bonusIncreaseDecrease");
+      //بازاریابهای زیر نظر سرپرست
+      $admins=DB::table("CRM.dbo.crm_admin")->where("bossId",1020)->where('deleted',0)->get();
+      //لیست سرپرستها
+      $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',4)->where('adminType','!=',5)->where('deleted',0)->get();
+
+      $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
+
+   return view("admin.bonusIncreaseDecrease", ['admins'=>$admins,'bosses'=>$bosses, 'admins'=>$admins,'adminTypes'=>$adminTypes]);
 }
 
 

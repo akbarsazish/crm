@@ -1,82 +1,255 @@
 @extends('layout')
 @section('content')
     <div class="container-fluid containerDiv">
-      <div class="row">
-               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
-                   <fieldset class="border rounded mt-5 sidefieldSet">
-                        <legend  class="float-none w-auto legendLabel mb-0"> افزایش و کاهش امتیازات </legend>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
-                            <label class="form-check-label me-4" for="assesPast">  جمع کل امتیاز </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
-                            <label class="form-check-label me-4" for="assesPast"> تاریخچه عملکرد </label>
-                        </div>
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-2 sideBar">
+                <fieldset class="border rounded mt-5 sidefieldSet">
+                    <legend  class="float-none w-auto legendLabel mb-0"> افزایش و کاهش امتیازات </legend>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
+                                <label class="form-check-label me-4" for="assesPast"> امتیاز های اضافه شده</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast"> امتیاز های کم شده </label>
+                            </div>
+                            <br>
+                            <div class="form-group col-sm-12 mb-2">
+                                <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                            </div>
+                            
+                            <div class="form-group col-sm-12 mb-2">
+                                <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                            </div>
+                        
+                        
+                            <div class="col-lg-12" style="margin-top:40vh">
+                                <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#creditSetting" data-bs-toggle="modal" > افزایش <i class="fa fa-plus"></i> </button>
+                                <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#decreasingCredit" data-bs-toggle="modal" > کاهش <i class="fa fa-minus"></i> </button>
+                                <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#editingCredit" data-bs-toggle="modal"> اصلاح <i class="fa fa-edit"></i> </button>
+                                <button type="button" class="btn d-block w-50 btn-danger btn-sm" onclick="wantoDelet()"> حذف <i class="fa fa-trash"></i>  </button>
+                            </div>
+                </fieldset>
+            </div>
+            <div class="col-sm-10 col-md-10 col-sm-10 contentDiv">
+                <div class="row contentHeader"> 
+                    <div class="col-sm-8 text-end">
                         <div class="row">
-                             <div class="col-lg-12" style="margin-top:40vh">
-                                 <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#creditSetting" data-bs-toggle="modal"> افزایش <i class="fa fa-plus"></i> </button>
-                                 <button type="button" class="btn d-block w-50 btn-primary btn-sm"> کاهش <i class="fa fa-minus"></i> </button>
-                                 <button type="button" class="btn d-block w-50 btn-primary btn-sm"> اصلاح <i class="fa fa-edit"></i> </button>
-                                 <button type="button" class="btn d-block w-50 btn-danger btn-sm"> حذف <i class="fa fa-trash"></i>  </button>
-                             </div>
+                            <div class="form-group col-sm-2 mt-2 px-1">
+                                <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm " id="searchAllName">
+                            </div>
+                            <div class="form-group col-sm-2 mt-2 px-1">
+                                <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                    <option value="-1">مرتب سازی</option>
+                                    <option value="3">اسم</option>
+                                    <option value="1"> تاریخ  </option>
+                                    <option value="4"> امتیاز </option>
+                                </select>
+                            </div>
                         </div>
-                    </fieldset>
-                  </div>
-                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
-                    <div class="row contentHeader"> </div>
-                    <div class="row mainContent"> 
-
                     </div>
-                    <div class="row contentFooter"> </div>
+                    <div class="col-sm-4 text-start">
+                       
+                    </div>
                 </div>
+                <div class="row mainContent"> 
+                   <div class="col-lg-12 px-0">
+                        <table class="table table-bordered table-striped" id="tableGroupList">
+                            <thead class="tableHeader">
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th> تاریخ </th>
+                                    <th> اسم شخص </th>
+                                    <th> تعداد امتیاز </th>
+                                    <th> کاربر </th>
+                                    <th> انتخاب </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tableBody" id="adminGroupList">
+                                @foreach ($admins as $admin)
+                                    <tr onclick="setSubBazaryabStuff(this)">
+                                        <td>{{$loop->iteration}}</td>
+                                        <td> </td>
+                                        <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
+                                        <td></td>
+                                        <td>{{trim($admin->discription)}}</td>
+                                        <td>
+                                            <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="grid-today rounded-2 mx-2">
+                            <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
+                        </div>
+                   </div>
+                </div>
+                <div class="row contentFooter">
+                    <div class="col-lg-12 text-start mt-2">
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> امروز  : </button>
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز : </button>
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> صد تای آخر : 100</button>
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> همه : </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
 
 <!-- Modal for adding Emtyaz -->
 <div class="modal fade dragableModal" id="creditSetting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="creditSettingLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header py-2 text-white">
           <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-          <h6 class="modal-title" id="creditSettingLabel"> افزایش و کاهش امتیاز </h6>
+          <h6 class="modal-title" id="creditSettingLabel"> افزایش امتیاز  </h6>
       </div>
       <div class="modal-body">
             <form action="{{url('/addUpDownBonus')}}" id="addingEmtyaz" method="get">
                     @csrf
                         <input type="hidden" name="adminId" value="">
-                          <div class="row">
-                              <div class="col-lg-3">
-                                 <label for="pwd" class="form-label"> کاربر امتیازدهنده  </label>
+                        <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="pwd" class="form-label"> کاربر امتیاز گیرنده  </label>
                                     <select class="form-select form-select-sm" id="orderInactiveCustomers">
-                                        <option value="-1"> احمد پور </option>
-                                        <option value="2"> خانم ناصری  </option>
-                                       
+                                                        <option value="-1"> شاملو </option>
+                                        <option value="2"> احمد لو </option>
+                                        <option value="2"> شاملو </option>
                                     </select>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label for="pwd" class="form-label">کاهش امتیاز </label>
-                                    <input type="text" name="negative" class="form-control" id="pwd" placeholder="کاهش امتیاز">
-                                </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-6">
                                     <label for="pwd" class="form-label">افزایش امتیاز </label>
-                                    <input type="text" name="positive" class="form-control" id="pwd" placeholder="افزایش امتیاز">
+                                    <input type="text" name="positive" class="form-control form-control-sm" id="pwd" placeholder="افزایش امتیاز">
                                 </div>
                         </div>
                         <div class="row mt-2">
                             <label for="comment">توضیحات </label>
                             <textarea class="form-control" rows="3" id="comment" name="discription"></textarea>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
-                            <button type="submit" class="btn btn-primary btn-sm"> ذخیره <i class="fa fa-save"> </i> </button>
-                        </div>
-                </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
+                        <button type="submit" class="btn btn-primary btn-sm"> ذخیره <i class="fa fa-save"> </i> </button>
+                    </div>
+            </form>
          </div>
     </div>
   </div>
 </div>
+
+
+<!-- Modal for Decreasing Credit -->
+<div class="modal fade dragableModal" id="decreasingCredit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="decreasingCreditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content bg-danger">
+      <div class="modal-header py-2 text-white bg-danger">
+          <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h6 class="modal-title" id="decreasingCreditLabel"> کاهش امتیاز  </h6>
+      </div>
+      <div class="modal-body p-3">
+            <form action="{{url('/addUpDownBonus')}}" id="addingEmtyaz" method="get">
+                    @csrf
+                        <input type="hidden" name="adminId" value="">
+                        <div class="row">
+                                <div class="col-lg-6">
+                                    <label for="pwd" class="form-label"> کاربر امتیاز گیرنده  </label>
+                                    <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                                        <option value="-1"> شاملو </option>
+                                        <option value="2"> احمد لو </option>
+                                        <option value="2"> شاملو </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="pwd" class="form-label">کاهش امتیاز </label>
+                                    <input type="text" name="negative" class="form-control form-control-sm" id="pwd" placeholder="کاهش امتیاز">
+                                </div>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="comment">توضیحات </label>
+                            <textarea class="form-control" rows="3" id="comment" name="discription"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary btn-sm"> ذخیره <i class="fa fa-save"> </i> </button>
+                        <button type="button" class="btn btn-dark btn-sm" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
+                    </div>
+            </form>
+         </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for adding Emtyaz -->
+<div class="modal fade dragableModal" id="editingCredit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editingCreditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header py-2 text-white">
+          <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h6 class="modal-title" id="editingCreditLabel"> ویرایش افزایش و کاهش امتیاز </h6>
+      </div>
+      <div class="modal-body">
+            <form action="{{url('/addUpDownBonus')}}" id="addingEmtyaz" method="get">
+                    @csrf
+                        <input type="hidden" name="adminId" value="">
+                        <div class="row">
+                                <div class="col-lg-4">
+                                    <label for="pwd" class="form-label"> کاربر امتیاز گیرنده  </label>
+                                    <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                                        <option value="-1"> شاملو </option>
+                                        <option value="2"> احمد لو </option>
+                                        <option value="2"> شاملو </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="pwd" class="form-label">افزایش امتیاز </label>
+                                    <input type="text" name="positive" class="form-control form-control-sm" id="pwd" placeholder="افزایش امتیاز">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="pwd" class="form-label">کاهش امتیاز </label>
+                                    <input type="text" name="negative" class="form-control form-control-sm" id="pwd" placeholder="کاهش امتیاز">
+                                </div>
+                        </div>
+                        <div class="row mt-2">
+                            <label for="comment">توضیحات </label>
+                            <textarea class="form-control" rows="3" id="comment" name="discription"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
+                        <button type="submit" class="btn btn-primary btn-sm"> ذخیره <i class="fa fa-save"> </i> </button>
+                    </div>
+            </form>
+         </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+
+    function wantoDelet(){
+        swal({
+            title: "آیا مطمئن هستید؟",
+            text: "پس از حذف، نمی توانید این معلومات را بازیابی کنید!",
+            icon: "اخطار",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("معلومات موفقانه حذف گردید!", {
+                icon: "success",
+                });
+            } else {
+                swal("معلومات شما محفوظ است.");
+            }
+            });
+    }
+</script>
 
 @endsection
 

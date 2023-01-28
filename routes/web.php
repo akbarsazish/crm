@@ -65,11 +65,15 @@ Route::get("/getAddedCustomer",[Customer::class,"getAddedCustomer"])->middleware
 Route::post("/assesCustomer",[Customer::class,"assesCustomer"])->middleware('CheckCommon');
 Route::get('/newCustomer',[Customer::class,'newCustomer'])->middleware('checkUser');
 Route::get("/assignCustomer",[Admin::class,'index'])->middleware('checkUser');
+Route::get("/editAssignCustomer",[Admin::class,'editAssignCustomer'])->middleware('checkUser');
 Route::post("/addAdmin",[Admin::class,'AddAdmin'])->middleware('checkUser');
 Route::post("/addAdminFromList",[Admin::class,'addAdminFromList'])->middleware('checkUser');
 Route::get("/AddCustomerToAdmin",[Admin::class,"AddCustomerToAdmin"])->middleware('checkUser');
 Route::get("/RemoveCustomerFromAdmin",[Admin::class,"RemoveCustomerFromAdmin"])->middleware('checkUser');
+
 Route::get("/karbarAction",[Admin::class,"karbarAction"])->middleware('checkUser');
+Route::get("/amalKardKarbarn",[Admin::class,"amalKardKarbarn"])->middleware('checkUser');
+
 Route::get("/getProducts",[Product::class,"getProducts"])->middleware('checkUser');
 Route::get("/commentToday",[Customer::class,"todayComment"])->middleware('CheckCommon');
 Route::get("/commentPast",[Customer::class,"pastComment"])->middleware('CheckCommon');
