@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
     $(element).find("input:radio").prop("checked", true);
@@ -577,13 +577,13 @@ $("#bargerilist").on("keyup", () => {
     });
 });
 
-function setAdminStuff(element) {
+function setAdminStuff(element,adminId,adminTypeId) {
     $(element).find("input:radio").prop("checked", true);
-    let input = $(element).find("input:radio");
-    let adminType = input.val().split("_")[1];
-    let id = input.val().split("_")[0];
+    let adminType = adminTypeId;
+    let id = adminId;
     $("#asn").val(id);
-    $("#AdminForAdd").val(id);
+    $("#emptyKarbarButton").val(id);
+    $("#moveKarbarButton").val(id);
     $("#adminTakerId").val(id);
     if ((adminType > 1) & (adminType < 4)) {
         $("#customerContainer").css("display", "flex");
@@ -1862,21 +1862,20 @@ $("#searchMantagheh").on("change", function () {
     });
 });
 
-$("#searchAddedMantagheh").on("change", function () {
-    $.ajax({
-        method: "get",
-        url: baseUrl + "/searchAddedCustomerByRegion",
-        data: {
-            _token: "{{ csrf_token() }}",
-            rsn: $("#searchAddedMantagheh").val(),
-            asn: $("#asn").val(),
-        },
-        async: true,
-        success: function (arrayed_result) {
-            $("#addedCustomer").empty();
-            arrayed_result.forEach((element, index) => {
-                $("#addedCustomer").append(
-                    `
+$("#searchAddedMantagheh").on("change",function(){
+$.ajax({
+    method: 'get',
+    url: baseUrl + "/searchAddedCustomerByRegion",
+    data: {
+        _token: "{{ csrf_token() }}",
+        rsn: $("#searchAddedMantagheh").val(),
+        asn:$("#takhsisToAdminBtn").val()
+    },
+    async: true,
+    success: function(arrayed_result) {
+        $('#addedCustomer').empty();
+        arrayed_result.forEach((element, index) => {
+        $('#addedCustomer').append(`
             <tr onclick="checkCheckBox(this,event)">
                 <td id="radif">` +
                         (index + 1) +
@@ -1901,22 +1900,21 @@ $("#searchAddedMantagheh").on("change", function () {
     });
 });
 
-$("#searchAddedNameByMNM").on("keyup", () => {
-    $.ajax({
-        method: "get",
-        url: baseUrl + "/searchAddedCustomerByNameMNM",
-        data: {
-            _token: "{{ csrf_token() }}",
-            rsn: $("#searchAddedMantagheh").val(),
-            asn: $("#asn").val(),
-            name: $("#searchAddedNameByMNM").val(),
-        },
-        async: true,
-        success: function (arrayed_result) {
-            $("#addedCustomer").empty();
-            arrayed_result.forEach((element, index) => {
-                $("#addedCustomer").append(
-                    `
+$("#searchAddedNameByMNM").on("keyup",()=>{
+$.ajax({
+    method: 'get',
+    url: baseUrl + "/searchAddedCustomerByNameMNM",
+    data: {
+        _token: "{{ csrf_token() }}",
+        rsn: $("#searchAddedMantagheh").val(),
+        asn:$("#takhsisToAdminBtn").val(),
+        name:$("#searchAddedNameByMNM").val()
+    },
+    async: true,
+    success: function(arrayed_result) {
+        $('#addedCustomer').empty();
+        arrayed_result.forEach((element, index) => {
+            $('#addedCustomer').append(`
         <tr onclick="checkCheckBox(this,event)">
             <td id="radif">` +
                         (index + 1) +
@@ -2792,7 +2790,7 @@ function checkExistance(element) {
     });
 }
 $("#emptyKarbarButton").on("click", () => {
-    let asn = $("#AdminForAdd").val();
+    let asn = $("#emptyKarbarButton").val();
     $.ajax({
         method: "get",
         url: baseUrl + "/getAdminForEmpty",
@@ -4673,7 +4671,7 @@ function moveStaff() {
 }
 
 $("#moveKarbarButton").on("click", () => {
-    let asn = $("#AdminForAdd").val();
+    let asn = $("#moveKarbarButton").val();
     $.ajax({
         method: "get",
         url: baseUrl + "/getAdminForMove",
@@ -12175,6 +12173,110 @@ function setEmployeeStuff(element) {
 }
 
 // تنظیمات
+//صفحه تخصیص جدید
+$("#takhsisManagerRadio").on("change",()=>{
+    $.ajax({
+        method:"get",
+        url:baseUrl+"/getEmployies",
+        data:{_token:"{{@csrf}}",
+                employeeType:$("#takhsisManagerRadio").val()},
+        async:true,
+        success:function(respond){
+            $("#adminGroupList").empty();
+            respond.forEach((element,index)=>{
+                let countCustomer="0";
+                let takhsisDate="مشتری ندارد";
+                if(element.countCustomer){
+                    countCustomer=element.countCustomer;
+                }
+                if(element.takhsisDate){
+                    takhsisDate=element.takhsisDate;
+                }
+                $("#adminGroupList").append(`
+                    <tr onclick="setAdminStuff(this)">
+                        <td>`+(index+1)+`</td>
+                        <td>`+element.name+` `+element.lastName+`</td>
+                        <td> `+countCustomer+` </td>
+                        <td> `+takhsisDate+` </td>
+                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+` `+element.adminTypeId+`"> </td>
+                    </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+
+$("#takhsisHeadRadio").on("change",()=>{
+    $.ajax({
+        method:"get",
+        url:baseUrl+"/getEmployies",
+        data:{_token:"{{@csrf}}",
+                employeeType:$("#takhsisHeadRadio").val()},
+        async:true,
+        success:function(respond){
+            $("#adminGroupList").empty();
+            respond.forEach((element,index)=>{
+                let countCustomer="0";
+                let takhsisDate="مشتری ندارد";
+                if(element.countCustomer){
+                    countCustomer=element.countCustomer;
+                }
+                if(element.takhsisDate){
+                    takhsisDate=element.takhsisDate;
+                }
+                $("#adminGroupList").append(`
+                    <tr onclick="setAdminStuff(this)">
+                        <td>`+(index+1)+`</td>
+                        <td>`+element.name+` `+element.lastName+`</td>
+                        <td> `+countCustomer+` </td>
+                        <td> `+takhsisDate+` </td>
+                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+` `+element.adminTypeId+`"> </td>
+                    </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+
+$("#takhsisEmployeeRadio").on("change",()=>{
+    $.ajax({
+        method:"get",
+        url:baseUrl+"/getEmployies",
+        data:{_token:"{{@csrf}}",
+                employeeType:$("#takhsisEmployeeRadio").val()},
+        async:true,
+        success:function(respond){
+
+            $("#adminGroupList").empty();
+            respond.forEach((element,index)=>{
+                let countCustomer="0";
+                let takhsisDate="مشتری ندارد";
+                if(element.countCustomer){
+                    countCustomer=element.countCustomer;
+                }
+                if(element.takhsisDate){
+                    takhsisDate=element.takhsisDate;
+                }
+                $("#adminGroupList").append(`
+                    <tr onclick="setAdminStuff(this)">
+                        <td>`+(index+1)+`</td>
+                        <td>`+element.name+` `+element.lastName+`</td>
+                        <td> `+countCustomer+` </td>
+                        <td> `+takhsisDate+` </td>
+                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+` `+element.adminTypeId+`"> </td>
+                    </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+//
 
 $(document).on("click", "#loadMore", () => {
     $(".showLater").css("display", "block");

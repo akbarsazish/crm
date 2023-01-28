@@ -13,8 +13,10 @@ use Session;
 class Admin extends Controller
 {
     public function index(Request $request){
-        $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
-      
+        $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin
+        LEFT JOIN (SELECT MIN(addedTime) takhsisDate,admin_id,COUNT(customer_id) AS countCustomer  FROM CRM.dbo.crm_customer_added
+        JOIN CRM.dbo.crm_admin ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0 group by admin_id)a on a.admin_id=crm_admin.id
+        WHERE deleted =0");
         $regions=DB::select("SELECT * FROM Shop.dbo.MNM WHERE CompanyNo=5 and SnMNM>82");
         $cities=DB::select("Select * FROM Shop.dbo.MNM WHERE  CompanyNo=5 and RecType=1 AND FatherMNM=79");
         $adminList=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
@@ -1543,7 +1545,7 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
     {
         $adminId=$request->get("asn");
         $admin=DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->get();
-        $otherAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id not in(SELECT DISTINCT admin_id FROM CRM.dbo.crm_customer_added WHERE  returnState=0) and id !=".$adminId." and (adminType=3 or adminType=2)");
+        $otherAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id !=".$adminId." and (adminType!=5 and  adminType!=1 and  adminType!=4 and deleted=0 )");
         $bossAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id !=".$adminId." and deleted=0 and (adminType!=4)");
 
 
@@ -2866,6 +2868,16 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
     public function amalKardKarbarn(Request $request)
     {
         return view("admin.amalKardKarbaran");
+    }
+
+    public function getEmployies(Request $request)
+    {
+        $employeeType=$request->get("employeeType");
+        $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin
+                            LEFT JOIN (SELECT MIN(addedTime) takhsisDate,admin_id,COUNT(customer_id) AS countCustomer  FROM CRM.dbo.crm_customer_added
+                            JOIN CRM.dbo.crm_admin ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0 group by admin_id)a on a.admin_id=crm_admin.id
+                            WHERE employeeType=$employeeType AND deleted =0");
+        return Response::json($admins);
     }
 
 }

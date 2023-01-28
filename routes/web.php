@@ -261,3 +261,5 @@ Route::get('/getHeads',[Admin::class,'getHeads'])->middleware('CheckCommon');
 Route::get('/addToHeadEmployee',[Admin::class,'addToHeadEmployee'])->middleware('CheckCommon');
 Route::get('/bonusIncreaseDecrease',[SalseExper::class,'bonusIncreaseDecrease'])->middleware('CheckCommon');
 Route::get('/karbaranOperations',[Admin::class,'karbaranOperations'])->middleware('CheckCommon');
+//صفحه تخصیص جدید
+Route::get('/getEmployies',[Admin::class,'getEmployies'])->middleware('CheckCommon');
