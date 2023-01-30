@@ -50,61 +50,60 @@ text-align:right;
         <div class="card-body">
             <div class="row">
                  <div class="col-lg-9">
-                         <div class="row">
-                            <div class="form-group col-lg-2">
-                                <input type="text" name="" placeholder="نام" class="form-control publicTop" id="searchAdminNameCode"/>
-                            </div>
-                            <div class="form-group col-lg-2">
-                                <select class="form-select publicTop" id="searchAdminGroup">
-                                    <option value="-1" hidden>گروه بندی</option>
-                                    <option value="0">همه</option>
-                                    @foreach ($adminTypes as $element)
+                    <div class="row">
+                      <div class="form-group col-lg-2">
+                          <input type="text" name="" placeholder="نام" class="form-control publicTop" id="searchAdminNameCode"/>
+                      </div>
+                      <div class="form-group col-lg-2">
+                          <select class="form-select publicTop" id="searchAdminGroup">
+                              <option value="-1" hidden>گروه بندی</option>
+                              <option value="0">همه</option>
+                              @foreach ($adminTypes as $element)
 
-                                        <option value="{{$element->id}}">{{$element->adminType}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-2">
-                                <select class="form-select publicTop" id="searchAdminActiveOrNot">
-                                    <option value="-1" hidden>فعال</option>
-                                    <option value="0">همه</option>
-                                    <option value="1">فعال</option>
-                                    <option value="2"> غیر فعال</option>
-                                </select>
-                            </div>
-							 <div class="form-group col-lg-2">
-								 <select class="form-select publicTop" id="searchAdminFactorOrNot">
-									 <option value="-1" hidden>فاکتور</option>
-									 <option value="0">همه</option>
-									 <option value="1">دارد</option>
-									 <option value="2">ندارد</option>
-								 </select>
-							 </div>
-							 <div class="form-group col-lg-2">
-								 <select class="form-select publicTop" id="searchAdminLoginOrNot">
-									 <option value="-1" hidden>ورود مشتری</option>
-									 <option value="0">همه</option>
-									 <option value="1">بله</option>
-									 <option value="2">خیر</option>
-								 </select>
-							 </div>
-							 <div class="form-group col-lg-2">
-								 <select class="form-select publicTop" id="searchAdminCustomerLoginOrNot">
-									 <option value="-1" hidden>ورود ادمین</option>
-									 <option value="0">همه</option>
-									 <option value="1">بله</option>
-									 <option value="2">خیر</option>
-								 </select>
-							 </div>
-                            </div>
-                        </div>
-                    <div class="col-lg-3 text-start">
-                            <input type="text" name="" id="adminSn" style="display: none">
-                            <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="openkarabarDashboard"
-                             type="button">عملکرد <i class="fas fa-balance-scale fa-lg"></i></button>
-                            <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="chart" type="button" data-toggle="modal" data-bs-target="#karbarChart">نمودار عملکرد <i class="fas fa-bar-chart fa-lg"></i></button>
-
+                                  <option value="{{$element->id}}">{{$element->adminType}}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                      <div class="form-group col-lg-2">
+                          <select class="form-select publicTop" id="searchAdminActiveOrNot">
+                              <option value="-1" hidden>فعال</option>
+                              <option value="0">همه</option>
+                              <option value="1">فعال</option>
+                              <option value="2"> غیر فعال</option>
+                          </select>
+                      </div>
+                    <div class="form-group col-lg-2">
+                      <select class="form-select publicTop" id="searchAdminFactorOrNot">
+                        <option value="-1" hidden>فاکتور</option>
+                        <option value="0">همه</option>
+                        <option value="1">دارد</option>
+                        <option value="2">ندارد</option>
+                      </select>
                     </div>
+                    <div class="form-group col-lg-2">
+                      <select class="form-select publicTop" id="searchAdminLoginOrNot">
+                        <option value="-1" hidden>ورود مشتری</option>
+                        <option value="0">همه</option>
+                        <option value="1">بله</option>
+                        <option value="2">خیر</option>
+                      </select>
+                    </div>
+                    <div class="form-group col-lg-2">
+                      <select class="form-select publicTop" id="searchAdminCustomerLoginOrNot">
+                        <option value="-1" hidden>ورود ادمین</option>
+                        <option value="0">همه</option>
+                        <option value="1">بله</option>
+                        <option value="2">خیر</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              <div class="col-lg-3 text-start">
+                      <input type="text" name="" id="adminSn" style="display: none">
+                      <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="openkarabarDashboard"
+                        type="button">عملکرد <i class="fas fa-balance-scale fa-lg"></i></button>
+                      <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="chart" type="button" data-toggle="modal" data-bs-target="#karbarChart">نمودار عملکرد <i class="fas fa-bar-chart fa-lg"></i></button>
+              </div>
             </div>
         <div class="row">
         <div class="col-sm-12">

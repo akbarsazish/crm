@@ -4,9 +4,9 @@
 @section('content')
 
  <div class="container-fluid containerDiv">
-            <div class="spinner-border text-danger" role="status" id="transferLoader" style="display:none;">
-                <span class="sr-only">Loading...</span>
-            </div>
+        <div class="spinner-border text-danger" role="status" id="transferLoader" style="display:none;">
+            <span class="sr-only">Loading...</span>
+        </div>
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
@@ -52,14 +52,13 @@
                   </div>
                 <div class="col-sm-8 col-md-8 col-sm-12 contentDiv">
                     <div class="row contentHeader">
-                        <div class="col-lg-9">
+                        <div class="col-lg-9 mt-3">
                             <div class="form-group mt-2 col-sm-2">
                                 <input type="text" placeholder="اسم" size="20" class="form-control form-control-sm" id="searchNameByMNM">
                             </div>
                         </div>
                         <div class="col-lg-3 text-start">
                         </div>
-                        
                     </div>
                     <div class="row mainContent">
                           <div class="row text-center mx-0 px-0" id="customerContainer">
@@ -118,7 +117,9 @@
                       </div>
                  
                      </div>
-                    <div class="row contentFooter"> </div>
+                    <div class="row contentFooter">
+                        
+                   </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                  <fieldset class="border rounded mt-5 sidefieldSet">

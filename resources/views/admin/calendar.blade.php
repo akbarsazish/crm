@@ -1,7 +1,151 @@
 @extends('layout')
 @section('content')
-<div class="container-fluid" style="margin-top:4%;">
-        <section id="myCalendar" class="crmCalendar">
+
+<style>
+.calenda-grid {
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+      padding: 0px;
+      margin:1px;
+      background-color:#9fbbcf;
+    }
+.calendar-item {
+      background-color: #abd2ed;
+      color:#000;
+      font-weight:bold;
+      font-size: 14px;
+      text-align: center;
+      border-radius:5px;
+      border:1px solid #abd2ed;
+      cursor: pointer;
+     margin:7px 1px;
+     padding:5px;
+     
+    }
+</style>
+ <div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> تقویم روزانه  </legend>
+                            <form action="{{url('/changeDate')}}" method="POST">
+                                @csrf
+
+                            <select class="form-select form-select-sm col-sm6 d-inline" name="month" style="font-size:16px; width:48%">
+                            
+                                @for ($i = 1; $i < 13; $i++)
+                                @switch($i)
+                                    @case(1)
+                                    <option @if($i==$month) selected @endif value="1">فروردین</option>
+                                        @break
+                                    @case(2)
+                                    
+                                    <option @if($i==$month) selected @endif  value="2">اردبهشت</option>
+                                        @break
+                                    @case(3)
+                                    <option @if($i==$month) selected @endif  value="3">خرداد</option>
+                                        @break
+                                    @case(4)
+                                    <option @if($i==$month) selected @endif  value="4">تیر</option>
+                                        @break
+                                    @case(5)
+                                    <option @if($i==$month) selected @endif  value="5">مرداد</option>
+                                        @break
+                                    @case(6)
+                                    <option @if($i==$month) selected @endif  value="6">شهریور</option>
+                                        @break
+                                    @case(7)
+                                    <option @if($i==$month) selected @endif  value="7">مهر</option>
+                                        @break
+                                    @case(8)
+                                    <option @if($i==$month) selected @endif  value="8">آبان</option>
+                                        @break
+                                    @case(9)
+                                    <option @if($i==$month) selected @endif  value="9">آذر</option>
+                                        @break
+                                    @case(10)
+                                    <option @if($i==$month) selected @endif  value="10">دی</option>
+                                        @break
+                                    @case(11)
+                                    <option @if($i==$month) selected @endif  value="11">بهمن</option>
+                                        @break
+                                    @case(12)
+                                    <option @if($i==$month) selected @endif  value="12">اسفند</option>
+                                        @break
+                                    @default
+                                @endswitch
+                                @endfor
+
+                            </select>
+                            <select class="form-select form-select-sm col-sm-6 w-50 d-inline" name="year" style="font-size:16px; width:48%">
+                                @for ($i = 1397; $i < 1420; $i++)
+                                    <option @if($i==$year) selected @endif value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">تغییر <i class="fa fa-edit"></i> </button>
+                        </form>
+
+                        <div class="form-group col-sm-12 mt-1">
+                            <select class="form-select form-select-sm " id="searchByMantagheh">
+                                <option value="0" hidden> کاربر   </option>
+                                <option value="0"> کاربر 1 </option>
+                                <option value="0"> کاربر 2  </option>
+                                <option value="0"> کاربر 3 </option>
+                            </select>
+                        </div>
+                    </fieldset>
+                  </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader"> </div>
+                    <div class="row mainContent">
+                       
+                    @for ($i = 0; $i <=8; $i++)
+                        <div class="calenda-grid">
+                                <div class="calendar-item" style="border-radius:5px;">ایام هفته </div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">1</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">2</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">3</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">4</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">5</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">6</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">7</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">8</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">9</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">10</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">11</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">12</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">13</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">14</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">15</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">16</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">15</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">16</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">17</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">18</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">19</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">20</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">21</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">22</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">23</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">24</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">25</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">26</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">27</div>  
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">28</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">29</div>
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">30</div> 
+                                <div class="calendar-item" data-bs-toggle="modal" data-bs-target="#customreForCallModal">31</div> 
+                        </div>
+                      @endfor 
+                    </div>
+                    <div class="row contentFooter"> </div>
+                </div>
+        </div>
+    </div>
+
+
+
+        <!-- <section id="myCalendar" class="crmCalendar">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -96,7 +240,6 @@
                                         <tr><td>
                                             @switch($i)
                                                 @case(0)
-
                                                     شنبه
                                                     @break
                                                 @case(1)
@@ -158,33 +301,12 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <div class="col-sm-12 " id="customerListSection" style="padding:0; padding-left:25px;display:none;  margin-top: 0; ">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 mt-3 mb-3">
-                    <input type="text" style="display: none;" id="customerSn" style="" name="customerSn" value="" />
-                    <button class="enableBtn btn-primary buttonHover btn-lg crmButtonColor text-warning" disabled id="openDashboard" style="width:142px; float-left" >داشبورد<i class="fal fa-dashboard"> </i> </button>
-                    <button class='enableBtn btn-primary buttonHover btn-lg crmButtonColor text-warning' disabled id='returnCustomer'> ارجاع به مدیر<i class="fal fa-history"></i></button>
-                </div>
-            </div>    
-        <table class='homeTables crmDataTable css-serial display table table-bordered table-striped table-sm' style='td:hover{ cursor:move;}; text-align:center; margin-top:-10 !important;'>
-            <thead style="position: sticky;top: 0;">
-                <tr>
-                    <th>ردیف</th>
-                    <th>کد</th>
-                    <th>اسم</th>
-                    <th>آدرس </th>
-                    <th>تلفن</th>
-                    <th>همراه</th>
-                    <th>منطقه </th>
-                    <th>انتخاب</th>
-                </tr>
-            </thead>
-            <tbody class="select-highlight" id="customerListBody">
-            </tbody>
-        </table>
-    </div>
+        </section> -->
+
+
+      
 </div>
+
 
 
 <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -608,5 +730,48 @@
         </div>
     </div>
 </div>
+ </div>
+
+<!-- Modal -->
+<div class="modal fade" id="customreForCallModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="customreForCallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header py-2 text-white">
+          <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h6 class="modal-title fs-5" id="customreForCallModalLabel"> مشتریان  </h6>
+      </div>
+      <div class="modal-body p-1">
+          <div class="col-sm-12 text-start" id="customerListSection">
+                    <input type="text" style="display: none;" id="customerSn" style="" name="customerSn" value="" />
+                    <button class="btn-primary btn-sm text-warning" disabled id="openDashboard"> داشبورد <i class="fal fa-dashboard"> </i> </button>
+                    <button class='btn-primary btn-sm text-warning' disabled id='returnCustomer'> ارجاع به مدیر <i class="fal fa-history"></i></button>
+              
+                <table class='table table-bordered table-striped table-sm'>
+                    <thead class="tableHeader">
+                        <tr>
+                            <th>ردیف</th>
+                            <th>کد</th>
+                            <th>اسم</th>
+                            <th>آدرس </th>
+                            <th>تلفن</th>
+                            <th>همراه</th>
+                            <th>منطقه </th>
+                            <th>انتخاب</th>
+                        </tr>
+                    </thead>
+                    <tbody class="select-highlight tableBody" id="customerListBody" style="height:300px !important;">
+                    </tbody>
+                </table>
+           </div>
+        
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 @endsection

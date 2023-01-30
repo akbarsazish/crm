@@ -1,6 +1,10 @@
 @extends('layout')
 @section('content')
-
+<style>
+    #notLogin {
+        display:none;
+    }
+</style>
     <div class="container-fluid containerDiv">
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
@@ -8,44 +12,87 @@
                         <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
                         <div class="form-check">
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
-                            <label class="form-check-label me-4" for="assesPast">  سطح دسترسی  </label>
+                            <label class="form-check-label me-4" for="assesPast"> همه  </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
-                            <label class="form-check-label me-4" for="assesPast"> تارگت ها و امتیازات </label>
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="logedInRadio">
+                            <label class="form-check-label me-4" for="assesPast"> واردشده  </label>
                         </div>
-                        
+                        <div class="form-check">
+                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="notLoginRadio">
+                            <label class="form-check-label me-4" for="assesPast">  وارد نشده </label>
+                        </div>
+                        <button class='btn btn-sm btn-primary text-warning w-50' type="button" id='openDashboard' style="margin-top:33vh">  اخراج  <i class="fal fa-sign-out"></i></button>
+                        <div class="form-group col-sm-2 mt-2 px-1">
+                            
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader">
-                         <div class="form-group col-sm-2">
-                            <input type="text" name="" size="20" placeholder="جستجو" class="form-control publicTop" id="allKalaFirst">
+                        <div class="form-group col-sm-2 mt-2">
+                                <input type="text" name="" size="20" placeholder="جستجو" class="form-control form-control-sm" id="allKalaFirst">
                         </div>
-                         <div class="form-group col-sm-2">
-                            <select class="form-select publicTop" id="searchGroup">
+                        <div class="form-group col-sm-2 mt-2">
+                            <select class="form-select form-select-sm" id="searchGroup">
                                 <option value="0"> موقعیت </option>
                                 <option value="0">موقعیت دار </option>
                                 <option value="0"> بدون موقعیت </option>
                             </select>
                         </div>
-                        <div class="col-sm-8" style="display:flex; justify-content:flex-end">
-                          @if(Session::get('adminType')==1 or Session::get('adminType')==5)
-                           <button class='btn btn-primary btn-sm btn-md text-warning buttonHover' disabled id="takhsisButton"> بررسی مشتری <i class="fal fa-tasks fa-lg"> </i> </button>
-                          @endif
-                           <button class='btn btn-primary btn-sm text-warning' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square fa-lg"></i></button>            
-                           <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square fa-lg"></i></button>            
-                    </div>
-                        
+                        <div class="col-sm-2 mt-2">
+                            <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                <option value="-1">مرتب سازی</option>
+                                <option value="2"> کد </option>
+                                <option value="3">اسم</option>
+                                <option value="1">همراه </option>
+                                <option value="1"> تاریخ  </option>
+                                <option value="1"> کاربر </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6" style="display:flex; justify-content:flex-end">
+                            @if(Session::get('adminType')==1 or Session::get('adminType')==5)
+                            <button class='btn btn-primary btn-sm text-warning' disabled id="takhsisButton"> انتقال به دفتر حساب <i class="fal fa-exchange"> </i> </button>
+                            @endif
+                            <button class='btn btn-primary btn-sm text-warning' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square"></i></button>            
+                            <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square"></i></button>            
+                         </div>
                     </div>
                     <div class="row mainContent">
                          <div class="col-lg-12 p-0">
-                                <table class='table table-bordered table-striped homeTables'>
+                                <table class='table table-bordered table-striped' id="logedIn">
                                     <thead class="tableHeader">
                                     <tr>
                                         <th class="mobileDisplay">ردیف</th>
-                                        <th style="width:122px;">اسم</th>
-                                        <th class="mobileDisplay" style="width:111px;">شماره تماس</th>
+                                        <th style="width:244px;">اسم</th>
+                                        <th class="mobileDisplay" style="width:199px;">شماره تماس</th>
+                                        <th class="mobileDisplay" style="width:88px">منطقه </th>
+                                        <th style="width:88px">تاریخ ثبت</th>
+                                        <th>  تاریخ ورود </th>
+                                        <th>  تعداد ورود</th>
+                                        <th>انتخاب</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="select-highlight tableBody" id="customerListBody1">
+                                        @foreach($customers as $customer)
+                                            <tr onclick="setEditRTStuff({{$customer->PSN}})">
+                                                <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
+                                                <td style="width:244px;">{{$customer->Name}}</td>
+                                                <td class="mobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
+                                                <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
+                                                <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <table class='table table-bordered table-striped' id="notLogin">
+                                    <thead class="tableHeader">
+                                    <tr>
+                                        <th class="mobileDisplay">ردیف</th>
+                                        <th style="width:244px;">اسم</th>
+                                        <th class="mobileDisplay" style="width:199px;">شماره تماس</th>
                                         <th class="mobileDisplay" style="width:88px">منطقه </th>
                                         <th style="width:88px">تاریخ ثبت</th>
                                         <th> ادرس</th>
@@ -56,8 +103,8 @@
                                         @foreach($customers as $customer)
                                             <tr onclick="setEditRTStuff({{$customer->PSN}})">
                                                 <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
-                                                <td style="width:122px;">{{$customer->Name}}</td>
-                                                <td class="mobileDisplay" style="width:111px;">{{$customer->PhoneStr}}</td>
+                                                <td style="width:244px;">{{$customer->Name}}</td>
+                                                <td class="mobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
                                                 <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
                                                 <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
                                                 <td>{{$customer->peopeladdress}}</td>
@@ -69,7 +116,14 @@
                          </div>
 
                     </div>
-                    <div class="row contentFooter"> </div>
+                    <div class="row contentFooter">
+                         <div class="col-lg-12 text-start mt-2">
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> امروز  </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> صد تای آخر 100</button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> همه </button>
+                        </div>
+                   </div>
                 </div>
         </div>
     </div>

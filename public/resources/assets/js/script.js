@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.27:8080";
+var baseUrl = "http://192.168.10.26:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
     $(element).find("input:radio").prop("checked", true);
@@ -577,7 +577,7 @@ $("#bargerilist").on("keyup", () => {
     });
 });
 
-function setAdminStuff(element,adminId,adminTypeId) {
+function setAdminStuff(element, adminId, adminTypeId) {
     $(element).find("input:radio").prop("checked", true);
     let adminType = adminTypeId;
     let id = adminId;
@@ -1919,20 +1919,21 @@ $("#searchMantagheh").on("change", function () {
     });
 });
 
-$("#searchAddedMantagheh").on("change",function(){
-$.ajax({
-    method: 'get',
-    url: baseUrl + "/searchAddedCustomerByRegion",
-    data: {
-        _token: "{{ csrf_token() }}",
-        rsn: $("#searchAddedMantagheh").val(),
-        asn:$("#takhsisToAdminBtn").val()
-    },
-    async: true,
-    success: function(arrayed_result) {
-        $('#addedCustomer').empty();
-        arrayed_result.forEach((element, index) => {
-        $('#addedCustomer').append(`
+$("#searchAddedMantagheh").on("change", function () {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/searchAddedCustomerByRegion",
+        data: {
+            _token: "{{ csrf_token() }}",
+            rsn: $("#searchAddedMantagheh").val(),
+            asn: $("#takhsisToAdminBtn").val(),
+        },
+        async: true,
+        success: function (arrayed_result) {
+            $("#addedCustomer").empty();
+            arrayed_result.forEach((element, index) => {
+                $("#addedCustomer").append(
+                    `
             <tr onclick="checkCheckBox(this,event)">
                 <td id="radif">` +
                         (index + 1) +
@@ -1957,21 +1958,22 @@ $.ajax({
     });
 });
 
-$("#searchAddedNameByMNM").on("keyup",()=>{
-$.ajax({
-    method: 'get',
-    url: baseUrl + "/searchAddedCustomerByNameMNM",
-    data: {
-        _token: "{{ csrf_token() }}",
-        rsn: $("#searchAddedMantagheh").val(),
-        asn:$("#takhsisToAdminBtn").val(),
-        name:$("#searchAddedNameByMNM").val()
-    },
-    async: true,
-    success: function(arrayed_result) {
-        $('#addedCustomer').empty();
-        arrayed_result.forEach((element, index) => {
-            $('#addedCustomer').append(`
+$("#searchAddedNameByMNM").on("keyup", () => {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/searchAddedCustomerByNameMNM",
+        data: {
+            _token: "{{ csrf_token() }}",
+            rsn: $("#searchAddedMantagheh").val(),
+            asn: $("#takhsisToAdminBtn").val(),
+            name: $("#searchAddedNameByMNM").val(),
+        },
+        async: true,
+        success: function (arrayed_result) {
+            $("#addedCustomer").empty();
+            arrayed_result.forEach((element, index) => {
+                $("#addedCustomer").append(
+                    `
         <tr onclick="checkCheckBox(this,event)">
             <td id="radif">` +
                         (index + 1) +
@@ -11971,6 +11973,17 @@ $("#employeeTypeEdit").on("change", function () {
     }
 });
 
+// R an D script
+
+$("#notLoginRadio").on("change", () => {
+    $("#logedIn").css("display", "none");
+    $("#notLogin").css("display", "block");
+});
+$("#logedInRadio").on("change", () => {
+    $("#logedIn").css("display", "block");
+    $("#notLogin").css("display", "none");
+});
+
 function setManagerStuff(element, adminId) {
     $(element).find("input:radio").prop("checked", true);
     let input = $(element).find("input:radio");
@@ -12266,106 +12279,153 @@ function setEmployeeStuff(element) {
 
 // تنظیمات
 //صفحه تخصیص جدید
-$("#takhsisManagerRadio").on("change",()=>{
+$("#takhsisManagerRadio").on("change", () => {
     $.ajax({
-        method:"get",
-        url:baseUrl+"/getEmployies",
-        data:{_token:"{{@csrf}}",
-                employeeType:$("#takhsisManagerRadio").val()},
-        async:true,
-        success:function(respond){
+        method: "get",
+        url: baseUrl + "/getEmployies",
+        data: {
+            _token: "{{@csrf}}",
+            employeeType: $("#takhsisManagerRadio").val(),
+        },
+        async: true,
+        success: function (respond) {
             $("#adminGroupList").empty();
-            respond.forEach((element,index)=>{
-                let countCustomer="0";
-                let takhsisDate="مشتری ندارد";
-                if(element.countCustomer){
-                    countCustomer=element.countCustomer;
+            respond.forEach((element, index) => {
+                let countCustomer = "0";
+                let takhsisDate = "مشتری ندارد";
+                if (element.countCustomer) {
+                    countCustomer = element.countCustomer;
                 }
-                if(element.takhsisDate){
-                    takhsisDate=element.takhsisDate;
+                if (element.takhsisDate) {
+                    takhsisDate = element.takhsisDate;
                 }
-                $("#adminGroupList").append(`
+                $("#adminGroupList").append(
+                    `
                     <tr onclick="setAdminStuff(this)">
-                        <td>`+(index+1)+`</td>
-                        <td>`+element.name+` `+element.lastName+`</td>
-                        <td> `+countCustomer+` </td>
-                        <td> `+takhsisDate+` </td>
-                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+` `+element.adminTypeId+`"> </td>
-                    </tr>`);
+                        <td>` +
+                        (index + 1) +
+                        `</td>
+                        <td>` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                        <td> ` +
+                        countCustomer +
+                        ` </td>
+                        <td> ` +
+                        takhsisDate +
+                        ` </td>
+                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="` +
+                        element.id +
+                        ` ` +
+                        element.adminTypeId +
+                        `"> </td>
+                    </tr>`
+                );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 });
 
-$("#takhsisHeadRadio").on("change",()=>{
+$("#takhsisHeadRadio").on("change", () => {
     $.ajax({
-        method:"get",
-        url:baseUrl+"/getEmployies",
-        data:{_token:"{{@csrf}}",
-                employeeType:$("#takhsisHeadRadio").val()},
-        async:true,
-        success:function(respond){
+        method: "get",
+        url: baseUrl + "/getEmployies",
+        data: {
+            _token: "{{@csrf}}",
+            employeeType: $("#takhsisHeadRadio").val(),
+        },
+        async: true,
+        success: function (respond) {
             $("#adminGroupList").empty();
-            respond.forEach((element,index)=>{
-                let countCustomer="0";
-                let takhsisDate="مشتری ندارد";
-                if(element.countCustomer){
-                    countCustomer=element.countCustomer;
+            respond.forEach((element, index) => {
+                let countCustomer = "0";
+                let takhsisDate = "مشتری ندارد";
+                if (element.countCustomer) {
+                    countCustomer = element.countCustomer;
                 }
-                if(element.takhsisDate){
-                    takhsisDate=element.takhsisDate;
+                if (element.takhsisDate) {
+                    takhsisDate = element.takhsisDate;
                 }
-                $("#adminGroupList").append(`
+                $("#adminGroupList").append(
+                    `
                     <tr onclick="setAdminStuff(this)">
-                        <td>`+(index+1)+`</td>
-                        <td>`+element.name+` `+element.lastName+`</td>
-                        <td> `+countCustomer+` </td>
-                        <td> `+takhsisDate+` </td>
-                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+` `+element.adminTypeId+`"> </td>
-                    </tr>`);
+                        <td>` +
+                        (index + 1) +
+                        `</td>
+                        <td>` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                        <td> ` +
+                        countCustomer +
+                        ` </td>
+                        <td> ` +
+                        takhsisDate +
+                        ` </td>
+                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="` +
+                        element.id +
+                        ` ` +
+                        element.adminTypeId +
+                        `"> </td>
+                    </tr>`
+                );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 });
 
-$("#takhsisEmployeeRadio").on("change",()=>{
+$("#takhsisEmployeeRadio").on("change", () => {
     $.ajax({
-        method:"get",
-        url:baseUrl+"/getEmployies",
-        data:{_token:"{{@csrf}}",
-                employeeType:$("#takhsisEmployeeRadio").val()},
-        async:true,
-        success:function(respond){
-
+        method: "get",
+        url: baseUrl + "/getEmployies",
+        data: {
+            _token: "{{@csrf}}",
+            employeeType: $("#takhsisEmployeeRadio").val(),
+        },
+        async: true,
+        success: function (respond) {
             $("#adminGroupList").empty();
-            respond.forEach((element,index)=>{
-                let countCustomer="0";
-                let takhsisDate="مشتری ندارد";
-                if(element.countCustomer){
-                    countCustomer=element.countCustomer;
+            respond.forEach((element, index) => {
+                let countCustomer = "0";
+                let takhsisDate = "مشتری ندارد";
+                if (element.countCustomer) {
+                    countCustomer = element.countCustomer;
                 }
-                if(element.takhsisDate){
-                    takhsisDate=element.takhsisDate;
+                if (element.takhsisDate) {
+                    takhsisDate = element.takhsisDate;
                 }
-                $("#adminGroupList").append(`
+                $("#adminGroupList").append(
+                    `
                     <tr onclick="setAdminStuff(this)">
-                        <td>`+(index+1)+`</td>
-                        <td>`+element.name+` `+element.lastName+`</td>
-                        <td> `+countCustomer+` </td>
-                        <td> `+takhsisDate+` </td>
-                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+` `+element.adminTypeId+`"> </td>
-                    </tr>`);
+                        <td>` +
+                        (index + 1) +
+                        `</td>
+                        <td>` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                        <td> ` +
+                        countCustomer +
+                        ` </td>
+                        <td> ` +
+                        takhsisDate +
+                        ` </td>
+                        <td> <input class="mainGroupId" type="radio" name="AdminId[]" value="` +
+                        element.id +
+                        ` ` +
+                        element.adminTypeId +
+                        `"> </td>
+                    </tr>`
+                );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 });
 //

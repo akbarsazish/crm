@@ -10,8 +10,8 @@ use App\Http\Controllers\Poshtiban;
 use App\Http\Controllers\SaleLine;
 //poshtiban routes
 Route::get('/customers',[Customer::class,'index'])->middleware('CheckPoshtiban');
-Route::post('/changeDate',[Admin::class,'changeDate'])->middleware('CheckPoshtiban');
-Route::get("/calendar",[Admin::class,"myCalendar"])->middleware('CheckPoshtiban');
+Route::post('/changeDate',[Admin::class,'changeDate'])->middleware('CheckCommon');
+Route::get("/calendar",[Admin::class,"myCalendar"])->middleware('CheckCommon');
 Route::get("/getCustomerForTimeTable",[Customer::class,"getCustomerForTimeTable"])->middleware('CheckPoshtiban');
 Route::get('/myCustomers',[Customer::class,'myCustomers'])->middleware('CheckPoshtiban');
 Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckPoshtiban');

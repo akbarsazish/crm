@@ -1,48 +1,94 @@
 @extends('layout')
 @section('content')
 
-<div class="container-xl" style="margin-top:80px">
-     <div class="card mb-4" style="margin: 0; padding:0;">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-lg-6">
-                     <h5  style="font-size:22px; font-weight:bold; border-bottom:2px solid blue; width:40%">  سرویس راننده ها  </h5>
-                </div>
-                <div class="col-lg-6 text-start">
-                    <button class="btn btn-primary btn-sm" id="driverServicesBtn"> افزودن سرویس <i class="fa fa-plus"></i> </button>
-                    <button class="btn btn-primary btn-sm" id="editDriverServicesBtn"> ویرایش سرویس <i class="fa fa-edit"></i> </button>
-                </div>
-            </div>
-           <div class="row p-2">
-           <table class="table table-bordered table-striped">
-                <thead class="tableHeader">
-                    <tr>
-                    <th>  دریف  </th>
-                    <th> نام راننده</th>
-                    <th> نوع مسیر </th>
-                    <th> توضیحات </th>
-                    <th> تاریخ </th>
-                    <th> انتخاب </th>
-                    </tr>
-                </thead>
-                <tbody class="tableBody" id="driverServiceBodyList">
-                  @foreach($services as $service)
 
-                    <tr onclick="setDriverServiceStuff(this,{{$service->ServiceSn}})">
-                        <th>{{$loop->iteration}}</th>
-                        <td> {{$service->name.' '.$service->lastName}}</td>
-                        <td>@if($service->serviceType==2) متوسط @endif @if($service->serviceType==1) دور @endif @if($service->serviceType==3) نزدیک @endif </td>
-                        <td>{{$service->discription}} </td>
-                        <td>{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($service->TimeStamp))->format('Y/m/d H:i:s')}}</td>
-                        <td>  <input  type="radio" name="radioBtn" value="{{$service->ServiceSn}}"> </td>
-                    </tr>
-                  @endforeach
-                  </tbody>
-                </table>
-           </div>
+<div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> سرویس راننده ها  </legend>
+                       
+                        <div class="form-group col-sm-12 mb-1">
+                            <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                              <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                  <option value="-1"> راننده ها </option>
+                                  <option value="3">حداد  </option>
+                                  <option value="2">  اسنب   </option>
+                                  <option value="3">  کیانی  </option>
+                                  <option value="4">  فلانی   </option>
+                              </select>
+                          </div>
+                        
+                    </fieldset>
+                  </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader">
+                          <div class="form-group col-sm-2 mt-2">
+                              <input type="text" name="" size="20" placeholder="جستجو" class="form-control form-control-sm" id="allKalaFirst">
+                          </div>
+                          <div class="col-sm-2 mt-2">
+                              <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                  <option value="-1">مرتب سازی</option>
+                                  <option value="3">اسم </option>
+                                  <option value="2">  دور  </option>
+                                  <option value="3">  متوسط  </option>
+                                  <option value="4">  نزدیک  </option>
+                              </select>
+                          </div>
+                        <div class="col-lg-8 text-start">
+                            <button class="btn btn-primary btn-sm" id="driverServicesBtn"> افزودن سرویس <i class="fa fa-plus"></i> </button>
+                            <button class="btn btn-primary btn-sm" id="editDriverServicesBtn"> ویرایش سرویس <i class="fa fa-edit"></i> </button>
+                        </div>
+                    </div>
+                    <div class="row mainContent">
+                <div class="row p-0 m-0">
+                  <table class="table table-bordered table-striped" id="driverServicesTable">
+                        <thead class="tableHeader">
+                            <tr>
+                            <th>  دریف  </th>
+                            <th> نام راننده</th>
+                            <th> نوع مسیر </th>
+                            <th> توضیحات </th>
+                            <th> تاریخ </th>
+                            <th> انتخاب </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tableBody" id="driverServiceBodyList">
+                          @foreach($services as $service)
+
+                            <tr onclick="setDriverServiceStuff(this,{{$service->ServiceSn}})">
+                                <th>{{$loop->iteration}}</th>
+                                <td> {{$service->name.' '.$service->lastName}}</td>
+                                <td>@if($service->serviceType==2) متوسط @endif @if($service->serviceType==1) دور @endif @if($service->serviceType==3) نزدیک @endif </td>
+                                <td>{{$service->discription}} </td>
+                                <td>{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($service->TimeStamp))->format('Y/m/d H:i:s')}}</td>
+                                <td>  <input  type="radio" name="radioBtn" value="{{$service->ServiceSn}}"> </td>
+                            </tr>
+                          @endforeach
+                          </tbody>
+                    </table>
+               
+                    </div>
+                    </div>
+                    <div class="row contentFooter"> 
+                        <div class="col-lg-12 text-start mt-1">
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> امروز  : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> صد تای آخر : 100</button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> همه : </button>
+                        </div>
+                    </div>
+                </div>
         </div>
-      </div>
     </div>
+
+
+
 
 
 

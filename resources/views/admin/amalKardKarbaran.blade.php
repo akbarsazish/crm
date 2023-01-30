@@ -8,19 +8,19 @@
                             <div class="row mt-2">
                                 <div class="form-group col-sm-12">
                                     <select class="form-select form-select-sm " id="searchByMantagheh">
-                                    <option value="0" hidden>  خطوط  </option>
-                                    <option value="0"> خط فروش  </option>
-                                    <option value="0">  1 خط فروش  </option>
-                                    <option value="0"> خط فروش 2  </option>
+                                        <option value="0" hidden>  خطوط  </option>
+                                        <option value="0"> خط فروش  </option>
+                                        <option value="0">  1 خط فروش  </option>
+                                        <option value="0"> خط فروش 2  </option>
                                     </select>
                                 </div>
                             
                                 <div class="form-group col-sm-12 mt-1">
                                     <select class="form-select form-select-sm " id="searchByMantagheh">
-                                    <option value="0" hidden>  مدیران   </option>
-                                    <option value="0"> مدیر 1 </option>
-                                    <option value="0"> مدیر 2  </option>
-                                    <option value="0"> مدیر 3 </option>
+                                        <option value="0" hidden>  مدیران   </option>
+                                        <option value="0"> مدیر 1 </option>
+                                        <option value="0"> مدیر 2  </option>
+                                        <option value="0"> مدیر 3 </option>
                                     </select>
                                 </div>
                             </div>
@@ -66,10 +66,10 @@
                        
                         <div class="col-lg-12">
                             <div class="traz-today rounded-2">
-                                    <div class="traz-item"> <span style="color:red;"> نصب: </span> <span id="loginTimeToday"></span>  </div>
-                                    <div class="traz-item"> <span style="color:red;"> اقلام: </span> <span id="loginTimeToday"></span>  </div>
-                                    <div class="traz-item"> <span style="color:red;"> فاکتورها: </span> <span id="loginTimeToday"></span>  </div>
-                                    <div class="traz-item"> <span style="color:red;"> خرید اولیه: </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="traz-item"> <span style="color:red;"> نصب: </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="traz-item"> <span style="color:red;"> اقلام: </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="traz-item"> <span style="color:red;"> فاکتورها: </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="traz-item"> <span style="color:red;"> خرید اولیه: </span> <span id="loginTimeToday"></span>  </div>
                             </div>
                         </div>
                     </fieldset>  
@@ -87,12 +87,12 @@
                                 </div> 
                                 <div class="row">
                                     <div class="col-lg-12">
-                                            <button type="button" class="btn btn-sm btn-primary footerButton m-1"> نصب </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton m-1"> اقلام </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton m-1">فاکتور ها   </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton m-1"> خرید اولیه  </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton m-1">  کل امتیاز (آذر) </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton m-1">  تاریخچه عملکرد </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> نصب </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> اقلام </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1">فاکتور ها   </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1"> خرید اولیه  </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1">  کل امتیاز (آذر) </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton m-1">  تاریخچه عملکرد </button>
                                     </div>
                                 </div>
                             </div>
