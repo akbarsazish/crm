@@ -43,55 +43,57 @@
 
 </style>
 
-<div class="container" style=" margin: auto; margin-top:66px;">
-             <div class="row">
-                    <h3 style="font-size:22px; font-weight:bold; border-bottom:2px solid blue; width:40%">لیست  بارگیری   </h3>
-                                <div class="row mb-2">
-                                         <div class="form-group col-sm-1 mb-1"></div>
-                                        
-                                        <div class="form-group col-sm-2 mb-1">
-                                             <label class="form-label">  تاریخ   </label>
-                                            <input type="text" name="" size="20" class="form-control" id="bargeriSecondDate" placeholder="تا تاریخ " />
-                                        </div>
-                               
-                                    <div class="form-group col-sm-2 mb-1">
-                                       <label class="form-label">  جستجو  </label>
-                                        <input class="form-control" type="text" id="bargerilist" placeholder="جستجو">
-                                     </div>
-                                </div>
-                            </div>
-                    
-                     <table class="table table-bordered crmDataTable driverTable" id="tableGroupList">
-                        <thead class="bg-primary text-warning">
-                            <tr>
-                                <th style="width:0px">#</th>
-                                <th style="width:200px;">نام مشتری</th>
-                                <th class="address" style="width:300px;"> آدرس </th>
-                                <th style="width: 90px;">تلفن </th>
-                                <th style="width:0px"> <i class="fas fa-map-marker-alt " style="color:#fff; "></i>  </th>
-                                <th style="width: 0px;">فاکتور</th>
-                                <th class="choice" style="width:25px"> انتخاب</th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="c-checkout" id="crmDriverBargeri">
-                            @foreach ($factors as $factor)
-                                <tr onclick="setBargiryStuff(this)">
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{ Str::limit($factor->Name, 18) }}</td>
-                                    <td class="address">{{$factor->peopeladdress}}</td>
-                                    <td><a style="color:black; font-size:12px;" href="tel:+900300400"> {{$factor->PhoneStr}} </a> </td>
-                                    <td style="text-align: center;"><a style="text-decoration:none;" target="_blank" href="https://maps.google.com/?q={{$factor->LonPers.','.$factor->LatPers}}"><i class="fas fa-map-marker-alt fa-1xl" style="color:#116bc7; "></i></a></td>
-                                    <td style="text-align: center; cursor:pointer;" data-toggle="modal" data-target="#factorDeatials"><i class="fa fa-eye fa-1xl"> </i> </td>
-                                    <td class="choice"> <input class="customerList form-check-input" name="factorId" type="radio" value="{{$factor->SnBargiryBYS.'_'.$factor->SerialNoHDS.'_'.$factor->TotalPriceHDS}}"></td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+ <div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> راننده ها </legend>
+                    </fieldset>
                 </div>
-            </div>
-        </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader"> 
+                        <div class="form-group col-sm-12 col-lg-2 col-md-2 mt-2">
+                            <input type="text" name="" class="form-control form-control-sm" id="bargeriSecondDate" placeholder="تا تاریخ " />
+                        </div>
+                        <div class="form-group col-sm-12 col-lg-2 col-md-2 mt-2 mt-2">
+                            <input class="form-control form-control-sm" type="text" id="bargerilist" placeholder="جستجو">
+                        </div>
+                    </div>
+                    <div class="row mainContent">
+                        <div class="col-lg-12 px-0">
+                            <table class="table table-bordered crmDataTable driverTable" id="tableGroupList">
+                                <thead class="bg-primary tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام مشتری</th>
+                                        <th class="address"> آدرس </th>
+                                        <th>تلفن </th>
+                                        <th style="width:66px"> موقعیت </th>
+                                        <th style="width:66px">فاکتور</th>
+                                        <th class="choice" > انتخاب</th>
+                                    </tr>
+                                </thead>
 
+                                <tbody class="c-checkout tableBody" id="crmDriverBargeri">
+                                    @foreach ($factors as $factor)
+                                        <tr onclick="setBargiryStuff(this)">
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{ Str::limit($factor->Name, 22) }}</td>
+                                            <td class="address">{{$factor->peopeladdress}}</td>
+                                            <td><a style="color:black; font-size:12px;" href="tel:+900300400"> {{$factor->PhoneStr}} </a> </td>
+                                            <td style="width:66px; text-align: center;"><a style="text-decoration:none;" target="_blank" href="https://maps.google.com/?q={{$factor->LonPers.','.$factor->LatPers}}"><i class="fas fa-map-marker-alt fa-1xl" style="color:#116bc7; "></i></a></td>
+                                            <td style="text-align: center; cursor:pointer; width:66px" data-toggle="modal" data-target="#factorDeatials"><i class="fa fa-eye fa-1xl"> </i> </td>
+                                            <td class="choice"> <input class="customerList form-check-input" name="factorId" type="radio" value="{{$factor->SnBargiryBYS.'_'.$factor->SerialNoHDS.'_'.$factor->TotalPriceHDS}}"></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row contentFooter"> </div>
+                </div>
+        </div>
+    </div>
 
 
 <!-- Modal -->
@@ -120,7 +122,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color:red"></button>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" style="background-color:red"></button>
             <h5 class="modal-title" id="exampleModalLabel">فاکتور فروش <span  id="totalMoney"> </span> </h5>
         </div>
             <div class="modal-body">
@@ -133,8 +135,6 @@
 
                              </ul>
                           </div>
-
-                          
                           <div class="col-lg-6"> 
                             <div class="grid-container card">
                                     <div class="item1"><span> مبلغ کارت:</span>    <span id="cartPrice1"> </span></div>
@@ -144,7 +144,7 @@
                                     <div class="item5"><span> باقی :  </span>   <span  id="diffPrice1"> </span> </div>
                                     <div class="item6"><span> توضیح:  </span>   <span  id="description1">  </span></div>
                             </div>
-                          </div>
+                        </div>
                 </div>
                 <div class="row">
                     <table id="strCusDataTable"  class='css-serial display table table-bordered table-striped table-sm' style="background-color:#dee2e6">
@@ -165,9 +165,8 @@
                 </div>
             </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن  <i class="fa fa-xmark"> </i> </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" id="openReciveMoneyModal">  دریافت  <i class="fa fa-plus"> </i> </button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" id="changeAddressOnMap"> دریافت لوکیشن <i class="fa fa-edit"> </i> </button>
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="openReciveMoneyModal">  دریافت  <i class="fa fa-plus"> </i> </button>
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" id="changeAddressOnMap"> دریافت لوکیشن <i class="fa fa-edit"> </i> </button>
             <input type="hidden" id="bargiriyBYSId"/>
         </div>
     </div>

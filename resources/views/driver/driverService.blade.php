@@ -1,19 +1,45 @@
 @extends('layout')
 @section('content')
+<style>
+   
+.grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 3px;
+        padding: 5px;
+        }
 
+.grid-container > div {
+        text-align: center;
+        font-size: 14px;
+        font-weight:bold;
+        text-align:right;
+        padding:5px;
+        background-color:#bad5ef;
+        border-radius:6px;
+        }
+</style>
 
 <div class="container-fluid containerDiv">
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> سرویس راننده ها  </legend>
+                          <div class="form-check">
+                              <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                              <label class="form-check-label me-4" for="assesPast"> سرویس راننده ها </label>
+                          </div>
+                          <div class="form-check">
+                              <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
+                              <label class="form-check-label me-4" for="assesPast">  بارگیری  </label>
+                          </div>
                        
-                        <div class="form-group col-sm-12 mb-1">
-                            <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
-                        </div>
-                        <div class="form-group col-sm-12 mb-2">
-                            <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
-                        </div>
+                          <div class="form-group col-sm-12 mb-1">
+                              <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                          </div>
+                          <div class="form-group col-sm-12 mb-2">
+                              <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                          </div>
                         <div class="col-sm-12 mt-2">
                               <select class="form-select form-select-sm" id="orderInactiveCustomers">
                                   <option value="-1"> راننده ها </option>
@@ -22,6 +48,9 @@
                                   <option value="3">  کیانی  </option>
                                   <option value="4">  فلانی   </option>
                               </select>
+                          </div>
+                           <div class="form-group col-sm-12" style="margin-top:22vh;">
+                              <input type="text" name="" size="20" placeholder="جستجو به اساس نام مشتری" class="form-control form-control-sm" id="allKalaFirst">
                           </div>
                         
                     </fieldset>

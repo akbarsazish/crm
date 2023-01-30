@@ -156,7 +156,7 @@
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/amalKardKarbarn')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; تراز کاربران  </a></li>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/reports')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد مشتریان </a></li>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/kalaAction')}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد کالا </a></li>
-                                        
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/bargeryInfo')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   گزارش بارگیری  </span></a></li>
                                         
                                             <li class='has-sub newSub'><a class="mySidenav__item" href="#"><span> <i class="fa fa-check fa-lg" style="color:#ba7802; margin-right:15px;"></i> عملکرد کارمندان </span></a>
                                                 <ul class="newSubli">

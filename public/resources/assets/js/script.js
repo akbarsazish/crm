@@ -8545,7 +8545,7 @@ function showBargiriFactors(element, adminId) {
                 <td><a style="color:black; font-size:12px;" href="tel:+900300400"> ` +
                         element.PhoneStr +
                         ` </a> </td>
-                <td style="text-align: center; cursor:pointer;" data-toggle="modal" data-target="#bargiriFactor"><i class="fa fa-eye fa-1xl"> </i> </td>
+                <td style="text-align: center; cursor:pointer; width:111px" data-toggle="modal" data-target="#bargiriFactor"><i class="fa fa-eye fa-1xl"> </i> </td>
                 <td class="choice"> <input class="customerList form-check-input" name="factorId" type="radio" value="  ` +
                         element.SnBargiryBYS +
                         `_` +
@@ -8553,7 +8553,7 @@ function showBargiriFactors(element, adminId) {
                         `_` +
                         element.TotalPriceHDS +
                         `"></td>
-            </tr>
+              </tr>
                 `
                 );
             });

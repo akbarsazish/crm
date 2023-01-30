@@ -6951,6 +6951,9 @@ span.content {
         position: relative !important;
         overflow: scroll !important;
     }
+    .contentHeader {
+        height: 15%;
+    }
     .sideBar {
         min-height: 5vh !important;
         background-color: #b3d1ef;
