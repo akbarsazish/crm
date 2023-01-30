@@ -753,13 +753,19 @@ select Name,PSN,PhoneStr from (
 public function bonusIncreaseDecrease(Request $request)
 {
       //بازاریابهای زیر نظر سرپرست
-      $admins=DB::table("CRM.dbo.crm_admin")->where("bossId",1020)->where('deleted',0)->get();
+      $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0");
       //لیست سرپرستها
       $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',4)->where('adminType','!=',5)->where('deleted',0)->get();
 
       $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
 
    return view("admin.bonusIncreaseDecrease", ['admins'=>$admins,'bosses'=>$bosses, 'admins'=>$admins,'adminTypes'=>$adminTypes]);
+}
+public function getUpDownBonusInfo(Request $request)
+{
+   
 }
 
 

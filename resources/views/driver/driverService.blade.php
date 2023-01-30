@@ -5,39 +5,37 @@
 <div class="container-fluid containerDiv">
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
-                   <fieldset class="border rounded mt-5 sidefieldSet">
+                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> سرویس راننده ها  </legend>
-                       
-                        <div class="form-group col-sm-12 mb-1">
-                            <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
-                        </div>
-                        <div class="form-group col-sm-12 mb-2">
-                            <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
-                        </div>
-                        <div class="col-sm-12 mt-2">
-                              <select class="form-select form-select-sm" id="orderInactiveCustomers">
-                                  <option value="-1"> راننده ها </option>
-                                  <option value="3">حداد  </option>
-                                  <option value="2">  اسنب   </option>
-                                  <option value="3">  کیانی  </option>
-                                  <option value="4">  فلانی   </option>
-                              </select>
+                        <form action="{{url('/searchDriverServices')}}" id="getServiceSearchForm" method="get">
+                          <div class="form-group col-sm-12 mb-1">
+                            <input type="text" name="firstDateService" placeholder="از تاریخ" class="form-control form-control-sm" id="firstDateReturned">
                           </div>
-                        
+                          <div class="form-group col-sm-12 mb-2">
+                            <input type="text" name="secondDateService" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                          </div>
+                          <div class="col-sm-12 mt-2">
+                            <select class="form-select form-select-sm" name="driverSn" id="searchDriverSelect">
+                              <option value="-1"> راننده ها </option>
+                              @forelse($drivers as $driver)
+                              <option value="{{$driver->driverId}}" id="driver{{$driver->driverId}}">{{$driver->name.' '.$driver->lastName}}</option>
+                              @empty
+                              <div><span>داده وجود ندارد</span></div>
+                              @endif
+                            </select>
+                          </div>
+                          <button class='btn btn-primary btn-sm text-warning' type="submit" id='getServiceSearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                        </form>
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader">
-                          <div class="form-group col-sm-2 mt-2">
-                              <input type="text" name="" size="20" placeholder="جستجو" class="form-control form-control-sm" id="allKalaFirst">
-                          </div>
                           <div class="col-sm-2 mt-2">
-                              <select class="form-select form-select-sm" id="orderInactiveCustomers">
-                                  <option value="-1">مرتب سازی</option>
-                                  <option value="3">اسم </option>
-                                  <option value="2">  دور  </option>
-                                  <option value="3">  متوسط  </option>
-                                  <option value="4">  نزدیک  </option>
+                              <select class="form-select form-select-sm" id="orderDriverServices">
+                                  <option value="-1"> مرتب سازی </option>
+                                  <option value="name">   اسم  </option>
+                                  <option value="serviceType">  مسیر  </option>
+                                  <option value="TimeStamp">  تاریخ  </option>
                               </select>
                           </div>
                         <div class="col-lg-8 text-start">
@@ -77,10 +75,10 @@
                     </div>
                     <div class="row contentFooter"> 
                         <div class="col-lg-12 text-start mt-1">
-                            <button type="button" class="btn btn-sm btn-primary footerButton"> امروز  : </button>
-                            <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز : </button>
-                            <button type="button" class="btn btn-sm btn-primary footerButton"> صد تای آخر : 100</button>
-                            <button type="button" class="btn btn-sm btn-primary footerButton"> همه : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('TODAY')"> امروز  : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('YESTERDAY')"> دیروز : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('LASTHUNDRED')"> صد تای آخر : 100</button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('ALLSERVICES')"> همه : </button>
                         </div>
                     </div>
                 </div>

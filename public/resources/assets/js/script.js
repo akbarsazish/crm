@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
     $(element).find("input:radio").prop("checked", true);
@@ -11559,6 +11559,7 @@ $("#addService").on("submit", function (e) {
                         </tr>`
                 );
             });
+            $("#driverServicesModal").modal("hide");
         },
         error: function (error) {
             console.log(error);
@@ -11688,6 +11689,7 @@ $("#editServiceForm").on("submit", function (e) {
                         </tr>`
                 );
             });
+            $("#editDriverServicModal").modal("hide");
         },
         error: function (error) {
             alert("error getting data");
@@ -11695,6 +11697,180 @@ $("#editServiceForm").on("submit", function (e) {
     });
     e.preventDefault();
 });
+
+$("#getServiceSearchForm").on("submit",function(e){
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function (data) {
+            $("#driverServiceBodyList").empty();
+            data.forEach((element, index) => {
+                let serviceType = "";
+                if (element.serviceType == 1) {
+                    serviceType = "دور";
+                }
+                if (element.serviceType == 2) {
+                    serviceType = "متوسط";
+                }
+                if (element.serviceType == 3) {
+                    serviceType = "نزدیک";
+                }
+                $("#driverServiceBodyList").append(
+                    `
+                        <tr onclick="setDriverServiceStuff(this,` +
+                        element.ServiceSn +
+                        `)">
+                            <th>` +
+                        (index + 1) +
+                        `</th>
+                            <td> ` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                            <td>` +
+                        serviceType +
+                        `</td>
+                            <td>` +
+                        element.discription +
+                        `</td>
+                            <td>` +element.TimeStamp+`</td>
+                            <td>  <input  type="radio" name="radioBtn" value="` +
+                        element.ServiceSn +
+                        `"> </td>
+                        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+
+$("#orderDriverServices").on("change",function(){
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/serviceOrder",
+        async: true,
+        data: {
+            _token: "{{@csrf}}",
+            selectedBase:$("#orderDriverServices").val()
+        },
+        success: function (data) {
+            $("#driverServiceBodyList").empty();
+            data.forEach((element, index) => {
+                let serviceType = "";
+                if (element.serviceType == 1) {
+                    serviceType = "دور";
+                }
+                if (element.serviceType == 2) {
+                    serviceType = "متوسط";
+                }
+                if (element.serviceType == 3) {
+                    serviceType = "نزدیک";
+                }
+                $("#driverServiceBodyList").append(
+                    `<tr onclick="setDriverServiceStuff(this,` +element.ServiceSn +`)">
+                            <td>` +
+                        (index + 1) +
+                        `</td>
+                            <td> ` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                            <td>` +
+                        serviceType +
+                        `</td>
+                            <td>` +
+                        element.discription +
+                        `</td>
+                            <td>` +element.TimeStamp+`</td>
+                            <td>  <input  type="radio" name="radioBtn" value="` +
+                        element.ServiceSn +
+                        `"> </td>
+                        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+function getServices(flag) {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getDriverServices",
+        async: true,
+        data: {
+            _token: "{{@csrf}}",
+            flag:flag
+        },
+        success: function (data) {
+            console.log(data);
+            $("#driverServiceBodyList").empty();
+            data.forEach((element, index) => {
+                let serviceType = "";
+                if (element.serviceType == 1) {
+                    serviceType = "دور";
+                }
+                if (element.serviceType == 2) {
+                    serviceType = "متوسط";
+                }
+                if (element.serviceType == 3) {
+                    serviceType = "نزدیک";
+                }
+                $("#driverServiceBodyList").append(
+                    `<tr onclick="setDriverServiceStuff(this,` +element.ServiceSn +`)">
+                            <td>` +
+                        (index + 1) +
+                        `</td>
+                            <td> ` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                            <td>` +
+                        serviceType +
+                        `</td>
+                            <td>` +
+                        element.discription +
+                        `</td>
+                            <td>` +element.TimeStamp+`</td>
+                            <td>  <input  type="radio" name="radioBtn" value="` +
+                        element.ServiceSn +
+                        `"> </td>
+                        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+        }
+    });
+}
+
+function setUpDownHistoryStuff(element,historyID){
+    $("tr").removeClass("selected");
+    $(element).toggleClass("selected");
+    $.ajax({method:'get',
+    url:baseUrl+'/getUpDownBonusInfo',
+    data:{
+        _token:"{{@csrf}}",
+        historyID:historyID},
+    async:true,
+    success:function(respond){
+        alert(respond);
+    },
+    error:function(error){
+        alert(error);
+    }
+});
+
+}
 
 $("#assesToday").on("change", () => {
     if ($("#assesToday").is(":checked")) {
