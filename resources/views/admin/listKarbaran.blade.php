@@ -339,18 +339,12 @@
                                         </tr>
                                     @endif
                                 @endforeach
-
                             </tbody>
                         </table>
                      </fieldset> -->
                 </div>
             </div>
         </div>
-        
-
-
-
-
         <!-- modal of new Brand -->
         <div class="modal fade dragableModal" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">

@@ -22,7 +22,10 @@
                             <label class="form-check-label me-4"  for="assesPast"> کارمندان </label>
                         </div>
                         <div class="col-lg-12" style="margin-top:50vh;">
-                          <a href="{{url('editAssignCustomer')}}"type="button" class="btn btn-primary btn-sm text-warning w-50" disabled>ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                        <form action="{{url('editAssignCustomer')}}" method="get">
+                            <input type="hidden" name="adminId" id="editAssingId">
+                          <button type="submit" id="editAssingBtn" class="btn btn-primary btn-sm text-warning w-50" disabled>ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                        </form>
                         </div>
                     </fieldset>
                   </div>
@@ -58,7 +61,7 @@
                                     </tbody>
                                 </table>
                                  <div class="grid-today rounded-2 mx-2">
-                                    <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات:  {{trim($admin->discription)}} </span> <span id="loginTimeToday"></span>  </div>
+                                    <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات:<span id="adminDiscription" ></span></span> <span id="loginTimeToday"></span>  </div>
                                  </div> 
                             </div>
                        </div>  
@@ -84,10 +87,11 @@
                                   </tr>
                                 </thead>
                                 <tbody id="emptyKarbar" class="tableBody">
-                                 </tbody>
+                                    
+                                </tbody>
                             </table>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelRemoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="button" onclick="removeStaff()" class="bt btn-danger btn-lg">تخلیه <i class="fa fa-upload"></i> </button>
+                            <button type="button" id="emptyAdminBtn" class="bt btn-danger btn-lg">تخلیه <i class="fa fa-upload"></i> </button>
                         </div>
                     </div>
                 </div>
