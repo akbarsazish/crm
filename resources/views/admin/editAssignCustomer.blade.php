@@ -4,9 +4,9 @@
 @section('content')
 
  <div class="container-fluid containerDiv">
-            <div class="spinner-border text-danger" role="status" id="transferLoader" style="display:none;">
-                <span class="sr-only">Loading...</span>
-            </div>
+        <div class="spinner-border text-danger" role="status" id="transferLoader" style="display:none;">
+            <span class="sr-only">Loading...</span>
+        </div>
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
@@ -36,12 +36,11 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-12 mb-1">
-                                <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
-                            </div>
-                            <div class="form-group col-sm-12 mb-2">
-                                <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
-                            </div>
-                        
+                            <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                        </div>
                     </fieldset>
                   </div>
                 <div class="col-sm-8 col-md-8 col-sm-12 contentDiv">
@@ -55,7 +54,6 @@
                               <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="cancelMoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
                               <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal" id="cancelMoveKarbar"> ثبت <i class="fa-solid fa-save"> </i> </button>
                         </div>
-                        
                     </div>
                     <div class="row mainContent">
                           <div class="row text-center mx-0 px-0" id="customerContainer">
@@ -98,7 +96,9 @@
                       </div>
                  
                      </div>
-                    <div class="row contentFooter"> </div>
+                    <div class="row contentFooter">
+                        
+                   </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                  <fieldset class="border rounded mt-5 sidefieldSet">

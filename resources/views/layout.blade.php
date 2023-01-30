@@ -97,11 +97,14 @@
                                             </span>
                                         </a>
                                         <ul>
-                                            <li class=''><a class="mySidenav__item" href="{{url('/assignCustomer')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; تخصیص به کاربر </span></a> </li>
-                                            <li class=''><a class="mySidenav__item" href="{{url('/karbaranOperations')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; کاربران </span></a> </li>
-                                            <li class=''><a class="mySidenav__item" href="{{url('/driverService')}}"> &nbsp;&nbsp; <i class="fas fa-car fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; سرویس راننده ها </span></a></li>
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/commentToday')}}"><span>  &nbsp; &nbsp; <i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp; نظر سنجی  </span></a>
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bonusIncreaseDecrease')}}"><span>  &nbsp; &nbsp; <i class="fa-solid fa-plus-minus" style="color:#fff;"></i>  افزایش و کاهش امتیاز </span></a>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/assignCustomer')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="color:#fff;"></i>&nbsp; تخصیص به کاربر </span></a> </li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/karbaranOperations')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="color:#fff;"></i>&nbsp; کاربران </span></a> </li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/driverService')}}"> &nbsp;&nbsp; <i class="fas fa-car fa-lg"style="color:#fff;"></i>&nbsp; سرویس راننده ها </span></a></li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/commentToday')}}"><span>  &nbsp; &nbsp; <i class="fa fa-check fa-lg" style="color:#fff;"></i>&nbsp; نظر سنجی  </span></a> </li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bonusIncreaseDecrease')}}"><span>  &nbsp; &nbsp; <i class="fa-solid fa-plus-minus" style="color:#fff;"></i>  افزایش و کاهش امتیاز </span></a> </li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/randt')}}"> <span>  &nbsp; &nbsp; <i class="fa-solid fa-tasks fa-lg" style="color:#fff;"> </i> R&T</span></a> </li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/calendar')}}"><span> &nbsp; &nbsp; <i class="fa-solid fa-calendar fa-lg" style="color:#fff;"></i> تقویم روزانه  </span></a></li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bargeryInfo')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   بارگیری  </span></a></li>
                                             @php
                                             $hasAlarm=Session::get("hasAlarm");
                                             @endphp
@@ -117,15 +120,15 @@
                                                     </ul>
                                                 </li>
                                             @endif -->
-                                        <li class=''> <a class="mySidenav__item text-white" href="{{url('/message')}}"> &nbsp; &nbsp; <span><i class="fas fa-message fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;پیام ها  @if($inbox) <span class="position-absolute badge rounded-pill bg-danger"> {{$inbox}} </span> @endif  </span></a>  </li>
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/message')}}"> &nbsp; &nbsp; <span><i class="fas fa-message fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;پیام ها  @if($inbox) <span class="position-absolute badge rounded-pill bg-danger"> {{$inbox}} </span> @endif  </span></a>  </li>
                                         </ul>
                                     </li>
                                 @endif
                                 @if( Session::get('adminType')==2)
                                     <li class=''><a class="mySidenav__item" href="{{url('/customers')}}"><span><i class="fa-solid fa-users fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;لیست مشتریان</span></a></li>
-                                    <li class=''><a class="mySidenav__item" href="{{url('/bargeryInfo')}}"><span><i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;  اطلاعات بارگیری  </span></a></li>
+                                   
                                     <li class=''><a class="mySidenav__item" href="{{url('/poshtibanActionInfo?subPoshtibanId='.Session::get('asn'))}}"><span> <i class="fa-regular fa-tasks fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; عملکرد</span></a></li>
-                                    <li class=''><a class="mySidenav__item" href="{{url('/randt')}}"><span><i class="fa-solid fa-tasks fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; R&T</span></a> </li>
+                                    
 
                                 @elseif(Session::get('adminType')==3)
                                     <li class=''><a class="mySidenav__item" href="{{url('/myCustomers')}}"><span><i class="fas fa-user-plus fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;لیست مشتریان</span></a></li>
@@ -136,9 +139,9 @@
                                     <li class=''><a class="mySidenav__item" href="{{url('/crmDriver')}}"><span><i class="fas fa-truck fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;بارگیرها</span></a></li>
                                     <li class=''><a class="mySidenav__item" href="{{url('/poshtibanActionInfo?subPoshtibanId='.Session::get('asn'))}}"><span><i class="fas fa-truck fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;عملکرد</span></a></li>
                                 @endif
-                                @if( Session::get('adminType')==2)
-                                    <li class=''><a class="mySidenav__item" href="{{url('/calendar')}}"><span><i class="fa-solid fa-calendar fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تقویم روزانه  </span></a></li>
-                                @endif
+                               
+                                    
+                               
                                 @if( !(Session::get('adminType')==1 or Session::get('adminType')==5) and Session::get("hasAllCustomer")=="on")
                                     <li class='has-sub'><a class="mySidenav__item"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; گزارشات   </span></a>
                                         <ul>
@@ -250,10 +253,8 @@
 <script src="{{url('/resources/assets/js/amcharts/wrld.js')}}"></script>
 
 <script src="{{url('/resources/assets/js/jalali-moment.browser.js')}}"></script>
-
 <script src="{{url('/resources/assets/js/script.js')}}"></script>
 <script src="{{url('/resources/assets/js/main.js')}}"></script>
-
 <script src="{{url('/resources/assets/js/jquery.thooClock.js')}}"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
  

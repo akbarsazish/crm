@@ -11886,6 +11886,17 @@ $("#employeeTypeEdit").on("change", function () {
     }
 });
 
+// R an D script
+
+$("#notLoginRadio").on("change", () => {
+    $("#logedIn").css("display", "none");
+    $("#notLogin").css("display", "block");
+});
+$("#logedInRadio").on("change", () => {
+    $("#logedIn").css("display", "block");
+    $("#notLogin").css("display", "none");
+});
+
 function setManagerStuff(element, adminId) {
     $(element).find("input:radio").prop("checked", true);
     let input = $(element).find("input:radio");

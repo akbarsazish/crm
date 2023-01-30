@@ -2,9 +2,9 @@
 @section('content')
 
  <div class="container-fluid containerDiv">
-            <div class="spinner-border text-danger" role="status" id="transferLoader" style="display:none;">
-                <span class="sr-only">Loading...</span>
-            </div>
+        <div class="spinner-border text-danger" role="status" id="transferLoader" style="display:none;">
+            <span class="sr-only">Loading...</span>
+        </div>
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
@@ -29,8 +29,8 @@
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader">
                         <div class="col-lg-12 text-start">
-                              <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="emptyKarbarButton" >تخلیه کاربر <i class="fa fas fa-upload fa-lg" aria-hidden="true"></i></button>
-                              <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="moveKarbarButton">تغییر کاربر <i class="fa fas fa-sync fa-lg" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="emptyKarbarButton" >تخلیه کاربر <i class="fa fas fa-upload fa-lg" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="moveKarbarButton">تغییر کاربر <i class="fa fas fa-sync fa-lg" aria-hidden="true"></i></button>
                         </div>
                     </div>
                     <div class="row mainContent">
@@ -45,7 +45,7 @@
                                             <th> انتخاب </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="select-highlight tableBody" id="adminGroupList">
+                                    <tbody class="select-highlight tableBody" id="adminGroupList" style="height:250px !important;">
                                         @foreach ($admins as $admin)    
                                                 <tr onclick="setAdminStuff(this,{{$admin->id}},{{$admin->adminType}})">
                                                     <td>{{$loop->iteration}}</td>
@@ -60,6 +60,25 @@
                                  <div class="grid-today rounded-2 mx-2">
                                     <div class="today-item"> <span style="color:red; font-weight:bold;"> توضیحات:  {{trim($admin->discription)}} </span> <span id="loginTimeToday"></span>  </div>
                                  </div> 
+                                 <table class="table table-bordered table-striped table-hover">
+                                    <thead class="tableHeader">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th> اسم  </th>
+                                            <th> منطقه  </th>
+                                            <th style="width:199px">تاریخ اخرین خرید </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody class="select-highlight tableBody" id="adminGroupList" style="height:250px !important;">
+                                        <tr>
+                                            <td>1</td>
+                                            <td> </td>
+                                            <td> </td>
+                                            <td style="width:188px !important"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                        </div>  
                          

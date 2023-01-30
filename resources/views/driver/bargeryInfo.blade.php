@@ -20,11 +20,48 @@
 			border-radius:6px;
             }
 </style>
-    <div class="container" style="margin-top:5%; padding:10px 15px;">
-                <div class="row">
-                    <h3 style="font-size:22px; font-weight:bold; border-bottom:2px solid blue; width:40%">اطلاعات  بارگیری   </h3>
-                    <div class="col-lg-12">
-                       <table class="select-highlight table table-bordered table-striped" id="">
+
+   <div class="container-fluid containerDiv">
+      <div class="row">
+               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                   <fieldset class="border rounded mt-5 sidefieldSet">
+                        <legend  class="float-none w-auto legendLabel mb-0"> بارگیری  </legend>
+                        <div class="form-group col-sm-12 mb-1">
+                            <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                        </div>
+                        <div class="form-group col-sm-12 mb-2">
+                            <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                              <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                  <option value="-1"> راننده ها </option>
+                                  <option value="3">حداد  </option>
+                                  <option value="2">  اسنب   </option>
+                                  <option value="3">  کیانی  </option>
+                                  <option value="4">  فلانی   </option>
+                              </select>
+                          </div>
+                        
+                    </fieldset>
+                  </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader"> 
+                         <div class="form-group col-sm-2 mt-2">
+                              <input type="text" name="" size="20" placeholder="جستجو" class="form-control form-control-sm" id="allKalaFirst">
+                          </div>
+                          <div class="col-sm-2 mt-2">
+                              <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                  <option value="-1">مرتب سازی</option>
+                                  <option value="3">اسم </option>
+                              </select>
+                          </div>
+                        <div class="col-lg-8 text-start">
+                           
+                        </div>
+                    </div>
+                    <div class="row mainContent">
+                         <div class="col-lg-12 px-0">
+                            <table class="select-highlight table table-bordered table-striped" id="">
                             <thead class="tableHeader">
                                 <tr>
                                     <th>ردیف</th>
@@ -34,26 +71,21 @@
                                     <th>فعال</th>
                                 </tr>
                             </thead>
-                            <tbody class="tableBody" id="">
+                            <tbody class="tableBody" id="" style="height:244px !important">
                                 @foreach ($admins as $admin)
-                                        <tr onclick="showBargiriFactors(this,{{$admin->driverId}})">
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                            <td>{{trim($admin->adminType)}}</td>
-                                            <td>{{trim($admin->phone)}}</td>
-                                            <td>
-                                                <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                            </td>
-                                        </tr>
+                                    <tr onclick="showBargiriFactors(this,{{$admin->driverId}})">
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
+                                        <td>{{trim($admin->adminType)}}</td>
+                                        <td>{{trim($admin->phone)}}</td>
+                                        <td>
+                                            <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
 
-                     </div>
-                   </div>
-
-                   <div class="row"> 
-                        <h4> لیست فاکتور ها </h4>
                         <table class="table table-bordered" id="tableGroupList">
                             <thead class="bg-primary text-warning tableHeader">
                                 <tr>
@@ -65,11 +97,26 @@
                                     <th> انتخاب</th>
                                 </tr>
                             </thead>
-                            <tbody class="tableBody" id="crmDriverBargeri">
+                            <tbody class="tableBody" id="crmDriverBargeri" style="height:250px !important">
                             </tbody>
                         </table>
-                   </div>
-              </div>
+                       </div>
+                    </div>
+                    <div class="row contentFooter"> 
+                         <div class="col-lg-12 text-start mt-1">
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> امروز  : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز : </button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> صد تای آخر : 100</button>
+                            <button type="button" class="btn btn-sm btn-primary footerButton"> همه : </button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+
+
+
 
 <!-- modal for demonestrating factor deatails -->
             <div class="modal fade" id="bargiriFactor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

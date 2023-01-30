@@ -30,6 +30,10 @@
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> عملکرد مشتریان </legend>
                             <div class="form-check bg-gray">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="">
+                                <label class="form-check-label me-4" for="assesPast"> همه  </label>
+                            </div>
+                            <div class="form-check bg-gray">
                                 <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerLoginReportRadio">
                                 <label class="form-check-label me-4" for="assesPast">  گزارش ورود </label>
                             </div>
