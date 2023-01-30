@@ -140,7 +140,8 @@ public function bargeryFactors(Request $request){
 public function driverService(Request $request)
 {
     $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType,TimeStamp FROM CRM.dbo.crm_driverservice JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId where deleted=0 and adminType=4 order by TimeStamp desc");
-    return view("driver.driverService",['services'=>$services]);
+    $drivers=DB::select("SELECT * FROM CRM.dbo.crm_admin  WHERE deleted=0 and adminType=4 ");
+    return view("driver.driverService",['services'=>$services,'drivers'=>$drivers]);
 }
 public function addService(Request $request)
 {
@@ -174,6 +175,110 @@ public function editDriverService(Request $request)
     ,"serviceType"=>$editServiceType
     ,"discription"=>"".$editDiscription.""]);
     $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType,TimeStamp FROM CRM.dbo.crm_driverservice JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId where deleted=0 and adminType=4  order by TimeStamp desc");
+    return Response::json($services);
+}
+public function searchDriverServices(Request $request)
+{
+    $fristDateService=$request->get("firstDateService");
+    $secondDateService=$request->get("secondDateService");
+    $driveId=$request->get("driverSn");
+    $services;
+    if(strlen($fristDateService)>3 and strlen($secondDateService)<3 and $driveId ==-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')>='$fristDateService' and deleted=0 and adminType=4 order by TimeStamp desc");
+    }
+    if(strlen($fristDateService)<3 and strlen($secondDateService)>3 and $driveId ==-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')<='$secondDateService' and deleted=0 and adminType=4 order by TimeStamp desc");
+    }
+    if(strlen($fristDateService)>3 and strlen($secondDateService)>3 and $driveId ==-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')<='$secondDateService' AND FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')>='$fristDateService'
+                                and deleted=0  and adminType=4 order by TimeStamp desc");
+    }
+    if(strlen($fristDateService)>3 and strlen($secondDateService)>3 and $driveId !=-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')<='$secondDateService' AND FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')>='$fristDateService'
+                                and deleted=0 and adminId=$driveId and adminType=4 order by TimeStamp desc");
+    }
+    if(strlen($fristDateService)>3 and strlen($secondDateService)<3 and $driveId !=-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE  FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')>='$fristDateService'
+                                and deleted=0 and adminId=$driveId and adminType=4 order by TimeStamp desc");
+    }
+    if(strlen($fristDateService)<3 and strlen($secondDateService)>3 and $driveId !=-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE  FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')<='$secondDateService'
+                                and deleted=0 and adminId=$driveId and adminType=4 order by TimeStamp desc");
+    }
+    if(strlen($fristDateService)<3 and strlen($secondDateService)<3 and $driveId !=-1){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                                FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                                JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                                WHERE deleted=0 and adminId=$driveId and adminType=4 order by TimeStamp desc");
+    }
+
+    return Response::json($services);
+}
+public function serviceOrder(Request $request)
+{
+    $selectedBase=$request->get("selectedBase");
+    $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+                            FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+                            JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+                            WHERE deleted=0 and adminType=4 order by $selectedBase desc");
+    return Response::json($services);
+}
+public function getDriverServices(Request $request)
+{
+    $flag=$request->get("flag");
+    $services;
+    $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+    $yesterday;
+    if($yesterdayOfWeek==6){
+        $yesterday = Jalalian::fromCarbon(Carbon::yesterday()->subDays(1))->format('Y/m/d');
+    }else{
+        $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+    }
+    $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+
+    if($flag=="TODAY"){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+            FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+            JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+            WHERE FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')='$todayDate' AND deleted=0 and adminType=4 order by TimeStamp desc");
+    }
+    if($flag=="YESTERDAY"){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+            FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+            JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+            WHERE FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')='$yesterday' AND deleted=0 and adminType=4 order by TimeStamp desc");
+    }
+    if($flag=="LASTHUNDRED"){
+        $services=DB::select("SELECT TOP 100 name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+            FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+            JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+            WHERE  deleted=0 and adminType=4 order by TimeStamp desc");
+    }
+    if($flag=="ALLSERVICES"){
+        $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType, 
+            FORMAT(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir') as TimeStamp,adminId FROM CRM.dbo.crm_driverservice 
+            JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId 
+            WHERE deleted=0 and adminType=4 order by TimeStamp desc");
+    }
+
     return Response::json($services);
 }
 }

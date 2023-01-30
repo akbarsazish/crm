@@ -62,20 +62,16 @@
                                     <th> اسم شخص </th>
                                     <th> تعداد امتیاز </th>
                                     <th> کاربر </th>
-                                    <th> انتخاب </th>
                                 </tr>
                             </thead>
                             <tbody class="tableBody" id="adminGroupList">
                                 @foreach ($admins as $admin)
-                                    <tr onclick="setSubBazaryabStuff(this)">
+                                    <tr onclick="setUpDownHistoryStuff(this,{{$admin->historyId}})">
                                         <td>{{$loop->iteration}}</td>
-                                        <td> </td>
-                                        <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                        <td></td>
-                                        <td>{{trim($admin->discription)}}</td>
-                                        <td>
-                                            <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                        </td>
+                                        <td> {{$admin->TimeStamp}} </td>
+                                        <td>{{trim($admin->adminName)}}</td>
+                                        <td @if($admin->negativeBonus>0) style="color:red;" @else   @endif>@if($admin->positiveBonus>0){{trim($admin->positiveBonus)}} @else {{trim($admin->negativeBonus)}} @endif</td>
+                                        <td>{{trim($admin->superName)}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

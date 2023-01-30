@@ -24,12 +24,22 @@ class Admin extends Controller
     }
 
     public function editAssignCustomer(Request $request) {
-                 $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
-      
+        $adminId=$request->get("adminId");
+        $customers=DB::select("SELECT Name,NameRec,PSN FROM Shop.dbo.Peopels 
+        JOIN Shop.dbo.MNM on Peopels.SnMantagheh=SnMNM
+        WHERE PSN NOT IN ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null)
+        AND PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null and state=1)
+        AND PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null and returnState=1)
+        AND Peopels.CompanyNo=5 AND IsActive=1
+        AND GroupCode IN ( ".implode(",",Session::get("groups")).") And Name!=''");
+
+        $addedCustomers=DB::select("SELECT Name,NameRec,PSN FROM Shop.dbo.Peopels 
+        JOIN Shop.dbo.MNM on Peopels.SnMantagheh=SnMNM WHERE Peopels.PSN IN (SELECT customer_id FROM CRM.dbo.crm_customer_added WHERE admin_id=".$adminId." and crm_customer_added.returnState=0)  AND Peopels.CompanyNo=5 AND GroupCode IN ( ".implode(",",Session::get("groups")).")");
+        $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("crm_admin.id",$adminId)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
         $regions=DB::select("SELECT * FROM Shop.dbo.MNM WHERE CompanyNo=5 and SnMNM>82");
         $cities=DB::select("Select * FROM Shop.dbo.MNM WHERE  CompanyNo=5 and RecType=1 AND FatherMNM=79");
         $adminList=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
-        return view('admin.editAssignCustomer', ['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'adminList'=>$adminList]);
+        return view('admin.editAssignCustomer', ['admins'=>$admins[0],'regions'=>$regions,'cities'=>$cities,'adminList'=>$adminList,'customers'=>$customers,'addedCustomers'=>$addedCustomers,'adminId'=>$adminId]);
     }
     public function listKarbaran(Request $request)
     {
@@ -2878,6 +2888,13 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
                             JOIN CRM.dbo.crm_admin ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0 group by admin_id)a on a.admin_id=crm_admin.id
                             WHERE employeeType=$employeeType AND deleted =0");
         return Response::json($admins);
+    }
+    public function EditAdminComment(Request $request)
+    {
+        $adminId=$request->get("adminId");
+        $comment=$request->get("comment");
+        DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['discription'=>"$comment"]);
+        return Response::json('good');
     }
 
 }

@@ -2964,4 +2964,228 @@ public function getRandTInfo(Request $request)
     return Response::json([$exactCustomer[0],$phones,$cities,$mantagheh]);
 }
 
+public function getTakhsisEditRightSide(Request $request)
+{
+    $newOrBuyOrNotBuy=$request->get("buyNotBuyOrNew");
+    $fristDateBuy="";
+    if($request->get("firstDateBuy")){
+        $fristDateBuy=$request->get("firstDateBuy");
+    }
+    $secondDateBuy="";
+    if($request->get("secondDateBuy")){
+        $secondDateBuy=$request->get("secondDateBuy");
+    }
+    $firstDateSabt=$request->get("firstDateSabt");
+    $secondDateSabt=$request->get("secondDateSabt");
+    $city="";
+    $mantagheh="";
+    $city=$request->get("searchCity");
+    $mantagheh=$request->get("searchMantagheh");
+    $queryBuyPart="";
+    $querySabtDatePart="";
+    $queryBuyDatePart="";
+
+    // if($newOrBuyOrNotBuy==1){
+
+    //     $queryBuyPart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    // }
+
+    // if($newOrBuyOrNotBuy==0){
+
+    //     $queryBuyPart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    // }
+
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateBuy)>3 and strlen($fristDateBuy)<3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)>3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+    
+    }
+
+    //خرید نکرده ها
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateBuy)>3 and strlen($fristDateBuy)<3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)>3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+    
+    }
+
+    // بدون تاریخ خرید نکرده ها
+    if(strlen($fristDateBuy)<3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    }
+
+    // بدون تاریخ خرید کرده ها
+    if(strlen($fristDateBuy)<3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($firstDateSabt)>3 and strlen($secondDateSabt)<3){
+
+        $querySabtDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE TimeStamp <='$firstDateSabt'  AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateSabt)>3 and strlen($firstDateSabt)<3){
+
+        $querySabtDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE TimeStamp <='$secondDateSabt' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateSabt)>3 and strlen($firstDateSabt)>3){
+        $querySabtDatePart="AND Format(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')>'$firstDateSabt' AND Format(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')<'$secondDateSabt' AND Peopels.CompanyNo=5";
+
+    }
+
+
+    $customers=DB::select("SELECT Name,NameRec,PSN FROM Shop.dbo.Peopels 
+    JOIN Shop.dbo.MNM ON SnMantagheh=MNM.SnMNM
+    WHERE PSN NOT IN ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null)
+    and PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null and state=1)
+    and PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null and returnState=1)
+    AND Peopels.CompanyNo=5 AND IsActive=1 AND SnMantagheh LIKE '%$mantagheh%' AND SnNahiyeh LIKE '%$city%' ".$queryBuyDatePart." ".$querySabtDatePart);
+    return Response::json($customers);
+}
+
+public function getAddedCustomers(Request $request)
+{
+    $adminId=$request->get("adminId");
+    $newOrBuyOrNotBuy=$request->get("buyNotBuyOrNew");
+    $fristDateBuy="";
+    if($request->get("firstDateBuy")){
+        $fristDateBuy=$request->get("firstDateBuy");
+    }
+    $secondDateBuy="";
+    if($request->get("secondDateBuy")){
+        $secondDateBuy=$request->get("secondDateBuy");
+    }
+    $firstDateSabt=$request->get("firstDateSabt");
+    $secondDateSabt=$request->get("secondDateSabt");
+    $city="";
+    $mantagheh="";
+    $city=$request->get("searchCity");
+    $mantagheh=$request->get("searchMantagheh");
+    $queryBuyPart="";
+    $querySabtDatePart="";
+    $queryBuyDatePart="";
+
+    // if($newOrBuyOrNotBuy==1){
+
+    //     $queryBuyPart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    // }
+
+    // if($newOrBuyOrNotBuy==0){
+
+    //     $queryBuyPart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    // }
+
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateBuy)>3 and strlen($fristDateBuy)<3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)>3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+    
+    }
+
+    //خرید نکرده ها
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateBuy)>3 and strlen($fristDateBuy)<3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($fristDateBuy)>3 and strlen($secondDateBuy)>3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactDate>='$fristDateBuy' AND FactDate<='$secondDateBuy' AND FactType=3 AND CompanyNo=5)";
+    
+    }
+
+    // بدون تاریخ خرید نکرده ها
+    if(strlen($fristDateBuy)<3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==0){
+
+        $queryBuyDatePart="AND PSN NOT IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    }
+
+    // بدون تاریخ خرید کرده ها
+    if(strlen($fristDateBuy)<3 and strlen($secondDateBuy)<3 and $newOrBuyOrNotBuy==1){
+
+        $queryBuyDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($firstDateSabt)>3 and strlen($secondDateSabt)<3){
+
+        $querySabtDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE TimeStamp <='$firstDateSabt'  AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateSabt)>3 and strlen($firstDateSabt)<3){
+
+        $querySabtDatePart="AND PSN IN(SELECT CustomerSn FROM Shop.dbo.FactorHDS WHERE TimeStamp <='$secondDateSabt' AND FactType=3 AND CompanyNo=5)";
+
+    }
+
+    if(strlen($secondDateSabt)>3 and strlen($firstDateSabt)>3){
+        $querySabtDatePart="AND Format(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')>'$firstDateSabt' AND Format(CONVERT(DATE,TimeStamp),'yyyy/M/d','fa-ir')<'$secondDateSabt' AND Peopels.CompanyNo=5";
+
+    }
+
+
+    $customers=DB::select("SELECT Name,NameRec,PSN FROM Shop.dbo.Peopels 
+    JOIN Shop.dbo.MNM ON SnMantagheh=MNM.SnMNM
+    WHERE PSN IN ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and admin_id=$adminId and customer_id is not null)
+    and PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null and state=1)
+    and PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null and returnState=1)
+    AND Peopels.CompanyNo=5 AND IsActive=1 AND SnMantagheh LIKE '%$mantagheh%' AND SnNahiyeh LIKE '%$city%' ".$queryBuyDatePart." ".$querySabtDatePart);
+    return Response::json($customers);
+}
+
+
 }

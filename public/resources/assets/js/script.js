@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
     $(element).find("input:radio").prop("checked", true);
@@ -584,7 +584,30 @@ function setAdminStuff(element, adminId, adminTypeId) {
     $("#asn").val(id);
     $("#emptyKarbarButton").val(id);
     $("#moveKarbarButton").val(id);
+    $("#editAssingId").val(id);
+    $("#editAssingBtn").prop("disabled",false);
     $("#adminTakerId").val(id);
+    if($("#emptyAdminBtn")){
+        $("#emptyAdminBtn").val(id);
+    }
+
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getAdminInfo",
+        data: {
+            _token: "{{ csrf_token() }}",
+            id: id,
+        },
+        success:function(respond){
+            $("#adminDiscription").text("");
+            $("#adminDiscription").text(respond[3].discription);
+
+        },
+        error:function(error){
+
+        }
+    });
+
     if ((adminType > 1) & (adminType < 4)) {
         $("#customerContainer").css("display", "flex");
         $.ajax({
@@ -615,9 +638,7 @@ function setAdminStuff(element, adminId, adminTypeId) {
                             element.PSN +
                             `" id="customerId">
                     </td>
-                </tr>
-            `
-                    );
+                </tr>`);
                 });
             },
             error: function (data) {},
@@ -1181,6 +1202,42 @@ $(".selectAllFromTop").on("change", (e) => {
         $("td input:checkbox", table).prop("checked", false);
     }
 });
+
+$("#takhsisEditRightSideForm").on("submit",function(e){
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function (arrayed_result) {
+            console.log(arrayed_result)
+            $("#allCustomer").empty();
+
+            arrayed_result.forEach((element, index) => {
+                $("#allCustomer").append(
+                    `
+            <tr onclick="checkCheckBox(this,event)">
+                <td style="">` +
+                        (index + 1) +
+                        `</td>
+                <td style="">` +
+                        element.NameRec +
+                        `</td>
+                <td>` +
+                        element.Name +
+                        `</td>
+                <td style="">
+                <input class="form-check-input" name="customerIDs[]" type="checkbox" value="` +
+                        element.PSN +
+                        `" id="customerId">
+                </td>
+            </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    });
+})
 
 $("#addCustomerToAdmin").on("click", () => {
     swal({
@@ -5189,6 +5246,27 @@ function setKarbarEditStuff() {
     });
 }
 
+$("#adminDiscription").on("blur",function(e){
+    adminId=$("#AdminForAdd").val();
+    
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/EditAdminComment",
+        data: {
+            _token: "{{ csrf_token() }}",
+            comment: $("#adminDiscription").val(),
+            adminId:adminId
+        },
+        async: true,
+        success: function (arrayed_result) {
+        },
+        error:function(error){
+
+        }
+    });
+
+})
+
 $("#searchCity").on("change", () => {
     $.ajax({
         method: "get",
@@ -5411,6 +5489,30 @@ function deleteAdminList() {
         });
     }
 }
+$("#addedCustomerLeftSideForm").on("submit",function(e){
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function (arrayed_result) {
+            console.log(arrayed_result);
+            $("#addedCustomer").empty();
+            arrayed_result.forEach((element, index) => {
+                $("#addedCustomer").append(`
+                <tr onclick="checkCheckBox(this,event)">
+                    <td id="radif" style="width:55px;">` +(index + 1) +`</td>
+                    <td id="mCode" style="width:115px;">` +element.NameRec +`</td>
+                    <td >` +element.Name +`</td>
+                    <td style="width:50px;">
+                        <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` +element.PSN + `" id="kalaId">
+                    </td>
+                </tr>`);
+            });
+        },
+        error: function(error){
+        }
+    });
+})
 
 function saveCustomerCommentProperty(element) {
     let csn = $("#customerSn").val();
@@ -5435,6 +5537,34 @@ function saveCustomerCommentProperty(element) {
         },
     });
 }
+
+$("#addCustomerFirstDate").persianDatepicker({
+    cellWidth: 32,
+    cellHeight: 22,
+    fontSize: 14,
+    formatDate: "YYYY/0M/0D",
+});
+
+$("#addCustomerSecondDate").persianDatepicker({
+    cellWidth: 32,
+    cellHeight: 22,
+    fontSize: 14,
+    formatDate: "YYYY/0M/0D",
+});
+
+$("#addCustomerFristSabtDate").persianDatepicker({
+    cellWidth: 32,
+    cellHeight: 22,
+    fontSize: 14,
+    formatDate: "YYYY/0M/0D",
+});
+
+$("#addCustomerSecondSabtDate").persianDatepicker({
+    cellWidth: 32,
+    cellHeight: 22,
+    fontSize: 14,
+    formatDate: "YYYY/0M/0D",
+});
 
 $("#assesFirstDate").persianDatepicker({
     cellWidth: 32,
@@ -5525,50 +5655,7 @@ $("#secondDateDoneComment").persianDatepicker({
     cellWidth: 32,
     cellHeight: 22,
     fontSize: 14,
-    formatDate: "YYYY/0M/0D",
-    onSelect: () => {
-        let secondDate = $("#secondDateDoneComment").val();
-        let firstDate = $("#firstDateDoneComment").val();
-        $.ajax({
-            method: "get",
-            url: baseUrl + "/searchDoneAssesByDate",
-            data: {
-                _token: "{{ csrf_token() }}",
-                secondDate: secondDate,
-                firstDate: firstDate,
-            },
-            async: true,
-            success: function (msg) {
-                moment.locale("en");
-                $("#customerListBodyDone").empty();
-                msg.forEach((element, index) => {
-                    $("#customerListBodyDone").append(
-                        `
-                <tr onclick="showDoneCommentDetail(this)">
-                    <td>` +
-                            (index + 1) +
-                            `</td>
-                    <td>` +
-                            element.Name +
-                            `</td>
-                    <td>` +
-                            element.PhoneStr +
-                            `</td>
-                    <td>` +
-                            moment(element.TimeStamp, "YYYY-M-D HH:mm:ss")
-                                .locale("fa")
-                                .format("HH:mm:ss YYYY/M/D") +
-                            `</td>
-                    <td data-bs-toggle="modal" data-bs-target="#owdati"> <i class="fas fa-dolly-flatbed "> </i></td>
-                </tr> `
-                    );
-                });
-            },
-            error: function (data) {
-                alert("bad");
-            },
-        });
-    },
+    formatDate: "YYYY/0M/0D"
 });
 
 $("#searchEmptyName").on("keyup", () => {
@@ -11472,6 +11559,7 @@ $("#addService").on("submit", function (e) {
                         </tr>`
                 );
             });
+            $("#driverServicesModal").modal("hide");
         },
         error: function (error) {
             console.log(error);
@@ -11601,6 +11689,7 @@ $("#editServiceForm").on("submit", function (e) {
                         </tr>`
                 );
             });
+            $("#editDriverServicModal").modal("hide");
         },
         error: function (error) {
             alert("error getting data");
@@ -11608,6 +11697,180 @@ $("#editServiceForm").on("submit", function (e) {
     });
     e.preventDefault();
 });
+
+$("#getServiceSearchForm").on("submit",function(e){
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function (data) {
+            $("#driverServiceBodyList").empty();
+            data.forEach((element, index) => {
+                let serviceType = "";
+                if (element.serviceType == 1) {
+                    serviceType = "دور";
+                }
+                if (element.serviceType == 2) {
+                    serviceType = "متوسط";
+                }
+                if (element.serviceType == 3) {
+                    serviceType = "نزدیک";
+                }
+                $("#driverServiceBodyList").append(
+                    `
+                        <tr onclick="setDriverServiceStuff(this,` +
+                        element.ServiceSn +
+                        `)">
+                            <th>` +
+                        (index + 1) +
+                        `</th>
+                            <td> ` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                            <td>` +
+                        serviceType +
+                        `</td>
+                            <td>` +
+                        element.discription +
+                        `</td>
+                            <td>` +element.TimeStamp+`</td>
+                            <td>  <input  type="radio" name="radioBtn" value="` +
+                        element.ServiceSn +
+                        `"> </td>
+                        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+
+$("#orderDriverServices").on("change",function(){
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/serviceOrder",
+        async: true,
+        data: {
+            _token: "{{@csrf}}",
+            selectedBase:$("#orderDriverServices").val()
+        },
+        success: function (data) {
+            $("#driverServiceBodyList").empty();
+            data.forEach((element, index) => {
+                let serviceType = "";
+                if (element.serviceType == 1) {
+                    serviceType = "دور";
+                }
+                if (element.serviceType == 2) {
+                    serviceType = "متوسط";
+                }
+                if (element.serviceType == 3) {
+                    serviceType = "نزدیک";
+                }
+                $("#driverServiceBodyList").append(
+                    `<tr onclick="setDriverServiceStuff(this,` +element.ServiceSn +`)">
+                            <td>` +
+                        (index + 1) +
+                        `</td>
+                            <td> ` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                            <td>` +
+                        serviceType +
+                        `</td>
+                            <td>` +
+                        element.discription +
+                        `</td>
+                            <td>` +element.TimeStamp+`</td>
+                            <td>  <input  type="radio" name="radioBtn" value="` +
+                        element.ServiceSn +
+                        `"> </td>
+                        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+        }
+    });
+});
+function getServices(flag) {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getDriverServices",
+        async: true,
+        data: {
+            _token: "{{@csrf}}",
+            flag:flag
+        },
+        success: function (data) {
+            console.log(data);
+            $("#driverServiceBodyList").empty();
+            data.forEach((element, index) => {
+                let serviceType = "";
+                if (element.serviceType == 1) {
+                    serviceType = "دور";
+                }
+                if (element.serviceType == 2) {
+                    serviceType = "متوسط";
+                }
+                if (element.serviceType == 3) {
+                    serviceType = "نزدیک";
+                }
+                $("#driverServiceBodyList").append(
+                    `<tr onclick="setDriverServiceStuff(this,` +element.ServiceSn +`)">
+                            <td>` +
+                        (index + 1) +
+                        `</td>
+                            <td> ` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+                            <td>` +
+                        serviceType +
+                        `</td>
+                            <td>` +
+                        element.discription +
+                        `</td>
+                            <td>` +element.TimeStamp+`</td>
+                            <td>  <input  type="radio" name="radioBtn" value="` +
+                        element.ServiceSn +
+                        `"> </td>
+                        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+        }
+    });
+}
+
+function setUpDownHistoryStuff(element,historyID){
+    $("tr").removeClass("selected");
+    $(element).toggleClass("selected");
+    $.ajax({method:'get',
+    url:baseUrl+'/getUpDownBonusInfo',
+    data:{
+        _token:"{{@csrf}}",
+        historyID:historyID},
+    async:true,
+    success:function(respond){
+        alert(respond);
+    },
+    error:function(error){
+        alert(error);
+    }
+});
+
+}
 
 $("#assesToday").on("change", () => {
     if ($("#assesToday").is(":checked")) {
@@ -12109,6 +12372,11 @@ $("#takhsisToAdminBtn").on("click", () => {
 
 $("#adminTasviyahBtn").on("click", () => {
     let id = $("#takhsisToAdminBtn").val();
+    removeStaff(id);
+});
+
+$("#emptyAdminBtn").on("click", () => {
+    let id = $("#emptyAdminBtn").val();
     removeStaff(id);
 });
 

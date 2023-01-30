@@ -339,18 +339,12 @@
                                         </tr>
                                     @endif
                                 @endforeach
-
                             </tbody>
                         </table>
                      </fieldset> -->
                 </div>
             </div>
         </div>
-        
-
-
-
-
         <!-- modal of new Brand -->
         <div class="modal fade dragableModal" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
@@ -533,14 +527,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                    <h5 class="modal-title" id="exampleModalLabel">انتقال مشتری</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">انتقال کارمند</h5>
 
                 </div>
                 <div class="modal-body" id="readCustomerComment">
                     <div class="container">
                         <div class="row" style=" border:1px solid #dee2e6; padding:10px">
                         <div><button type="button" class="btn btn-sm btn-primary" id="moveEmployeeDoneBtn">انتقال <i class="fa fa-save fa-lg"></i></button></div>
-                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">انتقال مشتری</h4>
+                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">انتقال کارمند</h4>
                             </div>
                             <div class="row">
                                 <table id="strCusDataTable"  class=' table table-bordered table-striped table-sm' style="background-color:#dee2e6">

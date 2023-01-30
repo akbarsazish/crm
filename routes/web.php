@@ -263,3 +263,10 @@ Route::get('/bonusIncreaseDecrease',[SalseExper::class,'bonusIncreaseDecrease'])
 Route::get('/karbaranOperations',[Admin::class,'karbaranOperations'])->middleware('CheckCommon');
 //صفحه تخصیص جدید
 Route::get('/getEmployies',[Admin::class,'getEmployies'])->middleware('CheckCommon');
+Route::get('/getTakhsisEditRightSide',[Customer::class,'getTakhsisEditRightSide'])->middleware('CheckCommon');
+Route::get('/getAddedCustomers',[Customer::class,'getAddedCustomers'])->middleware('CheckCommon');
+Route::get('/EditAdminComment',[Admin::class,'EditAdminComment'])->middleware('CheckCommon');
+Route::get('/searchDriverServices',[DriverController::class,'searchDriverServices'])->middleware('CheckCommon');
+Route::get('/serviceOrder',[DriverController::class,'serviceOrder'])->middleware('CheckCommon');
+Route::get('/getDriverServices',[DriverController::class,'getDriverServices'])->middleware('CheckCommon');
+Route::get('/getUpDownBonusInfo',[SalseExper::class,'getUpDownBonusInfo'])->middleware('CheckCommon');
