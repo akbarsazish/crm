@@ -101,14 +101,47 @@ public function crmDriverSearch(Request $request) {
 
     // searching bargeri based on date
         public function searchBargeriByDate(Request $request){
-            $adminId=$request->get("dsn");
-            $secondDate=$request->get("secondDateBargeri");
-            $factors=DB::select("select Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS from Shop.dbo.BargiryBYS Join Shop.dbo.FactorHDS on BargiryBYS.SnFact=FactorHDS.SerialNoHDS Join Shop.dbo.Peopels on FactorHDS.CustomerSn=Peopels.PSN 
-            Join Shop.dbo.BargiryHDS on BargiryHDS.SnMasterBar=BargiryBYS.SnMaster Join Shop.dbo.Sla_Drivers on Sla_Drivers.SnDriver=BargiryHDS.SnDriver
-            Join (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-                            FROM Shop.dbo.PhoneDetail
-                            GROUP BY SnPeopel)a on PSN=a.SnPeopel 
-            where FactDate='$secondDate' and Sla_Drivers.SnDriver=".$adminId);
+            $adminId=$request->get("adminId");
+            $firstDate=$request->get("firstDate");
+            $secondDate=$request->get("secondDate");
+            $customerName=$request->get("customerName");
+            $factors;
+            if(strlen($secondDate)>3 and strlen($firstDate)<3 ){
+                $factors=DB::select("SELECT Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS 
+                                        FROM Shop.dbo.BargiryBYS JOIN Shop.dbo.FactorHDS ON BargiryBYS.SnFact=FactorHDS.SerialNoHDS JOIN Shop.dbo.Peopels ON FactorHDS.CustomerSn=Peopels.PSN 
+                                        JOIN Shop.dbo.BargiryHDS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster JOIN Shop.dbo.Sla_Drivers ON Sla_Drivers.SnDriver=BargiryHDS.SnDriver
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                        FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a ON PSN=a.SnPeopel 
+                                        WHERE FactDate<='$secondDate' AND Sla_Drivers.SnDriver=".$adminId." AND Name LIKE N'%$customerName%'");
+            }
+            
+            if(strlen($secondDate)>3 and strlen($firstDate)>3 ){
+                $factors=DB::select("SELECT Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS 
+                                        FROM Shop.dbo.BargiryBYS JOIN Shop.dbo.FactorHDS ON BargiryBYS.SnFact=FactorHDS.SerialNoHDS JOIN Shop.dbo.Peopels ON FactorHDS.CustomerSn=Peopels.PSN 
+                                        JOIN Shop.dbo.BargiryHDS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster JOIN Shop.dbo.Sla_Drivers ON Sla_Drivers.SnDriver=BargiryHDS.SnDriver
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                        FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a ON PSN=a.SnPeopel 
+                                        WHERE FactDate<='$secondDate' AND FactDate>='$firstDate' AND Sla_Drivers.SnDriver=".$adminId." AND Name LIKE N'%$customerName%'");
+            }
+
+            if(strlen($secondDate)<3 and strlen($firstDate)>3 ){
+                $factors=DB::select("SELECT Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS 
+                                        FROM Shop.dbo.BargiryBYS JOIN Shop.dbo.FactorHDS ON BargiryBYS.SnFact=FactorHDS.SerialNoHDS JOIN Shop.dbo.Peopels ON FactorHDS.CustomerSn=Peopels.PSN 
+                                        JOIN Shop.dbo.BargiryHDS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster JOIN Shop.dbo.Sla_Drivers ON Sla_Drivers.SnDriver=BargiryHDS.SnDriver
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                        FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a ON PSN=a.SnPeopel 
+                                        WHERE FactDate>='$firstDate' AND Sla_Drivers.SnDriver=".$adminId." AND Name LIKE N'%$customerName%'");
+            }
+
+            if(strlen($secondDate)<3 and strlen($firstDate)<3 ){
+                $factors=DB::select("SELECT Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS 
+                                        FROM Shop.dbo.BargiryBYS JOIN Shop.dbo.FactorHDS ON BargiryBYS.SnFact=FactorHDS.SerialNoHDS JOIN Shop.dbo.Peopels ON FactorHDS.CustomerSn=Peopels.PSN 
+                                        JOIN Shop.dbo.BargiryHDS ON BargiryHDS.SnMasterBar=BargiryBYS.SnMaster JOIN Shop.dbo.Sla_Drivers ON Sla_Drivers.SnDriver=BargiryHDS.SnDriver
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                        FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a ON PSN=a.SnPeopel 
+                                        WHERE  Sla_Drivers.SnDriver=".$adminId." AND Name LIKE N'%$customerName%'");
+            }
+
             return Response::json($factors);
 
         }

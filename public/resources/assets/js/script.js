@@ -10220,7 +10220,15 @@ $("#bargeriFirstDate").persianDatepicker({
     formatDate: "YYYY/0M/0D",
 });
 
-$("#").on("submit",function(e){
+$("#bargeriSecondDate").persianDatepicker({
+    cellWidth: 32,
+    cellHeight: 22,
+    fontSize: 14,
+    formatDate: "YYYY/0M/0D",
+});
+
+$("#searchBargiriSelfForm").on("submit",function(e){
+    e.preventDefault()
     $.ajax({
         method: $(this).attr("method"),
         url: $(this).attr("action"),

@@ -48,16 +48,19 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> راننده ها </legend>
-                        <form action="" method="get">
+                        <form action="{{url('/searchBargeriByDate')}}" method="get" id="searchBargiriSelfForm">
+                        <div class="form-group">
+                                <input type="text" name="firstDate" class="form-control form-control-sm" id="bargeriFirstDate" placeholder=" از تاریخ " />
+                            </div>
                             <div class="form-group">
-                                <input type="text" name="" class="form-control form-control-sm" id="bargeriSecondDate" placeholder=" تاریخ " />
+                                <input type="text" name="secondDate" class="form-control form-control-sm mt-3" id="bargeriSecondDate" placeholder=" تا تاریخ " />
                             </div>
-                                <input type="hidden" id="adminId" value="{{$adminId}}">
+                                <input type="hidden" id="adminId" name="adminId" value="{{$adminId}}">
                             <div class="form-group mt-2">
-                                <input class="form-control form-control-sm" type="text" id="bargerilist" placeholder="اسم مشتری">
+                                <input class="form-control form-control-sm" name="customerName" type="text" placeholder="اسم مشتری">
                             </div>
                             <div class="form-group mt-2">
-                                <button class='btn btn-primary btn-sm text-warning' type="submit" id='getHistorySearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                                <button class='btn btn-primary btn-sm text-warning' type="submit" id='getBargiriSearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                             </div>
                         </form>
                     </fieldset>
