@@ -6926,7 +6926,9 @@ span.content {
     min-height: 90vh !important;
     background-color: #b3d1ef;
 }
-
+.sideBarBottomBtn {
+    margin-top: 55vh;
+}
 .contentHeader,
 .contentFooter {
     background-color: #b3d1ef;
@@ -6954,9 +6956,14 @@ span.content {
     .contentHeader {
         height: 15%;
     }
+    .RandTcontentHeader {
+        height: 33%;
+    }
     .sideBar {
-        min-height: 5vh !important;
-        background-color: #b3d1ef;
+        min-height: 2vh !important;
+    }
+    .sideBarBottomBtn {
+        margin-top: 1vh !important;
     }
 
     .refreshBtn {
@@ -6966,8 +6973,22 @@ span.content {
 
     .sidefieldSet {
         min-height: 20px !important;
+        margin-top: 0px !important;
     }
+
+ .forMobileDisplay {
+        display: none;
+    }
+ .forMobileResize {
+        width:180px !important;
+    }
+
 }
+
+
+
+
+
 
 .footerButton {
     width: 111px;

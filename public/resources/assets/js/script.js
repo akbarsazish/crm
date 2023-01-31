@@ -2886,18 +2886,12 @@ $("#emptyKarbarButton").on("click", () => {
                 $("#emptyKarbar").empty();
                 $("#emptyKarbar").append(
                     `<tr>
-                <td style="font-size:18px; font-weight:bold">` +
-                        admin.name +
-                        ` ` +
-                        admin.lastName +
-                        `</td>
-                <td style="font-size:18px; font-weight:bold">` +
-                        adminType +
-                        `</td>
-                <td>` +
-                        discription +
-                        `</td>
-                </tr>`
+                        <td> </td>
+                        <td style="font-size:18px; font-weight:bold">` +  admin.name +  ` ` +  admin.lastName +  `</td>
+                        <td style="font-size:18px; font-weight:bold">` +  adminType +  `</td>
+                        <td>` +  discription + `</td>
+                        <td> </td>
+                     </tr>`
                 );
 
                 if (!$(".modal.in").length) {
@@ -4767,6 +4761,7 @@ $("#moveKarbarButton").on("click", () => {
                 $("#adminToMove").empty();
                 $("#adminToMove").append(
                     `<tr>
+                  <td> 1 </td>
                 <td style="font-size:18px; font-weight:bold">` +
                         admin.name +
                         ` ` +
@@ -4778,6 +4773,7 @@ $("#moveKarbarButton").on("click", () => {
                 <td>` +
                         discription +
                         `</td>
+                        <td>  </td>
                 </tr>`
                 );
 
@@ -12489,8 +12485,7 @@ function setHeadStuff(element, headId) {
                 <td>` +
                         (index + 1) +
                         `</td>
-                <td>` +
-                        element.name +
+                <td>` + element.name +
                         ` ` +
                         element.lastName +
                         `</td>

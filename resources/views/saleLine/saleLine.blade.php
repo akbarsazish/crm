@@ -5,9 +5,11 @@
             <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                 <fieldset class="border rounded mt-5 sidefieldSet">
                     <legend  class="float-none w-auto legendLabel mb-0"> خط فروش </legend>
-                    <button type="button" class="btn w-50 btn-sm btn-primary" id="addSaleLineBtn"> افزودن <i class="fa fa-plus"></i> </button>
-                    <button type="button" class="btn w-50 btn-sm btn-primary" id="editSaleLineBtn"> ویرایش <i class="fa fa-edit"></i> </button>
-                    <button type="button" class="btn w-50 btn-sm btn-danger" id="deleteSaleLineBtn"> حذف <i class="fa fa-trash"></i> </button>
+                     <div class="col-lg-12 sideBarBottomBtn">
+                         <button type="button" class="btn w-50 btn-sm  btn-primary" id="addSaleLineBtn"> افزودن <i class="fa fa-plus"></i> </button>
+                        <button type="button" class="btn w-50 btn-sm  btn-primary" id="editSaleLineBtn"> ویرایش <i class="fa fa-edit"></i> </button>
+                        <button type="button" class="btn w-50 btn-sm  btn-danger" id="deleteSaleLineBtn"> حذف <i class="fa fa-trash"></i> </button>
+                     </div>
                 </fieldset>
             </div>
             <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
