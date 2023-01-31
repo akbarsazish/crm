@@ -82,7 +82,7 @@ tr > th:last-child, tr > td:last-child {
                     <div class="row contentHeader"> </div>
                     <div class="row mainContent">
                        
-                    <table class="table table-bordered border-primary" id="timeTable">
+                    <table class="table table-bordered border-primary resizableTable" id="timeTable">
                                     <thead class="monthDay text-warning">
                                         <th class="weekDay">روزهای هفته</th>
                                         @for ($v = 1; $v < 32; $v++)
