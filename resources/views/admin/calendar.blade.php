@@ -8,6 +8,9 @@
 .tableHeader .tableBbody, tr > td:first-child {
     width: 100px !important;
 }
+tr > th:last-child, tr > td:last-child{
+    width:40px;
+}
 </style>
  <div class="container-fluid containerDiv">
       <div class="row">
