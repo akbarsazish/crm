@@ -35,7 +35,6 @@
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    
 </head>
 <body>    
     <header>
@@ -256,18 +255,9 @@
 <script src="{{url('/resources/assets/js/main.js')}}"></script>
 <script src="{{url('/resources/assets/js/jquery.thooClock.js')}}"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
-
-<script src="extensions/resizable/bootstrap-table-resizable.js"></script>
-
+ 
 
 <script>
-
-
- $(function(){
-    $(".resizableTable").resizableColumns();
-  });
-
-
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
   _gaq.push(['_setDomainName', 'jqueryscript.net']);

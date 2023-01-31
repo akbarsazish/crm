@@ -579,7 +579,6 @@ select Name,PSN,PhoneStr from (
         return View('salesExpert.specialSetting',['admins'=>$admins,'targets' => $targets,
         'specialBonuses'=>$specialBonuses,'generalTargets'=>$generalTargets,'generalBonuses'=>$generalBonuses]);
     }
-    
     public function addSpecialBonus(Request $request)
     {
         $baseName=$request->get("baseName");
@@ -661,9 +660,9 @@ select Name,PSN,PhoneStr from (
                                         SELECT FactorBYS.TimeStamp,FactorBYS.Fi,FactorBYS.Amount,FactorBYS.SnGood,CustomerSn FROM Shop.dbo.FactorHDS
                                         JOIN Shop.dbo.FactorBYS on FactorHDS.SerialNoHDS=FactorBYS.SnFact where FactType=3)a
                                         )g group by SnGood,CustomerSn)c
-                                        join (SELECT * FROM CRM.dbo.crm_customer_added WHERE returnState=0)d on c.CustomerSn=d.customer_id  WHERE CONVERT(date,maxTime)=CONVERT(date,CURRENT_TIMESTAMP) 
-                                            and d.admin_id=$adminId )e)f
-                                            join (SELECT GoodName,GoodSn FROM SHop.dbo.PubGoods)b on f.SnGood=b.GoodSn");
+                                        JOIN (SELECT * FROM CRM.dbo.crm_customer_added WHERE returnState=0)d on c.CustomerSn=d.customer_id  WHERE CONVERT(date,maxTime)=CONVERT(date,CURRENT_TIMESTAMP) 
+                                            AND d.admin_id=$adminId )e)f
+                                            JOIN (SELECT GoodName,GoodSn FROM SHop.dbo.PubGoods)b on f.SnGood=b.GoodSn");
         return Response::json($today_aghlams);
     }
     public function getAllBuyMoneySelf(Request $request)
@@ -753,24 +752,231 @@ select Name,PSN,PhoneStr from (
 
 public function bonusIncreaseDecrease(Request $request)
 {
-      //بازاریابهای زیر نظر سرپرست
-      $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+      //
+    $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
                             LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
                             WHERE isUsed=0");
+    $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=5 and adminType!=4 and deleted=0");
+    $admintype= self::getAdminType(Session::get('asn'));
+
+    if($admintype!=5){
+        $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE bossId=".Session::get('asn')." AND deleted=0");
+    }else{
+        $employies=$allEmployies;
+    }
       //لیست سرپرستها
-      $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',4)->where('adminType','!=',5)->where('deleted',0)->get();
 
-      $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
 
-   return view("admin.bonusIncreaseDecrease", ['admins'=>$admins,'bosses'=>$bosses, 'admins'=>$admins,'adminTypes'=>$adminTypes]);
+   return view("admin.bonusIncreaseDecrease", ['admins'=>$admins,'employies'=>$employies]);
 }
 public function getUpDownBonusInfo(Request $request)
 {
-   
+   $historyId=$request->get("historyID");
+   $historyInfo=DB::table("CRM.dbo.crm_adminUpDownBonus")->where('id',$historyId)->get();
+
+   $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+   LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+   WHERE isUsed=0");
+
+    $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=5 and adminType!=4 and deleted=0");
+
+    $admintype= self::getAdminType(Session::get('asn'));
+
+    if($admintype!=5){
+
+        $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE bossId=".Session::get('asn')." AND deleted=0");
+
+    }else{
+
+        $employies=$allEmployies;
+
+    }
+   return Response::json([$historyInfo,$employies]);
+}
+public function getUpDownBonusHistory(Request $request)
+{
+
+    $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+
+    $yesterday;
+
+    if($yesterdayOfWeek==6){
+
+        $yesterday = Jalalian::fromCarbon(Carbon::yesterday()->subDays(1))->format('Y/m/d');
+
+    }else{
+
+        $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+
+    }
+
+    $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+
+    $history;
+
+    $flag=$request->get("flag");
+
+    if($flag=="TODAY"){
+
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 AND FORMAT(TimeStamp,'yyyy/M/d','fa-ir')='$todayDate'");
+    }
+    if($flag=="YESTERDAY"){
+
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0  AND FORMAT(TimeStamp,'yyyy/M/d','fa-ir')='$yesterday'");        
+    }
+    if($flag=="LASTHUNDRED"){
+
+        $history=DB::select("SELECT TOP 100 FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0");        
+    }
+    if($flag=="ALL"){
+
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0");        
+    }
+
+    return Response::json($history);
+}
+public function orderUpDownHistory(Request $request)
+{
+    $baseName=$request->get("baseName");
+    $history;
+    if($baseName=='name'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,
+                            CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 order by crm_admin.$baseName desc"); 
+    }
+    if($baseName=='TimeStamp'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,
+                            CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 order by $baseName desc"); 
+    }
+    if($baseName=='Bonus'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,
+                            CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 order by positiveBonus desc"); 
+    }
+    return Response::json($history);       
+}
+public function searchUpDownBonusByName(Request $request)
+{
+    $searchTerm=$request->get("searchTerm");
+    $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                        LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                        WHERE isUsed=0 and CONCAT(crm_admin.name,crm_admin.lastName) like N'%$searchTerm%'");
+    return Response::json($history);
+}
+public function getHistorySearch(Request $request)
+{
+    $bonusType=$request->get("bonusType");
+    $firstDate=$request->get("firstDate");
+    $secondDate=$request->get("secondDate");
+    if(strlen($firstDate)>3 and strlen($secondDate)>3 and $bonusType=='negative'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and negativeBonus>0 and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') >= '$firstDate' and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') <= '$secondDate'");
+    }
+    if(strlen($firstDate)>3 and strlen($secondDate)<3 and $bonusType=='negative'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and negativeBonus>0  and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') >= '$firstDate'");
+    }
+    if(strlen($firstDate)<3 and strlen($secondDate)>3 and $bonusType=='negative'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and negativeBonus>0  and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') <= '$secondDate'");
+    }
+    if(strlen($firstDate)<3 and strlen($secondDate)<3 and $bonusType=='negative'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and negativeBonus>0");
+    }
+
+    if(strlen($firstDate)>3 and strlen($secondDate)>3 and $bonusType=='positive'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and positiveBonus>0 and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') >= '$firstDate' and FORMAT(TimeStamp,'yyyy/M/0d','fa-ir') <='$secondDate'");
+    }
+
+    if(strlen($firstDate)>3 and strlen($secondDate)<3 and $bonusType=='positive'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and positiveBonus>0 and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') >= '$firstDate'");
+    }
+
+    if(strlen($firstDate)<3 and strlen($secondDate)>3 and $bonusType=='positive'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and positiveBonus>0 and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') <='$secondDate'");
+    }
+
+    if(strlen($firstDate)<3 and strlen($secondDate)<3 and $bonusType=='positive'){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and positiveBonus>0");
+    }
+
+    if(strlen($firstDate)>3 and strlen($secondDate)<3 and $bonusType==''){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0 and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') >= '$firstDate'");
+    }
+
+    if(strlen($firstDate)<3 and strlen($secondDate)>3 and $bonusType==''){
+        $history=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                            LEFT JOIN (select * from CRM.dbo.crm_admin)a  on a.id=crm_adminUpDownBonus.supervisorId
+                            WHERE isUsed=0  and FORMAT(TimeStamp,'yyyy/M/d','fa-ir') <= '$secondDate'");
+    }
+
+    return Response::json($history);
 }
 
 
 
-	
-	
+public function editUpDownBonus(Request $request)
+{
+$positiveBonus=$request->get("positive");
+$negativeBonus=$request->get("negative");
+$adminId=$request->get("adminId");
+$comment=$request->get("discription");
+$historyIDEmtiyasEdit=$request->get("historyId");
+if(!$positiveBonus){
+    $positiveBonus=0;
+}
+if(!$negativeBonus){
+    $negativeBonus=0;
+}
+    DB::table("CRM.dbo.crm_adminUpDownBonus")->where("id",$historyIDEmtiyasEdit)->update(["positiveBonus"=>$positiveBonus
+                                                                                        ,"negativeBonus"=>$negativeBonus
+                                                                                        ,"discription"=>"$comment"
+                                                                                        ,"supervisorId"=>Session::get("asn")]);
+    $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                        LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                        WHERE isUsed=0");  
+    return Response::json($admins);
+}
+public function deleteUpDownBonus(Request $request)
+{
+    $historyId=$request->get("historyId");
+    DB::table("CRM.dbo.crm_adminUpDownBonus")->where("id",$historyId)->delete();
+    $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+                        LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
+                        WHERE isUsed=0");  
+    return Response::json($admins);
+}
+
+public function getAdminType($adminId)
+{
+    $adminType=DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->get()[0]->adminType;
+    return $adminType;
+}
 }
