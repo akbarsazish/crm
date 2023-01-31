@@ -31,20 +31,27 @@
         color: black;
         display: inline-block;
         margin-right: 6px;
-        }
+        font-size:26px;
+         margin: 5px 5px 0px 5px;
+    }
+
   .caret-minus::before {
         content: "\2212";
         color: black;
         display: inline-block;
-        margin-right: 6px;
+        margin: 5px 5px;
+        color:red;
+         transform: rotate(0deg) !important; 
+         font-size:26px;
         }
 
-  .caret-down-minus::before {
+
+    .caret-down-minus::before {
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Safari */'
         transform: rotate(90deg);  
         }
-        
+
     .caret-down::before {
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Safari */'
@@ -67,11 +74,11 @@
                         <div class="col-lg-12" style="margin-top:40vh">
                             <div class="row px-3">
                                 <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" id="newAdminBtn">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true" style="color:red;"></i></button>
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover"  id="moveEmployee">انتقال<i class="fa fa-send fa-lg" aria-hidden="true" style="color:red;"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()"> ویرایش  <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()"> حذف  <i class="fa fa-trash fa-lg" aria-hidden="true" style="color:red;"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover"  id="moveEmployee"> انتقال  <i class="fa fa-send fa-lg" aria-hidden="true" style="color:red;"></i></button>
                                 <input type="hidden" id="AdminForAdd"/>
-                           </div>
+                            </div>
                         </div>
                     </fieldset>
                   </div>
@@ -101,6 +108,8 @@
                             @endforeach
                             </ul> 
                      </div>
+                     
+
 
                     <!-- end tree view -->
                         <div class="col-lg-12">
@@ -343,7 +352,7 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="form-label"> توضیحات</label>
-                                            <textarea class="form-control"  minlength="3" maxlength="12" cols="10" rows="4" name="discription" style="background-color:blanchedalmond"></textarea>
+                                            <textarea class="form-control"  minlength="3" cols="10" rows="4" name="discription" style="background-color:blanchedalmond"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -596,10 +605,13 @@ var toggler = document.getElementsByClassName("caret");
 var i;
 
 for (i = 0; i < toggler.length; i++) {
-  toggler[i].addEventListener("click", function() {
-      $('.caret').removeClass("caret").addClass("caret-minus")
+    toggler[i].addEventListener("click", function() {
+        $(this).toggleClass(function(){
+          return $(this).is('.caret::before, .caret-minus') ? 'caret::before caret-minus' : 'caret-minus';
+     })
+      
     this.parentElement.querySelector(".nested").classList.toggle("active");
-    this.classList.toggle("caret-down caret-down-minus");
+    this.classList.toggle("caret-down caret-down-minus::before");
   });
 }
 </script>

@@ -163,20 +163,16 @@
                 </div>
             </div>
     
+
 {{-- dashbor modal --}}
 <div class="modal fade dragableModal" id="customerDashboard"  data-backdrop="static"  aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable  modal-dialog-scrollable modal-xl">
         <div class="modal-content"  style="background-color:#d2e9ff;">
-            <div class="modal-header" style="border-bottom:1px solid rgb(7, 42, 214);">
+            <div class="modal-header py-2 text-white">
                 <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close" style="background-color: red;"></button>
                 <h5 class="modal-title">نظر سنجی  </h5>
             </div>
-            <div class="modal-body"  style="background-color:#d2e9ff;">
-                <div class="row">
-                    <div class="col-lg-12">
-
-                    </div>
-                </div>
+            <div class="modal-body py-1">
 				   <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-12">
                                     <div class="row">
@@ -238,7 +234,7 @@
                             </div> <hr>
               
                 <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
-                    <div class="col-sm-8" style="margin: 0; padding:0;">
+                    <div class="col-sm-12" style="margin: 0; padding:0;">
                         <ul class="header-list nav nav-tabs" data-tabs="tabs" style="margin: 0; padding:0;">
                             <li><a class="active" data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#custAddress"> فاکتور های ارسال شده </a></li>
                             <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#moRagiInfo">  کالاهای خریداری کرده </a></li>
@@ -408,7 +404,7 @@
         <div class="modal fade dragableModal" id="viewComment" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header py-2 text-white">
                         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLabel">کامنت ها</h5>
                     </div>
@@ -428,11 +424,11 @@
         <div class="modal fade dragableModal" id="viewFactorDetail" tabindex="-1" data-backdrop="static" aria-hidden="true">
             <div class="modal-dialog  modal-xl">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header py-2 text-white">
                         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLabel">جزئیات فاکتور</h5>
                     </div>
-                    <div class="modal-body" id="readCustomerComment">
+                    <div class="modal-body py-1" id="readCustomerComment">
                         <div class="container">
                             <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
                                     <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
@@ -473,7 +469,7 @@
             <div class="modal fade dragableModal" id="assesmentDashboard" data-backdrop="static" data-keyboard="false">
                 <div class="modal-dialog modal-dialog-scrollable  modal-dialog-scrollable modal-xl" role="document">
                     <div class="modal-content">
-                        <div class="modal-header" style="background-color: #d2e9ff; border-bottom: 1px solid blue;">
+                        <div class="modal-header py-2">
                             <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close" id="cancelAssesment" style="background-color:red;"></button>
                             <h5 class="modal-title" style="float:left;">افزودن نظر </h5>
                         </div>

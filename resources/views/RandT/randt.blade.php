@@ -22,24 +22,24 @@
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="notLoginRadio">
                             <label class="form-check-label me-4" for="assesPast">  وارد نشده </label>
                         </div>
-                        <button class='btn btn-sm btn-primary text-warning w-50' type="button" id='openDashboard' style="margin-top:33vh">  اخراج  <i class="fal fa-sign-out"></i></button>
+                        <button class='btn btn-sm btn-primary text-warning w-50 sideBarBottomBtn' type="button" id='openDashboard' style="margin-top:33vh">  اخراج  <i class="fal fa-sign-out"></i></button>
                         <div class="form-group col-sm-2 mt-2 px-1">
                             
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
-                    <div class="row contentHeader">
-                        <div class="form-group col-sm-2 mt-2">
+                    <div class="row contentHeader RandTcontentHeader pt-2">
+                        <div class="form-group col-sm-2">
                                 <input type="text" name="" size="20" placeholder="جستجو" class="form-control form-control-sm" id="allKalaFirst">
                         </div>
-                        <div class="form-group col-sm-2 mt-2">
+                        <div class="form-group col-sm-2">
                             <select class="form-select form-select-sm" id="searchGroup">
                                 <option value="0"> موقعیت </option>
                                 <option value="0">موقعیت دار </option>
                                 <option value="0"> بدون موقعیت </option>
                             </select>
                         </div>
-                        <div class="col-sm-2 mt-2">
+                        <div class="col-sm-2">
                             <select class="form-select form-select-sm" id="orderInactiveCustomers">
                                 <option value="-1">مرتب سازی</option>
                                 <option value="2"> کد </option>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-sm-6 text-start">
                             @if(Session::get('adminType')==1 or Session::get('adminType')==5)
-                            <button class='btn btn-primary btn-sm text-warning' disabled id="takhsisButton"> انتقال به دفتر حساب <i class="fal fa-exchange"> </i> </button>
+                            <button class='btn btn-primary btn-sm text-warning forMobileDisplay' disabled id="takhsisButton"> انتقال به دفتر حساب <i class="fal fa-exchange"> </i> </button>
                             @endif
                             <button class='btn btn-primary btn-sm text-warning enableBtn' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square"></i></button>            
                             <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square"></i></button>            
@@ -62,26 +62,26 @@
                                 <table class='table table-bordered table-striped' id="logedIn">
                                     <thead class="tableHeader">
                                     <tr>
-                                        <th class="mobileDisplay">ردیف</th>
-                                        <th style="width:244px;">اسم</th>
-                                        <th class="mobileDisplay" style="width:199px;">شماره تماس</th>
-                                        <th class="mobileDisplay" style="width:88px">منطقه </th>
+                                        <th class="forMobileDisplay">ردیف</th>
+                                        <th class="forMobileResize" style="width:244px;">اسم</th>
+                                        <th class="forMobileDisplay" style="width:199px;">شماره تماس</th>
+                                        <th class="forMobileDisplay" style="width:88px">منطقه </th>
                                         <th style="width:88px">تاریخ ثبت</th>
                                         <th>  تاریخ ورود </th>
-                                        <th>  تعداد ورود</th>
+                                        <th class="forMobileDisplay">  تعداد ورود</th>
                                         <th>انتخاب</th>
                                     </tr>
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="customerListBody1">
                                         @foreach($customers as $customer)
                                             <tr onclick="setEditRTStuff({{$customer->PSN}})">
-                                                <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
-                                                <td style="width:244px;">{{$customer->Name}}</td>
-                                                <td class="mobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
-                                                <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
+                                                <td class="forMobileDisplay" style="width:40px">{{$loop->iteration}}</td>
+                                                <td  class="forMobileResize" style="width:244px;">{{$customer->Name}}</td>
+                                                <td class="forMobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
+                                                <td class="forMobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
                                                 <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
                                                 <td> </td>
-                                                <td> </td>
+                                                <td class="forMobileDisplay"> </td>
                                                 <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
                                             </tr>
                                         @endforeach
@@ -90,24 +90,24 @@
                                 <table class='table table-bordered table-striped' id="notLogin">
                                     <thead class="tableHeader">
                                     <tr>
-                                        <th class="mobileDisplay">ردیف</th>
-                                        <th style="width:244px;">اسم</th>
-                                        <th class="mobileDisplay" style="width:199px;">شماره تماس</th>
-                                        <th class="mobileDisplay" style="width:88px">منطقه </th>
+                                        <th class="forMobileDisplay">ردیف</th>
+                                        <th class="forMobileResize" style="width:244px;">اسم</th>
+                                        <th class="forMobileDisplay" style="width:199px;">شماره تماس</th>
+                                        <th class="forMobileDisplay" style="width:88px">منطقه </th>
                                         <th style="width:88px">تاریخ ثبت</th>
-                                        <th> ادرس</th>
+                                        <th class="forMobileDisplay"> ادرس</th>
                                         <th>انتخاب</th>
                                     </tr>
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="customerListBody1">
                                         @foreach($customers as $customer)
                                             <tr onclick="setEditRTStuff({{$customer->PSN}})">
-                                                <td class="mobileDisplay" style="width:40px">{{$loop->iteration}}</td>
-                                                <td style="width:244px;">{{$customer->Name}}</td>
-                                                <td class="mobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
-                                                <td class="mobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
+                                                <td class="forMobileDisplay" style="width:40px">{{$loop->iteration}}</td>
+                                                <td class="forMobileResize" style="width:244px;">{{$customer->Name}}</td>
+                                                <td class="forMobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
+                                                <td class="forMobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
                                                 <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
-                                                <td>{{$customer->peopeladdress}}</td>
+                                                <td class="forMobileDisplay">{{$customer->peopeladdress}}</td>
                                                 <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
                                             </tr>
                                         @endforeach

@@ -259,7 +259,7 @@
                         <button type="button" class="btn-close bg-danger" data-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLabel">فاکتور فروش <span  id="totalMoney"> </span> </h5>
                     </div>
-                        <div class="modal-body">
+                        <div class="modal-body py-2">
                                        <div class="grid-container">
                                             <div class="item1"> <b>مشتری  :  </b> <span id="customerNameFactor">  </span> </div>
                                             <div class="item2"> <b> آدرس  :  </b> <span id="customerAddressFactor"> </span>    </div>
@@ -280,7 +280,7 @@
                                             <th class="driveFactor">تعداد/مقدار</th>
                                             <th>واحد کالا</th>
                                             <th>فی (تومان)</th>
-                                            <th >مبلغ (تومان)</th>
+                                            <th style="width:121px;">مبلغ (تومان)</th>
                                         </tr>
                                     </thead>
                                     <tbody id="productList" class="tableBody">

@@ -91,53 +91,59 @@
     </div>
              <!-- modal for removing user profile -->
              <div class="modal fade dragableModal" id="removeKarbar" tabindex="-1" role="dialog"   data-backdrop="static" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable  modal-xl" role="document">
+                <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header" style="margin:0; border:none">
+                        <div class="modal-header py-2 text-white">
                             <h5 class="modal-title" id="exampleModalLongTitle"> تخلیه مشتریان کاربر </h5>
                         </div>
                         <div class="modal-body">
                             <table class="table table-bordered">
                                 <thead class="text-warning tableHeader">
                                     <tr>
+                                        <td>ردیف </td>
                                         <th>نام کاربر </th>
                                         <th>نقش کاربر </th>
-                                        <th style="width:600px">توضیحات</th>
+                                        <th>توضیحات</th>
+                                        <td></td>
                                   </tr>
                                 </thead>
-                                <tbody id="emptyKarbar" class="tableBody">
+                                <tbody id="emptyKarbar" class="tableBody" style="height:180px !important;">
                                     
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelRemoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="button" id="emptyAdminBtn" class="bt btn-danger btn-lg">تخلیه <i class="fa fa-upload"></i> </button>
+                            <div class="col-lg-12 text-start">
+                                <button type="button" class="btn btn-danger btn-sm " data-dismiss="modal" id="cancelRemoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                 <button type="button" class="btn btn-danger btn-sm" id="emptyAdminBtn">تخلیه <i class="fa fa-upload"></i> </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
              <!-- modal for removing user profile -->
              <div class="modal fade dragableModal" id="moveKarbar" role="dialog"   data-backdrop="static" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable  modal-xl" role="document">
+                <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header" style="margin:0; border:none">
-                            <button type="button" class="btn-close btn-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-header py-2 text-white" style="margin:0; border:none">
+                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
                             <h5 class="modal-title" id="exampleModalLongTitle"> انتقال مشتریان از کاربر به کاربر  </h5>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body pt-0">
                             <table class="table table-bordered">
                                 <thead class="text-warning tableHeader">
                                     <tr>
+                                        <th></th>
                                         <th>نام کاربر </th>
                                         <th>نقش کاربر </th>
                                         <th>توضیحات</th>
+                                        <th></th>
                                   </tr>
                                 </thead>
-                                <tbody id="adminToMove" class="tableBody">
+                                <tbody id="adminToMove" class="tableBody" style="height:160px !important;">
 
                                 </tbody>
                             </table>
-                                <input type="text" id="adminID" >
-                                <input type="text" id="adminTakerId">
+                                <input type="hidden" id="adminID" >
+                                <input type="hidden" id="adminTakerId">
                             <table class="table table-bordered">
                                 <thead class="text-warning tableHeader">
                                     <tr>
@@ -152,8 +158,10 @@
 
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelMoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="button" onclick="moveStaff()"  class="bt btn-danger btn-lg"> انتقال <i class="fa fa-sync"></i> </button>
+                            <div class="col-lg-12 text-start">
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="cancelMoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                <button type="button" class="btn btn-danger btn-sm"  onclick="moveStaff()" > انتقال <i class="fa fa-sync"></i> </button>
+                            </div>
                         </div>
                     </div>
                 </div>
