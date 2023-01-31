@@ -18,8 +18,8 @@ class DriverController extends Controller
         return $drivers;
     }
 
-    public function crmDriver() {
-        $adminId=Session::get("dsn");
+    public function crmDriver(Request $request) {
+        $adminId=$request->get("asn");
         $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
         $factors=DB::select("select Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS from Shop.dbo.BargiryBYS Join Shop.dbo.FactorHDS on BargiryBYS.SnFact=FactorHDS.SerialNoHDS Join Shop.dbo.Peopels on FactorHDS.CustomerSn=Peopels.PSN 
         Join Shop.dbo.BargiryHDS on BargiryHDS.SnMasterBar=BargiryBYS.SnMaster Join Shop.dbo.Sla_Drivers on Sla_Drivers.SnDriver=BargiryHDS.SnDriver
@@ -32,7 +32,7 @@ class DriverController extends Controller
             array_push($customerIds,$factor->PSN);
          }
          
-        return view('driver.driverList',['factors'=>$factors,'customerIDs'=>$customerIds]);
+        return view('driver.driverList',['factors'=>$factors,'customerIDs'=>$customerIds,'adminId'=>$adminId]);
     }
 
     public function setReciveMoneyDetail(Request $request)
@@ -101,22 +101,14 @@ public function crmDriverSearch(Request $request) {
 
     // searching bargeri based on date
         public function searchBargeriByDate(Request $request){
-            $adminId=Session::get("dsn");
+            $adminId=$request->get("dsn");
             $secondDate=$request->get("secondDateBargeri");
-            $fristDate=$request->get("firstDateBargeri");
-            
-            $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
             $factors=DB::select("select Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS from Shop.dbo.BargiryBYS Join Shop.dbo.FactorHDS on BargiryBYS.SnFact=FactorHDS.SerialNoHDS Join Shop.dbo.Peopels on FactorHDS.CustomerSn=Peopels.PSN 
             Join Shop.dbo.BargiryHDS on BargiryHDS.SnMasterBar=BargiryBYS.SnMaster Join Shop.dbo.Sla_Drivers on Sla_Drivers.SnDriver=BargiryHDS.SnDriver
             Join (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
                             FROM Shop.dbo.PhoneDetail
                             GROUP BY SnPeopel)a on PSN=a.SnPeopel 
             where FactDate='$secondDate' and Sla_Drivers.SnDriver=".$adminId);
-            $customerIds=array();
-            foreach ($factors as $factor) {
-                array_push($customerIds,$factor->PSN);
-            }
-            
             return Response::json($factors);
 
         }
@@ -141,7 +133,7 @@ public function driverService(Request $request)
 {
     $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType,TimeStamp FROM CRM.dbo.crm_driverservice JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId where deleted=0 and adminType=4 order by TimeStamp desc");
     $drivers=DB::select("SELECT * FROM CRM.dbo.crm_admin  WHERE deleted=0 and adminType=4 ");
-    $admins=DB::select("select * from CRM.dbo.crm_admin join CRM.dbo.crm_adminType on crm_adminType.id=crm_admin.adminType
+    $admins=DB::select("SELECT * from CRM.dbo.crm_admin join CRM.dbo.crm_adminType on crm_adminType.id=crm_admin.adminType
                                          where deleted=0 and crm_admin.adminType=4");
     return view("driver.driverService",['services'=>$services,'drivers'=>$drivers, 'admins'=>$admins]);
 }

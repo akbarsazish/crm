@@ -1589,7 +1589,7 @@ public function searchAllCustomerByMantagheh(Request $request)
     }
     public function getCustomerForTimeTable(Request $request)
     {
-        $adminId=Session::get('asn');
+        $adminId=$request->get('asn');
         $dayDate=$request->get("dayDate");
         $customers=DB::select("SELECT DISTINCT Peopels.PSN,Peopels.PCode,Peopels.Name,Peopels.peopeladdress,SnMantagheh,NameRec
                         FROM Shop.dbo.Peopels 
@@ -2873,6 +2873,23 @@ public function addRandT(Request $request)
         ,'PhoneType'=>1
         ,'IsExport'=>0]); 
     }
+    if($hamrah){
+        $password =substr($hamrah,-4);
+        DB::table("NewStarfood.dbo.star_CustomerPass")->insert
+        (['customerId'=>$lastCustomerID
+        ,'customerPss'=>"$password"
+        ,'userName'=>"$hamrah"]);
+    }else{
+        $password =substr($sabit, -4);
+        DB::table("NewStarfood.dbo.star_CustomerPass")->insert
+        (['customerId'=>$lastCustomerID
+        ,'customerPss'=>"$password"
+        ,'userName'=>"$sabit"]);
+    }
+    //وارد کردن مشتری در جدول محدودیت هایش
+    DB::insert("INSERT INTO NewStarfood.dbo.star_customerRestriction(pardakhtLive,minimumFactorPrice
+                ,exitButtonAllowance,manyMobile,customerId,forceExit,activeOfficialInfo)
+                    VALUES(1,0,0,1,".$lastCustomerID.",0,0)");
     return redirect("/randt");
     
 }
