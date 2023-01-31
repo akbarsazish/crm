@@ -37,7 +37,7 @@
                               <input class="form-check-input p-2 float-end" type="radio" name="settings" id="bargeriRadio">
                               <label class="form-check-label me-4" for="assesPast">  بارگیری  </label>
                           </div>
-
+                          
                         <form action="{{url('/searchDriverServices')}}" id="getServiceSearchForm" method="get">
                           <div class="form-group col-sm-12 mb-1">
                             <input type="text" name="firstDateService" placeholder="از تاریخ" class="form-control form-control-sm" id="firstDateReturned">
@@ -121,7 +121,7 @@
                                             <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
                                             <td>{{trim($admin->adminType)}}</td>
                                             <td>{{trim($admin->phone)}}</td>
-                                            <td> <a href="{{url('crmDriver')}}"> <i class="fa fa-eye fa-lg" style="color:#000;"></i> </a> </td>
+                                            <td> <a href="{{url('crmDriver?asn='.$admin->driverId.'')}}"> <i class="fa fa-eye fa-lg" style="color:#000;"></i> </a> </td>
                                             <td>
                                                 <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
                                             </td>

@@ -5,6 +5,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Poshtiban;
+use App\Http\Controllers\SalseExper;
 use DB;
 use Response;
 use Carbon\Carbon;
@@ -485,19 +486,36 @@ SELECT * FROM (
         $now = Jalalian::fromCarbon(Carbon::now());
         $month= $now->getMonth();
         $year= $now->getYear();
+        $salesExpert=new SalseExper;
+        $adminType=$salesExpert->getAdminType(Session::get('asn'));
+        $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=4 and deleted=0");
+        if($adminType!=5){
+            $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE bossId=".Session::get('asn')." AND deleted=0");
+        }else{
+            $employies=$allEmployies;
+        }
         $workList=DB::select("SELECT count(a.workId) as count,a.specifiedDate FROM (SELECT DISTINCT crm_workList.id as workId, crm_workList.specifiedDate FROM CRM.dbo.crm_workList Join CRM.dbo.crm_comment ON crm_workList.commentId=crm_comment.id
         JOIN   CRM.dbo.crm_customer_added ON crm_comment.customerId=crm_customer_added.customer_id WHERE  crm_customer_added.admin_id=".$adminId." and crm_workList.doneState=0 and crm_customer_added.returnState=0)a GROUP BY    a.specifiedDate");
-        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year]);
+        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year,'employies'=>$employies,'adminId'=>$adminId]);
     }
 
     public function changeDate(Request $request)
     {
         $month=$request->post("month");
         $year=$request->post("year");
-        $adminId=Session::get('asn');
+        $adminId=$request->post("asn");
+        $salesExpert=new SalseExper;
+        $adminType=$salesExpert->getAdminType(Session::get('asn'));
+        $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=5 and adminType!=4 and deleted=0");
+        if($adminType!=5){
+            $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE bossId=".Session::get('asn')." AND deleted=0");
+        }else{
+            $employies=$allEmployies;
+        }
         $workList=DB::select("SELECT count(a.workId) as count,a.specifiedDate FROM (SELECT crm_workList.id as workId, crm_workList.specifiedDate FROM CRM.dbo.crm_workList Join CRM.dbo.crm_comment ON crm_workList.commentId=crm_comment.id
-        JOIN   CRM.dbo.crm_customer_added ON crm_comment.customerId=crm_customer_added.customer_id WHERE  crm_customer_added.admin_id=".$adminId." and crm_workList.doneState=0 and crm_customer_added.returnState=0 and crm_comment.customerId not IN  (SELECT customerId FROM CRM.dbo.crm_returnCustomer WHERE  crm_returnCustomer.returnState=1))a GROUP BY    a.specifiedDate");
-        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year]);
+                              JOIN CRM.dbo.crm_customer_added ON crm_comment.customerId=crm_customer_added.customer_id 
+                              WHERE  crm_customer_added.admin_id=".$adminId." AND crm_workList.doneState=0 and crm_customer_added.returnState=0 and crm_comment.customerId not IN  (SELECT customerId FROM CRM.dbo.crm_returnCustomer WHERE  crm_returnCustomer.returnState=1))a GROUP BY    a.specifiedDate");
+        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year,'employies'=>$employies,'adminId'=>$adminId]);
     }
     public function takhsisCustomer(Request $request)
     {

@@ -48,16 +48,23 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> راننده ها </legend>
+                        <form action="" method="get">
+                            <div class="form-group">
+                                <input type="text" name="" class="form-control form-control-sm" id="bargeriSecondDate" placeholder=" تاریخ " />
+                            </div>
+                                <input type="hidden" id="adminId" value="{{$adminId}}">
+                            <div class="form-group mt-2">
+                                <input class="form-control form-control-sm" type="text" id="bargerilist" placeholder="اسم مشتری">
+                            </div>
+                            <div class="form-group mt-2">
+                                <button class='btn btn-primary btn-sm text-warning' type="submit" id='getHistorySearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                            </div>
+                        </form>
                     </fieldset>
                 </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> 
-                        <div class="form-group col-sm-12 col-lg-2 col-md-2 mt-2">
-                            <input type="text" name="" class="form-control form-control-sm" id="bargeriSecondDate" placeholder="تا تاریخ " />
-                        </div>
-                        <div class="form-group col-sm-12 col-lg-2 col-md-2 mt-2 mt-2">
-                            <input class="form-control form-control-sm" type="text" id="bargerilist" placeholder="جستجو">
-                        </div>
+
                     </div>
                     <div class="row mainContent">
                         <div class="col-lg-12 px-0">

@@ -12,7 +12,7 @@ use App\Http\Controllers\SaleLine;
 Route::get('/customers',[Customer::class,'index'])->middleware('CheckPoshtiban');
 Route::post('/changeDate',[Admin::class,'changeDate'])->middleware('CheckCommon');
 Route::get("/calendar",[Admin::class,"myCalendar"])->middleware('CheckCommon');
-Route::get("/getCustomerForTimeTable",[Customer::class,"getCustomerForTimeTable"])->middleware('CheckPoshtiban');
+Route::get("/getCustomerForTimeTable",[Customer::class,"getCustomerForTimeTable"])->middleware('CheckCommon');
 Route::get('/myCustomers',[Customer::class,'myCustomers'])->middleware('CheckPoshtiban');
 Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckPoshtiban');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');

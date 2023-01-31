@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
     $(element).find("input:radio").prop("checked", true);
@@ -2931,12 +2931,9 @@ $("#emptyKarbarButton").on("click", () => {
 });
 
 $("#openDashboard").on("click", () => {
-    let csn = $("#customerSn").val().split(" ")[0];
-    $("#customerSnLogin").val($("#customerSn").val().split(" ")[0]);
-
+    let csn = $("#customerSn").val();
+    $("#customerSnLogin").val($("#customerSn").val());
     $("#customerProperty").val("");
-    let commentSn = $("#commentSn").val();
-    $("#lastCommentId").val(commentSn);
     $.ajax({
         method: "get",
         url: baseUrl + "/customerDashboard",
@@ -3838,24 +3835,21 @@ $("#viewComment").blur(function () {
     $("#readCustomerComment1").empty();
 });
 
-function showTimeTableTasks(element) {
+function showTimeTableTasks(element,adminId) {
     let input = $(element).find("input:radio");
     $("#dayDate").val(input.val());
+    $("#openDashboard").prop("disabled",false);
+    $("#returnCustomer").prop("disabled",false);
     $.ajax({
         method: "get",
         url: baseUrl + "/getCustomerForTimeTable",
         data: {
             _token: "{{ csrf_token() }}",
             dayDate: input.val(),
+            asn:adminId
         },
         async: true,
         success: function (msg) {
-            if (msg.length > 0) {
-                $("#customerListSection").css({ display: "block" });
-            } else {
-                $("#customerListSection").css({ display: "none" });
-            }
-            // $('.crmDataTable').dataTable().fnDestroy();
             $("#customerListBody").empty();
             msg.forEach((element, index) => {
                 $("#customerListBody").append(
@@ -3891,6 +3885,7 @@ function showTimeTableTasks(element) {
                 );
             });
             // $('.crmDataTable').dataTable();
+            $("#customreForCallModal").modal("show");
         },
         error: function (data) {},
     });
@@ -3898,9 +3893,11 @@ function showTimeTableTasks(element) {
 
 function timeTableCustomerStuff(element) {
     let input = $(element).find("input:radio").prop("checked", true);
+
     $("#customerSn").val(input.val().split("_")[0]);
     $("#commentSn").val(input.val().split("_")[1]);
     $(".enableBtn").prop("disabled", false);
+    
 }
 
 function showAssesComment(id) {
@@ -3916,7 +3913,9 @@ function showAssesComment(id) {
             $("#assesComment").text(msg.comment);
             $("#readAssesComment").modal("show");
         },
-        error: function (data) {},
+        error: function (data) {
+
+        },
     });
 }
 
@@ -10221,23 +10220,11 @@ $("#bargeriFirstDate").persianDatepicker({
     formatDate: "YYYY/0M/0D",
 });
 
-$("#bargeriSecondDate").persianDatepicker({
-    cellWidth: 32,
-    cellHeight: 22,
-    fontSize: 14,
-    formatDate: "YYYY/0M/0D",
-    onSelect: () => {
-        let secondDateBargeri = $("#bargeriSecondDate").val();
-        let firstDateBargeri = $("#bargeriFirstDate").val();
-        $.ajax({
-            method: "get",
-            url: baseUrl + "/searchBargeriByDate",
-            data: {
-                _token: "{{ csrf_token() }}",
-                secondDateBargeri: secondDateBargeri,
-                firstDateBargeri: firstDateBargeri,
-            },
-            async: true,
+$("#").on("submit",function(e){
+    $.ajax({
+        method: $(this).attr("method"),
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
             success: function (msg) {
                 moment.locale("en");
                 $("#crmDriverBargeri").empty();
@@ -10276,10 +10263,10 @@ $("#bargeriSecondDate").persianDatepicker({
             },
             error: function (data) {
                 alert("جستجوی بارگیری مشکل دارد.");
-            },
-        });
-    },
-});
+            }
+        })
+    }
+);
 $("#addingEmtyaz").on("submit", function (e) {
     $.ajax({
         method: $(this).attr("method"),
@@ -11875,22 +11862,21 @@ function getServices(flag) {
 function setUpDownHistoryStuff(element, historyID) {
     $("tr").removeClass("selected");
     $(element).toggleClass("selected");
-    $("#editCreditBtn").val(historyID);
-    $("#deleteCreditBtn").val(historyID);
-    $.ajax({method:'get',
-    url:baseUrl+'/getUpDownBonusInfo',
-    data:{
-        _token:"{{@csrf}}",
-        historyID:historyID},
-    async:true,
-    success:function(respond){
-        $("#historyBonusDesc").text(respond[0][0].discription);
-    },
-    error:function(error){
-        alert(error);
-    }
-});
-
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getUpDownBonusInfo",
+        data: {
+            _token: "{{@csrf}}",
+            historyID: historyID,
+        },
+        async: true,
+        success: function (respond) {
+            alert(respond);
+        },
+        error: function (error) {
+            alert(error);
+        },
+    });
 }
 
 $("#deleteCreditBtn").on("click",function(){

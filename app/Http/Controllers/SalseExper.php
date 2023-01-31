@@ -753,7 +753,7 @@ select Name,PSN,PhoneStr from (
 public function bonusIncreaseDecrease(Request $request)
 {
       //
-      $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
+    $admins=DB::select("SELECT FORMAT(TimeStamp,'yyyy/M/d','fa-ir') as TimeStamp,CONCAT(crm_admin.name,crm_admin.lastName) AS adminName,CONCAT(a.name,a.lastName) as superName,positiveBonus,negativeBonus,crm_adminUpDownBonus.id as historyId FROM CRM.dbo.crm_adminUpDownBonus join CRM.dbo.crm_admin ON crm_adminUpDownBonus.adminId=crm_admin.id
                             LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
                             WHERE isUsed=0");
     $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=5 and adminType!=4 and deleted=0");
@@ -940,11 +940,7 @@ public function getHistorySearch(Request $request)
     return Response::json($history);
 }
 
-public function getAdminType($adminId)
-{
-    $adminType=DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->get()[0]->adminType;
-    return $adminType;
-}
+
 
 public function editUpDownBonus(Request $request)
 {
@@ -976,5 +972,11 @@ public function deleteUpDownBonus(Request $request)
                         LEFT JOIN (SELECT * from CRM.dbo.crm_admin)a  ON a.id=crm_adminUpDownBonus.supervisorId
                         WHERE isUsed=0");  
     return Response::json($admins);
+}
+
+public function getAdminType($adminId)
+{
+    $adminType=DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->get()[0]->adminType;
+    return $adminType;
 }
 }
