@@ -2816,8 +2816,8 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
 
     public function addUpDownBonus(Request $request)
     {
-        $positiveBonus=$request->get("positive");
-        $negativeBonus=$request->get("negative");
+        $positiveBonus=$request->get("positiveBonus");
+        $negativeBonus=$request->get("negativeBonus");
         if(!$positiveBonus){
             $positiveBonus=0;
         }
@@ -2830,7 +2830,8 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
                     ->insert(["positiveBonus"=>$positiveBonus
                     ,"negativeBonus"=>$negativeBonus
                     ,"discription"=>"$discriptionBonus"
-                    ,"adminId"=>$adminId]);
+                    ,"adminId"=>$adminId
+                    ,'superVisorId'=>Session::get('asn')]);
 
                     return Response::json("goood");
     }

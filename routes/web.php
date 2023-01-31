@@ -270,3 +270,10 @@ Route::get('/searchDriverServices',[DriverController::class,'searchDriverService
 Route::get('/serviceOrder',[DriverController::class,'serviceOrder'])->middleware('CheckCommon');
 Route::get('/getDriverServices',[DriverController::class,'getDriverServices'])->middleware('CheckCommon');
 Route::get('/getUpDownBonusInfo',[SalseExper::class,'getUpDownBonusInfo'])->middleware('CheckCommon');
+Route::get('/getUpDownBonusHistory',[SalseExper::class,'getUpDownBonusHistory'])->middleware('CheckCommon');
+Route::get('/orderUpDownHistory',[SalseExper::class,'orderUpDownHistory'])->middleware('CheckCommon');
+Route::get('/searchUpDownBonusByName',[SalseExper::class,'searchUpDownBonusByName'])->middleware('CheckCommon');
+Route::get('/getHistorySearch',[SalseExper::class,'getHistorySearch'])->middleware('CheckCommon');
+Route::get('/editUpDownBonus',[SalseExper::class,'editUpDownBonus'])->middleware('CheckCommon');
+Route::get('/deleteUpDownBonus',[SalseExper::class,'deleteUpDownBonus'])->middleware('CheckCommon');
+
