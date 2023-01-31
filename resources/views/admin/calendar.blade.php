@@ -3,10 +3,13 @@
 
 <style>
     .tableHeader .tableBbody, tr > th:first-child {
-    width: 100px !important;
+    width: 99px !important;
 }
 .tableHeader .tableBbody, tr > td:first-child {
-    width: 100px !important;
+    width: 99px !important;
+}
+tr > th:last-child, tr > td:last-child {
+    width:40px !important;
 }
 </style>
  <div class="container-fluid containerDiv">
