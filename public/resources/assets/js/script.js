@@ -10295,6 +10295,21 @@ $("#addingEmtyaz").on("submit", function (e) {
     e.preventDefault();
 });
 
+$("#decreasingEmtyaz").on("submit", function (e) {
+    $.ajax({
+        method: $(this).attr("method"),
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function (data) {
+            $("#decreasingCredit").modal("hide");
+        },
+        error: function (error) {
+            alert("data server error");
+        },
+    });
+    e.preventDefault();
+});
+
 $("#showEmtiyazHistoryBtn").on("click", () => {
     adminId = $("#adminSn").val();
     $.ajax({
@@ -11856,6 +11871,8 @@ function getServices(flag) {
 function setUpDownHistoryStuff(element,historyID){
     $("tr").removeClass("selected");
     $(element).toggleClass("selected");
+    $("#editCreditBtn").val(historyID);
+    $("#deleteCreditBtn").val(historyID);
     $.ajax({method:'get',
     url:baseUrl+'/getUpDownBonusInfo',
     data:{
@@ -11863,7 +11880,7 @@ function setUpDownHistoryStuff(element,historyID){
         historyID:historyID},
     async:true,
     success:function(respond){
-        alert(respond);
+        $("#historyBonusDesc").text(respond[0][0].discription);
     },
     error:function(error){
         alert(error);
@@ -11871,6 +11888,262 @@ function setUpDownHistoryStuff(element,historyID){
 });
 
 }
+
+$("#deleteCreditBtn").on("click",function(){
+
+    swal({
+        title: "اخطار!",
+        text: "آیا می خواهید حذف شود؟",
+        icon: "warning",
+        buttons: true,
+    }).then(function (willAdd) {
+        if (willAdd) {
+            $.ajax({method:'get',
+            url:baseUrl+'/deleteUpDownBonus',
+            data:{
+                _token:"{{@csrf}}",
+                historyId:$("#deleteCreditBtn").val()},
+            async:true,
+            success:function(respond){
+                $("#historyListBody").empty();
+                respond.forEach((element,index)=>{
+                    bonus=0;
+                    color="";
+                    if(element.positiveBonus>0){
+                        bonus=element.positiveBonus;
+                    }else{
+                        color="red";
+                        bonus=element.negativeBonus;
+                    }
+                    $("#historyListBody").append(`  <tr onclick="setUpDownHistoryStuff(this,`+element.historyId+`)">
+                                                        <td>`+(index+1)+`</td>
+                                                        <td> `+element.TimeStamp+` </td>
+                                                        <td>`+element.adminName+`</td>
+                                                        <td style="color:`+color+`">`+bonus+`</td>
+                                                        <td>`+element.superName+`</td>
+                                                    </tr>`);
+                });
+            },
+            error:function(error){}
+            });
+        }
+    });
+});
+
+$("#editCreditBtn").on("click",function(){
+
+    $.ajax({method:'get',
+                url:baseUrl+'/getUpDownBonusInfo',
+                data:{
+                    _token:"{{@csrf}}",
+                    historyID:$("#editCreditBtn").val()},
+                async:true,
+                success:function(respond){
+                    $("#adminBonusTaker").empty();
+                    respond[1].forEach((element,index)=>{
+                        isSelected="";
+                        if(respond[0][0].adminId==element.id){
+                            isSelected="selected";
+                        }
+                        $("#adminBonusTaker").append(`<option `+isSelected+` value="`+element.id+`">`+element.name+` `+element.lastName+`</option>`);
+                    });
+                    if(respond[0][0].positiveBonus>0){
+                        $("#pBonus").prop("disabled",false);
+                        $("#nBonus").prop("disabled",true);
+                        $("#pBonus").val(respond[0][0].positiveBonus);
+                        $("#nBonus").val(0);
+                        $("#commentBonus").val("");
+                        $("#commentBonus").val(respond[0][0].discription);
+                    }else{
+                        $("#pBonus").prop("disabled",true);
+                        $("#nBonus").prop("disabled",false);
+                        $("#nBonus").val(respond[0][0].negativeBonus);
+                        $("#pBonus").val(0);
+                        $("#commentBonus").val("");
+                        $("#commentBonus").val(respond[0][0].discription);
+                    }
+                    $("#historyId").val(respond[0][0].id);
+                    $("#editingCredit").modal("show");
+                },
+                error:function(error){
+                    alert(error);
+                }
+            }); 
+});
+
+$("#editEmtyaz").on("submit",function(e){
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr("action"),
+        data: $(this).serialize(),
+        success: function (respond) {
+            $("#historyListBody").empty();
+            respond.forEach((element,index)=>{
+                bonus=0;
+                color="";
+                if(element.positiveBonus>0){
+                    bonus=element.positiveBonus;
+                }else{
+                    color="red";
+                    bonus=element.negativeBonus;
+                }
+                $("#historyListBody").append(`  <tr onclick="setUpDownHistoryStuff(this,`+element.historyId+`)">
+                                                    <td>`+(index+1)+`</td>
+                                                    <td> `+element.TimeStamp+` </td>
+                                                    <td>`+element.adminName+`</td>
+                                                    <td style="color:`+color+`">`+bonus+`</td>
+                                                    <td>`+element.superName+`</td>
+                                                </tr>`);
+            });
+        }
+        ,error:function(error){}
+    });
+});
+
+function getUpDownHistory(flag) {
+    $.ajax({
+        method:'get',
+        url:baseUrl+'/getUpDownBonusHistory',
+        data:{_token:"{{@csrf}}",
+                flag:flag},
+        async:true,
+        success:function(data){
+            $("#historyListBody").empty();
+            data.forEach((element,index)=>{
+                bonus=0;
+                color="";
+                if(element.positiveBonus>0){
+                    bonus=element.positiveBonus;
+                }else{
+                    color="red";
+                    bonus=element.negativeBonus;
+                }
+                $("#historyListBody").append(`<tr onclick="setUpDownHistoryStuff(this,`+element.historyId+`)">
+                <td>`+(index+1)+`</td>
+                <td> `+element.TimeStamp+` </td>
+                <td>`+element.adminName+`</td>
+                <td style="color:`+color+`">`+bonus+`</td>
+                <td>`+element.superName+`</td>
+                </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    });
+}
+$("#orderBonusHistory").on("change",function(){
+    $.ajax({
+        method:'get',
+        url:baseUrl+"/orderUpDownHistory",
+        data:{_token:"{{@csrf}}",
+            baseName:$("#orderBonusHistory").val()},
+        async:true,
+        success:function(data){
+            $("#historyListBody").empty();
+            data.forEach((element,index)=>{
+                bonus=0;
+                color="";
+                if(element.positiveBonus>0){
+                    bonus=element.positiveBonus;
+                }else{
+                    color="red";
+                    bonus=element.negativeBonus;
+                }
+                $("#historyListBody").append(`<tr onclick="setUpDownHistoryStuff(this,`+element.historyId+`)">
+                <td>`+(index+1)+`</td>
+                <td> `+element.TimeStamp+` </td>
+                <td>`+element.adminName+`</td>
+                <td style="color:`+color+`">`+bonus+`</td>
+                <td>`+element.superName+`</td>
+                </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    })
+})
+$("#searchUpDownHistoryName").on("keyup",function(){
+$.ajax({
+    method:'get',
+    url:baseUrl+'/searchUpDownBonusByName',
+    data:{
+        _token:"{{@csrf}}",
+        searchTerm:$("#searchUpDownHistoryName").val()
+    },
+    async:true,
+    success:function(data){
+        $("#historyListBody").empty();
+        data.forEach((element,index)=>{
+            bonus=0;
+            color="";
+            if(element.positiveBonus>0){
+                bonus=element.positiveBonus;
+            }else{
+                color="red";
+                bonus=element.negativeBonus;
+            }
+            $("#historyListBody").append(`<tr onclick="setUpDownHistoryStuff(this,`+element.historyId+`)">
+            <td>`+(index+1)+`</td>
+            <td> `+element.TimeStamp+` </td>
+            <td>`+element.adminName+`</td>
+            <td style="color:`+color+`">`+bonus+`</td>
+            <td>`+element.superName+`</td>
+            </tr>`);
+        });
+    },
+    error:function(error){
+
+    }
+    });
+});
+
+$("#getHistorySearchBtn").on("click",function(e){
+    bonusType="";
+    if($("#positiveBonusRadio").is(":checked")){
+        bonusType="positive";
+    }
+    if($("#negativeBonusRadio").is(":checked")){
+        bonusType="negative";
+    }
+    firstDate=$("#firstDateReturned").val();
+    secondDate=$("#secondDateReturned").val();
+    e.preventDefault();
+    $.ajax({
+        method:'get',
+        url: baseUrl+'/getHistorySearch',
+        data: {
+            _token:"{{@csrf}}",
+            bonusType:bonusType,
+            firstDate:firstDate,
+            secondDate:secondDate
+        },
+        success: function (data) {
+            $("#historyListBody").empty();
+            data.forEach((element,index)=>{
+                bonus=0;
+                color="";
+                if(element.positiveBonus>0){
+                    bonus=element.positiveBonus;
+                }else{
+                    color="red";
+                    bonus=element.negativeBonus;
+                }
+                $("#historyListBody").append(`<tr onclick="setUpDownHistoryStuff(this,`+element.historyId+`)">
+                <td>`+(index+1)+`</td>
+                <td> `+element.TimeStamp+` </td>
+                <td>`+element.adminName+`</td>
+                <td style="color:`+color+`">`+bonus+`</td>
+                <td>`+element.superName+`</td>
+                </tr>`);
+            });
+        },
+        error:function(error){
+            console.log(error)
+        }
+    });
+});
 
 $("#assesToday").on("change", () => {
     if ($("#assesToday").is(":checked")) {
