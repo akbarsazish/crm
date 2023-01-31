@@ -5,26 +5,28 @@
             <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                 <fieldset class="border rounded mt-5 sidefieldSet">
                     <legend  class="float-none w-auto legendLabel mb-0"> خط فروش </legend>
-                    <button type="button" class="btn btn-sm btn-primary" id="addSaleLineBtn"> افزودن <i class="fa fa-plus"></i> </button>
-                    <button type="button" class="btn btn-sm btn-primary" id="editSaleLineBtn"> ویرایش <i class="fa fa-plus"></i> </button>
-                    <button type="button" class="btn btn-sm btn-primary" id="deleteSaleLineBtn"> حذف <i class="fa fa-plus"></i> </button>
+                    <button type="button" class="btn w-50 btn-sm btn-primary" id="addSaleLineBtn"> افزودن <i class="fa fa-plus"></i> </button>
+                    <button type="button" class="btn w-50 btn-sm btn-primary" id="editSaleLineBtn"> ویرایش <i class="fa fa-edit"></i> </button>
+                    <button type="button" class="btn w-50 btn-sm btn-danger" id="deleteSaleLineBtn"> حذف <i class="fa fa-trash"></i> </button>
                 </fieldset>
             </div>
             <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                 <div class="row contentHeader"> </div>
                 <div class="row mainContent">
-                    <table class="table table-bordered crmDataTable driverTable" id="tableGroupList">
-                        <thead class="bg-primary text-warning">
+                    <table class="table table-bordered" id="tableGroupList">
+                        <thead class="bg-primary text-warning tableHeader">
                             <tr>
-                                <th style="width:0px">#</th>
-                                <th style="width:200px;">اسم خط فروش</th>
+                                <th>ردیف </th>
+                                <th>اسم خط فروش</th>
+                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody class="c-checkout" id="saleLines">
+                        <tbody class="c-checkout tableBody" id="saleLines">
                             @foreach ($saleLines as $line)
                                 <tr onclick="setSaleLineStuff(this,{{$line->SaleLineSn}})">
-                                    <td style="width:0px">{{$loop->iteration}}</td>
-                                    <td style="width:200px;">{{$line->LineName}}</td>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$line->LineName}}</td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                         </tbody>

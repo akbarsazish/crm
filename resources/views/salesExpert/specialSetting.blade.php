@@ -49,10 +49,9 @@
                                             @endforeach
                                           </select>
                                         </div>
-                                        
-                                      <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <button class='btn btn-primary btn-sm text-warning' id="targetEditBtn" type="button" disabled  data-toggle="modal" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
-                                      </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-9 text-start">
+                                            <button class='btn btn-primary btn-sm text-warning' id="targetEditBtn" type="button" disabled  data-toggle="modal" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                        </div>
                                 </div>
                                <div class="row px-2">
                                     <table class="table table table-bordered">
@@ -93,12 +92,10 @@
                             <fieldset class="rounded" style="min-height:300px;">
                               <legend  class="float-none w-auto"> امتیازات  </legend>
                                 <div class="row">
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
-                                  </div>
-                                  <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
+                                  <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
                                     <!-- <span data-toggle="modal" data-target="#addSpecialBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
+                                  <div class="col-lg-9 col-md-9 col-sm-9 text-start">
                                           <button class='btn btn-primary btn-sm text-warning' id="specialBonusBtn" type="button" disabled  data-toggle="modal" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
                                     <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
@@ -147,7 +144,7 @@
                                         <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
                                           <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                        <div class="col-lg-8 col-md-8 col-sm-8 text-start">
                                           <button class='btn btn-primary btn-sm  text-warning' id="generalTargetBtn3" type="button" disabled onclick="editGeneralBase(this)" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
                                           <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                         </div>
@@ -194,12 +191,10 @@
                             <fieldset class="rounded" style="min-height:300px;">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
-                                  </div>
-                                  <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
+                                  <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
                                     <!-- <span data-toggle="modal" data-target="#addgeneralBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
+                                 <div class="col-lg-9 col-md-9 col-sm-9 text-start">
                                           <button class='btn btn-primary btn-sm text-warning' id="generalBonusBtn3" type="button" disabled    onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
                                     <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deletegeneralBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
@@ -251,7 +246,7 @@
                                         <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
                                           <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                       <div class="col-lg-8 col-md-8 col-sm-8 text-start">
                                           <button class='btn btn-primary btn-sm text-warning' id="generalTargetBtn1" type="button" disabled onclick="editGeneralBase(this)"   style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
                                           <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                         </div>
@@ -298,12 +293,11 @@
                             <fieldset class="rounded" style="min-height:300px;">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
-                                  </div>
-                                  <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
+                                  
+                                  <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
                                     <!-- <span data-toggle="modal" data-target="#addgeneralBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
+                                  <div class="col-lg-9 col-md-9 col-sm-9 text-start">
                                           <button class='btn btn-primary btn-sm text-warning' id="generalBonusBtn1" type="button" disabled  onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
                                     <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deletegeneralBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
@@ -352,10 +346,10 @@
                                     @endforeach
                                   </select>
                                 </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
+                                <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
                                   <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3">
+                               <div class="col-lg-6 col-md-6 col-sm-6 text-start">
                                   <button class='btn btn-primary btn-sm  text-warning' type="button" disabled onclick="editGeneralBase(this)"  id="generalTargetBtn2" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
                                   <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                 </div>
@@ -402,12 +396,10 @@
                             <fieldset class="rounded" style="min-height:300px;">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
-                                  </div>
-                                  <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
+                                  <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
                                     <!-- <span data-toggle="modal" data-target="#addSpecialBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
+                                  <div class="col-lg-9 col-md-9 col-sm-9 text-start">
                                           <button class='btn btn-primary btn-sm  text-warning' id="generalBonusBtn2" type="button" disabled    onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
                                     <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
@@ -458,10 +450,10 @@
                                     @endforeach
                                   </select>
                                 </div>
-                                <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
+                                <div class="col-lg-3 col-md-3 col-sm-3 mt-3">
                                   <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                 </div>
-                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-start">
                                   <button class='btn btn-primary btn-sm  text-warning' type="button" disabled onclick="editGeneralBase(this)"  id="generalTargetBtn4" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
                                   <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                 </div>
@@ -508,12 +500,11 @@
                             <fieldset class="rounded" style="min-height:300px;">
                               <legend  class="float-none w-auto"> امتیازات</legend>
                                 <div class="row">
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
-                                  </div>
+                                  
                                   <div class="col-lg-1 col-md-1 col-sm-1 mt-3">
                                     <!-- <span data-toggle="modal" data-target="#addSpecialBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
-                                  <div class="col-lg-3 col-md-3 col-sm-3">
+                                  <div class="col-lg-11 col-md-11 col-sm-11 text-start">
                                           <button class='btn btn-primary btn-sm  text-warning' id="generalBonusBtn4" type="button" disabled    onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
                                     <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>

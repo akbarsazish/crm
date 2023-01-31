@@ -2939,16 +2939,13 @@ public function editRT(Request $request)
     }
     return redirect("/randt");
 }
-public function getRandTInfo(Request $request)
-{
+public function getRandTInfo(Request $request){
     $csn=$request->get("csn");
     $exactCustomer=DB::select("SELECT * FROM NewStarfood.dbo.Peopels JOIN Shop.dbo.MNM on Peopels.SnMantagheh=MNM.SnMNM where Peopels.PSN=".$csn);
-
     $phones=DB::table("NewStarfood.dbo.PhoneDetail")->where("SnPeopel",$csn)->get();
     $hamrah="";
     $sabit="";
     foreach ($phones as $phone) {
-
         if($phone->PhoneType==2){
             $hamrah.=$phone->PhoneStr;   
         }
@@ -2960,8 +2957,12 @@ public function getRandTInfo(Request $request)
     $phones[0]->hamrah=$hamrah;
     $phones[0]->sabit=$sabit;
     $mantagheh=DB::table("Shop.dbo.MNM")->where("FatherMNM",$exactCustomer[0]->SnNahiyeh)->get();
+
     $cities=DB::table("Shop.dbo.MNM")->where("FatherMNM",79)->get();
-    return Response::json([$exactCustomer[0],$phones,$cities,$mantagheh]);
+
+
+    return Response::json([$exactCustomer[0],$phones,$mantagheh, $cities]);
+
 }
 
 public function getTakhsisEditRightSide(Request $request)

@@ -141,7 +141,9 @@ public function driverService(Request $request)
 {
     $services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType,TimeStamp FROM CRM.dbo.crm_driverservice JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId where deleted=0 and adminType=4 order by TimeStamp desc");
     $drivers=DB::select("SELECT * FROM CRM.dbo.crm_admin  WHERE deleted=0 and adminType=4 ");
-    return view("driver.driverService",['services'=>$services,'drivers'=>$drivers]);
+    $admins=DB::select("select * from CRM.dbo.crm_admin join CRM.dbo.crm_adminType on crm_adminType.id=crm_admin.adminType
+                                         where deleted=0 and crm_admin.adminType=4");
+    return view("driver.driverService",['services'=>$services,'drivers'=>$drivers, 'admins'=>$admins]);
 }
 public function addService(Request $request)
 {

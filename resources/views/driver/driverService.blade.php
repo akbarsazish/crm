@@ -18,6 +18,10 @@
         background-color:#bad5ef;
         border-radius:6px;
         }
+
+.bargeriTable {
+  display:none;
+}
 </style>
 
 <div class="container-fluid containerDiv">
@@ -25,6 +29,15 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                     <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> سرویس راننده ها  </legend>
+                          <div class="form-check">
+                              <input class="form-check-input p-2 float-end" checked type="radio" name="settings" id="dirverServiceRadio">
+                              <label class="form-check-label me-4" for="assesPast"> سرویس راننده ها </label>
+                          </div>
+                          <div class="form-check mb-3">
+                              <input class="form-check-input p-2 float-end" type="radio" name="settings" id="bargeriRadio">
+                              <label class="form-check-label me-4" for="assesPast">  بارگیری  </label>
+                          </div>
+
                         <form action="{{url('/searchDriverServices')}}" id="getServiceSearchForm" method="get">
                           <div class="form-group col-sm-12 mb-1">
                             <input type="text" name="firstDateService" placeholder="از تاریخ" class="form-control form-control-sm" id="firstDateReturned">
@@ -56,14 +69,14 @@
                                   <option value="TimeStamp">  تاریخ  </option>
                               </select>
                           </div>
-                        <div class="col-lg-8 text-start">
-                            <button class="btn btn-primary btn-sm" id="driverServicesBtn"> افزودن سرویس <i class="fa fa-plus"></i> </button>
-                            <button class="btn btn-primary btn-sm" id="editDriverServicesBtn"> ویرایش سرویس <i class="fa fa-edit"></i> </button>
-                        </div>
+                          <div class="col-sm-10 text-start">
+                              <button class="btn btn-primary btn-sm driverServicesTable" id="driverServicesBtn"> افزودن سرویس <i class="fa fa-plus"></i> </button>
+                              <button class="btn btn-primary btn-sm driverServicesTable" id="editDriverServicesBtn" disabled> ویرایش سرویس <i class="fa fa-edit"></i> </button>
+                          </div>
                     </div>
                     <div class="row mainContent">
                 <div class="row p-0 m-0">
-                  <table class="table table-bordered table-striped" id="driverServicesTable">
+                  <table class="table table-bordered table-striped driverServicesTable" id="driverServicesTable">
                         <thead class="tableHeader">
                             <tr>
                             <th>  دریف  </th>
@@ -88,8 +101,50 @@
                           @endforeach
                           </tbody>
                     </table>
+
+                    <!-- bargeri tables -->
+                     <table class="select-highlight table table-bordered table-striped bargeriTable" id="">
+                                <thead class="tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام کاربر</th>
+                                        <th>نقش کاربری</th>
+                                        <th>شماره تماس</th>
+                                        <th> جزئیات </th>
+                                        <th>فعال</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tableBody" id="" style="height:244px !important">
+                                    @foreach ($admins as $admin)
+                                        <tr onclick="showBargiriFactors(this,{{$admin->driverId}})">
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
+                                            <td>{{trim($admin->adminType)}}</td>
+                                            <td>{{trim($admin->phone)}}</td>
+                                            <td> <a href="{{url('crmDriver')}}"> <i class="fa fa-eye fa-lg" style="color:#000;"></i> </a> </td>
+                                            <td>
+                                                <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                             </table>
+                            <table class="table table-bordered bargeriTable" id="tableGroupList">
+                                <thead class="bg-primary text-warning tableHeader">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>نام مشتری</th>
+                                        <th> آدرس </th>
+                                        <th>تلفن </th>
+                                        <th style="width:111px">فاکتور</th>
+                                        <th> انتخاب</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tableBody" id="crmDriverBargeri" style="height:250px !important">
+                                </tbody>
+                            </table>
                
-                    </div>
+                       </div>
                     </div>
                     <div class="row contentFooter"> 
                         <div class="col-lg-12 text-start mt-1">
@@ -193,5 +248,53 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- modal for demonestrating factor deatails -->
+            <div class="modal fade" id="bargiriFactor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close bg-danger" data-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">فاکتور فروش <span  id="totalMoney"> </span> </h5>
+                    </div>
+                        <div class="modal-body">
+                                       <div class="grid-container">
+                                            <div class="item1"> <b>مشتری  :  </b> <span id="customerNameFactor">  </span> </div>
+                                            <div class="item2"> <b> آدرس  :  </b> <span id="customerAddressFactor"> </span>    </div>
+                                            <div class="item3"> <b>تلفن :  </b> <span id="customerPhoneFactor"> </span>   </div>
+                                             <div class="item4"><span> مبلغ کارت:</span>    <span id="cartPrice1"> </span></div>
+                                             <div class="item5"><span> واریز:  </span>   <span id="varizPrice1"> </span></div>
+                                             <div class="item6"><span> مبلغ نقد :</span>  <span id="naghdPrice1">  </span></div>
+                                             <div class="item7 text-danger"> <span> تخفیف :  </span>   <span id="takhfifPrice1"> </span></div> 
+                                             <div class="item8"><span> باقی :  </span>   <span  id="diffPrice1"> </span> </div>
+                                             <div class="item9"><span> توضیح:  </span>   <span  id="description1">  </span></div>
+                                        </div>
+                            <div class="row">
+                                <table id="strCusDataTable" class='table table-bordered table-striped table-sm' style="background-color:#dee2e6">
+                                    <thead class="bg-primary tableHeader">
+                                        <tr>
+                                            <th class="driveFactor">#</th>
+                                            <th>نام کالا </th>
+                                            <th class="driveFactor">تعداد/مقدار</th>
+                                            <th>واحد کالا</th>
+                                            <th>فی (تومان)</th>
+                                            <th >مبلغ (تومان)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productList" class="tableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">بستن  <i class="fa fa-xmark"> </i> </button>
+                        <input type="hidden" id="bargiriyBYSId"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+
 
 @endsection

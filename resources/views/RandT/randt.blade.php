@@ -49,11 +49,11 @@
                                 <option value="1"> کاربر </option>
                             </select>
                         </div>
-                        <div class="col-sm-6" style="display:flex; justify-content:flex-end">
+                        <div class="col-sm-6 text-start">
                             @if(Session::get('adminType')==1 or Session::get('adminType')==5)
                             <button class='btn btn-primary btn-sm text-warning' disabled id="takhsisButton"> انتقال به دفتر حساب <i class="fal fa-exchange"> </i> </button>
                             @endif
-                            <button class='btn btn-primary btn-sm text-warning' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square"></i></button>            
+                            <button class='btn btn-primary btn-sm text-warning enableBtn' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square"></i></button>            
                             <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square"></i></button>            
                          </div>
                     </div>

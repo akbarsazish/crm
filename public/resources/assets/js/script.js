@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.27:8080";
+var baseUrl = "http://192.168.10.26:8080";
 var myVar;
 function setAdminStuffForAdmin(element) {
     $(element).find("input:radio").prop("checked", true);
@@ -585,9 +585,9 @@ function setAdminStuff(element, adminId, adminTypeId) {
     $("#emptyKarbarButton").val(id);
     $("#moveKarbarButton").val(id);
     $("#editAssingId").val(id);
-    $("#editAssingBtn").prop("disabled",false);
+    $("#editAssingBtn").prop("disabled", false);
     $("#adminTakerId").val(id);
-    if($("#emptyAdminBtn")){
+    if ($("#emptyAdminBtn")) {
         $("#emptyAdminBtn").val(id);
     }
 
@@ -598,14 +598,11 @@ function setAdminStuff(element, adminId, adminTypeId) {
             _token: "{{ csrf_token() }}",
             id: id,
         },
-        success:function(respond){
+        success: function (respond) {
             $("#adminDiscription").text("");
             $("#adminDiscription").text(respond[3].discription);
-
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 
     if ((adminType > 1) & (adminType < 4)) {
@@ -638,7 +635,8 @@ function setAdminStuff(element, adminId, adminTypeId) {
                             element.PSN +
                             `" id="customerId">
                     </td>
-                </tr>`);
+                </tr>`
+                    );
                 });
             },
             error: function (data) {},
@@ -1203,13 +1201,13 @@ $(".selectAllFromTop").on("change", (e) => {
     }
 });
 
-$("#takhsisEditRightSideForm").on("submit",function(e){
+$("#takhsisEditRightSideForm").on("submit", function (e) {
     e.preventDefault();
     $.ajax({
         url: $(this).attr("action"),
         data: $(this).serialize(),
         success: function (arrayed_result) {
-            console.log(arrayed_result)
+            console.log(arrayed_result);
             $("#allCustomer").empty();
 
             arrayed_result.forEach((element, index) => {
@@ -1230,14 +1228,13 @@ $("#takhsisEditRightSideForm").on("submit",function(e){
                         element.PSN +
                         `" id="customerId">
                 </td>
-            </tr>`);
+            </tr>`
+                );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
-})
+});
 
 $("#addCustomerToAdmin").on("click", () => {
     swal({
@@ -5246,26 +5243,22 @@ function setKarbarEditStuff() {
     });
 }
 
-$("#adminDiscription").on("blur",function(e){
-    adminId=$("#AdminForAdd").val();
-    
+$("#adminDiscription").on("blur", function (e) {
+    adminId = $("#AdminForAdd").val();
+
     $.ajax({
         method: "get",
         url: baseUrl + "/EditAdminComment",
         data: {
             _token: "{{ csrf_token() }}",
             comment: $("#adminDiscription").val(),
-            adminId:adminId
+            adminId: adminId,
         },
         async: true,
-        success: function (arrayed_result) {
-        },
-        error:function(error){
-
-        }
+        success: function (arrayed_result) {},
+        error: function (error) {},
     });
-
-})
+});
 
 $("#searchCity").on("change", () => {
     $.ajax({
@@ -5489,7 +5482,7 @@ function deleteAdminList() {
         });
     }
 }
-$("#addedCustomerLeftSideForm").on("submit",function(e){
+$("#addedCustomerLeftSideForm").on("submit", function (e) {
     e.preventDefault();
     $.ajax({
         url: $(this).attr("action"),
@@ -5498,21 +5491,30 @@ $("#addedCustomerLeftSideForm").on("submit",function(e){
             console.log(arrayed_result);
             $("#addedCustomer").empty();
             arrayed_result.forEach((element, index) => {
-                $("#addedCustomer").append(`
+                $("#addedCustomer").append(
+                    `
                 <tr onclick="checkCheckBox(this,event)">
-                    <td id="radif" style="width:55px;">` +(index + 1) +`</td>
-                    <td id="mCode" style="width:115px;">` +element.NameRec +`</td>
-                    <td >` +element.Name +`</td>
+                    <td id="radif" style="width:55px;">` +
+                        (index + 1) +
+                        `</td>
+                    <td id="mCode" style="width:115px;">` +
+                        element.NameRec +
+                        `</td>
+                    <td >` +
+                        element.Name +
+                        `</td>
                     <td style="width:50px;">
-                        <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` +element.PSN + `" id="kalaId">
+                        <input class="form-check-input" name="addedCustomerIDs[]" type="checkbox" value="` +
+                        element.PSN +
+                        `" id="kalaId">
                     </td>
-                </tr>`);
+                </tr>`
+                );
             });
         },
-        error: function(error){
-        }
+        error: function (error) {},
     });
-})
+});
 
 function saveCustomerCommentProperty(element) {
     let csn = $("#customerSn").val();
@@ -5655,7 +5657,7 @@ $("#secondDateDoneComment").persianDatepicker({
     cellWidth: 32,
     cellHeight: 22,
     fontSize: 14,
-    formatDate: "YYYY/0M/0D"
+    formatDate: "YYYY/0M/0D",
 });
 
 $("#searchEmptyName").on("keyup", () => {
@@ -10014,9 +10016,9 @@ $("#thirdTarget").on("keyup", () => {
 function setEditRTStuff(csn) {
     $("#editRTbtn").val(csn);
 }
+
 $("#editRTbtn").on("click", function () {
     let customerId = $("#editRTbtn").val();
-    alert(customerId);
     $.ajax({
         method: "get",
         url: baseUrl + "/getRandTInfo",
@@ -10036,7 +10038,7 @@ $("#editRTbtn").on("click", function () {
             $("#PCode").val(exactCustomerInfo.PCode);
             $("#mobilePhone").val(phones[0].hamrah);
             $("#sabitPhone").val(phones[0].sabit);
-            console.log(respond);
+            alert(exactCustomerInfo.Description);
             $("#discription").val(exactCustomerInfo.Description);
             $("#gender").empty();
             $("#gender").append(`
@@ -10097,6 +10099,8 @@ $("#editRTbtn").on("click", function () {
         error: function (data) {},
     });
 });
+
+
 
 $("#addSaleLineBtn").on("click", function () {
     $("#addSaleLineModal").modal("show");
@@ -11698,7 +11702,7 @@ $("#editServiceForm").on("submit", function (e) {
     e.preventDefault();
 });
 
-$("#getServiceSearchForm").on("submit",function(e){
+$("#getServiceSearchForm").on("submit", function (e) {
     e.preventDefault();
     $.ajax({
         url: $(this).attr("action"),
@@ -11735,7 +11739,9 @@ $("#getServiceSearchForm").on("submit",function(e){
                             <td>` +
                         element.discription +
                         `</td>
-                            <td>` +element.TimeStamp+`</td>
+                            <td>` +
+                        element.TimeStamp +
+                        `</td>
                             <td>  <input  type="radio" name="radioBtn" value="` +
                         element.ServiceSn +
                         `"> </td>
@@ -11743,20 +11749,18 @@ $("#getServiceSearchForm").on("submit",function(e){
                 );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 });
 
-$("#orderDriverServices").on("change",function(){
+$("#orderDriverServices").on("change", function () {
     $.ajax({
         method: "get",
         url: baseUrl + "/serviceOrder",
         async: true,
         data: {
             _token: "{{@csrf}}",
-            selectedBase:$("#orderDriverServices").val()
+            selectedBase: $("#orderDriverServices").val(),
         },
         success: function (data) {
             $("#driverServiceBodyList").empty();
@@ -11772,7 +11776,9 @@ $("#orderDriverServices").on("change",function(){
                     serviceType = "نزدیک";
                 }
                 $("#driverServiceBodyList").append(
-                    `<tr onclick="setDriverServiceStuff(this,` +element.ServiceSn +`)">
+                    `<tr onclick="setDriverServiceStuff(this,` +
+                        element.ServiceSn +
+                        `)">
                             <td>` +
                         (index + 1) +
                         `</td>
@@ -11787,7 +11793,9 @@ $("#orderDriverServices").on("change",function(){
                             <td>` +
                         element.discription +
                         `</td>
-                            <td>` +element.TimeStamp+`</td>
+                            <td>` +
+                        element.TimeStamp +
+                        `</td>
                             <td>  <input  type="radio" name="radioBtn" value="` +
                         element.ServiceSn +
                         `"> </td>
@@ -11795,9 +11803,7 @@ $("#orderDriverServices").on("change",function(){
                 );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 });
 function getServices(flag) {
@@ -11807,7 +11813,7 @@ function getServices(flag) {
         async: true,
         data: {
             _token: "{{@csrf}}",
-            flag:flag
+            flag: flag,
         },
         success: function (data) {
             console.log(data);
@@ -11824,7 +11830,9 @@ function getServices(flag) {
                     serviceType = "نزدیک";
                 }
                 $("#driverServiceBodyList").append(
-                    `<tr onclick="setDriverServiceStuff(this,` +element.ServiceSn +`)">
+                    `<tr onclick="setDriverServiceStuff(this,` +
+                        element.ServiceSn +
+                        `)">
                             <td>` +
                         (index + 1) +
                         `</td>
@@ -11839,7 +11847,9 @@ function getServices(flag) {
                             <td>` +
                         element.discription +
                         `</td>
-                            <td>` +element.TimeStamp+`</td>
+                            <td>` +
+                        element.TimeStamp +
+                        `</td>
                             <td>  <input  type="radio" name="radioBtn" value="` +
                         element.ServiceSn +
                         `"> </td>
@@ -11847,29 +11857,28 @@ function getServices(flag) {
                 );
             });
         },
-        error:function(error){
-
-        }
+        error: function (error) {},
     });
 }
 
-function setUpDownHistoryStuff(element,historyID){
+function setUpDownHistoryStuff(element, historyID) {
     $("tr").removeClass("selected");
     $(element).toggleClass("selected");
-    $.ajax({method:'get',
-    url:baseUrl+'/getUpDownBonusInfo',
-    data:{
-        _token:"{{@csrf}}",
-        historyID:historyID},
-    async:true,
-    success:function(respond){
-        alert(respond);
-    },
-    error:function(error){
-        alert(error);
-    }
-});
-
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getUpDownBonusInfo",
+        data: {
+            _token: "{{@csrf}}",
+            historyID: historyID,
+        },
+        async: true,
+        success: function (respond) {
+            alert(respond);
+        },
+        error: function (error) {
+            alert(error);
+        },
+    });
 }
 
 $("#assesToday").on("change", () => {
@@ -12097,6 +12106,15 @@ $("#referentialCustomerRadio").on("change", () => {
 
 $("#customerWithOutAlarm").on("change", () => {
     $("#customerWithOutAlarmBuyOrNot").css("display", "block");
+});
+
+$("#dirverServiceRadio").on("change", () => {
+    $(".driverServicesTable").css("display", "inline");
+    $(".bargeriTable").css("display", "none");
+});
+$("#bargeriRadio").on("change", () => {
+    $(".driverServicesTable").css("display", "none");
+    $(".bargeriTable").css("display", "block");
 });
 
 $("#employeeType").on("change", function () {

@@ -16,7 +16,7 @@ Route::get("/getCustomerForTimeTable",[Customer::class,"getCustomerForTimeTable"
 Route::get('/myCustomers',[Customer::class,'myCustomers'])->middleware('CheckPoshtiban');
 Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckPoshtiban');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
-Route::get('/getRandTInfo',[Customer::class,'getRandTInfo'])->middleware('CheckPoshtiban');
+Route::get('/getRandTInfo',[Customer::class,'getRandTInfo'])->middleware('CheckCommon');
 Route::post('/editRT',[Customer::class,'editRT'])->middleware('CheckPoshtiban');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
 //common routes for all

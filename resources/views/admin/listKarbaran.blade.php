@@ -1,50 +1,61 @@
 @extends('layout')
 @section('content')
 <style>
-        ul, #myUL {
+  ul, #myUL {
         list-style-type: none;
         }
 
-        #myUL {
+   #myUL {
         margin: 0;
         padding: 0;
         }
 
-        .caret {
+    .caret {
         cursor: pointer;
         -webkit-user-select: none; /* Safari 3.1+ */
         -moz-user-select: none; /* Firefox 2+ */
         -ms-user-select: none; /* IE 10+ */
         user-select: none;
         }
-        span.caret {
+     span.caret {
             font-size:18px;
             font-weight:bold;
-
         }
 
-        .lowLevelManager{
+    .lowLevelManager{
             font-size:16px;
             color:#0b2d62;
         }
-        .caret::before {
+ .caret::before {
         content: "\002B";
         color: black;
         display: inline-block;
         margin-right: 6px;
         }
+  .caret-minus::before {
+        content: "\2212";
+        color: black;
+        display: inline-block;
+        margin-right: 6px;
+        }
 
-        .caret-down::before {
+  .caret-down-minus::before {
+        -ms-transform: rotate(90deg); /* IE 9 */
+        -webkit-transform: rotate(90deg); /* Safari */'
+        transform: rotate(90deg);  
+        }
+        
+    .caret-down::before {
         -ms-transform: rotate(90deg); /* IE 9 */
         -webkit-transform: rotate(90deg); /* Safari */'
         transform: rotate(90deg);  
         }
 
-        .nested {
+    .nested {
         display: none;
         }
 
-        .active {
+     .active {
         display: block;
         }
 </style>
@@ -80,7 +91,6 @@
                                                     @foreach($manager->head as $head)
                                                         <li>
                                                             <span class="caret"  onclick="setHeadStuff(this,{{$head->id}})">{{$head->name .' '.$head->lastName }} <input type="radio" class="form-check-input"  style="display:none"   value="{{$head->id}}" name="head" id=""></span>
-                                                            
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -90,7 +100,6 @@
                                 </li>
                             @endforeach
                             </ul> 
-
                      </div>
 
                     <!-- end tree view -->
@@ -176,175 +185,7 @@
 
 
 
-    <div class="row">
-        <div class="col-md-6">
-         <!-- <fieldset class="rounded">
-             <legend class="float-none w-auto">ادمین ها</legend>
-                <div class="row">
-                    <div class="col-sm-6"></div>
-                    <div class="col-sm-6" style="display:flex; justify-content:flex-end;">
-                        
-                    </div>
-                </div>
-                
-                    <table class="select-highlight table table-bordered table-striped" id="tableGroupList">
-                        <thead class="tableHeader">
-                            <tr>
-                                <th>ردیف</th>
-                                <th>نام کاربر</th>
-                                <th>نقش کاربری</th>
-                                <th>توضیحات</th>
-                                <th>فعال</th>
-                            </tr>
-                        </thead>
-                        <tbody class="c-checkout tableBody" id="adminGroupList">
-                            @foreach ($admins as $admin)
-                                @if($admin->adminTypeId==1 or $admin->adminTypeId==5)
-                                    
-                                <tr onclick="setAdminListStuff(this,{{$admin->adminTypeId}},{{$admin->id}},{{Session::get('asn')}})">
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                        <td>{{trim($admin->adminType)}}</td>
-                                        <td>{{trim($admin->discription)}}</td>
-                                        <td>
-                                            <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                 </fieldset> -->
-            </div>
-
-            <div class="col-md-6">
-                <!-- <fieldset class="rounded">
-                <legend  class="float-none w-auto"> راننده ها</legend>
-                <div class="row">
-                    <div class="col-sm-6"></div>
-                    <div class="col-sm-6" style="display:flex; justify-content:flex-end;">
-                        <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" data-toggle="modal" data-target="#newAdmin">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-                        <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editDriver" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteDriver"  onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true"></i></button>
-                      </div>
-                    </div>
-                        <table class="select-highlight table table-bordered table-striped" id="tableGroupList">
-                            <thead class="tableHeader">
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>نام کاربر</th>
-                                    <th>نقش کاربری</th>
-                                    <th>توضیحات</th>
-                                    <th>فعال</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tableBody" id="adminGroupList">
-                            @foreach ($admins as $admin)
-                                @if($admin->adminTypeId==4)
-
-                                    <tr onclick="setAdminListStuff(this,{{$admin->adminTypeId}},{{$admin->id}},{{Session::get('asn')}})">
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                        <td>{{trim($admin->adminType)}}</td>
-                                        <td>{{trim($admin->discription)}}</td>
-                                        <td>
-                                            <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                        </td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                            </tbody>
-                        </table>
-                      </fieldset> -->
-                </div>
-            </div>
-        <div class="row" style="margin-top:2%">
-            <div class="col-md-6">
-                <!-- <fieldset class="rounded">
-                    <legend  class="float-none w-auto">  پشتیبان ها</legend>
-                    <div class="row">
-                       <div class="col-sm-6"></div>
-                          <div class="col-sm-6" style="display:flex; justify-content:flex-end;">
-                            <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" data-toggle="modal" data-target="#newAdmin">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-                            <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editSupporter" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteSupporter"  onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true"></i></button>
-                        </div>
-                      </div>
-                        <table class="select-highlight table-bordered table-striped" id="tableGroupList">
-                            <thead class="tableHeader">
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>نام کاربر</th>
-                                    <th>نقش کاربری</th>
-                                    <th>توضیحات</th>
-                                    <th>فعال</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tableBody" id="adminGroupList">
-                                @foreach ($admins as $admin)
-                                    @if($admin->adminTypeId==2)
-
-                                        <tr onclick="setAdminListStuff(this,{{$admin->adminTypeId}},{{$admin->id}},{{Session::get('asn')}})">
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                            <td>{{trim($admin->adminType)}}</td>
-                                            <td>{{trim($admin->discription)}}</td>
-                                            <td>
-                                                <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                     </fieldset> -->
-                </div>
-
-                <div class="col-md-6">
-                <!-- <fieldset class="rounded">
-                    <legend  class="float-none w-auto">  بازاریاب ها</legend>
-                    <div class="row">
-                       <div class="col-sm-6"></div>
-                          <div class="col-sm-6" style="display:flex; justify-content:flex-end;">
-                            <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" data-toggle="modal" data-target="#newAdmin">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-                            <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editMarketer" onclick="setKarbarEditStuff()" >ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteMarketer"  onclick="deleteAdminList()">حذف <i class="fa fa-trash fa-lg" aria-hidden="true"></i></button>
-                            <input type="hidden" id="asn"/>
-                          </div>
-                       </div>
-                        <table class=" select-highlight table table-bordered table-striped" id="tableGroupList">
-                            <thead class="tableHeader">
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>نام کاربر</th>
-                                    <th>نقش کاربری</th>
-                                    <th>توضیحات</th>
-                                    <th>فعال</th>
-                                </tr>
-                            </thead>
-                            <tbody class="tableBody" id="adminGroupList">
-                                @foreach ($admins as $admin)
-                                    @if($admin->adminTypeId==3)
-
-                                        <tr onclick="setAdminListStuff(this,{{$admin->adminTypeId}},{{$admin->id}},{{Session::get('asn')}})">
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                            <td>{{trim($admin->adminType)}}</td>
-                                            <td>{{trim($admin->discription)}}</td>
-                                            <td>
-                                                <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
-                     </fieldset> -->
-                </div>
-            </div>
-        </div>
+   
         <!-- modal of new Brand -->
         <div class="modal fade dragableModal" id="newAdmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
@@ -756,8 +597,9 @@ var i;
 
 for (i = 0; i < toggler.length; i++) {
   toggler[i].addEventListener("click", function() {
+      $('.caret').removeClass("caret").addClass("caret-minus")
     this.parentElement.querySelector(".nested").classList.toggle("active");
-    this.classList.toggle("caret-down");
+    this.classList.toggle("caret-down caret-down-minus");
   });
 }
 </script>
