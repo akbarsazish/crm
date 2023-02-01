@@ -625,6 +625,11 @@ tr > th:last-child, tr > td:last-child{
 
 <!-- Modal -->
 
+<script>
+     $(function(){
+    $(".resizableTable").resizableColumns();
+  });
+</script>
 
 
 @endsection

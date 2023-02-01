@@ -103,7 +103,6 @@
                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/bonusIncreaseDecrease')}}"><span>  &nbsp; &nbsp; <i class="fa-solid fa-plus-minus" style="color:#fff;"></i>  افزایش و کاهش امتیاز </span></a> </li>
                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/randt')}}"> <span>  &nbsp; &nbsp; <i class="fa-solid fa-tasks fa-lg" style="color:#fff;"> </i> R&T</span></a> </li>
                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/calendar')}}"><span> &nbsp; &nbsp; <i class="fa-solid fa-calendar fa-lg" style="color:#fff;"></i> تقویم روزانه  </span></a></li>
-                                            <li class=''><a class="mySidenav__item text-white" href="{{url('/bargeryInfo')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   بارگیری  </span></a></li>
                                             @php
                                             $hasAlarm=Session::get("hasAlarm");
                                             @endphp
