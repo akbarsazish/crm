@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -13113,54 +13113,6 @@ $("#logedInRadio").on("change", () => {
     $("#notLogin").css("display", "none");
 });
 
-
-// kala
-$("#allKalaRadio").on("change", () => {
-    $("#allKala").css("display", "table");
-    $("#kalaSalesReport").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#notExistKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-     $("#footerBtn").css("display", "none");
-});
-$("#salesKalaReportRadio").on("change", () => {
-    $("#kalaSalesReport").css("display", "table");
-    $("#footerBtn").css("display", "inline");
-    $("#allKala").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#notExistKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-});
-
-$("#returnKalaReportRadio").on("change", () => {
-    $("#returnedKalaTable").css("display", "table");
-    $("#footerBtn").css("display", "inline");
-    $("#kalaSalesReport").css("display", "none");
-    $("#allKala").css("display", "none");
-    $("#notExistKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-});
-
-$("#notExistKalaRadio").on("change", () => {
-    $("#notExistKalaTable").css("display", "table");
-    $("#kalaSalesReport").css("display", "none");
-    $("#allKala").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-    $("#footerBtn").css("display", "none");
-});
-
-$("#rocketKalaRadio").on("change", () => {
-    $("#rocketKalaTable").css("display", "table");
-    $("#notExistKalaTable").css("display", "none");
-    $("#kalaSalesReport").css("display", "none");
-    $("#allKala").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#footerBtn").css("display", "none");
-});
-
-
 function setManagerStuff(element, adminId) {
     $(element).find("input:radio").prop("checked", true);
     let input = $(element).find("input:radio");
@@ -13664,6 +13616,10 @@ $.ajax({
     error:function(error){}
 });
 });
+
+$("#searchManagerByLine").on("change",function(){
+
+})
 
 // Create root and chart
 var root = am5.Root.new("chartdiv");
