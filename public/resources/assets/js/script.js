@@ -13640,7 +13640,7 @@ $("#searchManagerSelect").on("change",()=>{
         data[4].forEach((element,index)=>{
             $("#listHead").append(`
             <div class="form-check bg-gray">
-                <input class="form-check-input p-2 float-end headsRadio" type="radio" name="headRadio" value="`+element.id+`">
+                <input class="headsRadio form-check-input p-2 float-end" type="radio" name="headRadio" value="`+element.id+`">
                 <label class="form-check-label me-4" for="assesPast">`+element.name+` `+element.lastName+`</label>
             </div>`);
         })
@@ -13651,8 +13651,22 @@ $("#searchManagerSelect").on("change",()=>{
     })
 });
 
-$(".headsRadio").on("change",function(){
-    alert("good");
+$(document).on("change",".headsRadio",function(){
+    alert($(this).val())
+    $.ajax({method:"get",
+        url:baseUrl+'/getAdminInfo',
+        data:{_token:"{{@csrf}}",
+            id:$(this).val()},
+            async:true,
+        success:function(data){
+            console.log(data[4])
+
+        }
+        ,
+        error:function(error){
+
+        }
+    });
 });
 // kala
 

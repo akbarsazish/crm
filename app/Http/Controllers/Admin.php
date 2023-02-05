@@ -2831,7 +2831,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                                             WHERE  (senderId=".$myId." and getterId=".$appositId.") or (senderId=".$appositId." and getterId=".$myId."))d order by messageDate desc");
         
         DB::update("UPDATE CRM.dbo.crm_message set readState=1 WHERE senderId=".$appositId." and getterId=".$myId);
-        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0 and employeeType=2");
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0");
         
         return Response::json([$sendedMessages,$appositId,$myId,$admin,$heads]);
     }
