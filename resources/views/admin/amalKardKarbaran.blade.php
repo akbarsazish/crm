@@ -16,7 +16,7 @@
                                 </div>
                             
                                 <div class="form-group col-sm-12 mt-1">
-                                    <select class="form-select form-select-sm " id="searchByMantagheh">
+                                    <select class="form-select form-select-sm " id="searchManagerSelect">
                                     <option value="-1" hidden>  مدیران   </option>
                                         @foreach($admins as $admin)
                                             <option value="{{$admin->id}}">{{$admin->name.' '.$admin->lastName}}</option>
@@ -31,7 +31,7 @@
                     <div class="row contentHeader" style="height:20px;"></div>
                     <div class="row mainContent"> 
                       <fieldset class="border rounded-2 pb-0" style="border:2px solid #0860d7 !important;">
-                          <legend  class="float-none w-auto legendLabel mb-0">  مدیران  </legend>
+                          <legend  class="float-none w-auto legendLabel mb-0"> <span id="managerName">مدیران</span> </legend>
                             <div class="col-lg-12 text-start"> 
                                 <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
                                 <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
@@ -48,11 +48,7 @@
                    <fieldset class="border rounded-2 pb-0" style="border:2px solid #0860d7 !important;">
                      <legend  class="float-none w-auto legendLabel mb-0">  سرپرستان  </legend>
                        <div class="row">
-                                <div class="col-lg-10 mx-0">
-                                    <div class="form-check bg-gray">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
-                                    </div>
+                                <div class="col-lg-10 mx-0" id="listHead">
                                     <div class="form-check bg-gray">
                                         <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
                                         <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>

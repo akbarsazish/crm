@@ -2831,8 +2831,9 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                                             WHERE  (senderId=".$myId." and getterId=".$appositId.") or (senderId=".$appositId." and getterId=".$myId."))d order by messageDate desc");
         
         DB::update("UPDATE CRM.dbo.crm_message set readState=1 WHERE senderId=".$appositId." and getterId=".$myId);
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0 and employeeType=2");
         
-        return Response::json([$sendedMessages,$appositId,$myId,$admin]);
+        return Response::json([$sendedMessages,$appositId,$myId,$admin,$heads]);
     }
     
     // ======================
@@ -4165,6 +4166,11 @@ public function sendBackReport(Request $request){
             DB::insert("INSERT INTO NewStarfood.dbo.star_desc_product  VALUES('".$discription."',".$kalaId.")");
         }
         return Response::json("good");
+    }
+    public function getManagerByLine(Request $request){
+        $lineId=$request->get("lineId");
+        $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin where SaleLineId=$lineId");
+        return Response::json($managers);
     }
 
 }
