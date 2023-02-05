@@ -20,7 +20,7 @@
                             <tr>
                                 <th>ردیف </th>
                                 <th>اسم خط فروش</th>
-                                 <th></th>
+                                 <th> انتخاب </th>
                             </tr>
                         </thead>
                         <tbody class="c-checkout tableBody" id="saleLines">

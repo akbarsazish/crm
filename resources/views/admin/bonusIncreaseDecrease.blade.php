@@ -22,7 +22,7 @@
                             <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
                         </div>
                         <div class="form-group col-sm-12 mb-2">
-                            <button class='btn btn-primary btn-sm text-warning' type="button" id='getHistorySearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                            <button class='btn btn-primary btn-sm text-warning' type="button" id='getHistorySearchBtn'> بازخوانی <i class="fal fa-refresh fa-lg"></i></button>
                         </div>
                         <div class="col-lg-12" style="margin-top:40vh">
                             <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#creditSetting" data-bs-toggle="modal" > افزایش <i class="fa fa-plus"></i> </button>
