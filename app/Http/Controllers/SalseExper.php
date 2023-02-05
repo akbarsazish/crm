@@ -620,11 +620,19 @@ select Name,PSN,PhoneStr from (
       public function subTrees(Request $request)
     {
         //بازاریابهای زیر نظر سرپرست
-        $admins=DB::table("CRM.dbo.crm_admin")->where("bossId",Session::get("asn"))->where('deleted',0)->get();
+        $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',SESSION::get("asn"))->get();
+        $adminId=SESSION::get("asn");
+        $admins;
+        if($exactAdmin[0]->adminType==5){
+            $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("crm_admin.adminType","!=",5)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","driverId")->get();
+        }
+        if($exactAdmin[0]->adminType!=5){
+            $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("bossId",Session::get("asn"))->where("crm_admin.adminType","!=",5)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","driverId")->get();
+        }
         //لیست سرپرستها
-        $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',4)->where('adminType','!=',5)->where('deleted',0)->get();
+        $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',5)->where('deleted',0)->get();
 
-        $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("crm_admin.adminType",2)->orwhere("crm_admin.adminType",3)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType")->get();
+
         $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
 
         return View("salesExpert.subList",['admins'=>$admins,'bosses'=>$bosses, 'admins'=>$admins,'adminTypes'=>$adminTypes]);

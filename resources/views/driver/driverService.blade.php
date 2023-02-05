@@ -37,31 +37,32 @@
                               <input class="form-check-input p-2 float-end" type="radio" name="settings" id="bargeriRadio">
                               <label class="form-check-label me-4" for="assesPast">  بارگیری  </label>
                           </div>
-                          
-                        <form action="{{url('/searchDriverServices')}}" id="getServiceSearchForm" method="get">
-                          <div class="form-group col-sm-12 mb-1">
-                            <input type="text" name="firstDateService" placeholder="از تاریخ" class="form-control form-control-sm" id="firstDateReturned">
-                          </div>
-                          <div class="form-group col-sm-12 mb-2">
-                            <input type="text" name="secondDateService" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
-                          </div>
-                          <div class="col-sm-12 mt-2">
-                            <select class="form-select form-select-sm" name="driverSn" id="searchDriverSelect">
-                              <option value="-1"> راننده ها </option>
-                              @forelse($drivers as $driver)
-                              <option value="{{$driver->driverId}}" id="driver{{$driver->driverId}}">{{$driver->name.' '.$driver->lastName}}</option>
-                              @empty
-                              <div><span>داده وجود ندارد</span></div>
-                              @endif
-                            </select>
-                          </div>
-                          <button class='btn btn-primary btn-sm text-warning' type="submit" id='getServiceSearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
-                        </form>
+                        <div id="serviceDive"> 
+                          <form action="{{url('/searchDriverServices')}}" id="getServiceSearchForm" method="get">
+                            <div class="form-group col-sm-12 mb-1">
+                              <input type="text" name="firstDateService" placeholder="از تاریخ" class="form-control form-control-sm" id="firstDateReturned">
+                            </div>
+                            <div class="form-group col-sm-12 mb-2">
+                              <input type="text" name="secondDateService" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                            </div>
+                            <div class="col-sm-12 mt-2">
+                              <select class="form-select form-select-sm" name="driverSn" id="searchDriverSelect">
+                                <option value="-1"> راننده ها </option>
+                                @forelse($drivers as $driver)
+                                <option value="{{$driver->driverId}}" id="driver{{$driver->driverId}}">{{$driver->name.' '.$driver->lastName}}</option>
+                                @empty
+                                <div><span>داده وجود ندارد</span></div>
+                                @endif
+                              </select>
+                            </div>
+                            <button class='btn btn-primary btn-sm text-warning' type="submit" id='getServiceSearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                          </form>
+                        </div> 
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader">
-                          <div class="col-sm-2 mt-2">
+                          <div class="col-sm-2 mt-2" id="orderService">
                               <select class="form-select form-select-sm" id="orderDriverServices">
                                   <option value="-1"> مرتب سازی </option>
                                   <option value="name">   اسم  </option>
@@ -147,7 +148,7 @@
                        </div>
                     </div>
                     <div class="row contentFooter"> 
-                        <div class="col-lg-12 text-start mt-1">
+                        <div class="col-lg-12 text-start mt-1" id="bottomServiceBttons">
                             <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('TODAY')"> امروز  : </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('YESTERDAY')"> دیروز : </button>
                             <button type="button" class="btn btn-sm btn-primary footerButton" onclick="getServices('LASTHUNDRED')"> صد تای آخر : 100</button>

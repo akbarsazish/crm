@@ -7,20 +7,20 @@
                         <legend  class="float-none w-auto legendLabel mb-0">  عملکرد کاربران </legend>
                             <div class="row mt-2">
                                 <div class="form-group col-sm-12">
-                                    <select class="form-select form-select-sm " id="searchByMantagheh">
-                                        <option value="0" hidden>  خطوط  </option>
-                                        <option value="0"> خط فروش  </option>
-                                        <option value="0">  1 خط فروش  </option>
-                                        <option value="0"> خط فروش 2  </option>
+                                    <select class="form-select form-select-sm " id="searchManagerByLine">
+                                        <option value="-1" hidden>  خطوط  </option>
+                                        @foreach($saleLine as $line)
+                                            <option value="{{$line->SaleLineSn}}"> {{$line->LineName}} </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             
                                 <div class="form-group col-sm-12 mt-1">
                                     <select class="form-select form-select-sm " id="searchByMantagheh">
-                                        <option value="0" hidden>  مدیران   </option>
-                                        <option value="0"> مدیر 1 </option>
-                                        <option value="0"> مدیر 2  </option>
-                                        <option value="0"> مدیر 3 </option>
+                                    <option value="-1" hidden>  مدیران   </option>
+                                        @foreach($admins as $admin)
+                                            <option value="{{$admin->id}}">{{$admin->name.' '.$admin->lastName}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

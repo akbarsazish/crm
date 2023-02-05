@@ -12,35 +12,50 @@
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
-                        <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
+                        <legend  class="float-none w-auto legendLabel mb-0"> فیلتر آلارمها </legend>
+                        <form action="{{url('/filteralarms')}}" method="get" id="filterAlarmsForm">
                             <div class="form-check">
-                                <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="customerWithAlarm">
+                                <input class="form-check-input p-2 float-end alarmRighRdios" type="radio" value="0" name="alarmState" id="customerWithAlarm">
                                 <label class="form-check-label me-4" for="assesPast"> آلارمها </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="">
+                                <input class="form-check-input p-2 float-end alarmRighRdios" type="radio" value="1" name="alarmState" id="">
                                 <label class="form-check-label me-4" for="assesDone"> آلارمهای انجام شده  </label>
-                            </div> <br>
+                            </div>
                             <div class="form-check">
-                                <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="customerWithOutAlarm">
+                                <input class="form-check-input p-2 float-end alarmRighRdios" type="radio"  value="2" name="alarmState" id="customerWithOutAlarm">
                                 <label class="form-check-label me-4" for="assesDone"> مشتریان فاقد آلارم </label>
                             </div>
                             <div class="form-group col-sm-12 mb-2" id="customerWithOutAlarmBuyOrNot">
-                                <select class="form-select form-select-sm" id="buyOrNot">
+                                <select class="form-select form-select-sm" name="buyOrNot" id="buyOrNot">
                                     <option value="-1"> خرید  </option>
-                                    <option value="2"> دارد </option>
-                                    <option value="1"> ندارد </option>
+                                    <option value="1"> دارد </option>
+                                    <option value="0"> ندارد </option>
+                                    <option value="2"> همه </option>
                                 </select>
-                            </div> 
-                        
-                        <div class="row">
-                             <div class="form-group col-sm-12 mb-1">
-                                <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
                             </div>
-                            <div class="form-group col-sm-12 mb-2">
-                                <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
+                            <div class="row" id="alarmDates">
+                                <div class="form-group col-sm-12 mb-1">
+                                    <input type="text" name="firstDateAlarm" placeholder=" از  تاریخ آلارم گذاری"    class="form-control form-control-sm" id="firstDateReturned">
+                                </div>
+                                <div class="form-group col-sm-12 mb-2">
+                                    <input type="text" name="secondDateAlarm" placeholder="  تا تاریخ آلارم گذاری" class="form-control form-control-sm" id="secondDateReturned">
+                                </div>
                             </div>
-                        </div>
+                            <div class="row" id="alarmBuysDates" style="display:none">
+                                <div class="form-group col-sm-12 mb-1">
+                                    <input type="text" name="firstDateBuy" placeholder="از  تاریخ خرید"    class="form-control form-control-sm" id="firstDate">
+                                </div>
+                                <div class="form-group col-sm-12 mb-2">
+                                    <input type="text" name="secondDateBuy" placeholder="تا تاریخ خرید" class="form-control form-control-sm" id="secondDate">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-12 mb-1">
+                                    <button class='btn btn-primary btn-sm text-warning' type="submit"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                                </div>
+                            </div>
+                        </form>
                         
                     </fieldset>
                   </div>
@@ -49,31 +64,34 @@
                         <div class="col-sm-5 text-end">
                             <div class="row">
                                 <div class="form-group col-sm-3 mt-2 px-1">
-                                    <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm " id="searchAllName">
+                                    <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm " id="searchAlarmName">
                                 </div>
                                 <div class="form-group col-sm-3 mt-2 px-1">
-                                    <select class="form-select form-select-sm " id="searchByCity">
-                                       <option value="0" hidden> شهر</option>
-                                       <option value="0"> همه</option>
-                                       
-                                        <option value=""> تهران </option>
+                                    <select class="form-select form-select-sm " id="searchAlarmByCity">
+                                       <option value="">--</option>
+                                        <option value="80"> تهران </option>
                                      
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-3 mt-2 px-1">
-                                    <select class="form-select form-select-sm " id="searchByMantagheh">
-                                    <option value="0" hidden>منطقه</option>
+                                    <select class="form-select form-select-sm " id="searchAlarmByMantagheh">
+                                    <option value="" hidden>منطقه</option>
                                     <option value="0">همه</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-sm-3 mt-2 px-1">
-                                    <select class="form-select form-select-sm" id="orderInactiveCustomers">
+                                    <select class="form-select form-select-sm alarmBtn" id="orderAlarms">
                                         <option value="-1">مرتب سازی</option>
-                                        <option value="2"> آخرین فاکتور </option>
-                                        <option value="3">اسم</option>
-                                        <option value="1">همراه </option>
-                                        <option value="1"> تاریخ  </option>
-                                        <option value="1"> کاربر </option>
+                                        <option value="FactDate">تاریخ آخرین فاکتور </option>
+                                        <option value="Name">نام مشتری</option>
+                                        <option value="alarmDate"> تاریخ آلارم </option>
+                                        <option value="n.poshtibanName"> نام کاربر  </option>
+                                    </select>
+                                    <select class="form-select form-select-sm" style="display:none" id="orderUnAlarms">
+                                        <option value="-1">مرتب سازی</option>
+                                        <option value="FactDate">تاریخ آخرین فاکتور </option>
+                                        <option value="Name">نام مشتری</option>
+                                        <option value="adminName"> نام کاربر  </option>
                                     </select>
                                 </div>
                             </div>
@@ -82,43 +100,79 @@
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
                             <input type="text" id="adminSn" style="display: none" name="adminSn" value="" />
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id='openDashboardForAlarm'> داشبورد <i class="fal fa-dashboard "></i></button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"> تخصیص <i class="fa-solid fa-list-check"></i> </button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"> تغییر کاربر  <i class="fa-solid fa-edit"></i> </button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"  onclick="changeAlarm()"> تغیر آلارم  <i class="fal fa-warning "></i></button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button"  onclick="alarmHistory()"> گردش آلارم  <i class="fal fa-history "></i></button>
+                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="takhsisCustomerAlarm()"> تخصیص <i class="fa-solid fa-list-check"></i> </button>
+                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="changeAdminAlarm()"> تغییر کاربر  <i class="fa-solid fa-edit"></i> </button>
+                            <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="changeAlarm()"> تغیر آلارم  <i class="fal fa-warning "></i></button>
+                            <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="alarmHistory()"> گردش آلارم  <i class="fal fa-history "></i></button>
                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id="inactiveButton">غیر فعال <i class="fal fa-ban"></i> </button>
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
                         </div>
                    </div>
                     <div class="row mainContent">
-                        <div class="col-lg-12">
-                            <!-- <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
+                        <div class="col-lg-12" id="alarmedCustomers">
+                            <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
                                     <thead class="tableHeader">
                                         <tr >
 											<th> ردیف </th>
-											<th  style="width:111px">آخرین فاکتور</th>
+											<th  style="width:111px">تاریخ ثبت</th>
 											<th >اسم</th>
 											<th> شماره تماس</th>
 											<th  style="width:99px"> تعداد گردش  </th>
 											<th style="width:77px">منطقه </th>
 											<th style="width:66px"> تعیین </th>
-											<th style="width:111px"> تاریخ  </th>
+                                            <th  style="width:111px">تاریخ فاکتور</th>
+											<th style="width:111px"> تاریخ نمایش  </th>
 											<th style="width:166px"> کاربر  </th>
 											<th>انتخاب</th>
                                        </tr>
                                     </thead>
                                     <tbody class="select-highlight tableBody" id="alarmsbody">
                                         @foreach ($customers as $customer)
-                                            <tr onClick="setAlarmCustomerStuff(this)">
+                                            <tr onClick="setAlarmCustomerStuff(this,{{$customer->id}})">
                                                 <td >{{$loop->iteration}}</td>
-                                                <td  style="width:111px"> 1401/08/12 </td>
+                                                <td  style="width:111px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
                                                 <td>{{trim($customer->Name)}}</td>
                                                 <td>{{trim($customer->PhoneStr)}}</td>
-                                                <td style="width:99px"> </td>
+                                                <td style="width:99px">{{$customer->countCycle}}</td>
                                                 <td style="width:77px">{{trim($customer->NameRec)}}</td>
                                                 <td style="width:66px">{{$customer->assignedDays}}</td>
-                                                <td style="width:111px; color:red"> 1401/08/12  </td>
+                                                <td style="width:111px;">{{$customer->FactDate}}</td>
+                                                <td style="width:111px; color:red">{{$customer->alarmDate}}</td>
                                                 <td style="width:166px">{{trim($customer->poshtibanName).' '.trim($customer->poshtibanLastName)}}</td>
+                                                <td><input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->adminSn.'_'.$customer->SerialNoHDS}}"></td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                             </table>
+                             <div class="grid-today rounded-2">
+                                <div class="today-item"> <span style="color:red; font-weight:bold;">  آخرین کامنت: </span> <span id="alarmLastComment"></span>  </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12" id="unAlarmedCustomers" style="display:none">
+                            <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
+                                    <thead class="tableHeader">
+                                        <tr >
+											<th> ردیف </th>
+											<th >اسم</th>
+											<th >کد</th>
+											<th> شماره تماس</th>
+											<th style="width:77px">منطقه </th>
+                                            <th  style="width:111px">تاریخ آخرین</th>
+											<th style="width:166px"> کاربر  </th>
+											<th>انتخاب</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="select-highlight tableBody" id="unalarmsbody">
+                                        @foreach ($notAlarmed as $customer)
+                                            <tr onclick="setUnAlarmStuff(this,{{$customer->PSN}},{{$customer->adminId}})">
+                                                <td >{{$loop->iteration}}</td>
+                                                <td>{{trim($customer->Name)}}</td>
+                                                <td>{{trim($customer->PCode)}}</td>
+                                                <td>{{trim($customer->PhoneStr)}}</td>
+                                                <td style="width:77px">{{trim($customer->NameRec)}}</td>
+                                                <td style="width:111px;">{{$customer->FactDate}}</td>
+                                                <td style="width:166px">{{trim($customer->adminName)}}</td>
                                                 <td><input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->adminId.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                         @endforeach
@@ -141,24 +195,124 @@
 
 
                              <div class="grid-today rounded-2">
-                                <div class="today-item"> <span style="color:red; font-weight:bold;">  تاریخ آخرین فاکتور : </span> <span id="loginTimeToday"></span>  </div>
-                                <div class="today-item"> <span style="color:red; font-weight:bold;">  تاریخ آلارم : </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="today-item"> <span style="color:red; font-weight:bold;">   کامنت اختصاصی: </span> <span id="unAlarmLastComment"></span>  </div>
                             </div>
                         </div>
-                     </div>
-                    <div class="row contentFooter"> 
-                    <div class="col-lg-12 text-start mt-2">
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> امروز  : </button>
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> دیروز : </button>
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> صد تای آخر : 100</button>
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> همه : </button>
-                           </div>
 
+                    </div>
+                    <div class="row contentFooter"> 
+                        <div class="col-lg-12 text-start mt-2" id="alamButtonsHistoryDiv">
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('TODAY')"> امروز  : </button>
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('YESTERDAY')"> دیروز : </button>
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('LASTHUNDRED')"> صد تای آخر : 100</button>
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getAlarmHistory('ALLALARMS')"> همه : </button>
+                        </div>
+                        <div class="col-lg-12 text-start mt-2" id="noAlarmButtonsHistoryDiv" style="display:none">
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('TODAY')"> خرید امروز  : </button>
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('YESTERDAY')"> خرید دیروز : </button>
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('LASTHUNDRED')"> صد خرید آخر : 100</button>
+                            <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getUnAlarmHistory('ALLUNALARMS')"> همه : </button>
+                        </div>
                     </div>
                 </div>
         </div>
     </div>
     
+    <!-- for takhsis change modal -->
+    <div class="modal fade dragableModal" id="changeAdminModal" role="dialog"   data-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header py-2 text-white" style="margin:0; border:none">
+                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="exampleModalLongTitle"> انتقال مشتری از کاربر به کاربر  </h5>
+                        </div>
+                        <div class="modal-body pt-0">
+                            <table class="table table-bordered">
+                                <thead class="text-warning tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th> مشتری </th>
+                                        <th> کاربر </th>
+                                        <th>شماره تماس</th>
+                                        <th style="display:none">انتخاب</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="customerToMoveBody" class="tableBody" style="height:160px !important;">
+
+                                </tbody>
+                            </table>
+                                <input type="hidden" id="adminID" >
+                            <table class="table table-bordered">
+                                <thead class="text-warning tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام کاربر </th>
+                                        <th>نقش کاربر </th>
+                                        <th>توضیحات</th>
+                                        <th>انتخاب </th>
+                                  </tr>
+                                </thead>
+                                <tbody id="selectKarbarToMove" class="tableBody">
+
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 text-start">
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="cancelMoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                <button type="button" class="btn btn-danger btn-sm"  onclick="moveCustomerToAdmin()" > انتقال <i class="fa fa-sync"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end change modal -->
+
+                <!-- for takhsis modal -->
+    <div class="modal fade dragableModal" id="takhsisCustomerModal" role="dialog"   data-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header py-2 text-white" style="margin:0; border:none">
+                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title" id="exampleModalLongTitle"> انتقال مشتری از کاربر به کاربر  </h5>
+                        </div>
+                        <div class="modal-body pt-0">
+                            <table class="table table-bordered">
+                                <thead class="text-warning tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th> مشتری </th>
+                                        <th>شماره تماس</th>
+                                        <th style="display:none">انتخاب</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="customerToTakhsisBody" class="tableBody" style="height:160px !important;">
+
+                                </tbody>
+                            </table>
+                                <input type="hidden" id="adminID" >
+                            <table class="table table-bordered">
+                                <thead class="text-warning tableHeader">
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>نام کاربر </th>
+                                        <th>نقش کاربر </th>
+                                        <th>توضیحات</th>
+                                        <th>انتخاب </th>
+                                  </tr>
+                                </thead>
+                                <tbody id="selectKarbarToTakhsis" class="tableBody">
+
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 text-start">
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" id="cancelMoveKarbar"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                <button type="button" class="btn btn-danger btn-sm"  onclick="moveCustomerToAdmin()" > انتقال <i class="fa fa-sync"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end change modal -->
+
     <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-xl">
                 <div class="modal-content">

@@ -17,7 +17,7 @@ Route::get('/myCustomers',[Customer::class,'myCustomers'])->middleware('CheckPos
 Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckPoshtiban');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
 Route::get('/getRandTInfo',[Customer::class,'getRandTInfo'])->middleware('CheckCommon');
-Route::post('/editRT',[Customer::class,'editRT'])->middleware('CheckPoshtiban');
+Route::post('/editRT',[Customer::class,'editRT'])->middleware('CheckCommon');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
 //common routes for all
 Route::get("/addComment",[Customer::class,"addComment"])->middleware('CheckCommon');
@@ -292,4 +292,16 @@ Route::get('/searchUpDownBonusByName',[SalseExper::class,'searchUpDownBonusByNam
 Route::get('/getHistorySearch',[SalseExper::class,'getHistorySearch'])->middleware('CheckCommon');
 Route::get('/editUpDownBonus',[SalseExper::class,'editUpDownBonus'])->middleware('CheckCommon');
 Route::get('/deleteUpDownBonus',[SalseExper::class,'deleteUpDownBonus'])->middleware('CheckCommon');
+Route::get('/getCustomerAndAdminInfo',[Admin::class,'getCustomerAndAdminInfo'])->middleware('CheckCommon');
+Route::get('/getAlarms',[Admin::class,'getAlarms'])->middleware('CheckCommon');
+Route::get('/getAlarmInfo',[Admin::class,'getAlarmInfo'])->middleware('CheckCommon');
+Route::get('/searchAlarms',[Admin::class,'searchAlarms'])->middleware('CheckCommon');
+Route::get('/searchAlarmByMantagheh',[Admin::class,'searchAlarmByMantagheh'])->middleware('CheckCommon');
+Route::get('/orderAlarms',[Admin::class,'orderAlarms'])->middleware('CheckCommon');
+Route::get('/getAlarmsHistory',[Admin::class,'getAlarmsHistory'])->middleware('CheckCommon');
+Route::get('/filteralarms',[Admin::class,'filteralarms'])->middleware('CheckCommon');
+Route::get('/searchUnAlarmByMantagheh',[Admin::class,'searchUnAlarmByMantagheh'])->middleware('CheckCommon');
+Route::get('/orderUnAlarms',[Admin::class,'orderUnAlarms'])->middleware('CheckCommon');
+Route::get('/getUnAlarmHistory',[Admin::class,'getUnAlarmHistory'])->middleware('CheckCommon');
+Route::get('/getPersonals',[Admin::class,'getPersonals'])->middleware('CheckCommon');
 

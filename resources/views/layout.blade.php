@@ -59,13 +59,15 @@
                                         <li class=''><a class="mySidenav__item" href="{{url('/randt')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; R&D</span></a> </li>
                                         <li class=''><a class="mySidenav__item" href="{{url('/saleLine')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; افزودن خط فروش</span></a> </li>
                                         <li class=''><a class="mySidenav__item" href="{{url('/bonusSetting')}}"> &nbsp;&nbsp; <i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات  </span></a></li>
-                                            <!-- <li class='has-sub'><a class="mySidenav__item" href="#"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تنظیمات    </span></a>
+                                            <!-- 
+                                            <li class='has-sub'><a class="mySidenav__item" href="#"><span><i class="fa fa-bar-chart fa-lg" style="color:#fff;"></i>&nbsp;&nbsp; تنظیمات    </span></a>
                                                 <ul>
                                                     <li></li>
                                                     <li class=''> <a class="mySidenav__item" href="{{url('/bonusSetting')}}"><i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات امتیاز </span></a></li>
                                                     <li class=''> <a class="mySidenav__item" href="{{url('/crmSetting')}}"> <i class="fas fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i> &nbsp;  تنظیمات دیگر </a> </li>
                                                 </ul>
-                                            </li> -->
+                                            </li>
+                                            -->
                                         </ul>
                                     </li>
                                     <li class='has-sub'>
@@ -103,6 +105,7 @@
                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/bonusIncreaseDecrease')}}"><span>  &nbsp; &nbsp; <i class="fa-solid fa-plus-minus" style="color:#fff;"></i>  افزایش و کاهش امتیاز </span></a> </li>
                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/randt')}}"> <span>  &nbsp; &nbsp; <i class="fa-solid fa-tasks fa-lg" style="color:#fff;"> </i> R&T</span></a> </li>
                                             <li class=''><a class="mySidenav__item text-white" href="{{url('/calendar')}}"><span> &nbsp; &nbsp; <i class="fa-solid fa-calendar fa-lg" style="color:#fff;"></i> تقویم روزانه  </span></a></li>
+                                            <li class=''><a class="mySidenav__item text-white" href="{{url('crmDriver?asn='.SESSION::get('dsn').'')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   بارگیری  </span></a></li>
                                             @php
                                             $hasAlarm=Session::get("hasAlarm");
                                             @endphp

@@ -15,14 +15,58 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
-function setAdminStuffForAdmin(element) {
+function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
     let input = $(element).find("input:radio");
     let adminType = input.val().split("_")[1];
     let adminId = input.val().split("_")[0];
+    $("#PoshtibanId").val(adminId);
+    $("#subBazaryabId").val(adminId);
+    $("#subListDashboardBtn").prop("disabled",false);
     $("#adminSn").val(adminId);
+    if(adminTypeId==1){
+
+        $("#adminInfo").css({"display":"inline"});
+        $("#poshtibanInfo").css({"display":"none"});
+        $("#bazaryabInfo").css({"display":"none"});
+        $("#subListDashboardBtnPoshtiban").prop("disabled",false);
+    }
+    
+    if(adminTypeId==2){
+        $("#poshtibanInfo").css({"display":"inline"});
+        $("#bazaryabInfo").css({"display":"none"});
+        $("#subListDashboardBtnPoshtiban").prop("disabled",false);
+    }
+
+    if(adminTypeId==3){
+        $("#bazaryabInfo").css({"display":"inline"});
+        $("#poshtibanInfo").css({"display":"none"});
+        $("#subListDashboardBtn").prop("disabled",false);
+    }
+
+    if(adminTypeId==4){
+        
+        $("#PoshtibanId").val(adminId);
+        $("#poshtibanInfo").css({"display":"inline"});
+        $("#bazaryabInfo").css({"display":"none"});
+        $("#subListDashboardBtnPoshtiban").prop("disabled",false);
+    }
+    if(adminTypeId==6){
+        
+        $("#PoshtibanId").val(adminId);
+        $("#poshtibanInfo").css({"display":"inline"});
+        $("#bazaryabInfo").css({"display":"none"});
+    }
+    if(adminTypeId==7){
+        
+        $("#PoshtibanId").val(adminId);
+        $("#poshtibanInfo").css({"display":"none"});
+        $("#bazaryabInfo").css({"display":"none"});
+    }
+    
+
     $.ajax({
         method: "get",
         url: baseUrl + "/getAdminTodayInfo",
@@ -47,6 +91,7 @@ function setAdminStuffForAdmin(element) {
                     .locale("fa")
                     .format("HH:mm:ss YYYY/M/D")
             );
+            
             $("#adminName").text(info.name + " " + info.lastName);
             $("#countCommentsToday").text(peopels[0].countComments);
             $("#countFactorsToday").text(peopels[0].countFctors);
@@ -1732,6 +1777,238 @@ $("#searchByCity").on("change", () => {
         error: function (data) {},
     });
 });
+
+$("#searchAlarmByCity").on("change", () => {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/searchAssignRegion",
+        data: {
+            _token: "{{ csrf_token() }}",
+            cityId: $("#searchAlarmByCity").val(),
+        },
+        async: true,
+        success: function (arrayed_result) {
+            $("#searchAlarmByMantagheh").empty();
+            arrayed_result.forEach((element, index) => {
+                $("#searchAlarmByMantagheh").append(
+                    `
+            <option value="` +
+                        element.SnMNM +
+                        `">` +
+                        element.NameRec +
+                        `</option>
+        `
+                );
+            });
+        },
+        error: function (data) {},
+    });
+});
+
+function getAlarmHistory(history) {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getAlarmsHistory",
+        data: {
+            _token: "{{ csrf_token() }}",
+            history:history
+        },
+        async: true,
+        success: function (msg) {
+            $("#alarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#alarmsbody").append(`<tr onClick="setAlarmCustomerStuff(this,`+element.id+`)">
+                                            <td >`+(index+1)+`</td>
+                                            <td style="width:111px">` +
+                            moment(element.TimeStamp, "YYYY/M/D")
+                                .locale("fa")
+                                .format("YYYY/M/D") +`</td>
+                                            <td>`+element.Name+`</td>
+                                            <td>`+element.PhoneStr+`</td>
+                                            <td style="width:99px">`+element.countCycle+`</td>
+                                            <td style="width:77px">`+element.NameRec+`</td>
+                                            <td style="width:66px">`+element.assignedDays+`</td>
+                                            <td  >`+element.FactDate+`</td>
+                                            <td style="width:111px; color:red">`+element.alarmDate+`</td>
+                                            <td style="width:166px">`+element.poshtibanName+` `+element.poshtibanLastName+`</td>
+                                            <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminSn+`_`+element.SerialNoHDS+`"></td>
+                                        </tr>`);
+            })
+        }
+        ,error:function(error){
+
+        }
+    });
+}
+
+$("#filterAlarmsForm").on("submit",function(e){
+e.preventDefault();
+$.ajax({
+    url: $(this).attr("action"),
+    data: $(this).serialize(),
+    success: function (msg) {
+        if(!$("#customerWithOutAlarm").is(":checked")){
+            $("#alarmedCustomers").css("display","block");
+            $("#unAlarmedCustomers").css("display","none");
+            $("#alarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#alarmsbody").append(`<tr onClick="setAlarmCustomerStuff(this,`+element.id+`)">
+                                            <td >`+(index+1)+`</td>
+                                            <td style="width:111px">` +
+                                            moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                                .locale("fa")
+                                                .format("YYYY/M/D") +`</td>
+                                            
+                                            <td>`+element.Name+`</td>
+                                            <td>`+element.PhoneStr+`</td>
+                                            <td style="width:99px">`+element.countCycle+`</td>
+                                            <td style="width:77px">`+element.NameRec+`</td>
+                                            <td style="width:66px">`+element.assignedDays+`</td>
+                                            <td style="width:111px;">`+element.FactDate+`</td>
+                                            <td style="width:111px; color:red">`+element.alarmDate+`</td>
+                                            <td style="width:166px">`+element.poshtibanName+` `+element.poshtibanLastName+`</td>
+                                            <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminSn+`_`+element.SerialNoHDS+`"></td>
+                                        </tr>`);
+            })
+        }else{
+            $("#alarmedCustomers").css("display","none");
+            
+            $("#unalarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#unalarmsbody").append(`<tr  onclick="setUnAlarmStuff(this,`+element.PSN+`,`+element.adminId+`)">
+                <td >`+(index+1)+`</td>
+                <td>`+element.Name+`</td>
+                <td>`+element.PCode+`</td>
+                <td>`+element.PhoneStr+`</td>
+                <td style="width:77px">`+element.NameRec+`</td>
+                <td style="width:111px;">`+element.FactDate+`</td>
+                <td style="width:166px">`+element.adminName+`</td>
+                <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminId+`_`+element.SerialNoHDS+`"></td>
+            </tr>`);
+            })
+        }
+    },
+    error:function(error){
+
+    }
+});
+})
+
+$("#orderAlarms").on("change",function(){
+    searchTerm=$("#searchAlarmName").val();
+    snMantagheh=$("#searchAlarmByMantagheh").val();
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/orderAlarms",
+        data: {
+            _token: "{{ csrf_token() }}",
+            baseName:$("#orderAlarms").val(),
+            searchTerm:searchTerm,
+            snMantagheh:snMantagheh
+        },
+        async: true,
+        success: function (msg) {
+            $("#alarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#alarmsbody").append(`<tr onClick="setAlarmCustomerStuff(this,`+element.id+`)">
+                                            <td >`+(index+1)+`</td>
+                                            <td style="width:111px">` +
+                                            moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                                .locale("fa")
+                                                .format("YYYY/M/D") +`</td>
+                                            
+                                            <td>`+element.Name+`</td>
+                                            <td>`+element.PhoneStr+`</td>
+                                            <td style="width:99px">`+element.countCycle+`</td>
+                                            <td style="width:77px">`+element.NameRec+`</td>
+                                            <td style="width:66px">`+element.assignedDays+`</td>
+                                            <td>`+element.FactDate+`</td>
+                                            <td style="width:111px; color:red">`+element.alarmDate+`</td>
+                                            <td style="width:166px">`+element.poshtibanName+` `+element.poshtibanLastName+`</td>
+                                            <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminSn+`_`+element.SerialNoHDS+`"></td>
+                                        </tr>`);
+            })
+        }
+        ,error:function(error){
+
+        }
+    });
+})
+
+$("#orderUnAlarms").on("change",function(){
+    searchTerm=$("#searchAlarmName").val();
+    snMantagheh=$("#searchAlarmByMantagheh").val();
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/orderUnAlarms",
+        data: {
+            _token: "{{ csrf_token() }}",
+            baseName:$("#orderUnAlarms").val(),
+            searchTerm:searchTerm,
+            snMantagheh:snMantagheh
+        },
+        async: true,
+        success: function (msg) {
+            $("#unalarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#unalarmsbody").append(` <tr  onclick="setUnAlarmStuff(this,`+element.PSN+`,`+element.adminId+`)">
+                                                <td >`+(index+1)+`</td>
+                                                <td>`+element.Name+`</td>
+                                                <td>`+element.PCode+`</td>
+                                                <td>`+element.PhoneStr+`</td>
+                                                <td style="width:77px">`+element.NameRec+`</td>
+                                                <td style="width:111px;">`+element.FactDate+`</td>
+                                                <td style="width:166px">`+element.adminName+`</td>
+                                                <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminId+`_`+element.SerialNoHDS+`"></td>
+                                            </tr>`);
+            });
+        }
+        ,error:function(error){
+
+        }
+    });
+});
+
+function setUnAlarmStuff(element,customerSn,adminId){
+    $("tr").removeClass("selected");
+    $(element).toggleClass("selected");
+    $("#customerSn").val(customerSn);
+    $("#adminSn").val(adminId);
+    $(".enableBtn").prop("disabled",false);
+}
+
+function getUnAlarmHistory(history) {
+    
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getUnAlarmHistory",
+        data: {
+            _token: "{{ csrf_token() }}",
+            history:history
+        },
+        async: true,
+        success: function (msg) {
+            $("#unalarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#unalarmsbody").append(`<tr onclick="setUnAlarmStuff(this,`+element.PSN+`,`+element.adminId+`)">
+                                                <td >`+(index+1)+`</td>
+                                                <td>`+element.Name+`</td>
+                                                <td>`+element.PCode+`</td>
+                                                <td>`+element.PhoneStr+`</td>
+                                                <td style="width:77px">`+element.NameRec+`</td>
+                                                <td style="width:111px;">`+element.FactDate+`</td>
+                                                <td style="width:166px">`+element.adminName+`</td>
+                                                <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminId+`_`+element.SerialNoHDS+`"></td>
+                                            </tr>`);
+            });
+        }
+        ,error:function(error){
+
+        }
+    });
+
+}
+
 $("#searchCity").on("change", function () {
     $.ajax({
         method: "get",
@@ -2696,6 +2973,294 @@ $("#openCustomerActionModal").on("click", () => {
     });
 });
 
+$("#searchAlarmByMantagheh").on("change",function(){
+    searchTerm=$("#searchAlarmName").val();
+    snMantagheh=$("#searchAlarmByMantagheh").val();
+    if(!$("#customerWithOutAlarm").is(":checked")){
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/searchAlarmByMantagheh",
+        data: {
+            _token: "{{ csrf_token() }}",
+            searchTerm:searchTerm,
+            snMantagheh:snMantagheh
+        },
+        async: true,
+        success: function (msg) {
+            $("#alarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#alarmsbody").append(`<tr onClick="setAlarmCustomerStuff(this,`+element.id+`)">
+                                            <td >`+(index+1)+`</td>
+                                            <td style="width:111px">` +
+                                            moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                                .locale("fa")
+                                                .format("YYYY/M/D") +`</td>
+                                            <td>`+element.Name+`</td>
+                                            <td>`+element.PhoneStr+`</td>
+                                            <td style="width:99px">`+element.countCycle+`</td>
+                                            <td style="width:77px">`+element.NameRec+`</td>
+                                            <td style="width:66px">`+element.assignedDays+`</td>
+                                            <td >`+element.FactDate+`</td>
+                                            <td style="width:111px; color:red">`+element.alarmDate+`</td>
+                                            <td style="width:166px">`+element.poshtibanName+` `+element.poshtibanLastName+`</td>
+                                            <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminSn+`_`+element.SerialNoHDS+`"></td>
+                                        </tr>`);
+            })
+        }
+        ,error:function(error){
+
+        }
+    });
+}else{
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/searchUnAlarmByMantagheh",
+        data: {
+            _token: "{{ csrf_token() }}",
+            searchTerm:searchTerm,
+            snMantagheh:snMantagheh
+        },
+        async: true,
+        success: function (msg) {
+            $("#unalarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#unalarmsbody").append(` <tr  onclick="setUnAlarmStuff(this,`+element.PSN+`,`+element.adminId+`)">
+                                                <td >`+(index+1)+`</td>
+                                                <td>`+element.Name+`</td>
+                                                <td>`+element.PCode+`</td>
+                                                <td>`+element.PhoneStr+`</td>
+                                                <td style="width:77px">`+element.NameRec+`</td>
+                                                <td style="width:111px;">`+element.FactDate+`</td>
+                                                <td style="width:166px">`+element.adminName+`</td>
+                                                <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminId+`_`+element.SerialNoHDS+`"></td>
+                                            </tr>`);
+            });
+        },
+        error:function(error){
+
+        }
+    });
+}
+});
+
+function moveCustomerToAdmin(){
+    let csn = $("#customerSn").val();
+    let firstAdminID = $("#adminSn").val();
+    let newAdminSn=$("#adminID").val();
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/takhsisCustomer",
+        data: {
+            _token: "{{ csrf_token() }}",
+            csn: csn,
+            asn: newAdminSn,
+            FirstAdminID: firstAdminID,
+        },
+        async: true,
+        success: function (msg) {
+            if($("#changeAdminModal")){
+                $("#changeAdminModal").modal("hide");
+            }
+            if($("#takhsisCustomerModal")){
+                $("#takhsisCustomerModal").modal("hide");
+            }
+            if(!$("#customerWithOutAlarm").is(":checked")){
+            $.ajax({
+                method: "get",
+                url: baseUrl + "/getAlarms",
+                data: {
+                    _token: "{{ csrf_token() }}"},
+                async: true,
+                success: function (msg) {
+                    $("#alarmsbody").empty();
+                    msg.forEach((element,index)=>{
+                        $("#alarmsbody").append(`<tr onClick="setAlarmCustomerStuff(this,`+element.id+`)">
+                                                    <td >`+(index+1)+`</td>
+                                                    <td  style="width:111px">` +
+                                                    moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                                        .locale("fa")
+                                                        .format("YYYY/M/D") +`</td>
+                                                    <td>`+element.Name+`</td>
+                                                    <td>`+element.PhoneStr+`</td>
+                                                    <td style="width:99px">`+element.countCycle+`</td>
+                                                    <td style="width:77px">`+element.NameRec+`</td>
+                                                    <td style="width:66px">`+element.assignedDays+`</td>
+                                                    <td >`+element.FactDate+`</td>
+                                                    <td style="width:111px; color:red">`+element.alarmDate+`</td>
+                                                    <td style="width:166px">`+element.poshtibanName+` `+element.poshtibanLastName+`</td>
+                                                    <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminSn+`_`+element.SerialNoHDS+`"></td>
+                                                </tr>`);
+                    })
+                }
+                ,error:function(error){
+        
+                }
+            });
+        }else{
+            $.ajax({
+                method: "get",
+                url: baseUrl + "/getUnAlarmHistory",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    history:"ALLUNALARMS"
+                },
+                async: true,
+                success: function (msg) {
+                    $("#unalarmsbody").empty();
+                    msg.forEach((element,index)=>{
+                        $("#unalarmsbody").append(`<tr onclick="setUnAlarmStuff(this,`+element.PSN+`,`+element.adminId+`)">
+                                                        <td >`+(index+1)+`</td>
+                                                        <td>`+element.Name+`</td>
+                                                        <td>`+element.PCode+`</td>
+                                                        <td>`+element.PhoneStr+`</td>
+                                                        <td style="width:77px">`+element.NameRec+`</td>
+                                                        <td style="width:111px;">`+element.FactDate+`</td>
+                                                        <td style="width:166px">`+element.adminName+`</td>
+                                                        <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminId+`_`+element.SerialNoHDS+`"></td>
+                                                    </tr>`);
+                    });
+                }
+                ,error:function(error){
+        
+                }
+            });
+        }
+        }
+        ,error:function(error){
+
+        }
+    });
+}
+
+function takhsisCustomerAlarm(){
+    let csn = $("#customerSn").val();
+
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getCustomerAndAdminInfo",
+        data: {
+            _token: "{{csrf_token()}}",
+            csn: csn,
+            asn:0
+        },
+        async: true,
+        success: function (msg) {
+            $("#customerToTakhsisBody").empty();
+            msg[0].forEach((element,index)=>{
+                $("#customerToTakhsisBody").append(`
+                <tr>
+                    <td>`+(index+1)+`</td>
+                    <td> `+element.Name+` </td>
+                    <td>`+element.PhoneStr+`</td>
+                    <td style="display:none"><input type="radio" value="`+element.PSN+`" name="customerToMove"/></td>
+                </tr>`);
+            })
+            $("#selectKarbarToTakhsis").empty();
+            msg[1].forEach((element,index)=>{
+                adminType = "";
+                discription = "توضیحی ندارد";
+                if (element.discription != null) {
+                    discription = element.discription;
+                }
+                switch (element.adminType) {
+                    case 2:
+                        adminType = "پشتیبان";
+                        break;
+                    case 1:
+                        adminType = "ادمین";
+                        break;
+                    case 3:
+                        adminType = "بازاریاب";
+                        break;
+                }
+                $("#selectKarbarToTakhsis").append(`
+                <tr onclick="selectKarbarToTakeCustomer(this,`+element.id+`)">
+                    <td>`+(index+1)+`</td>
+                    <td> `+element.name+` `+element.lastName+` </td>
+                    <td> `+adminType+` </td>
+                    <td>`+element.discription+`</td>
+                    <td><input type="radio" value="`+element.id+`" name="AdminToMove"/></td>
+                </tr>`);
+            })
+
+        $("#takhsisCustomerModal").modal("show");
+            },
+        error:function(error){
+            alert("در تخصیص مشتری ارور وجود دارد.")
+        }
+        });
+    
+
+}
+
+function changeAdminAlarm(){
+    let csn = $("#customerSn").val();
+    let asn = $("#adminSn").val();
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getCustomerAndAdminInfo",
+        data: {
+            _token: "{{csrf_token()}}",
+            csn: csn,
+            asn:asn
+        },
+        async: true,
+        success: function (msg) {
+            console.log(msg)
+            $("#customerToMoveBody").empty();
+            msg[0].forEach((element,index)=>{
+                $("#customerToMoveBody").append(`
+                <tr>
+                    <td>`+(index+1)+`</td>
+                    <td> `+element.Name+` </td>
+                    <td> `+element.name+` `+element.lastName+` </td>
+                    <td>`+element.PhoneStr+`</td>
+                    <td style="display:none"><input type="radio" value="`+element.PSN+`" name="customerToMove"/></td>
+                </tr>`);
+            })
+            $("#selectKarbarToMove").empty();
+            msg[1].forEach((element,index)=>{
+                adminType = "پشتیبان";
+                discription = "توضیحی ندارد";
+                if (element.discription != null) {
+                    discription = element.discription;
+                }
+                switch (element.adminType) {
+                    case 2:
+                        adminType = "پشتیبان";
+                        break;
+                    case 1:
+                        adminType = "ادمین";
+                        break;
+                    case 3:
+                        adminType = "بازاریاب";
+                        break;
+                }
+                $("#selectKarbarToMove").append(`
+                <tr onclick="selectKarbarToTakeCustomer(this,`+element.id+`)">
+                    <td>`+(index+1)+`</td>
+                    <td> `+element.name+` `+element.lastName+` </td>
+                    <td> `+adminType+` </td>
+                    <td>`+element.discription+`</td>
+                    <td><input type="radio" value="`+element.id+`" name="AdminToMove"/></td>
+                </tr>`);
+            })
+
+        $("#changeAdminModal").modal("show");
+            },
+        error:function(error){
+            alert("در تخصیص مشتری ارور وجود دارد.")
+        }
+        });
+
+}
+
+function selectKarbarToTakeCustomer(element,adminID){
+    $("tr").removeClass("selected");
+    $(element).toggleClass("selected");
+    $("#adminID").val(adminID);
+}
+
 function changeAlarm() {
     let csn = $("#customerSn").val();
     let asn = $("#adminSn").val();
@@ -2730,6 +3295,10 @@ $("#changeAlarmForm").on("submit", function (e) {
             <td>` +
                         (index + 1) +
                         `</td>
+                        <td  style="width:111px">` +
+                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                            .locale("fa")
+                            .format("YYYY/M/D") +`</td>
             <td>` +
                         element.Name +
                         `</td>
@@ -4604,6 +5173,10 @@ $("#inactiveCustomerForm").submit(function (e) {
                     <td>` +
                                 (index + 1) +
                                 `</td>
+                                <td  style="width:111px">` +
+                                moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                    .locale("fa")
+                                    .format("YYYY/M/D") +`</td>
                     <td>` +
                                 element.Name +
                                 `</td>
@@ -4683,6 +5256,7 @@ function removeStaff(adminId) {
         }
     });
 }
+
 
 function moveStaff() {
     swal({
@@ -7915,7 +8489,49 @@ $("#orderByCodeOrName").on("change", () => {
     });
 });
 
+$("#searchAlarmName").on("keyup",function(){
+    searchTerm=$("#searchAlarmName").val();
+    if(!$("#customerWithOutAlarm").is(":checked")){
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/searchAlarms",
+        data: {
+            _token: "{{ csrf_token() }}",
+            searchTerm:searchTerm
+        },
+        async: true,
+        success: function (msg) {
+            $("#alarmsbody").empty();
+            msg.forEach((element,index)=>{
+                $("#alarmsbody").append(`<tr onClick="setAlarmCustomerStuff(this,`+element.id+`)">
+                                            <td >`+(index+1)+`</td>
+                                            <td  style="width:111px">` +
+                                            moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                                .locale("fa")
+                                                .format("YYYY/M/D") +`</td>
+                                            <td>`+element.Name+`</td>
+                                            <td>`+element.PhoneStr+`</td>
+                                            <td style="width:99px">`+element.countCycle+`</td>
+                                            <td style="width:77px">`+element.NameRec+`</td>
+                                            <td style="width:66px">`+element.assignedDays+`</td>
+                                            <td >`+element.FactDate+`</td>
+                                            <td style="width:111px; color:red">`+element.alarmDate+`</td>
+                                            <td style="width:166px">`+element.poshtibanName+` `+element.poshtibanLastName+`</td>
+                                            <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`_`+element.adminSn+`_`+element.SerialNoHDS+`"></td>
+                                        </tr>`);
+            })
+        }
+        ,error:function(error){
+
+        }
+    });
+}else{
+
+}
+})
+
 function setAlarmCustomerStuff(element) {
+
     $(element).children("input").prop("checked", true);
     $(".enableBtn").prop("disabled", false);
     if ($(".enableBtn").is(":disabled")) {
@@ -7933,6 +8549,21 @@ function setAlarmCustomerStuff(element) {
     $("#factorAlarm").val(
         $(element).children("td").children("input").val().split("_")[2]
     );
+
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getAlarmInfo",
+        data: {
+            _token: "{{ csrf_token() }}",
+            factorId: $("#factorAlarm").val()
+        },
+        async: true
+        ,success: function (msg) {
+            $("#alarmLastComment").text("");
+            $("#alarmLastComment").text(msg.comment);
+        }
+        ,error:function(error){}
+    });
 }
 $("#searchCustomerAalarmName").on("keyup", () => {
     let searchTerm = $("#searchCustomerAalarmName").val();
@@ -7952,6 +8583,10 @@ $("#searchCustomerAalarmName").on("keyup", () => {
             <td>` +
                         (index + 1) +
                         `</td>
+                        <td  style="width:111px">` +
+                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                            .locale("fa")
+                            .format("YYYY/M/D") +`</td>
             <td>` +
                         element.Name +
                         `</td>
@@ -8012,6 +8647,10 @@ $("#searchCustomerAalarmCode").on("keyup", () => {
             <td>` +
                         (index + 1) +
                         `</td>
+                        <td  style="width:111px">` +
+                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                            .locale("fa")
+                            .format("YYYY/M/D") +`</td>
             <td>` +
                         element.Name +
                         `</td>
@@ -8073,6 +8712,10 @@ $("#searchCustomerAaramOrder").on("change", () => {
                 <td>` +
                             (index + 1) +
                             `</td>
+                            <td  style="width:111px">` +
+                            moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                                .locale("fa")
+                                .format("YYYY/M/D") +`</td>
                 <td>` +
                             element.Name +
                             `</td>
@@ -9934,6 +10577,8 @@ function setSubBazaryabStuff(element) {
     const input = $(element).find("input:radio");
     const subBazaryabId = input.val();
     $("#subBazaryabId").val(subBazaryabId);
+    alert(subBazaryabId)
+    $("#PoshtibanId").val(subBazaryabId);
     $("#subListDashboardBtn").prop("disabled", false);
 }
 
@@ -11879,10 +12524,10 @@ function setUpDownHistoryStuff(element, historyID) {
         },
         async: true,
         success: function (respond) {
-            alert(respond);
+            console.log("get up down bonus info")
         },
         error: function (error) {
-            alert(error);
+            console.log("get up down bonus info")
         },
     });
 }
@@ -12366,17 +13011,45 @@ $("#referentialCustomerRadio").on("change", () => {
     $(".inactiveReport").css("display", "none");
 });
 
-$("#customerWithOutAlarm").on("change", () => {
-    $("#customerWithOutAlarmBuyOrNot").css("display", "block");
+$(".alarmRighRdios").on("change", () => {
+    
+    if($("#customerWithOutAlarm").is(":checked")){
+        $("#customerWithOutAlarmBuyOrNot").css("display", "block");
+        $("#unAlarmedCustomers").css("display", "block");
+        $("#alarmedCustomers").css("display", "none");
+        $("#alarmDates").css("display", "none");
+        $("#alarmBuysDates") .css("display", "block");
+        $("#alamButtonsHistoryDiv").css("display", "none");
+        $("#noAlarmButtonsHistoryDiv").css("display", "block");
+        $(".alarmBtn").css("display", "none");
+        $("#orderUnAlarms").css("display", "block");
+    }else{
+        $("#customerWithOutAlarmBuyOrNot").css("display", "none");
+        $("#unAlarmedCustomers").css("display", "none"); 
+        $("#alarmedCustomers").css("display", "block"); 
+        $("#alarmDates") .css("display", "block");
+        $("#alarmBuysDates") .css("display", "none");
+        $("#alamButtonsHistoryDiv").css("display", "block");
+        $("#noAlarmButtonsHistoryDiv").css("display", "none");
+        $(".alarmBtn").css("display", "inline");
+        $("#orderUnAlarms").css("display", "none");
+    }
 });
 
 $("#dirverServiceRadio").on("change", () => {
     $(".driverServicesTable").css("display", "inline");
     $(".bargeriTable").css("display", "none");
+    $("#serviceDive").css("display", "inline");
+    $("#bottomServiceBttons").css("display", "inline");
+    $("#orderService").css("display", "inline");
+
 });
 $("#bargeriRadio").on("change", () => {
     $(".driverServicesTable").css("display", "none");
     $(".bargeriTable").css("display", "block");
+    $("#serviceDive").css("display", "none");
+    $("#bottomServiceBttons").css("display", "none");
+    $("#orderService").css("display", "none");
 });
 
 $("#employeeType").on("change", function () {
@@ -12439,54 +13112,6 @@ $("#logedInRadio").on("change", () => {
     $("#logedIn").css("display", "block");
     $("#notLogin").css("display", "none");
 });
-
-
-// kala
-$("#allKalaRadio").on("change", () => {
-    $("#allKala").css("display", "table");
-    $("#kalaSalesReport").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#notExistKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-     $("#footerBtn").css("display", "none");
-});
-$("#salesKalaReportRadio").on("change", () => {
-    $("#kalaSalesReport").css("display", "table");
-    $("#footerBtn").css("display", "inline");
-    $("#allKala").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#notExistKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-});
-
-$("#returnKalaReportRadio").on("change", () => {
-    $("#returnedKalaTable").css("display", "table");
-    $("#footerBtn").css("display", "inline");
-    $("#kalaSalesReport").css("display", "none");
-    $("#allKala").css("display", "none");
-    $("#notExistKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-});
-
-$("#notExistKalaRadio").on("change", () => {
-    $("#notExistKalaTable").css("display", "table");
-    $("#kalaSalesReport").css("display", "none");
-    $("#allKala").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#rocketKalaTable").css("display", "none");
-    $("#footerBtn").css("display", "none");
-});
-
-$("#rocketKalaRadio").on("change", () => {
-    $("#rocketKalaTable").css("display", "table");
-    $("#notExistKalaTable").css("display", "none");
-    $("#kalaSalesReport").css("display", "none");
-    $("#allKala").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#returnedKalaTable").css("display", "none");
-    $("#footerBtn").css("display", "none");
-});
-
 
 function setManagerStuff(element, adminId) {
     $(element).find("input:radio").prop("checked", true);
@@ -12942,6 +13567,59 @@ function openAddCommentModal(customerId) {
     $("#addComment").modal("show");
 }
 
+$("#getPersonalsForm").on("submit",function(e){
+e.preventDefault();
+
+$.ajax({
+    url: $(this).attr("action"),
+    data: $(this).serialize(),
+    success: function (data) {
+        $("#adminList").empty();
+        data.forEach((element,index)=>{
+            let adminType = "";
+
+            switch (element.adminType) {
+                case `1`:
+                    adminType="ادمین"
+                    break;
+                case `2`:
+                    adminType="پشتیبان"
+                    break;
+                case `3`:
+                    adminType="بازاریاب"
+                    break;
+                case `4`:
+                    adminType="راننده"
+                    break;
+                case `5`:
+                    adminType="مدیر سیستم"
+                    break;
+                case `6`:
+                    adminType="مدیر"
+                    break;
+                case `7`:
+                    adminType="سرپرست"
+                    break;
+            }
+            $("#adminList").append(`
+                <tr onclick="setAdminStuffForAdmin(this,`+element.adminType+`,`+element.driverId+`)">
+                    <td>`+(index+1)+`</td>
+                    <td>`+element.name+` `+element.lastName+`</td>
+                    <td>`+adminType+`</td>
+                    <td class="descriptionForMobile">`+element.discription+`</td>
+                    <td>
+                        <input class="mainGroupId" type="radio" name="AdminId[]" value="`+element.id+`_`+element.adminType+`">
+                    </td>
+                </tr>`);
+        });
+    },
+    error:function(error){}
+});
+});
+
+$("#searchManagerByLine").on("change",function(){
+
+})
 
 
 // kala

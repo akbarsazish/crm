@@ -259,7 +259,7 @@
                    
                         <div class="modal-footer mt-2">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="submit" id="submitRT" disabled class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                            <button type="submit" id="submitRT"  class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
                         </div>
                     </form>
                 </div>
@@ -454,7 +454,7 @@ function generatePassword() {
             map_init.fitBounds(featureGroup.getBounds());
 			$("#currentLocationInput").val(lat+','+long);
 			$("#saveLocationBtn").prop("disabled",false);
-            $("#submitRT").prop("disabled",false);
+            // $("#submitRT").prop("disabled",false);
             //alert("Your coordinate is: Lat: " + lat + " Long: " + long + " Accuracy: " + accuracy);
         }
 	  
