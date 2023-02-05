@@ -304,4 +304,5 @@ Route::get('/searchUnAlarmByMantagheh',[Admin::class,'searchUnAlarmByMantagheh']
 Route::get('/orderUnAlarms',[Admin::class,'orderUnAlarms'])->middleware('CheckCommon');
 Route::get('/getUnAlarmHistory',[Admin::class,'getUnAlarmHistory'])->middleware('CheckCommon');
 Route::get('/getPersonals',[Admin::class,'getPersonals'])->middleware('CheckCommon');
+Route::get('/getManagerByLine',[Admin::class,'getManagerByLine'])->middleware('CheckCommon');
 

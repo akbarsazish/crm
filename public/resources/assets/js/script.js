@@ -108,23 +108,12 @@ function setAdminStuffForAdmin(element,adminTypeId,driverId) {
                 if (element.countFactor != null) {
                     countFactor = element.countFactor;
                 }
-                $("#adminCustomers").append(
-                    `
-        <tr>
-        <td>` +
-                        (index + 1) +
-                        `</td>
-        <td>` +
-                        element.Name +
-                        `</td>
-        <td>` +
-                        maxHour +
-                        `</td>
-        <td>` +
-                        countFactor +
-                        `</td>
-        </tr>`
-                );
+                $("#adminCustomers").append(`<tr>
+                                                <td>` +(index + 1) +`</td>
+                                                <td>` +element.Name +`</td>
+                                                <td>` + maxHour + `</td>
+                                                <td>` +countFactor +`</td>
+                                             </tr>`);
             });
         },
         error: function (data) {},
@@ -13618,10 +13607,53 @@ $.ajax({
 });
 
 $("#searchManagerByLine").on("change",function(){
+$.ajax({method:"get",
+        url:baseUrl+"/getManagerByLine",
+        data:{
+            _token:"{{@crsf}}",
+            lineId:$("#searchManagerByLine").val()
+        },
+        async:true,
+        success:function(data){
+            $("#searchManagerSelect").empty();
+            $("#searchManagerSelect").append(`<option value="-1">مدیران</option>`)
+            data.forEach((element)=>{
+                $("#searchManagerSelect").append(`<option value="`+element.id+`">`+element.name+` `+element.lastName+`</option>`)
+            });
 
+        },
+        error:function(error){
+            console.log(error)
+        }
+})
 })
 
+$("#searchManagerSelect").on("change",()=>{
+    $.ajax({method:"get",
+    url:baseUrl+'/getAdminInfo',
+    data:{_token:"{{@csrf}}",
+            id:$("#searchManagerSelect").val()},
+    async:true,
+    success:function(data){
+        $("#managerName").text(data[3].name+` `+data[3].lastName);
+        $("#listHead").empty();
+        data[4].forEach((element,index)=>{
+            $("#listHead").append(`
+            <div class="form-check bg-gray">
+                <input class="form-check-input p-2 float-end headsRadio" type="radio" name="headRadio" value="`+element.id+`">
+                <label class="form-check-label me-4" for="assesPast">`+element.name+` `+element.lastName+`</label>
+            </div>`);
+        })
+    },
+    error:function(error){
+        
+    }
+    })
+});
 
+$(".headsRadio").on("change",function(){
+    alert("good");
+});
 // kala
 
 function getKalaId(element){
