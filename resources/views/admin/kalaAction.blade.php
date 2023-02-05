@@ -70,7 +70,7 @@ input[type=checkbox] {
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <input type="text"  class="form-control form-control-sm" autocomplete="off"  placeholder="اسم یا کد کالا" id="searchKalaNameCode">
+                                    <input type="text" id="seachingKala"  class="form-control form-control-sm" autocomplete="off"  placeholder="اسم یا کد کالا" id="searchKalaNameCode">
                                 </div>
                                 <div class="col-sm-12">
                                     <select class="form-select form-select-sm" id="searchKalaActiveOrNot">

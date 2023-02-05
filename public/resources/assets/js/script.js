@@ -14536,7 +14536,9 @@ success: function(data) {
 
 
 
-
+$("#seachingKala").on("keyup", ()=>{
+    alert("I will work later on searching kala by name or code");
+})
 
 
 
