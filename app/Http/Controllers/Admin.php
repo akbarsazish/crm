@@ -521,11 +521,9 @@ SELECT * FROM (
     {
         $customerId=$request->get("csn");
         $adminId=$request->get("asn");
+        $firstAdminId=$request->get("asn");
         // add to customer update two places
         $admin=DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->first();
-        if($admin->emptyState==1){
-            DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(["emptyState"=>0]);
-        }
         DB::table("CRM.dbo.crm_customer_added")->where('customer_id',$customerId)->where('returnState',0)->update(['removedTime'=>"".Carbon::now()."",'returnState'=>1]);
         DB::table("CRM.dbo.crm_customer_added")->insert(['admin_id'=>$adminId,'customer_id'=>$customerId,'returnState'=>0]);
         DB::table("CRM.dbo.crm_customer_added")->where('customer_id',$customerId)->update(['gotEmpty'=>0]);
@@ -856,31 +854,75 @@ SELECT * FROM (
         }
         $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
         $customers=DB::select("SELECT * FROM (
-    SELECT * FROM (
-		SELECT * FROM (
-			SELECT * FROM (
-				SELECT * FROM (
-					SELECT DISTINCT * FROM (
-						SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
-				JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
-			JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
-		JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
-	JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
-JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
-
-JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
-join (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-			FROM Shop.dbo.PhoneDetail
-			GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
-WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<'".$todayDate."' and state=0
-and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0)" );
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' and state=0" );
         foreach ($customers as $customer) {
             $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
 			
             $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
         
         }
-        return view ("admin.alarm",['customers'=>$customers]);
+
+        $notAlarmedCustomers=DB::select("SELECT PSN,PCode,Name,NameRec,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,PhoneStr FROM(
+            SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)b WHERE b.lastFactorSn NOT IN(SELECT factorId FROM CRM.dbo.crm_alarm WHERE state=0))c RIGHT JOIN Shop.dbo.Peopels ON c.CustomerSn=Peopels.PSN 
+            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)g ON PSN=g.SnPeopel
+            JOIN Shop.dbo.MNM ON SnMNM=SnMantagheh
+            LEFT JOIN Shop.dbo.FactorHDS ON lastFactorSn=FactorHDS.SerialNoHDS
+            LEFT JOIN (SELECT CONCAT(name,lastName) AS adminName,crm_admin.id AS adminId,customer_id AS customerId FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0)b ON b.customerId=PSN
+            WHERE IsActive=1 AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE state=1 AND customerId IS NOT NULL) AND Peopels.CompanyNo=5 AND Peopels.SaleLevel=3");
+        return view ("admin.alarm",['customers'=>$customers,'notAlarmed'=>$notAlarmedCustomers]);
+    }
+
+    public function getAlarms(Request $request)
+    {
+        $maxFacors=DB::select("SELECT max(SerialNoHDS) AS MaxFactorId,CustomerSn FROM (
+            SELECT * FROM Shop.dbo.FactorHDS WHERE CustomerSn in(SELECT customer_id FROM CRM.dbo.crm_customer_added)
+            )a GROUP BY CustomerSn");
+
+        $inAlarmFactors=DB::select("SELECT factorId,CustomerSn FROM CRM.dbo.crm_alarm 
+                        JOIN Shop.dbo.FactorHDS ON crm_alarm.factorId=FactorHDS.SerialNoHDS");
+
+        foreach ($maxFacors as $factor) {
+        foreach ($inAlarmFactors as $alarm) {
+        if($factor->CustomerSn==$alarm->CustomerSn and ($factor->MaxFactorId>$alarm->factorId)){
+        DB::table("CRM.dbo.crm_alarm")->where("factorId",$alarm->factorId)->update(["state"=>1]);
+        }
+        }
+        }
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+        $customers=DB::select("SELECT * FROM (
+                        SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                    JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                            JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                        JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                    JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                    JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                    WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' and state=0
+                    and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0)" );
+        foreach ($customers as $customer) {
+        $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+        $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+        }
+        return Response::json($customers);
     }
     public function customerDashboardForAdmin(Request $request)
     {
@@ -981,7 +1023,267 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         
         return Response::json([$exactCustomer,$factors,$GoodsDetail,$basketOrders,$comments,$specialComment,$assesments]);
     }
+
+    public function getAlarmInfo(Request $request)
+    {
+       $factorId=$request->get("factorId");
+       $alarmInfo=DB::select("SELECT * FROM CRM.dbo.crm_alarm where factorId=$factorId and state=0");
+        return Response::json($alarmInfo[0]);
+    }
+     
+    public function searchAlarms(Request $request)
+    {
+        $searchTerm=$request->get("searchTerm");
+        $maxFacors=DB::select("SELECT max(SerialNoHDS) AS MaxFactorId,CustomerSn FROM (
+            SELECT * FROM Shop.dbo.FactorHDS WHERE CustomerSn in(SELECT customer_id FROM CRM.dbo.crm_customer_added)
+            )a GROUP BY CustomerSn");
+
+        $inAlarmFactors=DB::select("SELECT factorId,CustomerSn FROM CRM.dbo.crm_alarm 
+                        JOIN Shop.dbo.FactorHDS ON crm_alarm.factorId=FactorHDS.SerialNoHDS");
+
+        foreach ($maxFacors as $factor) {
+        foreach ($inAlarmFactors as $alarm) {
+        if($factor->CustomerSn==$alarm->CustomerSn and ($factor->MaxFactorId>$alarm->factorId)){
+        DB::table("CRM.dbo.crm_alarm")->where("factorId",$alarm->factorId)->update(["state"=>1]);
+        }
+        }
+        }
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+        $customers=DB::select("SELECT * FROM (
+                        SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                    JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                            JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                        JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                    JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                    JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                    WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' and state=0 and Name like N'%$searchTerm%'" );
+        foreach ($customers as $customer) {
+        $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+        $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+        }
+        return Response::json($customers);
+    }
+    public function searchAlarmByMantagheh(Request $request)
+    {
+        $searchTerm=$request->get("searchTerm");
+        $snMantagheh=$request->get("snMantagheh");
+        $maxFacors=DB::select("SELECT max(SerialNoHDS) AS MaxFactorId,CustomerSn FROM (
+            SELECT * FROM Shop.dbo.FactorHDS WHERE CustomerSn in(SELECT customer_id FROM CRM.dbo.crm_customer_added)
+            )a GROUP BY CustomerSn");
+
+        $inAlarmFactors=DB::select("SELECT factorId,CustomerSn FROM CRM.dbo.crm_alarm 
+                        JOIN Shop.dbo.FactorHDS ON crm_alarm.factorId=FactorHDS.SerialNoHDS");
+
+        foreach ($maxFacors as $factor) {
+        foreach ($inAlarmFactors as $alarm) {
+        if($factor->CustomerSn==$alarm->CustomerSn and ($factor->MaxFactorId>$alarm->factorId)){
+        DB::table("CRM.dbo.crm_alarm")->where("factorId",$alarm->factorId)->update(["state"=>1]);
+        }
+        }
+        }
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+        $customers=DB::select("SELECT * FROM (
+                        SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                    JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                            JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                        JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                    JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                    JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                    WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' AND state=0 and Name like N'%$searchTerm%' AND SnMantagheh=$snMantagheh" );
+        foreach ($customers as $customer) {
+        $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+        $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+        }
+        return Response::json($customers);
+    }
+
+    public function orderAlarms(Request $request)
+    {
         
+        $baseName=$request->get("baseName");
+        $searchTerm=$request->get("searchTerm");
+        $snMantagheh=$request->get("snMantagheh");
+        $maxFacors=DB::select("SELECT max(SerialNoHDS) AS MaxFactorId,CustomerSn FROM (
+            SELECT * FROM Shop.dbo.FactorHDS WHERE CustomerSn in(SELECT customer_id FROM CRM.dbo.crm_customer_added)
+            )a GROUP BY CustomerSn");
+
+        $inAlarmFactors=DB::select("SELECT factorId,CustomerSn FROM CRM.dbo.crm_alarm 
+                        JOIN Shop.dbo.FactorHDS ON crm_alarm.factorId=FactorHDS.SerialNoHDS");
+
+        foreach ($maxFacors as $factor) {
+        foreach ($inAlarmFactors as $alarm) {
+        if($factor->CustomerSn==$alarm->CustomerSn and ($factor->MaxFactorId>$alarm->factorId)){
+        DB::table("CRM.dbo.crm_alarm")->where("factorId",$alarm->factorId)->update(["state"=>1]);
+        }
+        }
+        }
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+        $customers=DB::select("SELECT * FROM (
+                        SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                    JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                            JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                        JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                    JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                    JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                    WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' AND state=0 and Name like N'%$searchTerm%' AND SnMantagheh like N'%$snMantagheh%' order by $baseName");
+        foreach ($customers as $customer) {
+        $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+        $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+        }
+        return Response::json($customers);
+    }
+    public function getAlarmsHistory(Request $request)
+    {
+        $history=$request->get("history");
+        $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+        $yesterday;
+        $customers;
+        if($yesterdayOfWeek==6){
+            $yesterday = Jalalian::fromCarbon(Carbon::yesterday()->subDays(1))->format('Y/m/d');
+        }else{
+            $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+        }
+
+        $maxFacors=DB::select("SELECT max(SerialNoHDS) AS MaxFactorId,CustomerSn FROM (
+            SELECT * FROM Shop.dbo.FactorHDS WHERE CustomerSn in(SELECT customer_id FROM CRM.dbo.crm_customer_added)
+            )a GROUP BY CustomerSn");
+
+        $inAlarmFactors=DB::select("SELECT factorId,CustomerSn FROM CRM.dbo.crm_alarm 
+                        JOIN Shop.dbo.FactorHDS ON crm_alarm.factorId=FactorHDS.SerialNoHDS");
+
+        foreach ($maxFacors as $factor) {
+        foreach ($inAlarmFactors as $alarm) {
+        if($factor->CustomerSn==$alarm->CustomerSn and ($factor->MaxFactorId>$alarm->factorId)){
+        DB::table("CRM.dbo.crm_alarm")->where("factorId",$alarm->factorId)->update(["state"=>1]);
+        }
+        }
+        }
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+        if($history=='YESTERDAY'){
+            $customers=DB::select("SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                    JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                            JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                        JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                        JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+                JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                        WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate='".$yesterday."' AND state=0");
+            foreach ($customers as $customer) {
+            $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+            $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+            }
+        }
+
+        if($history=='TODAY'){
+                        $customers=DB::select("SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                    JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                            JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                        JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                        JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+                JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                        WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate='".$todayDate."' AND state=0");
+            foreach ($customers as $customer) {
+            $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+            $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+            }
+        }
+
+        if($history=='LASTHUNDRED'){
+                        $customers=DB::select("SELECT TOP 100 * FROM (
+                            SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                    JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                            JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                        JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                        JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+                JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                        WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' AND state=0");
+            foreach ($customers as $customer) {
+            $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+            $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+            }
+        }
+
+        if($history=='ALLALARMS'){
+            $customers=DB::select("SELECT * FROM (
+                SELECT * FROM (
+                    SELECT * FROM (
+                        SELECT * FROM (
+                            SELECT * FROM (
+                                SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                            JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                        JOIN (SELECT id AS admin_Id,name AS AdminName,lastName FROM CRM.dbo.crm_admin)d ON c.adminId=d.Admin_Id)e
+                    JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=e.factorId)g
+                JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+            JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+            JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
+    JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+            WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' AND state=0");
+foreach ($customers as $customer) {
+$customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+$customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+}
+}
+
+        return Response::json($customers);
+    }
     // ======================
 
     public function getAssesComment(Request $request)
@@ -1084,7 +1386,13 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
                     break;   
                 case 5:
                     return redirect('/home');
-                    break;             
+                    break;       
+                case 6:
+                    return redirect('/home');
+                    break;  
+                case 7:
+                    return redirect('/home');
+                    break;        
                 default:
                     return redirect('/notfound');
                     break;
@@ -2466,7 +2774,7 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
                                 join (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
                                 FROM Shop.dbo.PhoneDetail
                                 GROUP BY SnPeopel)a on n.customer_id=a.SnPeopel
-                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<'".$todayDate."' and state=0
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' and state=0
                                 and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=0)" );
         foreach ($customers as $customer) {
             $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
@@ -2896,7 +3204,17 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
 
     public function amalKardKarbarn(Request $request)
     {
-        return view("admin.amalKardKarbaran");
+        $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',SESSION::get("asn"))->get();
+        $adminId=SESSION::get("asn");
+        $admins;
+        $saleLine;
+        if($exactAdmin[0]->adminType==5){
+                // همه 
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 and adminType!=5 and employeeType=1");
+                $saleLine=DB::select("SELECT * FROM CRM.dbo.crm_SaleLine WHERE deleted=0");
+        }
+
+        return view("admin.amalKardKarbaran",['admins'=>$admins,'saleLine'=>$saleLine]);
     }
 
     public function getEmployies(Request $request)
@@ -2914,6 +3232,462 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         $comment=$request->get("comment");
         DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['discription'=>"$comment"]);
         return Response::json('good');
+    }
+    public function getCustomerAndAdminInfo(Request $request)
+    {
+        $csn=$request->get("csn");
+        $asn=$request->get("asn");
+        $info=0;
+        if($asn>0){
+            $info=DB::select("SELECT * FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id JOIN Shop.dbo.Peopels ON PSN=crm_customer_added.customer_id
+            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel WHERE
+            customer_id=$csn AND admin_id=$asn  and returnState=0");
+        }else{
+            $info=DB::select("SELECT * FROM Shop.dbo.Peopels
+            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel WHERE
+            PSN=$csn");  
+        }
+        $otherAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin where deleted=0 and id!=$asn and adminType!=5 and adminType!=4");
+        return Response::json([$info,$otherAdmins]);
+    }
+    public function filteralarms(Request $request)
+    {
+        $alarmStat=$request->get("alarmState");
+        $customers;
+        $firstDateAlarm=$request->get("firstDateAlarm");
+        $secondDateAlarm=$request->get("secondDateAlarm");
+        $secondDateBuy=$request->get("secondDateBuy");
+        $firstDateBuy=$request->get("firstDateBuy");
+        $buyOrNot=$request->get("buyOrNot");
+        $maxFacors=DB::select("SELECT max(SerialNoHDS) AS MaxFactorId,CustomerSn FROM (
+            SELECT * FROM Shop.dbo.FactorHDS WHERE CustomerSn in(SELECT customer_id FROM CRM.dbo.crm_customer_added)
+            )a GROUP BY CustomerSn");
+
+        $inAlarmFactors=DB::select("SELECT factorId,CustomerSn FROM CRM.dbo.crm_alarm 
+                        JOIN Shop.dbo.FactorHDS ON crm_alarm.factorId=FactorHDS.SerialNoHDS");
+
+        foreach ($maxFacors as $factor) {
+            foreach ($inAlarmFactors as $alarm) {
+                if($factor->CustomerSn==$alarm->CustomerSn and ($factor->MaxFactorId>$alarm->factorId)){
+                    DB::table("CRM.dbo.crm_alarm")->where("factorId",$alarm->factorId)->update(["state"=>1]);
+                }
+            }
+        }
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+
+        if($alarmStat==0){
+            if(strlen($firstDateAlarm)<3 and strlen($secondDateAlarm)<3){
+                $customers=DB::select(" SELECT * FROM (
+                                            SELECT * FROM (
+                                                SELECT * FROM (
+                                                    SELECT * FROM (
+                                                        SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                                    JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                                JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                            JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                        JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                                LEFT JOIN (SELECT name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(SELECT COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                        WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$todayDate."' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+            if(strlen($firstDateAlarm)>3 and strlen($secondDateAlarm)<3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')>='".$firstDateAlarm."' and alarmDate>='$firstDateAlarm' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+            if(strlen($firstDateAlarm)>3 and strlen($secondDateAlarm)>3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") AND CompanyNo=5  AND FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')<='".$secondDateAlarm."' and FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')>='$firstDateAlarm' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+            if(strlen($firstDateAlarm)<3 and strlen($secondDateAlarm)>3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm group by factorId)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and alarmDate<='".$secondDateAlarm."' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+
+
+        }
+        if($alarmStat==1){
+            if(strlen($firstDateAlarm)<3 and strlen($secondDateAlarm)<3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm   group by factorId HAVING COUNT(id)>1)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5 and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+            if(strlen($firstDateAlarm)>3 and strlen($secondDateAlarm)<3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm   group by factorId HAVING COUNT(id)>1)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')>='$firstDateAlarm' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+            if(strlen($firstDateAlarm)>3 and strlen($secondDateAlarm)>3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm   group by factorId HAVING COUNT(id)>1)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5  and FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')<='".$secondDateAlarm."' and FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')>='$firstDateAlarm' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+
+            if(strlen($firstDateAlarm)<3 and strlen($secondDateAlarm)>3){
+                $customers=DB::select("SELECT * FROM (
+                                SELECT * FROM (
+                                    SELECT * FROM (
+                                        SELECT * FROM (
+                                            SELECT DISTINCT * FROM (SELECT alarmDate, TimeStamp,factorId,state,adminId,comment,id from CRM.dbo.crm_alarm)a
+                                        JOIN (SELECT factorId AS factorNumber FROM CRM.dbo.crm_assesment)b ON a.factorId=b.factorNumber)c
+                                        JOIN (SELECT SerialNoHDS,CustomerSn,NetPriceHDS,FactDate FROM Shop.dbo.FactorHds )f ON f.SerialNoHDS=c.factorId)g
+                                    JOIN (SELECT PSN,Name,CompanyNo,peopeladdress,GroupCode,SnMantagheh FROM Shop.dbo.Peopels)j ON j.PSN=g.CustomerSn)k
+                                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM WHERE  CompanyNo=5)l ON k.SnMantagheh=l.SnMNM)m
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on PSN=a.SnPeopel
+                            LEFT JOIN (select name poshtibanName,lastName as poshtibanLastName,customer_id,admin_id as adminSn from CRM.dbo.crm_customer_added join CRM.dbo.crm_admin on admin_id=crm_admin.id where returnState=0)n on m.CustomerSn=n.customer_id
+                            JOIN(select COUNT(id) as countCycle,factorId as factorSn from CRM.dbo.crm_alarm   group by factorId HAVING COUNT(id)>1)b on b.factorSn=factorId
+                                WHERE  GroupCode IN ( ".implode(",",Session::get("groups")).") and CompanyNo=5 and  FORMAT(TimeStamp,'yyyy/MM/dd','fa-ir')<='".$secondDateAlarm."' and state=0" );
+                foreach ($customers as $customer) {
+                $customer->assignedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays($customer->TimeStamp);
+
+                $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m/d',trim($customer->alarmDate))->diffInDays(Carbon::now());
+
+                }
+            }
+        }
+
+        if($alarmStat==2){
+            if($buyOrNot==-1){
+                //آنهاییکه آلارم ندارند و همه خرید و ناخرید
+                    $customers=DB::select("SELECT PSN,PCode,Name,NameRec,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,PhoneStr FROM(
+                        SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)b WHERE b.lastFactorSn NOT IN(SELECT factorId FROM CRM.dbo.crm_alarm WHERE state=0))c RIGHT JOIN Shop.dbo.Peopels ON c.CustomerSn=Peopels.PSN 
+                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)g ON PSN=g.SnPeopel
+                        JOIN Shop.dbo.MNM ON SnMNM=SnMantagheh
+                        LEFT JOIN Shop.dbo.FactorHDS ON lastFactorSn=FactorHDS.SerialNoHDS
+                        LEFT JOIN (SELECT CONCAT(name,lastName) AS adminName,crm_admin.id AS adminId,customer_id AS customerId FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0)b ON b.customerId=PSN
+                        WHERE IsActive=1 AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE state=1 AND customerId IS NOT NULL) AND Peopels.CompanyNo=5 AND Peopels.SaleLevel=3");
+            }
+        }
+        if($alarmStat==2){
+            if($buyOrNot==2){
+                //آنهاییکه آلارم ندارند و همه خرید و ناخرید
+                    $customers=DB::select("SELECT PSN,PCode,Name,NameRec,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,PhoneStr FROM(
+                        SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)b WHERE b.lastFactorSn NOT IN(SELECT factorId FROM CRM.dbo.crm_alarm WHERE state=0))c RIGHT JOIN Shop.dbo.Peopels ON c.CustomerSn=Peopels.PSN 
+                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)g ON PSN=g.SnPeopel
+                        JOIN Shop.dbo.MNM ON SnMNM=SnMantagheh
+                        LEFT JOIN Shop.dbo.FactorHDS ON lastFactorSn=FactorHDS.SerialNoHDS
+                        LEFT JOIN (SELECT CONCAT(name,lastName) AS adminName,crm_admin.id AS adminId,customer_id AS customerId FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0)b ON b.customerId=PSN
+                        WHERE IsActive=1 AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE state=1 AND customerId IS NOT NULL) AND Peopels.CompanyNo=5 AND Peopels.SaleLevel=3");
+            }
+            if($buyOrNot==1){
+                //آنهاییکه آلارم ندارند و خرید کرده اند
+                if(strlen($firstDateBuy)<3 and strlen($secondDateBuy)<3){
+                    $customers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                                                SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                                                JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                                                JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                                                LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                                                WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                                                and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5");     
+                }    
+                if(strlen($firstDateBuy)>3 and strlen($secondDateBuy)<3){
+                    $customers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                                                SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                                                JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                                                JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                                                LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                                                WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                                                and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5 and FactDate>='$firstDateBuy'");     
+                }  
+                if(strlen($firstDateBuy)<3 and strlen($secondDateBuy)>3){
+                    $customers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                                                SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                                                JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                                                JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                                                LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                                                WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                                                and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5  and FactDate<='$secondDateBuy'");     
+                }  
+                if(strlen($firstDateBuy)>3 and strlen($secondDateBuy)>3){
+                    $customers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                                                SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                                                JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                                                JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                                                LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                                                WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                                                and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5  and FactDate>='$firstDateBuy' and FactDate<='$secondDateBuy'");     
+                } 
+            }
+            if($buyOrNot==0){
+                //آنهاییکه آلارم ندارند و خرید نکرده اند
+                $customers=DB::select("SELECT PSN,PCode,Name,NameRec,adminId,adminName,PhoneStr, 'no FactDate' as FactDate,'Not SerialNo' as SerialNoHDS from Shop.dbo.Peopels 
+                                            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON PSN=g.SnPeopel
+                                            JOIN Shop.dbo.MNM on SnMNM=SnMantagheh
+                                            LEFT JOIN (SELECT CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=PSN
+                                            WHERE IsActive=1 AND PSN NOT IN( select customerId from CRM.dbo.crm_inactiveCustomer where state=1 AND customerId IS NOT NULL) and Peopels.CompanyNo=5 AND Peopels.SaleLevel=3 and PSN NOT IN(select CustomerSn FROM Shop.dbo.FactorHDS WHERE FactType=3)");     
+            }
+        }
+
+        return Response::json($customers);
+    }
+
+    public function searchUnAlarmByMantagheh(Request $request)
+    {
+        $snMantagheh=$request->get("snMantagheh");
+        $name=$request->get("searchTerm");
+        $notAlarmedCustomers=DB::select("SELECT PSN,PCode,Name,NameRec,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,PhoneStr FROM(
+                                                SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)b WHERE b.lastFactorSn NOT IN(SELECT factorId FROM CRM.dbo.crm_alarm WHERE state=0))c RIGHT JOIN Shop.dbo.Peopels ON c.CustomerSn=Peopels.PSN 
+                                            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)g ON PSN=g.SnPeopel
+                                        JOIN Shop.dbo.MNM ON SnMNM=SnMantagheh
+                                    LEFT JOIN Shop.dbo.FactorHDS ON lastFactorSn=FactorHDS.SerialNoHDS
+                                LEFT JOIN (SELECT CONCAT(name,lastName) AS adminName,crm_admin.id AS adminId,customer_id AS customerId FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0)b ON b.customerId=PSN
+                            WHERE IsActive=1 AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE state=1 AND customerId IS NOT NULL) AND Peopels.CompanyNo=5 AND Peopels.SaleLevel=3 AND SnMantagheh LIKE '%$snMantagheh%' and Name LIKE N'%$name%'");
+        return Response::json($notAlarmedCustomers);
+    }
+    public function orderUnAlarms(Request $request)
+    {
+        $snMantagheh=$request->get("snMantagheh");
+        $name=$request->get("searchTerm");
+        $baseName=$request->get("baseName");
+        $notAlarmedCustomers=DB::select("SELECT PSN,PCode,Name,NameRec,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,PhoneStr FROM(
+                                            SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)b WHERE b.lastFactorSn NOT IN(SELECT factorId FROM CRM.dbo.crm_alarm WHERE state=0))c RIGHT JOIN Shop.dbo.Peopels ON c.CustomerSn=Peopels.PSN 
+                                        JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)g ON PSN=g.SnPeopel
+                                    JOIN Shop.dbo.MNM ON SnMNM=SnMantagheh
+                                LEFT JOIN Shop.dbo.FactorHDS ON lastFactorSn=FactorHDS.SerialNoHDS
+                            LEFT JOIN (SELECT CONCAT(name,lastName) AS adminName,crm_admin.id AS adminId,customer_id AS customerId FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0)b ON b.customerId=PSN
+                        WHERE IsActive=1 AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE state=1 AND customerId IS NOT NULL) AND Peopels.CompanyNo=5 AND Peopels.SaleLevel=3 AND SnMantagheh LIKE '%$snMantagheh%' and Name LIKE N'%$name%' order by $baseName DESC");
+        return Response::json($notAlarmedCustomers);
+    }
+
+    public function getUnAlarmHistory(Request $request)
+    {
+            $history=$request->get("history");
+            $yesterdayOfWeek = Jalalian::fromCarbon(Carbon::yesterday())->getDayOfWeek();
+            $yesterday;
+            $customers;
+            if($yesterdayOfWeek==6){
+                $yesterday = Jalalian::fromCarbon(Carbon::yesterday()->subDays(1))->format('Y/m/d');
+            }else{
+                $yesterday = Jalalian::fromCarbon(Carbon::yesterday())->format('Y/m/d');
+            }
+            $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+            $notAlarmedCustomers;
+            if($history=="TODAY"){
+                $notAlarmedCustomers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                    SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                    JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                    JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                    LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                    WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                    and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5 AND FactDate='$todayDate'");
+            }
+            if($history=="YESTERDAY"){
+                $notAlarmedCustomers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                    SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                    JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                    JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                    LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                    WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                    and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5 AND FactDate='$yesterday'");
+            }
+            if($history=="LASTHUNDRED"){
+                $notAlarmedCustomers=DB::select("SELECT TOP 100 PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                    SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                    JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                    JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                    LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                    WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                    and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5");
+            }
+            if($history=="ALLUNALARMS"){
+                $notAlarmedCustomers=DB::select("SELECT PSN,adminId,Name,PCode,lastFactorSn as SerialNoHDS,PhoneStr,FactDate,NameRec,adminName from(
+                    SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn from Shop.dbo.FactorHDS group by CustomerSn)a join Shop.dbo.Peopels on a.CustomerSn=Peopels.PSN )a
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail group by SnPeopel)g ON a.CustomerSn=g.SnPeopel
+                    JOIN Shop.dbo.FactorHDS on lastFactorSn=FactorHDS.SerialNoHDS
+                    JOIN Shop.dbo.MNM on SnMNM=a.SnMantagheh
+                    LEFT JOIN (select CONCAT(name,lastName) as adminName,crm_admin.id as adminId,customer_id as customerId from CRM.dbo.crm_admin join CRM.dbo.crm_customer_added on crm_admin.id=crm_customer_added.admin_id where returnState=0)b on b.customerId=a.PSN
+                    WHERE a.lastFactorSn not in(SELECT factorId from CRM.dbo.crm_alarm where state=0)
+                    and IsActive=1 and a.CustomerSn not in(SELECT customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) and a.CompanyNo=5");
+            }
+        return Response::json($notAlarmedCustomers);
+    }
+    public function getPersonals(Request $request)
+    {
+        $personal=$request->get("personal");
+        $searchTerm=$request->get("searchTerm");
+        $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',SESSION::get("asn"))->get();
+        $adminId=SESSION::get("asn");
+        $admins;
+        if($exactAdmin[0]->adminType==5){
+            if($personal=='all'){
+                // همه 
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 and adminType!=5 and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal==1){
+            //همه مدیران 
+            $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND employeeType=1 and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal==2){
+                //همه سرپرست ها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND employeeType=2 and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal=='p2'){
+                //همه پشتیبانها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND adminType=2 and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal=='b3'){
+                //همه بازاریابها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND adminType=3 and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal=='d4'){
+                //همه راننده ها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND adminType=4 and name LIKE N'%$searchTerm%'");
+            }
+        }else{
+            if($personal=='all'){
+                // همه 
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 and bossId=$adminId and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal==1){
+            //همه مدیران 
+            $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND employeeType=1 and bossId=$adminId and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal==2){
+                //همه سرپرست ها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND employeeType=2 and bossId=$adminId and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal=='p2'){
+                //همه پشتیبانها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND adminType=2 and bossId=$adminId and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal=='b3'){
+                //همه بازاریابها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND adminType=3 and bossId=$adminId and name LIKE N'%$searchTerm%'");
+            }
+
+            if($personal=='d4'){
+                //همه راننده ها
+                $admins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE deleted=0 AND adminType=4 and bossId=$adminId and name LIKE N'%$searchTerm%'");
+            }
+        }
+    return Response::json($admins);
     }
 
 }

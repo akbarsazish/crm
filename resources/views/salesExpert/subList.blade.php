@@ -45,37 +45,46 @@ text-align:right;
 }
 	
 </style>
-
     <div class="container-fluid containerDiv">
          <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
-                   <fieldset class="border rounded mt-5 sidefieldSet">
-                        <legend  class="float-none w-auto legendLabel mb-0"> عملکرد کارمندان </legend>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="karbarnRadioBtn">
-                            <label class="form-check-label me-4" for="assesPast"> همه  </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="karbarnRadioBtn">
-                            <label class="form-check-label me-4" for="assesPast"> کاربران </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="bazarYabRadioBtn">
-                            <label class="form-check-label me-4" for="assesPast"> بازاریابها </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
-                            <label class="form-check-label me-4" for="assesPast"> راننده ها  </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
-                            <label class="form-check-label me-4" for="assesPast"> پشتیبانها </label>
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm publicTop" id="searchAdminNameCode"/>
-                        </div>
-                       
-                        <div class="row">
+                    <fieldset class="border rounded mt-5 sidefieldSet">
+                        <form action="{{url('/getPersonals')}}" id="getPersonalsForm" method="get">
+                            <legend  class="float-none w-auto legendLabel mb-0"> عملکرد کارمندان </legend>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="personal" value="all" id="karbarnRadioBtn">
+                                <label class="form-check-label me-4" for="assesPast">همه</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="personal" value="1" id="karbarnRadioBtn">
+                                <label class="form-check-label me-4" for="assesPast">مدیران</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="personal" value="2" id="karbarnRadioBtn">
+                                <label class="form-check-label me-4" for="assesPast">سرپرستان</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="personal" value="p2" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast">پشتیبانها</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="personal" value="b3">
+                                <label class="form-check-label me-4" for="assesPast">بازاریابها</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="personal"  value="d4" id="settingAndTargetRadio">
+                                <label class="form-check-label me-4" for="assesPast">راننده ها</label>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="text" name="searchTerm" placeholder="جستجو" class="form-control form-control-sm publicTop" id="searchAdminNameCode"/>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-12 mb-1">
+                                    <button class='btn btn-primary btn-sm text-warning' type="submit"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row" id="bazaryabInfo">
                             <div class="col-lg-12" style="margin-top:44vh">
                                 <form action="{{url('/saleExpertActionInfo')}}" method="get">
                                     <input type="hidden" id="subBazaryabId" name="subId">
@@ -83,7 +92,14 @@ text-align:right;
                                 </form>
                             </div>
                         </div>
-                        
+                        <div class="row"  id="poshtibanInfo" style="display:none">
+                            <div class="col-lg-12" style="margin-top:44vh">
+                                <form action="{{url('/poshtibanActionInfo')}}" method="get">
+                                    <input type="text" style="display:none" id="PoshtibanId" name="subPoshtibanId">
+                                    <button class="btn btn-sm btn-primary" disabled id="subListDashboardBtnPoshtiban"> رفتن به جزئیات <i class="fa fa-info-circle" aria-hidden="true"></i> </button>
+                                </form>
+                            </div>
+                        </div>
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -97,71 +113,6 @@ text-align:right;
                     <div class="row mainContent">
                 
     <!-- start of low level manager or bazaryab -->
-                     @if(Session::get('adminType')==5)
-                         <div class="col-lg-12" id="lowlevelEmployee" style="display:none;">
-                            <div class="accordion accordion-flush allUsers" id="accordionFlushExample">
-                                @foreach ($bosses as $boss)
-                                    <div class="accordion-item eachUser" id="topEmployee">
-                                        <h2 class="accordion-header" id="flush-heading{{$loop->iteration}}">
-                                            <button class="accordion-button collapsed" type="button" onclick="getBossBazarYab({{$boss->id}}, {{$loop->iteration}})" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{$loop->iteration}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                                                {{trim($boss->name)." ".trim($boss->lastName)}}
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapse{{$loop->iteration}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body">
-                                                <table class=" select-highlight factor table" id="tableGroupList">
-                                                    <thead style="position: sticky;top: 0;">
-                                                        <tr>
-                                                            <th>ردیف</th>
-                                                            <th>نام کاربر</th>
-                                                            <th>فعال</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="fellowEmployee{{$loop->iteration}}">
-                                                        
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                         </div>
-                                     </div>
-                                  @endforeach
-                                 </div>
-                              </div>
-                          @else
-                        <div class="row">
-                            <div class="col-md-12">
-                                <fieldset class="rounded">
-                                     <legend  class="float-none w-auto">  بازاریاب ها</legend>
-                                    <div class="row">
-                                        <div class="col-lg-12 mx-0">
-                                            <table class=" select-highlight homeTables table mx-0" id="tableGroupList">
-                                                <thead style="position: sticky;top: 0;">
-                                                    <tr>
-                                                        <th style="width:50px">ردیف</th>
-                                                        <th style="width:120px">نام کاربر</th>
-                                                        <th style="width:300px;">توضیحات</th>
-                                                        <th style="width:50px">فعال</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="c-checkout" id="adminGroupList">
-                                                    @foreach ($admins as $admin)
-                                                        <tr onclick="setSubBazaryabStuff(this)">
-                                                            <td style="width:88px">{{$loop->iteration}}</td>
-                                                            <td style="width:140px">{{trim($admin->name)." ".trim($admin->lastName)}}</td>
-                                                            <td style="width:300px">{{trim($admin->discription)}}</td>
-                                                            <td style="width:60px">
-                                                                <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                             </table>
-                                         </div>
-                                    </div>
-                                </fieldset>
-                              </div>
-                          </div>
-                        @endif
                         
 
 <!-- karbaran action code start -->
@@ -180,7 +131,7 @@ text-align:right;
                                 </thead>
                                 <tbody class="tableBody" id="adminList" style="height:250px !important;">
                                     @foreach ($admins as $admin)
-                                        <tr onclick="setAdminStuffForAdmin(this)">
+                                        <tr onclick="setAdminStuffForAdmin(this,{{$admin->adminTypeId}},{{$admin->driverId}})">
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$admin->name." ".$admin->lastName}}</td>
                                             <td>{{$admin->adminType}}</td>

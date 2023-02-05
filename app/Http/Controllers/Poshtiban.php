@@ -20,7 +20,7 @@ class Poshtiban extends Controller
     public function poshtibanActionInfo(Request $request){ 
 
         $adminId=$request->get("subPoshtibanId");
-        $exactAdminInfo=DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->where('deleted',0)->get()[0];
+        $exactAdminInfo=DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->where('deleted',"False")->get()[0];
         if($exactAdminInfo->poshtibanType==4){
             $adminId=$exactAdminInfo->driverId;
         }
@@ -108,6 +108,7 @@ class Poshtiban extends Controller
                     //تارگت های راننده ها
             $targets=DB::select("SELECT * FROM CRM.dbo.crm_generalTargets where userType=4");
         }
+ 
         if($exactAdminInfo->poshtibanType==1 or $exactAdminInfo->poshtibanType==2 or $exactAdminInfo->poshtibanType==3){
             foreach($generalBonuses as $general){
                 if($general->id==1 or $general->id==4 or $general->id==7 or $general->id==10){
@@ -212,7 +213,6 @@ class Poshtiban extends Controller
                 
             }
         }elseif($exactAdminInfo->poshtibanType==4){
-            
             foreach($generalBonuses as $general){
                 if($general->id==21){
                     //اقلام

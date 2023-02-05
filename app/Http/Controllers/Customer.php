@@ -2773,9 +2773,9 @@ public function addRandT(Request $request)
     $snNahiyeh=$request->post("snNahiyeh");
     $snMantagheh=$request->post("snMantagheh");
     $location=$request->post("location");
-    list($lonPers,$latPers)=explode(",",$location);
-    $latPers=$latPers;
-    $lonPers=$lonPers;
+    // list($lonPers,$latPers)=explode(",",$location);
+    $latPers=0;
+    $lonPers=0;
     DB::table("NewStarfood.dbo.Peopels")->insert(
     ['CompanyNo'=>5
     ,'GroupCode'=>$groupCode
@@ -2950,10 +2950,10 @@ public function editRT(Request $request)
         (['customerPss'=>"$password"
         ,'userName'=>"$sabit"]);
     }
-    if($picture){
-    $fileName=$customerID.".jpg";
-    $picture->move("resources/assets/images/customers/",$fileName);
-    }
+    // if($picture){
+    // $fileName=$customerID.".jpg";
+    // $picture->move("resources/assets/images/customers/",$fileName);
+    // }
     return redirect("/randt");
 }
 public function getRandTInfo(Request $request){
