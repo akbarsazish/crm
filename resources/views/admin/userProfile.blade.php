@@ -29,7 +29,8 @@
               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                   <fieldset class="border rounded mt-5 sidefieldSet">
                       <div class="col-lg-12">
-                          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
+                          <button class="w-50 btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
+                          <button class="w-50 btn btn-sm btn-danger" data-toggle="modal" data-target="#"> حذف <i class="fa fa-trash"> </i>  </button>
                       </div>
                   </fieldset>
                 </div>
