@@ -257,9 +257,18 @@
 <script src="{{url('/resources/assets/js/main.js')}}"></script>
 <script src="{{url('/resources/assets/js/jquery.thooClock.js')}}"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
+
+<script src="extensions/resizable/bootstrap-table-resizable.js"></script>
  
 
+
 <script>
+
+ $(function(){
+    $(".resizableTable").resizableColumns();
+  });
+
+
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);
   _gaq.push(['_setDomainName', 'jqueryscript.net']);

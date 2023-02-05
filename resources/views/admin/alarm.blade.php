@@ -177,7 +177,23 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                             </table>
+                             </table> -->
+
+                             <table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Username</th>
+    </tr>
+  </thead>
+  <tbody>
+    ...
+  </tbody>
+</table>
+
+
                              <div class="grid-today rounded-2">
                                 <div class="today-item"> <span style="color:red; font-weight:bold;">   کامنت اختصاصی: </span> <span id="unAlarmLastComment"></span>  </div>
                             </div>
@@ -935,4 +951,19 @@
         </div>
     </div>
 </main>
+
+
+<script>
+
+ $(function(){
+    $(".resizableTable").resizableColumns();
+  });
+
+</script>
+
+<script>
+  $(function(){
+    $("table").resizableColumns();
+  });
+</script>
 @endsection

@@ -8,6 +8,9 @@
 .tableHeader .tableBbody, tr > td:first-child {
     width: 100px !important;
 }
+tr > th:last-child, tr > td:last-child{
+    width:40px;
+}
 </style>
  <div class="container-fluid containerDiv">
       <div class="row">
@@ -79,7 +82,7 @@
                     <div class="row contentHeader"> </div>
                     <div class="row mainContent">
                        
-                    <table class="table table-bordered border-primary" id="timeTable">
+                    <table class="table table-bordered border-primary resizableTable" id="timeTable">
                                     <thead class="monthDay text-warning">
                                         <th class="weekDay">روزهای هفته</th>
                                         @for ($v = 1; $v < 32; $v++)
@@ -622,6 +625,11 @@
 
 <!-- Modal -->
 
+<script>
+     $(function(){
+    $(".resizableTable").resizableColumns();
+  });
+</script>
 
 
 @endsection
