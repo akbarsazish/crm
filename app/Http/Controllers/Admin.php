@@ -2916,4 +2916,483 @@ and PSN in(SELECT customer_id FROM CRM.dbo.crm_customer_added where returnState=
         return Response::json('good');
     }
 
+    
+public function sendBackReport(Request $request){
+    return view("admin.sendBackReport");
 }
+
+// kala settings 
+   public function kalaSettings(Request $request){
+        $kalaId=$request->get('kalaId');
+   
+        $exactKalaId=$kalaId;
+        $maxSaleOfAll=0;
+        $showTakhfifPercent=0;
+        $kala=DB::select("SELECT PubGoods.GoodName,PubGoods.GoodSn,PubGoods.Price,PubGoods.price2,B.SUNAME,B.AmountUnit, GoodGroups.NameGRP,PUBGoodUnits.UName,star_desc_product.descProduct from Shop.dbo.PubGoods
+        join Shop.dbo.GoodGroups on PubGoods.GoodGroupSn=GoodGroups.GoodGroupSn
+        inner join Shop.dbo.PUBGoodUnits on PubGoods.DefaultUnit=PUBGoodUnits.USN
+        LEFT JOIN NewStarfood.dbo.star_desc_product ON PubGoods.GoodSn=star_desc_product.GoodSn
+        left JOIN (SELECT GoodUnitSecond.AmountUnit,GoodUnitSecond.SnGoodUnit,PUBGoodUnits.UName as SUNAME,GoodUnitSecond.SnGood from Shop.dbo.GoodUnitSecond join Shop.dbo.PUBGoodUnits on GoodUnitSecond.SnGoodUnit=PUBGoodUnits.USN) B on PubGoods.GoodSn=B.SnGood
+        where PubGoods.GoodSn=".$exactKalaId);
+        $exactKala;
+        foreach ($kala as $k) {
+            $exactKala=$k;
+           $subUnitStuff= DB::select("SELECT GoodUnitSecond.AmountUnit,PUBGoodUnits.UName AS secondUnit FROM Shop.dbo.GoodUnitSecond JOIN Shop.dbo.PUBGoodUnits ON GoodUnitSecond.SnGoodUnit=PUBGoodUnits.USN WHERE GoodUnitSecond.SnGood=".$k->GoodSn);
+            if(count($subUnitStuff)>0){
+                foreach ($subUnitStuff as $stuff) {
+                    $exactKala->secondUnit=$stuff->secondUnit;
+                    $exactKala->amountUnit=$stuff->AmountUnit;
+                }
+            }else{
+                $exactKala->secondUnit="تعریف نشده است";
+                $exactKala->amountUnit="تعریف نشده است";
+            }
+           $priceStuff= DB::select("SELECT GoodPriceSale.Price3,GoodPriceSale.Price4 FROM Shop.dbo.GoodPriceSale WHERE GoodPriceSale.SnGood=".$k->GoodSn);
+           foreach ($priceStuff as $stuff) {
+            $exactKala->mainPrice=$stuff->Price3;
+            $exactKala->overLinePrice=$stuff->Price4;
+            }
+            $webSpecialSettings=DB::table("NewStarfood.dbo.star_webSpecialSetting")->select('maxSale')->get();
+            foreach ($webSpecialSettings as $special) {
+                $maxSaleOfAll=$special->maxSale;
+            }
+            $restrictSaleStuff=DB::table("NewStarfood.dbo.star_GoodsSaleRestriction")->where("productId",$k->GoodSn)->select("minSale","maxSale","overLine","callOnSale","zeroExistance","hideKala",
+                                                                                            "activeTakhfifPercent",'inforsType',"freeExistance",'costLimit','costError','costAmount','activePishKharid','alarmAmount')->get();
+            if(count($restrictSaleStuff)>0){
+                foreach ($restrictSaleStuff as $saleStuff) {
+                $exactKala->minSale=$saleStuff->minSale;
+                $exactKala->showTakhfifPercent=$saleStuff->activeTakhfifPercent;
+                    if($saleStuff->maxSale>-1){
+                        $exactKala->maxSale=$saleStuff->maxSale;
+
+                    }else{
+                        $exactKala->maxSale=$maxSaleOfAll;
+                    }
+                $exactKala->callOnSale=$saleStuff->callOnSale;
+                $exactKala->overLine=$saleStuff->overLine;
+                $exactKala->zeroExistance=$saleStuff->zeroExistance;
+                $exactKala->hideKala=$saleStuff->hideKala;
+                $exactKala->freeExistance=$saleStuff->freeExistance;
+                $exactKala->costLimit=$saleStuff->costLimit;
+                $exactKala->costError=$saleStuff->costError;
+                $exactKala->costAmount=$saleStuff->costAmount;
+                $exactKala->inforsType=$saleStuff->inforsType;
+                $exactKala->activePishKharid=$saleStuff->activePishKharid;
+                $exactKala->alarmAmount=$saleStuff->alarmAmount;
+                }
+            }else{
+                $exactKala->freeExistance=0;
+                $exactKala->minSale=1;
+                $exactKala->maxSale=$maxSaleOfAll;
+                $exactKala->callOnSale=0;
+                $exactKala->overLine=0;
+                $exactKala->zeroExistance=0;
+                $exactKala->hideKala=0;
+                $exactKala->showTakhfifPercent=0;
+                $exactKala->costLimit=0;
+                $exactKala->costError="ندارد";
+                $exactKala->costAmount=0;
+                $exactKala->inforsType=0;
+                $exactKala->activePishKharid=0;
+                $exactKala->alarmAmount=0;
+            }
+        }
+        $mainGroupList=DB::select("select id,title,show_hide from NewStarfood.dbo.Star_Group_Def where selfGroupId=0");
+        $addedKala=DB::select("select firstGroupId,product_id from NewStarfood.dbo.star_add_prod_group");
+        $exist="";
+        foreach($kala as $kl){
+            foreach($mainGroupList as $group){
+                foreach($addedKala as $addkl){
+                    if($addkl->firstGroupId==$group->id and $kl->GoodSn==$addkl->product_id){
+                        $exist='ok';
+                        break;
+                    }else{
+                        $exist='no';
+                    }
+                }
+                $group->exist=$exist;
+            }
+        }
+        $kalaPriceHistory=DB::table("NewStarfood.dbo.star_KalaPriceHistory")->join("NewStarfood.dbo.admin",'admin.id','=','star_KalaPriceHistory.userId')->where('productId',$kalaId)->select("admin.*","star_KalaPriceHistory.*")->get();
+        $infors=DB::select("select * from Shop.dbo.infors where CompanyNo=5 and TypeInfor=5");
+        $assameKalas=DB::table("NewStarfood.dbo.star_assameKala")->where("mainId",$kalaId)->leftjoin("Shop.dbo.PubGoods","assameId","=","GoodSn")->select("*")->get();
+        $stocks=DB::select("SELECT SnStock,CompanyNo,CodeStock,NameStock from Shop.dbo.Stocks where SnStock not in(select stockId from NewStarfood.dbo.star_addedStock where productId=".$kalaId.") and SnStock!=0 and NameStock!='' and CompanyNo=5");
+        $addedStocks=DB::select("SELECT SnStock,CompanyNo,CodeStock,NameStock from Shop.dbo.Stocks
+                        JOIN NewStarfood.dbo.star_addedStock on Stocks.SnStock=NewStarfood.dbo.star_addedStock.stockId where NewStarfood.dbo.star_addedStock.productId=".$kalaId);
+        return Response::json([$exactKala,$mainGroupList, $stocks, $assameKalas,$addedStocks,$infors, $kalaPriceHistory]);
+   
+    }
+
+
+    // subgroup method
+
+
+     public function subGroupsEdit(Request $request)
+    {
+        $id=$request->get('id');
+        $kalaId=$request->get('kalaId');
+        $kala=DB::select('SELECT PubGoods.GoodName,PubGoods.GoodSn,PubGoods.Price,PubGoods.price2, GoodGroups.NameGRP,PUBGoodUnits.UName from Shop.dbo.PubGoods inner join Shop.dbo.GoodGroups on PubGoods.GoodGroupSn=GoodGroups.GoodGroupSn inner join Shop.dbo.PUBGoodUnits on PubGoods.DefaultUnit=PUBGoodUnits.USN where PubGoods.GoodSn='.$kalaId);
+        $exactKala;
+        foreach ($kala as $k) {
+            $exactKala=$k;
+        }
+        $subGroupList=DB::select("select id,title,show_hide,selfGroupId from NewStarfood.dbo.Star_Group_Def  where selfGroupId=".$id);
+        $addedKala=DB::select('select firstGroupId,product_id,secondGroupId from NewStarfood.dbo.star_add_prod_group WHERE product_id='.$kalaId);
+        $exist="";
+        
+            foreach($subGroupList as $group){
+                foreach($addedKala as $addkl){
+                    if($addkl->secondGroupId==$group->id and $kalaId==$addkl->product_id){
+                        $exist='ok';
+                        break;
+                    }else{
+                        $exist='no';
+                    }
+                }
+                $group->exist=$exist;
+            }
+        return $subGroupList;
+    }
+    
+
+
+    // set quantity for kalal amount
+    public function getUnitsForSettingMinSale(Request $request){
+        $kalaId=$request->get('Pcode');
+        $secondUnit;
+        $defaultUnit;
+        $amountUnit;
+        $amountExist=0;
+        $kalas=DB::select("SELECT PubGoods.GoodName,PubGoods.GoodSn,PUBGoodUnits.UName,V.Amount FROM Shop.dbo.PubGoods
+                JOIN Shop.dbo.PUBGoodUnits ON PubGoods.DefaultUnit=PUBGoodUnits.USN
+                JOIN (SELECT * FROM Shop.dbo.ViewGoodExists WHERE ViewGoodExists.FiscalYear=1399) V on PubGoods.GoodSn=V.SnGood WHERE PubGoods.CompanyNo=5 AND PubGoods.GoodSn=".$kalaId);
+        foreach ($kalas as $kala) {
+            $kala->Amount+=DB::select("select SUM(Amount) as SumAmount from Shop.dbo.ViewGoodExistsInStock where ViewGoodExistsInStock.SnStock in(select stockId from NewStarfood.dbo.star_addedStock where productId=".$kala->GoodSn.") and SnGood=".$kala->GoodSn)[0]->SumAmount;
+        }         
+        foreach ($kalas as $k) {
+            $defaultUnit=$k->UName;
+            $amountExist=$k->Amount;
+        }
+        $subUnitStuff= DB::select("SELECT GoodUnitSecond.AmountUnit,PUBGoodUnits.UName AS secondUnit FROM Shop.dbo.GoodUnitSecond JOIN Shop.dbo.PUBGoodUnits
+                                ON GoodUnitSecond.SnGoodUnit=PUBGoodUnits.USN WHERE GoodUnitSecond.SnGood=".$kalaId);
+        foreach ($subUnitStuff as $stuff) {
+            $secondUnit=$stuff->secondUnit;
+            $amountUnit=$stuff->AmountUnit;
+        }
+        $code=" ";
+          for ($i= 1; $i <= 500; $i++) {
+            $code.="<span class='d-none'>31</span>
+            <span id='Count1_0_239' class='d-none'>".($i*$amountUnit)."</span>
+             <span id='CountLarge_0_239' class='d-none'>".$i."</span>
+             <input value='' style='display:none' class='SnOrderBYS'/>
+             <button style='font-weight: bold;  font-size: 17px;' value='".$i.'_'.$kalaId.'_'.$defaultUnit."' class='setMinSale btn-add-to-cart w-100 mb-2'> ".$i."".$secondUnit."  معادل ".($i*$amountUnit)."".$defaultUnit."</button>
+             ";
+          }
+        return Response::json($code);
+    }
+
+
+  public function setMinimamSaleKala(Request $request) {
+        $productId=$request->get('kalaId');
+        $minSale=$request->get('amountUnit');
+        $maxSaleOfAll=0;
+        $webSpecialSettings=DB::table("NewStarfood.dbo.star_webSpecialSetting")->select('maxSale')->get();
+        foreach ($webSpecialSettings as $special) {
+            $maxSaleOfAll=$special->maxSale;
+        }
+        $checkExistance = DB::select("SELECT * FROM NewStarfood.dbo.star_GoodsSaleRestriction where productId=".$productId);
+        if(!(count($checkExistance)>0)){
+            DB::insert("INSERT INTO NewStarfood.dbo.star_GoodsSaleRestriction(maxSale, minSale, productId,overLine,callOnSale,zeroExistance) VALUES(".$maxSaleOfAll.", 1, ".$productId.",0,0,0)");
+
+        }else{
+            DB::update("UPDATE NewStarfood.dbo.star_GoodsSaleRestriction  SET minSale=".$minSale." WHERE productId=".$productId);
+        }
+        return Response::json($minSale);
+    }
+
+
+       public function getUnitsForSettingMaxSale(Request $request){
+        $kalaId=$request->get('Pcode');
+        $secondUnit;
+        $defaultUnit;
+        $amountUnit;
+        $amountExist=0;
+        $kalas=DB::select("SELECT PubGoods.GoodName,PubGoods.GoodSn,PUBGoodUnits.UName,V.Amount FROM Shop.dbo.PubGoods
+                    JOIN Shop.dbo.PUBGoodUnits ON PubGoods.DefaultUnit=PUBGoodUnits.USN
+                    JOIN (SELECT * FROM Shop.dbo.ViewGoodExists WHERE ViewGoodExists.FiscalYear=1399) V on PubGoods.GoodSn=V.SnGood WHERE PubGoods.CompanyNo=5 AND PubGoods.GoodSn=".$kalaId);
+        
+        foreach ($kalas as $kala) {
+            $kala->Amount+=DB::select("select SUM(Amount) as SumAmount from Shop.dbo.ViewGoodExistsInStock where ViewGoodExistsInStock.SnStock in(select stockId from NewStarfood.dbo.star_addedStock where productId=".$kala->GoodSn.") and SnGood=".$kala->GoodSn)[0]->SumAmount;
+        }
+        
+        foreach ($kalas as $k) {
+            $defaultUnit=$k->UName;
+            $amountExist=$k->Amount;
+        }
+        $subUnitStuff= DB::select("SELECT GoodUnitSecond.AmountUnit,PUBGoodUnits.UName AS secondUnit FROM Shop.dbo.GoodUnitSecond JOIN Shop.dbo.PUBGoodUnits
+                                ON GoodUnitSecond.SnGoodUnit=PUBGoodUnits.USN WHERE GoodUnitSecond.SnGood=".$kalaId);
+        
+        foreach ($subUnitStuff as $stuff) {
+            $secondUnit=$stuff->secondUnit;
+            $amountUnit=$stuff->AmountUnit;
+        }
+        $code=" ";
+        for ($i= 1; $i <= 500; $i++) {
+        $code.="<span class='d-none'>31</span>
+            <span id='Count1_0_239' class='d-none'>".($i*$amountUnit)."</span>
+            <span id='CountLarge_0_239' class='d-none'>".$i."</span>
+            <input value='' style='display:none' class='SnOrderBYS'/>
+            <button style='font-weight: bold;  font-size: 17px;' value='".$i.'_'.$kalaId.'_'.$defaultUnit."' class='setMaxSale btn-add-to-cart w-100 mb-2'> ".$i."".$secondUnit."  معادل ".($i*$amountUnit)."".$defaultUnit."</button>
+            ";
+        }
+        return Response::json($code);
+        
+    }
+    public function setMaximamSaleKala(Request $request)
+    {
+        $productId=$request->get('kalaId');
+        $maxSale=$request->get('amountUnit');
+        $checkExistance = DB::select("SELECT * FROM NewStarfood.dbo.star_GoodsSaleRestriction where productId=".$productId);
+        if(!(count($checkExistance)>0)){
+            DB::insert("INSERT INTO NewStarfood.dbo.star_GoodsSaleRestriction(maxSale, minSale, productId,overLine,callOnSale,zeroExistance) VALUES(".$maxSaleOfAll.", 1, ".$productId.",0,0,0)");
+
+        }else{
+            DB::update("UPDATE NewStarfood.dbo.star_GoodsSaleRestriction  SET maxSale=".$maxSale." WHERE productId=".$productId);
+        }
+        return Response::json($maxSale);
+    }
+
+
+    public function restrictSale(Request $request){
+        $overLine1=$request->get('overLine');
+        $freeExistance=$request->get('freeExistance');
+        $callOnSale=$request->get('callOnSale');
+        $zeroExistance=$request->get('zeroExistance');
+        $hideKala=$request->get("hideKala");
+        $productId=$request->get('kalaId');
+        $showTakhfifPercent=$request->get('activeTakhfifPercent');
+        $costLimit=$request->get('costLimit');
+        $costAmount=$request->get('costAmount');
+        $inforsType=$request->get('infors');
+        $costErrorContent=$request->get('costErrorContent');
+        $activePishKharid=$request->get('activePishKharid');
+        $alarmAmount=$request->get('alarmAmount');
+        $overLine=0;
+
+        if($showTakhfifPercent){
+            $showTakhfifPercent=1;
+            $overLine=1;
+        }else{
+            $showTakhfifPercent=0;
+        }
+
+        if($freeExistance){
+            $freeExistance=1;
+        }else{
+            $freeExistance=0;
+        }
+
+        if($hideKala){
+            $hideKala=1;
+        }else{
+            $hideKala=0;
+        }
+        if($activePishKharid){
+            $activePishKharid=1;
+        }else{
+            $activePishKharid=0;
+        }
+
+        if($overLine1 or $overLine==1){
+            $overLine=1;
+        }else{
+            $overLine=0;
+        }
+
+        if($callOnSale){
+            $callOnSale=1;
+        }else{
+            $callOnSale=0;
+        }
+
+        if($zeroExistance){
+            $zeroExistance=1;
+        }else{
+            $zeroExistance=0;
+        }
+
+        $maxSaleOfAll=0;
+        $webSpecialSettings=DB::table("NewStarfood.dbo.star_webSpecialSetting")->select('maxSale')->get();
+        foreach ($webSpecialSettings as $special) {
+            $maxSaleOfAll=$special->maxSale;
+        }
+        $checkExistance = DB::select("SELECT * FROM NewStarfood.dbo.star_GoodsSaleRestriction where productId=".$productId);
+        if((count($checkExistance)>0)){
+            DB::update("UPDATE NewStarfood.dbo.star_GoodsSaleRestriction  SET overLine=".$overLine.",callOnSale=".$callOnSale.",zeroExistance=".$zeroExistance.",
+            hideKala=".$hideKala.",freeExistance=".$freeExistance.",activeTakhfifPercent=".$showTakhfifPercent.",costLimit=".$costLimit."
+            ,costError='$costErrorContent',costAmount=$costAmount,inforsType=$inforsType,activePishKharid=$activePishKharid,alarmAmount=$alarmAmount  WHERE productId=".$productId);
+        }else{
+            DB::insert("INSERT INTO NewStarfood.dbo.star_GoodsSaleRestriction(maxSale, minSale, productId,overLine,callOnSale,zeroExistance,hideKala,activeTakhfifPercent) VALUES(".$maxSaleOfAll.", 1, ".$productId.",".$overLine.",".$callOnSale.",".$zeroExistance.",".$hideKala.",".$showTakhfifPercent.")");
+        }
+        return Response::json($hideKala);
+    }
+
+
+
+    
+    public function changeKalaPic(Request $request) {
+        $kalaId=$request->get('kalaId');
+        $picture1=$request->file('firstPic');
+        $picture2=$request->file('secondPic');
+        $picture3=$request->file('thirthPic');
+        $picture4=$request->file('fourthPic');
+        $picture5=$request->file('fifthPic');
+        $filename1="";
+        $filename2="";
+        $filename3="";
+        $filename4="";
+        $filename5="";
+        if($picture1){
+        $filename1=$picture1->getClientOriginalName();
+        $filename1=$kalaId.'_1.'.'jpg';
+        $picture1->move("resources/assets/images/kala/",$filename1);
+        }
+        if($picture2){
+        $filename2=$picture2->getClientOriginalName();
+        $filename2=$kalaId.'_2.'.'jpg';
+        $picture2->move("resources/assets/images/kala/",$filename2);
+        }
+        if($picture3){
+        $filename3=$picture3->getClientOriginalName();
+        $filename3=$kalaId.'_3.'.'jpg';
+        $picture3->move("resources/assets/images/kala/",$filename3);
+        }
+        if($picture4){
+        $filename4=$picture4->getClientOriginalName();
+        $filename4=$kalaId.'_4.'.'jpg';
+        $picture4->move("resources/assets/images/kala/",$filename4);
+        }
+        if($picture5){
+        $filename5=$picture5->getClientOriginalName();
+        $filename5=$kalaId.'_5.'.'jpg';
+        $picture5->move("resources/assets/images/kala/",$filename5);
+        }
+        DB::insert("INSERT INTO NewStarfood.dbo.starPicAddress(goodId,picAddress,picAddress2,picAddress3,picAddress4,picAddress5) VALUES(".$kalaId.",'".$filename1."','".$filename2."','".$filename3."','".$filename4."','".$filename5."')");
+        return Response::json('good');
+    }
+
+
+
+   public function addStockToList(Request $request){
+        $kalaId=$request->post("kalaId");
+        $stockIds=$request->post("addedStockToList");
+        $removableStocks=$request->post("removeStockFromList");
+        if($stockIds){
+            foreach ($stockIds as $stockId) {
+                DB::insert("INSERT INTO NewStarfood.dbo.star_addedStock (productId, stockId)
+                VALUES(".$kalaId.",".$stockId.")");
+            }
+        }
+        if($removableStocks){
+            foreach ($removableStocks as $stockId) {
+                DB::delete("DELETE from NewStarfood.dbo.star_addedStock where stockId=".$stockId);
+            }
+        }
+        return Response::json('good');
+    }
+
+
+   public function getAllKalas(Request $request) {
+        $mainKalaId=$request->post("mainKalaId");
+        $allKalas=DB::select("SELECT * FROM Shop.dbo.PubGoods WHERE GoodName!='' and GoodSn!=0 and GoodSn not in( Select mainId from NewStarfood.dbo.star_assameKala join Shop.dbo.PubGoods on PubGoods.GoodSn=star_assameKala.assameId)");
+
+        return Response::json($allKalas);
+    }
+
+
+     public function addKalaToList(Request $request){
+        $mainKalaId=$request->get("mainKalaId");
+        $addableKalas=$request->get('addedKalaToList');
+        $removeableKalas=$request->get('removeKalaFromList');
+
+        if($addableKalas){
+            foreach ($addableKalas as $kalaId) {
+                list($kalaId,$title)=explode('_',$kalaId);
+                DB::insert("INSERT INTO NewStarfood.dbo.star_assameKala (mainId, assameId)
+                VALUES(".$mainKalaId.",".$kalaId.")");
+            }
+        }
+
+       if($removeableKalas){
+            //delete data from Group
+           foreach ($removeableKalas as $kalaId) {
+             if($kalaId !="on"){
+              list($id,$title)=explode('_',$kalaId);
+             DB::delete("DELETE FROM NewStarfood.dbo.star_assameKala WHERE assameId=".$id." and mainId=".$mainKalaId);
+                }
+            }
+        }
+        return Response::json($removeableKalas);
+
+    }
+
+
+  public function addOrDeleteKalaFromSubGroup(Request $request) {
+        $addbles=$request->get("addables");
+        $kalaId=$request->get("ProductId");
+        $x=0;
+        $removables=$request->get('removables');
+        if($addbles){
+            foreach ($addbles as $addble) {
+                list($subGroupId,$firstGroupId)=explode('_',$addble);
+                $exitsanceResult=DB::table("NewStarfood.dbo.star_add_prod_group")
+                ->where('firstGroupId',$firstGroupId)
+                ->where('secondGroupId',$subGroupId)->where('product_id',$kalaId)->get();
+                if(count($exitsanceResult)<1){
+                    $x=1;
+                    DB::table("NewStarfood.dbo.star_add_prod_group")
+                    ->insert(['firstGroupId'=>$firstGroupId,'product_id'=>$kalaId,
+                    'secondGroupId'=>$subGroupId,'thirdGroupId'=>0,'fourthGroupId'=>0]);
+                }
+
+            }
+        }
+
+        if($removables){
+            foreach ($removables as $removable) {
+            list($subGroupId,$firstGroupId)=explode('_',$removable);
+            $exitsanceResult=DB::table("NewStarfood.dbo.star_add_prod_group")
+                ->where('firstGroupId',$firstGroupId)
+                ->where('secondGroupId',$subGroupId)->where('product_id',$kalaId)->get();
+                if(count($exitsanceResult)>0){
+                    $x=2;
+                    DB::table("NewStarfood.dbo.star_add_prod_group")->where("secondGroupId",$subGroupId)->where('product_id',$kalaId)->delete();
+                }
+
+        }
+    }
+        // return Response::json('done');
+     return Response::json($kalaId);
+    }
+
+
+
+ public function setDescribeKala(Request $request){
+        $kalaId=$request->post('kalaId');
+        $discription=$request->post('discription');
+        $checkDiscription=DB::select("SELECT COUNT(id) as countDiscription from NewStarfood.dbo.star_desc_product where GoodSn=".$kalaId);
+        $checkDisc=0;
+        foreach ($checkDiscription as $checkDisc) {
+            $checkDisc=$checkDisc->countDiscription;
+        }
+        if($checkDisc>0){
+        DB::update("UPDATE NewStarfood.dbo.star_desc_product set descProduct='".$discription."' WHERE GoodSn=".$kalaId);
+        }else{
+            DB::insert("INSERT INTO NewStarfood.dbo.star_desc_product  VALUES('".$discription."',".$kalaId.")");
+        }
+        return Response::json("good");
+    }
+
+}
+
+

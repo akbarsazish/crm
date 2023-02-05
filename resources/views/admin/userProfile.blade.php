@@ -2,88 +2,89 @@
 @section('content')
 
 <style>
-    .profileHeight{
-        min-height: 450px;
-    }
+.flex-container {
+  display: flex;
+  font-size:14px;
+
+}
+
+
+.flex-left {
+  width:49% !important;
+   background-color: #b3d1ef;
+   padding:5px;
+   margin:3px;
+   border-radius: 5px;
+}
+.flex-right {
+  width:49% !important;
+   padding:5px;
+   background-color: #b3d1ef;
+     margin:3px;
+     border-radius:5px;
+}
 </style>
-
-<section class="profile-page container px-0" style="margin-top:6%;">
-    <div class="container-fluid">
-        <div class="row">
-            <section style="background: linear-gradient(#85baef, #116bc7, #2659a9); border-radius:10px; width:80%;">
-                <div class="container py-4">
-                  <div class="row">
-                        <div class="col-lg-4">
-                              <div class="card profileHeight">
-                                    <div class="card-body text-center">
-                                        <img style="width:100px; height:100px;" src="{{url('resources/assets/images/admins/'.Session::get('asn').'.jpg')}}" alt="avatar"
-                                            class="rounded-circle img-fluid" style="width: 150px;">
-                                        <h5 class="my-3">{{Session::get('username')}} </h5>
-                                        <table class="table table-borderless">
-                                          <table class="table table-borderless">
-                                            <tbody>
-                                              <tr>
-                                                <th>نقش کاربر </th>
-                                                <td>
-                                                  @if(Session::get('adminType')==1)
-                                                  ادمین
-                                                @elseif(Session::get('adminType')==2)
-                                                پشتیبان
-                                                @endif
-                                                </td>
-                                              </tr>
-
-                                              <tr>
-                                                <th> وضعیت </th>
-                                                <td>@if(Session::get('activeState')==1)
-                                                  فعال
-                                                  @else
-                                                  غیر فعال
-                                                  @endif
-                                                </td>
-                                              </tr>
-                                            </tbody>
-                                          </table>
-                                          </table>
-                                    </div>
-                                   <button class="btn btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
-                              </div>
-                        </div>
-
-                    <div class="col-md-4">
-                        <div class="card profileHeight">
-                          <div class="card-body">
-                            <table class="table  table-borderless">
-
-                                <tbody>
-                                  <tr>
-                                    <th>نام کاربر </th>
-                                    <td>{{$admin->name.' '.$admin->lastName}} </td>
-                                  </tr>
-                                  <tr>
-                                    <th>شماره تماس </th>
-                                    <td>{{$admin->phone}}</td>
-                                  </tr>
-                                  <tr>
-                                    <th>آدرس  </th>
-                                    <td>{{$admin->address}}</td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                          </div>
-                        </div>
+ <div class="container-fluid containerDiv">
+      <div class="row">
+              <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                  <fieldset class="border rounded mt-5 sidefieldSet">
+                      <div class="col-lg-12">
+                          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
                       </div>
+                  </fieldset>
                 </div>
-            </div>
+                <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                    <div class="row contentHeader">
+                        
+                    </div>
+                    <div class="row mainContent">
+                      <div class="col-lg-4 text-center shadow rounded">
+                          <img style="width:111px; height:111px;" src="{{url('resources/assets/images/admins/'.Session::get('asn').'.jpg')}}" alt="avatar"
+                                            class="rounded-circle mt-3">
+                             <h5 class="mt-5 w-100 rounded-2 p-2" style="background-color:#b3d1ef">{{Session::get('username')}} </h5>
+                                        
+                               <div class="flex-container">
+                                  <div class="flex-left">    وضعیت   </div>
+                                  <div class="flex-right">   @if(Session::get('activeState')==1)  فعال   @else  غیر فعال   @endif </div>
+                                </div>
+
+                               <div class="flex-container">
+                                  <div class="flex-left"> نام کاربر   </div>
+                                  <div class="flex-right">   {{$admin->name.' '.$admin->lastName}} </div>
+                                </div>
+                               <div class="flex-container">
+                                  <div class="flex-left">  نقش کاربر   </div>
+                                  <div class="flex-right">   @if(Session::get('adminType')==1)   ادمین  @elseif(Session::get('adminType')==2)  پشتیبان  @endif  </div>
+                                </div>
+                               <div class="flex-container">
+                                  <div class="flex-left">  شماره تماس   </div>
+                                  <div class="flex-right">  {{$admin->phone}}  </div>
+                                </div>
+                               <div class="flex-container">
+                                  <div class="flex-left">   آدرس   </div>
+                                  <div class="flex-right">  {{$admin->address}} </div>
+                                </div>
+                              </div>
+
+                              
+
+                    </div>
+                    <div class="row contentFooter"> </div>
+                </div>
         </div>
-     </div>
+    </div>
+
+
+
+
+
 
 
              <!-- modal of new Brand -->
              <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header" style="margin:0; border:none">
+                        <div class="modal-header py-2" style="margin:0; border:none">
                             <button type="button" class="btn-close btn-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
                             <h5 class="modal-title" id="exampleModalLongTitle"> ویرایش پروفایل </h5>
                         </div>
@@ -110,9 +111,9 @@
                                         <label class="form-label"> عکس </label>
                                         <input type="file" class="form-control" required name="picture" placeholder="">
                                     </div>
-                                    <div class="form-group" style="margin-top:4%">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                                        <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                                    <div class="form-group tex-end mt-3">
+                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                        <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
                                     </div>
                                 </form>
                         </div>
