@@ -1873,7 +1873,8 @@ public function searchAllCustomerByMantagheh(Request $request)
         $csn=$request->get("csn");
         $exactCustomer=DB::select("SELECT * FROM Shop.dbo.Peopels JOIN Shop.dbo.MNM on Peopels.SnMantagheh=MNM.SnMNM 
         join NewStarfood.dbo.star_CustomerPass on star_CustomerPass.customerId=Peopels.PSN
-        left join CRM.dbo.crm_customer_added on PSN=crm_customer_added.customer_id where Peopels.PSN=".$csn);
+        left join CRM.dbo.crm_customer_added on PSN=crm_customer_added.customer_id
+		left join CRM.dbo.crm_customerProperties on crm_customerProperties.customerId=".$csn);
 
         $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$csn)->get();
         $hamrah="";
@@ -2682,9 +2683,7 @@ public function searchingCustomerName(Request $request){
                                 JOIN Shop.dbo.MNM ON SnMantagheh=MNM.SnMNM
                                 JOIN CRM.dbo.crm_customer_added on Peopels.PSN=crm_customer_added.customer_id
                                 JOIN CRM.dbo.crm_admin on crm_admin.id=crm_customer_added.admin_id
-                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-                                    FROM Shop.dbo.PhoneDetail
-                                    GROUP BY SnPeopel)a on a.SnPeopel=PSN
+                                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)a on a.SnPeopel=PSN
                                  WHERE GroupCode=314  and Convert(date,addedTime)='$thisDayDate'");
     return Response::json($customers);
 }

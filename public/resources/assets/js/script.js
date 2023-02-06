@@ -15,7 +15,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -13660,6 +13660,15 @@ $(document).on("change",".headsRadio",function(){
             async:true,
         success:function(data){
             console.log(data[4])
+            $("#bazaryabList").empty();
+            data[4].forEach((element,index)=>{
+                $("#bazaryabList").append(`
+                <div class="form-check bg-gray">
+                    <input class="personalList form-check-input p-2 float-end" type="radio" name="settings" value="`+element.id+`">
+                    <label class="form-check-label me-4" for="assesPast">`+element.name+` `+element.lastName+`</label>
+                </div>
+                `);
+            })
 
         }
         ,
@@ -13670,6 +13679,58 @@ $(document).on("change",".headsRadio",function(){
 });
 // kala
 
+$(document).on("change",".personalList",function(){
+    $.ajax({
+        method:"get",
+        url:baseUrl+'/getCustomers',
+        data:{_token:"{{@csrf}}",
+              adminId:$(this).val()
+            },
+        success:function(data){
+            $("#customerListBody").empty();
+            data.forEach((element,index)=>{
+                visitDate="";
+                if(element.lastVisitDate==null){
+                    visitDate="ورود ندارد"
+                }else{
+                    visitDate=moment(element.lastVisitDate, 'YYYY/M/D HH:mm:ss').locale('fa').format('YYYY/M/D');
+                }
+                $("#customerListBody").append(`
+                <tr onclick="getCustomerInfo(this,`+element.PSN+`)">
+                    <td>`+(index+1)+`</td>
+                    <td>`+element.Name+`</td>
+                    <td>`+element.FactDate+`</td>
+                    <td>`+visitDate+`</td>
+                    <td>
+                        <input class="mainGroupId" type="radio" name="AdminId[]" value="">
+                    </td>
+                </tr>`);
+            })
+        },
+        error:function(error){
+
+        }
+    })
+});
+
+function getCustomerInfo(element,customerId) {
+    $("tr").removeClass("selected");
+    $(element).toggleClass("selected");
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getCustomerInfo",
+        data: {
+            _token: "{{ csrf_token() }}",
+            csn: customerId,
+        },
+        async: true,
+        success: function (data) {
+            $("#customerSpecialComment").text("");
+            $("#customerSpecialComment").text(data[0].comment);
+        },
+        error:function(error){}
+    });
+}
 function getKalaId(element){
     $(element).find("input:radio").prop("checked", true);
    let input = $(element).find("input:radio");

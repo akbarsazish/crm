@@ -79,15 +79,7 @@
                      <legend  class="float-none w-auto legendLabel mb-0">  سرپرستان  </legend>
 
                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="form-check bg-gray">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
-                                    </div>
-                                      <div class="form-check bg-gray">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
-                                    </div>
+                                <div class="col-lg-2" id="listHead">
                                 </div>
                                 
                                 <div class="col-lg-10 amalKardContent" >
@@ -118,14 +110,14 @@
                      <fieldset class="border rounded-2 pb-0" style="border:2px solid #0860d7 !important;">
                        <legend  class="float-none w-auto legendLabel mb-0">  بازاریابها  </legend>            
                          <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2" id="bazaryabList">
                                     <div class="form-check bg-gray">
                                         <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
+                                        <label class="form-check-label me-4" for="assesPast"> بازاریاب 1 </label>
                                     </div>
                                       <div class="form-check bg-gray">
                                         <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> سرپرست 1 </label>
+                                        <label class="form-check-label me-4" for="assesPast"> بازاریاب 1 </label>
                                     </div>
                                 </div>
                                 
@@ -158,26 +150,20 @@
                             <thead class="tableHeader">
                                 <tr>
                                     <th>ردیف</th>
-                                    <th> آخرین فاکتور </th>
                                     <th> اسم مشتری </th>
+                                    <th> آخرین فاکتور </th>
                                     <th> ورود به سیستم </th>
                                     <th> انتخاب </th>
                                 </tr>
                             </thead>
-                            <tbody class="tableBody" id="adminGroupList" style="height:200px!important;">
+                            <tbody class="tableBody" id="customerListBody" style="height:200px!important;">
                                 <tr>
-                                    <td></td>
-                                    <td> </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <input class="mainGroupId" type="radio" name="AdminId[]" value="">
-                                    </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
                         <div class="traz-today rounded-2 mx-2">
-                            <div class="traz-item"> <span style="color:red;"> توضیحات: </span> <span id="loginTimeToday"></span>  </div>
+                            <div class="traz-item"> <span style="color:red;"> توضیحات: </span> <span id="customerSpecialComment"></span>  </div>
                         </div> <br>
                    </div>
                     </div>

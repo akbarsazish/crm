@@ -4172,6 +4172,16 @@ public function sendBackReport(Request $request){
         $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin where SaleLineId=$lineId");
         return Response::json($managers);
     }
+    public function getCustomers(Request $request){
+        $adminId=$request->get("adminId");
+        $customers;
+        $customers=DB::select("SELECT Name,PSN,PCode,lastFactorSn,FactNo,FactDate,lastVisitDate FROM Shop.dbo.Peopels 
+                                JOIN CRM.dbo.crm_customer_added ON PSN=customer_id LEFT JOIN (SELECT lastFactorSn,FactNo,FactDate,a.CustomerSn 
+                                FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)a JOIN Shop.dbo.FactorHDS ON lastFactorSn=SerialNoHDS)b ON b.CustomerSn=PSN
+                                LEFT JOIN (SELECT max(visitDate) AS lastVisitDate,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY customerId)t ON Peopels.PSN=t.customerId
+                                WHERE returnState=0 AND admin_id=$adminId");
+        return Response::json($customers);
+    }
 
 }
 
