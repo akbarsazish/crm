@@ -27,13 +27,14 @@ input[type=checkbox] {
         margin-left:8px;
     }
 .modalTableBody {
-    height:200px !important;
+    height:244px !important;
 }
 
 .kalaImage {
     width:144px;
     height: auto;
 }
+
 
 
 
@@ -70,7 +71,7 @@ input[type=checkbox] {
                                 </div>
 
                                 <div class="col-sm-12">
-                                    <input type="text" id="seachingKala"  class="form-control form-control-sm" autocomplete="off"  placeholder="اسم یا کد کالا" id="searchKalaNameCode">
+                                    <input type="text" id="searchKalaNameCode"  class="form-control form-control-sm" autocomplete="off"  placeholder="اسم یا کد کالا" id="searchKalaNameCode">
                                 </div>
                                 <div class="col-sm-12">
                                     <select class="form-select form-select-sm" id="searchKalaActiveOrNot">
@@ -146,7 +147,7 @@ input[type=checkbox] {
                             </thead>
                             <tbody id='kalaContainer' class="select-highlight Kala tableBody">
                                 @foreach ($products as $product)
-                               <tr onclick="getKalaId(this)">
+                                <tr onclick="getKalaId(this)">
                                     <td >{{$loop->iteration}}</td>
                                     <td style="width:88px">{{trim($product->GoodCde)}}</td>
                                     <td style="width:333px">{{trim($product->GoodName)}}</td>
@@ -156,8 +157,8 @@ input[type=checkbox] {
                                     <td >
                                         <input class="kala form-check-input" name="kalaId[]" type="radio" value="{{$product->GoodSn}}" id="flexCheckCheckedKala">
                                     </td>
-                            </tr>
-                            @endforeach
+                                </tr>
+                             @endforeach
 
                             </tbody>
                         </table>
@@ -203,17 +204,17 @@ input[type=checkbox] {
                             </thead>
                             <tbody id='kalaContainer' class="select-highlightKala tableBody">
                                 @foreach ($products as $product)
-                              <tr>
-                                <td >{{$loop->iteration}}</td>
-                                <td style="width:88px">{{trim($product->GoodCde)}}</td>
-                                <td style="width:333px">{{trim($product->GoodName)}}</td>
-                                <td> </td>
-                                <td> </td>
-                                <td> </td>
-                                <td >
-                                    <input class="kala form-check-input" name="kalaId[]" type="radio" value="{{$product->GoodSn}}" id="flexCheckCheckedKala">
-                                </td>
-                            </tr>
+                                <tr>
+                                        <td >{{$loop->iteration}}</td>
+                                        <td style="width:88px">{{trim($product->GoodCde)}}</td>
+                                        <td style="width:333px">{{trim($product->GoodName)}}</td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td >
+                                            <input class="kala form-check-input" name="kalaId[]" type="radio" value="{{$product->GoodSn}}" id="flexCheckCheckedKala">
+                                        </td>
+                                </tr>
                             @endforeach
                             </tbody>
                         </table>
@@ -287,7 +288,7 @@ input[type=checkbox] {
 
     
 <div class="modal fade dragAbleModal" id="kalaSettingModal" data-backdrop="static"  data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
             <div class="modal-header py-2 myModalHeader">
                 <h6 class="modal-title" id="editKalaTitle"> </h6>
@@ -305,7 +306,7 @@ input[type=checkbox] {
                     </div>
                
        
-        <div class='card' style="background-color:#97c7f7; padding-top:2px;">
+        <div class='card' style="background-color:#97c7f7; padding-top:2px; ">
             <div class="container">
                 <ul class="header-list nav nav-tabs" data-tabs="tabs">
                     <li><a data-toggle="tab" class="active" href="#parts">دسته بندی</a></li>
@@ -317,7 +318,7 @@ input[type=checkbox] {
                 <div class="c-checkout tab-content" style="background-color:#97c7f7; margin:0; margin-bottom:1%; padding:2px; border-radius:4px 4px 1px 1px;">
                     <div class="tab-pane active" id="parts">
                         <div class="c-checkout" style="border-radius:10px 10px 2px 2px;">
-                            <div class="container">
+                            <div class="container" style=" height: 333px !important; overflow-y: scroll !important; display: block !important;">
                              <form action="{{url('/addOrDeleteKalaFromSubGroup')}}" style="display: inline" method="GET" id="groupSubgoupCategory">
                                      @csrf
                                     <input type="text" style="display: none;" name="kalaId" id="kalaIdEdit" value=""/>
@@ -366,7 +367,8 @@ input[type=checkbox] {
                         </div>
                     </div>
                     <div class="c-checkout tab-pane" id="orange" style="border-radius:10px 10px 2px 2px;">
-                        <span class="row" style="padding: 1%">
+                        <div class="container"  style=" height: 333px !important; overflow-y: scroll !important; display: block !important;">
+                        <div class="row" style="padding: 1%">
                             <div class="col-sm-12">
                                     <input type="text" class="form-control form-control-sm" style="width:40%" name="search_mainPart" placeholder="جستجو">
                                     <table class="table table-bordered table-hover table-sm text-center">
@@ -387,14 +389,13 @@ input[type=checkbox] {
                                         </tbody>
                                     </table>
                            </div>
-                        </span>
+                        </div>
+                        </div>
                     </div>
 
                     <div class="c-checkout tab-pane" id="pictures" style="border-radius:10px 10px 2px 2px;">
-                        <div class="container" style="padding:5px 10px 10px 10px">
-                            <span>
-
-                            </span>
+                           <div class="container"  style=" height: 333px !important; overflow-y: scroll !important; display: block !important;">
+                        
                             <div class="row">
                                 <div class='modal-body'style="display:flex;  justify-content: flex-end; float:right;">
                                     <div id='pslider' class=' swiper-container swiper-container-horizontal swiper-container-rtl'>
@@ -462,7 +463,7 @@ input[type=checkbox] {
                         </div>
                     </div>
                     <div class="c-checkout tab-pane" id="yellow" style="border-radius:10px 10px 2px 2px;">
-                        <div class="container ">
+                        <div class="container"  style=" height: 333px !important; overflow-y: scroll !important; display: block !important;">
                             <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
@@ -615,6 +616,7 @@ input[type=checkbox] {
                     </div>
 
                     <div class="c-checkout tab-pane" id="green" style="border-radius:10px 10px 2px 2px;">
+                     <div class="container"  style=" height: 333px !important; overflow-y: scroll !important; display: block !important;">
                         <div class="row">
                              <div class=" col-sm-3"  style="margin-top: 1%">
                                   <iframe name="votar" style="display:none;"></iframe>
@@ -697,6 +699,7 @@ input[type=checkbox] {
                          </div>
                        </div>
                      </div> 
+                  </div>
                   </div>
                 <div class="modal-footer py-1">
                     <button class="btn btn-sm btn-success buttonHover" type="submit" id="submitSubGroup"           form="groupSubgoupCategory" disabled> ذخیره <i class="fa fa-save fa-lg"></i> </Button>

@@ -56,6 +56,7 @@
                                             </span>
                                         </a>
                                         <ul>
+                                        <li class=''><a class="mySidenav__item" href="{{url('/userProfile')}}"> &nbsp;&nbsp; <i class="fa-solid fa-user fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; پروفایل </span></a> </li>
                                         <li class=''><a class="mySidenav__item" href="{{url('/randt')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; R&D</span></a> </li>
                                         <li class=''><a class="mySidenav__item" href="{{url('/saleLine')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; افزودن خط فروش</span></a> </li>
                                         <li class=''><a class="mySidenav__item" href="{{url('/bonusSetting')}}"> &nbsp;&nbsp; <i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات  </span></a></li>

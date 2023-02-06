@@ -1119,7 +1119,7 @@ public function searchAllCustomerByMantagheh(Request $request)
                     JOIN (SELECT productId,hideKala FROM NewStarfood.dbo.star_GoodsSaleRestriction)i
                     on i.productId=h.GoodSn)j
                     JOIN (SELECT Amount,SnGood as GSN,CompanyNo,FiscalYear FROM Shop.dbo.ViewGoodExists)k on k.GSN=j.GoodSn)l
-                    where l.CompanyNo=5 and l.FiscalYear=1399 and l.GoodGroupSn>49)M WHERE M.GoodName like '%$searchTerm%' OR M.GoodCde LIKE '%$searchTerm%'");
+                    where l.CompanyNo=5 and l.FiscalYear=1399 and l.GoodGroupSn>49)M WHERE M.GoodName like N'%$searchTerm%' OR M.GoodCde LIKE '%$searchTerm%'");
             return Response::json($kalas);
     }
 
