@@ -2831,7 +2831,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                                             WHERE  (senderId=".$myId." and getterId=".$appositId.") or (senderId=".$appositId." and getterId=".$myId."))d order by messageDate desc");
         
         DB::update("UPDATE CRM.dbo.crm_message set readState=1 WHERE senderId=".$appositId." and getterId=".$myId);
-        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0 and employeeType=2");
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0");
         
         return Response::json([$sendedMessages,$appositId,$myId,$admin,$heads]);
     }
@@ -4171,6 +4171,16 @@ public function sendBackReport(Request $request){
         $lineId=$request->get("lineId");
         $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin where SaleLineId=$lineId");
         return Response::json($managers);
+    }
+    public function getCustomers(Request $request){
+        $adminId=$request->get("adminId");
+        $customers;
+        $customers=DB::select("SELECT Name,PSN,PCode,lastFactorSn,FactNo,FactDate,lastVisitDate FROM Shop.dbo.Peopels 
+                                JOIN CRM.dbo.crm_customer_added ON PSN=customer_id LEFT JOIN (SELECT lastFactorSn,FactNo,FactDate,a.CustomerSn 
+                                FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)a JOIN Shop.dbo.FactorHDS ON lastFactorSn=SerialNoHDS)b ON b.CustomerSn=PSN
+                                LEFT JOIN (SELECT max(visitDate) AS lastVisitDate,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY customerId)t ON Peopels.PSN=t.customerId
+                                WHERE returnState=0 AND admin_id=$adminId");
+        return Response::json($customers);
     }
 
 }

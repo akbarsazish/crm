@@ -14,7 +14,7 @@ Route::post('/changeDate',[Admin::class,'changeDate'])->middleware('CheckCommon'
 Route::get("/calendar",[Admin::class,"myCalendar"])->middleware('CheckCommon');
 Route::get("/getCustomerForTimeTable",[Customer::class,"getCustomerForTimeTable"])->middleware('CheckCommon');
 Route::get('/myCustomers',[Customer::class,'myCustomers'])->middleware('CheckPoshtiban');
-Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckPoshtiban');
+Route::get('/getCustomerInfo',[Customer::class,'getCustomerInfo'])->middleware('CheckCommon');
 Route::post('/editCustomer',[Customer::class,'editCustomer'])->middleware('CheckPoshtiban');
 Route::get('/getRandTInfo',[Customer::class,'getRandTInfo'])->middleware('CheckCommon');
 Route::post('/editRT',[Customer::class,'editRT'])->middleware('CheckCommon');
@@ -307,4 +307,5 @@ Route::get('/orderUnAlarms',[Admin::class,'orderUnAlarms'])->middleware('CheckCo
 Route::get('/getUnAlarmHistory',[Admin::class,'getUnAlarmHistory'])->middleware('CheckCommon');
 Route::get('/getPersonals',[Admin::class,'getPersonals'])->middleware('CheckCommon');
 Route::get('/getManagerByLine',[Admin::class,'getManagerByLine'])->middleware('CheckCommon');
+Route::get('/getCustomers',[Admin::class,'getCustomers'])->middleware('CheckCommon');
 
