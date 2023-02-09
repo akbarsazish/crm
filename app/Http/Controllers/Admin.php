@@ -528,6 +528,7 @@ SELECT * FROM (
         DB::table("CRM.dbo.crm_customer_added")->insert(['admin_id'=>$adminId,'customer_id'=>$customerId,'returnState'=>0]);
         DB::table("CRM.dbo.crm_customer_added")->where('customer_id',$customerId)->update(['gotEmpty'=>0]);
         DB::update("UPDATE CRM.dbo.crm_returnCustomer SET returnState=0 WHERE  customerId=".$customerId." and returnState=1");
+        DB::update("UPDATE CRM.dbo.crm_inactiveCustomer SET state=0 WHERE  customerId=".$customerId." and state=1");
         DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->where('emptyState',1)->update(['emptyState'=>0]);
         $customers=DB::table("Shop.dbo.Peopels")->join("CRM.dbo.crm_returnCustomer","Peopels.PSN","=","crm_returnCustomer.customerId")->join("Shop.dbo.PhoneDetail","Peopels.PSN","=","PhoneDetail.SnPeopel")->where("crm_returnCustomer.returnState",1)->select("Peopels.PSN","Peopels.PCode","Peopels.Name","PhoneDetail.PhoneStr","Peopels.peopeladdress")->get();
         return Response::json($customers);
@@ -614,7 +615,8 @@ SELECT * FROM (
 
     public function report(){
 		$amdins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  adminType=2 and deleted=0");
-        $customers=DB::select("select * from(
+		$inActiverAdmins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  (adminType=1 or adminType=5) and deleted=0");
+        $customers=DB::select("SELECT * FROM(
             SELECT * FROM (
                 SELECT * FROM (
                 SELECT * FROM (SELECT PSN,Name,peopeladdress,CompanyNo,GroupCode,IsActive FROM Shop.dbo.Peopels) a
@@ -626,25 +628,12 @@ SELECT * FROM (
                 left JOIN   (SELECT customer_id,admin_id,name as adminName,lastName,returnState FROM CRM.dbo.crm_customer_added JOIN   CRM.dbo.crm_admin ON CRM.dbo.crm_customer_added.admin_id=crm_admin.id where returnState=0)f ON f.customer_id=e.PSN
 
                 )g
-
+                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                FROM Shop.dbo.PhoneDetail
+                GROUP BY SnPeopel)p on p.SnPeopel=g.PSN
                 left join(select state,customerId as csn from CRM.dbo.crm_inactiveCustomer)h on g.customerId=h.csn
                 WHERE  g.GroupCode IN (291,297,299,312,313,314) and g.CompanyNo=5 ORDER BY countFactor desc
                 ");
-        
-        foreach ($customers as $customer) {
-            $sabit="";
-            $hamrah="";
-            $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
-            foreach ($phones as $phone) {
-                if($phone->PhoneType==1){
-                $sabit.=$phone->PhoneStr."\n";
-                }else{
-                    $hamrah.=$phone->PhoneStr."\n";   
-                }
-            }
-            $customer->sabit=$sabit;
-            $customer->hamrah=$hamrah;
-        }
         $cities=DB::table("Shop.dbo.MNM")->where("Rectype",1)->where("FatherMNM",79)->get();
 
 
@@ -664,35 +653,23 @@ SELECT * FROM (
             WHERE lastV=Convert(date,getDate())
             order by lastVisit desc");
 
-                $admins=DB::table("CRM.dbo.crm_admin")
+        $admins=DB::table("CRM.dbo.crm_admin")
                 ->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')
                 ->where('crm_admin.adminType',2)->where('deleted',0)
                 ->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType")
                 ->get();
 
-                $inActiveCustomers=DB::select("SELECT * FROM (
+        $inActiveCustomers=DB::select("SELECT * FROM (
                     SELECT * FROM (
                     SELECT * FROM (
                     SELECT * FROM CRM.dbo.crm_inactiveCustomer
                     JOIN(SELECT name,lastName,id as admin_id FROM CRM.dbo.crm_admin)a ON a.admin_id=adminId)b
                     JOIN (SELECT Name as CustomerName,PSN,PCode,SnMantagheh FROM Shop.dbo.Peopels)c ON c.PSN=b.customerId)d
                     JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM)e ON d.SnMantagheh=e.SnMNM)f
+                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                    FROM Shop.dbo.PhoneDetail
+                    GROUP BY SnPeopel)p on p.SnPeopel=f.PSN
                     WHERE  state=1");
-                foreach ($inActiveCustomers as $customer) {
-                $sabit="";
-                $hamrah="";
-                $phones=DB::select("SELECT * FROM Shop.dbo.PhoneDetail WHERE  SnPeopel=".$customer->PSN);
-                foreach ($phones as $phone) {
-                if($phone->PhoneType==1){
-                    $sabit.=$phone->PhoneStr."\n";
-                }else{
-                    $hamrah.=$phone->PhoneStr."\n";    
-                }
-                }
-                $customer->hamrah=$hamrah;
-                }
-
-
             // evacuated customer query
 
             $evacuatedCustomers=DB::select("SELECT * FROM Shop.dbo.Peopels
@@ -705,44 +682,32 @@ SELECT * FROM (
                 AND CompanyNo=5 AND IsActive=1
                 AND GroupCode IN(291,297,299,312,313,314)");
 
-                $evacuatedAdmins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('crm_admin.adminType','!=',1)->where('crm_admin.adminType','!=',4)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType")->get();       
-
-
-
+            $evacuatedAdmins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('crm_admin.adminType','!=',1)->where('crm_admin.adminType','!=',4)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType")->get();       
 
             // referencial customer query 
             $referencialAdmins=DB::table("CRM.dbo.crm_admin")
-            ->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')
+                ->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')
                 ->where('crm_admin.adminType',2)->where('deleted',0)
                 ->select("crm_admin.id","crm_admin.name","crm_admin.lastName",
                 "crm_admin.adminType as adminTypeId","crm_adminType.adminType")->get();
 
-                $referencialCustomers=DB::select("select * from Shop.dbo.Peopels join (select distinct name as adminName,lastName as adminLastName,crm_admin.id as adminId,customerId,returnDate,returnState from CRM.dbo.crm_returnCustomer join CRM.dbo.crm_admin on crm_returnCustomer.adminId=crm_admin.id)a on PSN=a.customerId 
-                where returnState=1 order by returnDate desc");
+            $referencialCustomers=DB::select("SELECT * FROM Shop.dbo.Peopels 
+                                                    JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
+                                                    JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId
+                                                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
+                                                    FROM Shop.dbo.PhoneDetail
+                                                    GROUP BY SnPeopel)p on p.SnPeopel=PSN 
+                                                    WHERE returnState=1 ORDER BY returnDate DESC");
 
-                foreach ($referencialCustomers as $customer) {
-                    $phones=DB::select("SELECT * FROM Shop.dbo.PhoneDetail WHERE  SnPeopel=".$customer->PSN);
-                    $hamrah="";
-                    $sabit="";
-                    foreach ($phones as $phone) {
-                        if($phone->PhoneType==2){
-                            $hamrah.=$phone->PhoneStr."\n";
-                        }else{
-                            $sabit.=$phone->PhoneStr."\n";
-                        }
-                    }
-                    $customer->hamrah=$hamrah;
-                }
-                $returnerAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin 
-                                JOIN(SELECT DISTINCT CRM.dbo.crm_returnCustomer.adminId
-                            FROM CRM.dbo.crm_returnCustomer WHERE returnState=1)b ON CRM.dbo.crm_admin.id=b.adminId");
-
-
-        return view ("reports.listReport",['customers'=>$customers,'cities'=>$cities, 'amdins'=>$amdins, 
-                     "admin.visitorReport",'visitors'=>$visitors, 'inActiveCustomers'=>$inActiveCustomers,'admins'=>$admins,
-                     'evacuatedCustomers'=>$evacuatedCustomers,'evacuatedAdmins'=>$evacuatedAdmins,
-                     'referencialCustomers'=>$referencialCustomers, 'referencialAdmins'=>$referencialAdmins,'returners'=>$returnerAdmins
-                    ]);
+            $returnerAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin 
+                                            JOIN(SELECT DISTINCT CRM.dbo.crm_returnCustomer.adminId
+                                            FROM CRM.dbo.crm_returnCustomer WHERE returnState=1)b ON CRM.dbo.crm_admin.id=b.adminId");
+            return view ("reports.listReport",['customers'=>$customers,'cities'=>$cities, 'amdins'=>$amdins, 
+                        "admin.visitorReport",'visitors'=>$visitors, 'inActiveCustomers'=>$inActiveCustomers,'admins'=>$admins,
+                        'evacuatedCustomers'=>$evacuatedCustomers,'evacuatedAdmins'=>$evacuatedAdmins,
+                        'referencialCustomers'=>$referencialCustomers, 'referencialAdmins'=>$referencialAdmins,'returners'=>$returnerAdmins,
+                        'inActiverAdmins'=>$inActiverAdmins
+                        ]);
     }
 
 
@@ -2950,27 +2915,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
         
     //     return view("admin.visitorReport",['visitors'=>$visitors]);
     // }
-    public function searchVisotrsByDate(Request $request)
-    {
-        $firstDate=Jalalian::fromFormat('Y/m/d', $request->get("firstDate"))->toCarbon()->format('Y-m-d');
-        $secondDate=Jalalian::fromFormat('Y/m/d',$request->get("secondDate"))->toCarbon()->format('Y-m-d');
 
-        $visitors=DB::select("select * from(SELECT lastVisit,PSN,countLogin,Name,platform,browser,firstVisit,visitDate,countSameTime,CONVERT(date,lastVisit) AS lastVis FROM(
-            SELECT * FROM(
-            SELECT * FROM(
-            SELECT * FROM(
-            SELECT * FROM(
-            SELECT MAX(visitDate) as lastVisit,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)a
-            JOIN   (SELECT Name,PSN,GroupCode FROM Shop.dbo.Peopels)b
-            ON a.customerId=b.PSN)c
-            JOIN   (SELECT COUNT(id) as countLogin,customerId as csn FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)d ON c.customerId=d.csn)e
-            JOIN   (SELECT visitDate,browser,platform,customerId as cid FROM NewStarfood.dbo.star_customerTrack)f ON e.lastVisit=f.visitDate)g
-            JOIN   (SELECT MIN(visitDate) as firstVisit,customerId as CUSTOMERID2 FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)h ON g.PSN=h.CUSTOMERID2)i
-            left join (select count(customerId) as countSameTime,customerId from NewStarfood.dbo.star_customerSession1 group by customerId)j on j.customerId=i.PSN)a
-            where a.lastVis>='$firstDate' and a.lastVis<='$secondDate'
-            order by lastVisit desc");
-        return Response::json($visitors);
-    }
 
     public function searchVisotrsLoginFrom(Request $request)
     {
@@ -4182,6 +4127,7 @@ public function sendBackReport(Request $request){
                                 WHERE returnState=0 AND admin_id=$adminId");
         return Response::json($customers);
     }
+
 
 }
 
