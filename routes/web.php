@@ -158,7 +158,9 @@ Route::get("/filterAllCustomer",[Customer::class,"filterAllCustomer"])->middlewa
 Route::get("/searchAllCustomerFactorOrNot",[Customer::class,"searchAllCustomerFactorOrNot"])->middleware('checkUser');
 Route::get("/searchAllCustomerBasketOrNot",[Customer::class,"searchAllCustomerBasketOrNot"])->middleware('checkUser');
 Route::get("/searchAllCustomerLoginOrNot",[Customer::class,"searchAllCustomerLoginOrNot"])->middleware('checkUser');
+
 Route::get("/searchKalaNameCode",[Customer::class,"searchKalaNameCode"])->middleware('checkUser');
+
 Route::get("/searchKalaByStock",[Customer::class,"searchKalaByStock"])->middleware('checkUser');
 Route::get("/searchKalaByActiveOrNot",[Customer::class,"searchKalaByActiveOrNot"])->middleware('checkUser');
 Route::get("/searchKalaByZeroOrNot",[Customer::class,"searchKalaByZeroOrNot"])->middleware('checkUser');

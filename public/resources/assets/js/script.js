@@ -1,3 +1,5 @@
+
+
 $(document).ready(
     function () {
         $(window).load(function () {
@@ -7264,10 +7266,10 @@ $("#searchKalaNameCode").on("keyup", () => {
             <td>` +
                         (index + 1) +
                         `</td>
-            <td>` +
+            <td style="width:88px">` +
                         element.GoodCde +
                         `</td>
-            <td>` +
+            <td style="width:333px">` +
                         element.GoodName +
                         `</td>
             <td>` +
@@ -9035,6 +9037,8 @@ function setAlarmCustomerStuff(element) {
         ,error:function(error){}
     });
 }
+
+
 $("#searchCustomerAalarmName").on("keyup", () => {
     let searchTerm = $("#searchCustomerAalarmName").val();
     $.ajax({
@@ -15175,17 +15179,6 @@ success: function(data) {
     });
 
    
-
-
-
-
-$("#seachingKala").on("keyup", ()=>{
-    alert("I will work later on searching kala by name or code");
-})
-
-
-
-
 
 
 // Create root and chart
