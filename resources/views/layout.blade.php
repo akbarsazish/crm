@@ -240,7 +240,6 @@
 
 
 
-
 <script src="{{url('/resources/assets/js/calculator/popper.min.js')}}"></script>
 <script src="{{url('/resources/assets/js/calculator/math.min.js')}}"></script>
 <script defer src="{{ url('/resources/assets/js/bootstrap.bundle.min.js')}}"></script>
@@ -248,11 +247,13 @@
 <script src="{{url('/resources/assets/js/sweetalert.min.js')}}"></script>
 <script src="{{ url('/resources/assets/js/persianumber.min.js') }}"></script>
 
+<script src="{{url('/resources/assets/js/amcharts/hierarchy.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/index.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/xy.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/Animated.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/percent.js')}}"></script>
 <script src="{{url('/resources/assets/js/amcharts/wrld.js')}}"></script>
+
 
 <script src="{{url('/resources/assets/js/jalali-moment.browser.js')}}"></script>
 <script src="{{url('/resources/assets/js/script.js')}}"></script>
@@ -260,12 +261,7 @@
 <script src="{{url('/resources/assets/js/jquery.thooClock.js')}}"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script> 
 
- 
-
-
 <script>
-
-
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-36251023-1']);

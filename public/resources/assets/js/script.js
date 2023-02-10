@@ -17,7 +17,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.27:8080";
+var baseUrl = "http://192.168.10.26:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -9253,26 +9253,13 @@ function showBargiriFactors(element, adminId) {
                 $("#crmDriverBargeri").append(
                     `
                 <tr onclick="setBargiryStuff(this)">
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` +
-                        element.Name +
-                        `</td>
-                <td class="address">` +
-                        element.peopeladdress +
-                        `</td>
-                <td><a style="color:black; font-size:12px;" href="tel:+900300400"> ` +
-                        element.PhoneStr +
-                        ` </a> </td>
+                <td>` + (index + 1) +  `</td>
+                <td>` + element.Name + `</td>
+                <td class="address">` + element.peopeladdress + `</td>
+                <td><a style="color:black; font-size:12px;" href="tel:+900300400"> ` +  element.PhoneStr + ` </a> </td>
                 <td style="text-align: center; cursor:pointer; width:111px" data-toggle="modal" data-target="#bargiriFactor"><i class="fa fa-eye fa-1xl"> </i> </td>
                 <td class="choice"> <input class="customerList form-check-input" name="factorId" type="radio" value="  ` +
-                        element.SnBargiryBYS +
-                        `_` +
-                        element.SerialNoHDS +
-                        `_` +
-                        element.TotalPriceHDS +
-                        `"></td>
+                        element.SnBargiryBYS +  `_` +  element.SerialNoHDS +  `_` + element.TotalPriceHDS + `"></td>
               </tr>
                 `
                 );
@@ -10878,31 +10865,15 @@ $("#searchBargiriSelfForm").on("submit",function(e){
                     $("#crmDriverBargeri").append(
                         `
                         <tr onclick="setBargiryStuff(this)">
-                            <td>` +
-                            (index + 1) +
-                            `</td>
-                            <td>` +
-                            element.Name +
-                            `</td>
-                            <td class="address">` +
-                            element.peopeladdress +
-                            `</td>
-                            <td><a style="color:black; font-size:12px;" href="tel:+900300400"> ` +
-                            element.PhoneStr +
-                            ` </a> </td>
+                            <td>` + (index + 1) + `</td>
+                            <td>` + element.Name +`</td>
+                            <td class="address">` +element.peopeladdress +`</td>
+                            <td><a style="color:black; font-size:12px;" href="tel:+900300400"> ` + element.PhoneStr + ` </a> </td>
                             <td style="text-align: center;"><a style="text-decoration:none;" target="_blank" href="https://maps.google.com/?q=` +
-                            element.LonPers +
-                            "," +
-                            element.LatPers +
-                            `"><i class="fas fa-map-marker-alt fa-1xl" style="color:#116bc7; "></i></a></td>
+                            element.LonPers +  "," + element.LatPers + `"><i class="fas fa-map-marker-alt fa-1xl" style="color:#116bc7; "></i></a></td>
                             <td style="text-align: center; cursor:pointer;" data-toggle="modal" data-target="#factorDeatials"><i class="fa fa-eye fa-1xl"> </i> </td>
                             <td class="choice"> <input class="customerList form-check-input" name="element." type="radio" value="` +
-                            element.SnBargiryBYS +
-                            "_" +
-                            element.SerialNoHDS +
-                            "_" +
-                            element.TotalPriceHDS +
-                            `"></td>
+                            element.SnBargiryBYS + "_" + element.SerialNoHDS +  "_" +  element.TotalPriceHDS + `"></td>
                         </tr>`
                     );
                 });
@@ -10959,24 +10930,12 @@ $("#showEmtiyazHistoryBtn").on("click", () => {
                 $("#adminEmtyasHistoryBody").append(
                     `
                     <tr>
-                    <td>` +
-                        (index + 1) +
-                        `</td>
-                    <td>` +
-                        element.name +
-                        ` ` +
-                        element.lastName +
-                        `</td>
+                    <td>` +  (index + 1) +  `</td>
+                    <td>` +  element.name + ` ` + element.lastName + `</td>
                     <td> بازاریاب </td>
-                    <td>` +
-                        element.positiveBonus +
-                        `</td>
-                    <td> ` +
-                        element.negativeBonus +
-                        `</td>
-                    <td>` +
-                        element.discription +
-                        `</td>
+                    <td>` + element.positiveBonus + `</td>
+                    <td> ` + element.negativeBonus + `</td>
+                    <td>` + element.discription + `</td>
                     <td>
                     <button class="btn btn-primary btn-sm" onclick="editAdminsHistoryEmtyaz(` +
                         element.id +
@@ -11058,13 +11017,8 @@ $("#editingEmtyazForm").on("submit", function (e) {
                 $("#adminEmtyasHistoryBody").append(
                     `
                 <tr>
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` +
-                        element.name +
-                        ` ` +
-                        element.lastName +
+                <td>` + (index + 1) +  `</td>
+                <td>` + element.name +  ` ` + element.lastName +
                         `</td>
                 <td> بازاریاب </td>
                 <td>` +
@@ -13560,6 +13514,10 @@ function openAddCommentModal(customerId) {
     $("#addComment").modal("show");
 }
 
+
+
+
+
 $("#getPersonalsForm").on("submit",function(e){
 e.preventDefault();
 
@@ -13610,6 +13568,8 @@ $.ajax({
 });
 });
 
+
+
 $("#searchManagerByLine").on("change",function(){
 $.ajax({method:"get",
         url:baseUrl+"/getManagerByLine",
@@ -13632,28 +13592,86 @@ $.ajax({method:"get",
 })
 })
 
+
+
+
+
 $("#searchManagerSelect").on("change",()=>{
+   
     $.ajax({method:"get",
-    url:baseUrl+'/getAdminInfo',
-    data:{_token:"{{@csrf}}",
-            id:$("#searchManagerSelect").val()},
-    async:true,
-    success:function(data){
-        $("#managerName").text(data[3].name+` `+data[3].lastName);
-        $("#listHead").empty();
-        data[4].forEach((element,index)=>{
-            $("#listHead").append(`
-            <div class="form-check bg-gray">
-                <input class="headsRadio form-check-input p-2 float-end" type="radio" name="headRadio" value="`+element.id+`">
-                <label class="form-check-label me-4" for="assesPast">`+element.name+` `+element.lastName+`</label>
-            </div>`);
-        })
+        url:baseUrl+'/getOrgChart',
+        data:{_token:"{{@csrf}}",
+                managerId:$("#searchManagerSelect").val()},
+        async:true,
+        success:function(respons){
+            console.log(respons)
+
+              
+// Create root and chart for oganizational chart
+        var root = am5.Root.new("chartdiv12");
+        root._logo.dispose();
+
+        root.setThemes([
+        am5themes_Animated.new(root)
+        ]);
+
+        var data =respons;
+
+var container = root.container.children.push(
+  am5.Container.new(root, {
+    width: am5.percent(100),
+    height: am5.percent(100),
+    layout: root.verticalLayout
+  })
+);
+
+
+var series = container.children.push(
+  am5hierarchy.Tree.new(root, {
+    singleBranchOnly: false,
+    downDepth: 1,
+    initialDepth: 5,
+    topDepth: 0,
+    valueField: "value",
+    categoryField: "name",
+    childDataField: "children"
+  })
+);
+
+
+series.circles.template.setAll({
+  radius: 30
+});
+
+
+series.outerCircles.template.setAll({
+  radius: 30
+});
+
+
+series.circles.template.events.on("click", function(ev) {
+//  $("#amalKardModal").modal("show");
+//  var url = baseUrl + "/saleExpertActionInfo";
+// console.log(series.dataItems.value)
+alert(series.dataItems.value);
+
+//   window.open(url);
+
+});
+
+series.data.setAll(data);
+series.set("selectedDataItem", series.dataItems[0]);
+
+     
     },
     error:function(error){
         
     }
     })
 });
+
+
+
 
 $(document).on("change",".headsRadio",function(){
     alert($(this).val())
@@ -13681,6 +13699,9 @@ $(document).on("change",".headsRadio",function(){
         }
     });
 });
+
+
+
 // kala
 
 $(document).on("change",".personalList",function(){
@@ -14645,6 +14666,8 @@ success: function(data) {
    
 
 
+
+
 // Create root and chart
 var root = am5.Root.new("chartdiv");
 root.setThemes([am5themes_Animated.new(root)]);
@@ -14806,5 +14829,3 @@ yAxis.set(
         themeTags: ["axis"],
     })
 );
-
-

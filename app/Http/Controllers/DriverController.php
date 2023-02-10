@@ -147,10 +147,12 @@ public function crmDriverSearch(Request $request) {
         }
 	
 // the following function is return the bargeri information 
-		public function bargeryInfo(Request $request){
-			$admins=DB::select("select * from CRM.dbo.crm_admin join CRM.dbo.crm_adminType on crm_adminType.id=crm_admin.adminType
+	public function bargeryInfo(Request $request){
+			$services=DB::select("SELECT name,lastName,crm_driverservice.discription,ServiceSn,serviceType,TimeStamp FROM CRM.dbo.crm_driverservice JOIN CRM.dbo.crm_admin on crm_driverservice.adminId=crm_admin.driverId where deleted=0 and adminType=4 order by TimeStamp desc");
+            $drivers=DB::select("SELECT * FROM CRM.dbo.crm_admin  WHERE deleted=0 and adminType=4 ");
+            $admins=DB::select("SELECT * from CRM.dbo.crm_admin join CRM.dbo.crm_adminType on crm_adminType.id=crm_admin.adminType
                                          where deleted=0 and crm_admin.adminType=4");
-			return view("driver.bargeryInfo", ['admins'=>$admins]);
+			return view("driver.bargeryInfo", ['services'=>$services,'drivers'=>$drivers, 'admins'=>$admins]);
 }
 
 public function bargeryFactors(Request $request){

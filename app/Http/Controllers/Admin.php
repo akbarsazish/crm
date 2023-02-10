@@ -62,7 +62,7 @@ class Admin extends Controller
         }
         $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=1 and deleted=0");
         $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=2  and deleted=0");
-
+return $saleLines;
         return View('admin.listKarbaran',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'saleLines'=>$saleLines,'managers'=>$managers,'heads'=>$heads]);
     }
     public function karbaranOperations(Request $request)
@@ -2814,6 +2814,11 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
         
     // ======================
     
+
+
+
+
+
     public function getAdminInfo(Request $request)
     {
         $id=$request->get("id");
@@ -2822,27 +2827,46 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
         $admin=DB::table("CRM.dbo.crm_admin")->where('id',$id)->first();
         $sendedMessages=DB::select("SELECT *,DATEDIFF (day,EndDate,messageDate) as diffDate from(
             SELECT *,Lag(messageDate, 1) OVER(
-                   ORDER BY messageDate ASC) AS EndDate from(
-            SELECT * FROM (
-                                            SELECT * FROM(
-                                            SELECT * FROM CRM.dbo.crm_message)a
-                                            JOIN   (SELECT name,id as adminId FROM CRM.dbo.crm_admin)c ON a.senderId=c.adminId )b)c
-            
-                                            WHERE  (senderId=".$myId." and getterId=".$appositId.") or (senderId=".$appositId." and getterId=".$myId."))d order by messageDate desc");
-        
+                ORDER BY messageDate ASC) AS EndDate from(
+            SELECT * FROM ( SELECT * FROM(
+                            SELECT * FROM CRM.dbo.crm_message)a
+                            JOIN(SELECT name,id as adminId FROM CRM.dbo.crm_admin)c ON a.senderId=c.adminId )b)c
+                            WHERE  (senderId=".$myId." and getterId=".$appositId.") or (senderId=".$appositId." and getterId=".$myId."))d order by messageDate desc");
+
         DB::update("UPDATE CRM.dbo.crm_message set readState=1 WHERE senderId=".$appositId." and getterId=".$myId);
-        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0");
+        $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin where bossId=$id and deleted=0 and employeeType=2");
+
+       
         
         return Response::json([$sendedMessages,$appositId,$myId,$admin,$heads]);
     }
     
+
+    public function getOrgChart(Request $request){
+        $managerid=$request->get("managerId");
+            $managers=DB::table("CRM.dbo.crm_admin")->where('id',$managerid)->where("employeeType",1)->get();
+            $managers=DB::select("SELECT concat(TRIM(name),SPACE(1),TRIM(lastName)) as name,id FROM CRM.dbo.crm_admin WHERE id=$managerid and employeeType=1");
+            foreach($managers as $manager){
+                // $heads=DB::table("CRM.dbo.crm_admin")->where('bossId',$manager->id)->get();
+                $heads=DB::select("SELECT concat(TRIM(name),SPACE(1),TRIM(lastName)) as name,id FROM CRM.dbo.crm_admin WHERE bossId=$manager->id and deleted=0");
+                $manager->children=$heads;
+                foreach($manager->children as $head){
+                  //  $employee=DB::table("CRM.dbo.crm_admin")->where('bossId',$head->id)->get();
+                    $employee=DB::select("SELECT concat(TRIM(name),SPACE(1),TRIM(lastName)) as name,id FROM CRM.dbo.crm_admin WHERE bossId=$head->id and deleted=0");
+                    $head->children=$employee;
+                }
+            }
+        return Response::json($managers);
+    }
+
+
     // ======================
 
     public function getDiscusstion(Request $request)
     {
         $appositId=$request->get("sendId");
         $myId=Session::get('asn');
-        $sendedMessages=DB::select("select *,DATEDIFF (day,EndDate,messageDate) as diffDate from(
+        $sendedMessages=DB::select("SELECT *,DATEDIFF (day,EndDate,messageDate) as diffDate from(
 
             select *,Lag(messageDate, 1) OVER(
                    ORDER BY messageDate ASC) AS EndDate from(
@@ -3203,8 +3227,37 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
     }
 
 
-    public function amalKardKarbarn(Request $request)
+  public function subTrees(Request $request)
     {
+        //بازاریابهای زیر نظر سرپرست
+        $admins=DB::table("CRM.dbo.crm_admin")->where("bossId",Session::get("asn"))->where('deleted',0)->get();
+        //لیست سرپرستها
+        $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',4)->where('adminType','!=',5)->where('deleted',0)->get();
+        return Response::json(['admins'=>$admins,'bosses'=>$bosses]);
+
+    }
+
+
+
+public function amalKardKarbarn(Request $request){
+     //بازاریابهای زیر نظر سرپرست
+        $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',SESSION::get("asn"))->get();
+        $adminId=SESSION::get("asn");
+        $admins;
+        if($exactAdmin[0]->adminType==5){
+            $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("crm_admin.adminType","!=",5)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","driverId")->get();
+        }
+        if($exactAdmin[0]->adminType!=5){
+            $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where("bossId",Session::get("asn"))->where("crm_admin.adminType","!=",5)->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","driverId")->get();
+        }
+        //لیست سرپرستها
+        $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',5)->where('deleted',0)->get();
+
+
+        $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
+
+
+
         $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',SESSION::get("asn"))->get();
         $adminId=SESSION::get("asn");
         $admins;
@@ -3215,7 +3268,194 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                 $saleLine=DB::select("SELECT * FROM CRM.dbo.crm_SaleLine WHERE deleted=0");
         }
 
-        return view("admin.amalKardKarbaran",['admins'=>$admins,'saleLine'=>$saleLine]);
+
+    
+        $adminId=Session::get("asn");
+        $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->get();
+        $exactAdminInfo=$exactAdmin[0];
+        $specialBonuses=DB::table("CRM.dbo.crm_specialBonus")->get();
+//برای همان روز
+        $count_New_Install=0;
+        $count_New_buy_Today=0;
+        $count_aghlam_today=0;
+        $sum_today_money=0;
+//در طول زمان بعد از تخلیه کاربر
+        $all_monthly_bonuses=0;
+        $all_bonus_since_Empty=0;
+        $count_All_aghlam=0;
+        $count_All_Install=0;
+        $count_All_New_buys=0;
+        $sum_all_money=0;
+//امتیازات این ماه بعد از تخلیه
+        $bonus_All_aghlam=0;
+        $bonus_All_Install=0;
+        $bonus_All_New_buys=0;
+        $bonus_all_money=0;
+
+        //برای تعیین تاریخ از روی جدول تخلیه
+        $EMPTYDATE='2022-11-11';
+        $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
+		  $EMPTYDATEHEJRI=Jalalian::fromCarbon(Carbon::createFromFormat('Y-m-d', $EMPTYDATE))->format('Y/m/d');
+        $emptyDateInfo=DB::select("SELECT CONVERT(DATE,timeStamp) AS emptyDate FROM CRM.dbo.crm_adminHistory WHERE id=(SELECT MAX(id) FROM CRM.dbo.crm_adminHistory WHERE adminId=$adminId)");
+        if($emptyDateInfo){
+            $EMPTYDATE=$emptyDateInfo[0]->emptyDate;
+        }
+
+        foreach($specialBonuses as $special){
+            if($special->id==11){
+                //نصب
+                $count_New_Install=DB::select("SELECT count(id) as countNewInstall from(
+                    SELECT *, convert(date,addedDate) as justDate from CRM.dbo.crm_inserted_customers)a where a.justDate=CAST( GETDATE() AS Date ) and adminId=$adminId");
+        
+                $count_All_Install=DB::select("SELECT count(id) as countAllInstall from(
+                    SELECT * from CRM.dbo.crm_inserted_customers where CONVERT(DATE,crm_inserted_customers.addedDate)>='$EMPTYDATE')a where  adminId=$adminId");
+				if(count($count_All_Install)>0){
+                    
+                    $count_All_Install=$count_All_Install[0]->countAllInstall;
+				}else{
+					$count_All_Install=0;
+				}
+				if(count($count_New_Install)>0){
+                    
+                    $count_New_Install=$count_New_Install[0]->countNewInstall;
+				}else{
+					$count_New_Install=0;
+				}
+                    
+                $installBonus=((int)($count_All_Install/$special->limitAmount)) * $special->Bonus;
+                $all_bonus_since_Empty+=$installBonus;
+                $bonus_All_Install=$installBonus;
+            }
+            
+            if($special->id==12){
+                //اقلام
+                $count_All_aghlamR=DB::select("SELECT count(countGoods) as countAghlam,admin_id from (			
+                    SELECT count(SnGood) as countGoods,admin_id,SnGood from (
+                    SELECT * FROM (SELECT MAX(TimeStamp)as maxTime,SnGood,CustomerSn from(
+                    SELECT * FROM(
+                        SELECT FactorBYS.TimeStamp,FactorBYS.Fi,FactorBYS.Amount,FactorBYS.SnGood,CustomerSn FROM Shop.dbo.FactorHDS
+                        JOIN Shop.dbo.FactorBYS  on FactorHDS.SerialNoHDS=FactorBYS.SnFact where FactDate>='$EMPTYDATEHEJRI' and FactType=3)a
+                        )g  group by SnGood,CustomerSn)c
+                        join (SELECT * FROM CRM.dbo.crm_customer_added where returnState=0 and admin_id=$adminId)d on c.CustomerSn=d.customer_id)f group by admin_id,SnGood
+                        )e  group by admin_id");
+                if(count($count_All_aghlamR)>0){
+                    $count_All_aghlam=$count_All_aghlamR[0]->countAghlam;
+                }
+
+                $count_aghlam_todayR=DB::select("SELECT count(countGoods) as countAghlam,admin_id from (			
+                    SELECT count(SnGood) as countGoods,admin_id,SnGood from (
+                    SELECT * FROM (SELECT MAX(TimeStamp)as maxTime,SnGood,CustomerSn from(
+                    SELECT * FROM(
+                        SELECT FactorBYS.TimeStamp,FactorBYS.Fi,FactorBYS.Amount,FactorBYS.SnGood,CustomerSn FROM Shop.dbo.FactorHDS
+                        JOIN Shop.dbo.FactorBYS  on FactorHDS.SerialNoHDS=FactorBYS.SnFact where FactType=3)a
+                        )g  group by SnGood,CustomerSn)c
+                        JOIN (SELECT * FROM CRM.dbo.crm_customer_added WHERE returnState=0)d on c.CustomerSn=d.customer_id  WHERE CONVERT(date,maxTime)=CONVERT(date,CURRENT_TIMESTAMP))f group by admin_id,SnGood
+                        )e where admin_id=$adminId group by admin_id");
+
+                if(count($count_aghlam_todayR)>0){
+                    $count_aghlam_today=$count_aghlam_todayR[0]->countAghlam;
+                }
+
+                $instAghlamBonus=((int)($count_All_aghlam/$special->limitAmount)) * $special->Bonus;
+                $all_bonus_since_Empty+=$instAghlamBonus;
+                $bonus_All_aghlam=$instAghlamBonus;
+            }
+
+            if($special->id==13){
+                //مبلغ
+                $allMoney_till_now=DB::select("SELECT SUM(NetPriceHDS) AS SumOfMoney,admin_id FROM Shop.dbo.factorHds
+                JOIN (SELECT * FROM CRM.dbo.crm_customer_added where returnState=0)d ON factorHds.CustomerSn=d.customer_id
+                WHERE FactType=3 AND admin_id=$adminId and CONVERT(DATE,timestamp)>='$EMPTYDATE' GROUP BY admin_id");
+                if(count($allMoney_till_now)>0){
+                    $sum_all_money=$allMoney_till_now[0]->SumOfMoney;
+                }
+
+                $today_money=DB::select("SELECT SUM(NetPriceHDS) AS SumOfMoney,admin_Id FROM Shop.dbo.factorHds
+                                        JOIN (SELECT * FROM CRM.dbo.crm_customer_added where returnState=0)d ON factorHds.CustomerSn=d.customer_id
+                                        WHERE FactType=3 AND admin_id=$adminId AND CONVERT(date,timestamp)=CONVERT(date,CURRENT_TIMESTAMP) GROUP BY admin_Id");
+                if(count($today_money)>0){
+                    $sum_today_money=$today_money[0]->SumOfMoney;
+                }
+                $allMoneyBonus=((int)($sum_all_money/10/$special->limitAmount)) * $special->Bonus;
+                $all_bonus_since_Empty+=$allMoneyBonus;
+                $bonus_all_money=$allMoneyBonus;
+            }
+
+            if($special->id==14){
+                //خرید اولیه
+                //امروز
+                $count_New_buy_Today=DB::select("SELECT count(CustomerSn) as countNewFactor,admin_id from (
+                    SELECT distinct CustomerSn from (SELECT * from Shop.dbo.FactorHds
+					JOIN CRM.dbo.crm_inserted_customers on FactorHDS.CustomerSn=crm_inserted_customers.customerId 
+					where FactType=3 AND DATEDIFF(hour,CONVERT(DATE,addedDate), CONVERT(DATE,timestamp))<=72 and crm_inserted_customers.adminId=$adminId and CONVERT(DATE,timestamp)=CONVERT(DATE,CURRENT_TIMESTAMP))b
+                    )c  join CRM.dbo.crm_customer_added on c.CustomerSn=customer_id where admin_id=$adminId  group by admin_id");
+                
+                if(count($count_New_buy_Today)<1){
+                    $count_New_buy_Today=0;
+                }else{
+                    $count_New_buy_Today=$count_New_buy_Today[0]->countNewFactor;
+                }
+                //همه           
+                $count_All_New_buys=DB::select("SELECT count(CustomerSn) as countNewFactor,admin_id from (
+                    SELECT distinct CustomerSn,admin_id from (SELECT * from Shop.dbo.FactorHds
+					JOIN (select * from CRM.dbo.crm_customer_added where returnState=0) a on FactorHDS.CustomerSn=a.customer_id 
+					where FactType=3 AND DATEDIFF(hour,CONVERT(DATE,a.addedTime), CONVERT(DATE,timestamp))<=72 and a.admin_id=$adminId and CONVERT(DATE,timestamp)>='$EMPTYDATE')b
+                    )c   group by admin_id");
+                if(count($count_All_New_buys)>0){
+                $count_All_New_buys=$count_All_New_buys[0]->countNewFactor;
+                }else{
+                $count_All_New_buys=0;
+                }
+               
+                $allBuyBonus=((int)($count_All_New_buys/$special->limitAmount)) * $special->Bonus;
+                $all_bonus_since_Empty+=$allBuyBonus;
+                $bonus_All_New_buys=$allBuyBonus;
+            }
+
+            //installs
+            $special->count_New_Install=$count_New_Install;
+            $special->count_All_Install=$count_All_Install;
+            //buys
+            $special->count_New_buy_Today=$count_New_buy_Today;
+            $special->count_All_New_buys=$count_All_New_buys;
+            $special->count_All_aghlam=$count_All_aghlam;
+            $special->count_aghlam_today=$count_aghlam_today;
+            $special->sum_all_money=$sum_all_money;
+            $special->sum_today_money=$sum_today_money;
+        }
+
+        //محاسبه امتیازات اضافی بازاریابها
+        $all_monthly_bonuses=0;
+        $historyExist=DB::select("select sum(positiveBonus)-sum(negativeBonus) as sumAllBonus from CRM.dbo.crm_adminUpDownBonus  where adminId=$adminId and isUsed=0");
+        if($historyExist){
+            $all_monthly_bonuses=$historyExist[0]->sumAllBonus;
+        }
+        $all_bonus_since_Empty+=$all_monthly_bonuses;
+        $selfHistory=DB::table("CRM.dbo.crm_adminHistory")->where('adminId',$adminId)->get();
+
+    return view("admin.amalKardKarbaran",
+       ['admins'=>$admins,
+        'bosses'=>$bosses, 
+        'admins'=>$admins,
+        'adminTypes'=>$adminTypes,
+        'admins'=>$admins,
+        'saleLine'=>$saleLine,
+        'specialBonuses'=>$specialBonuses,
+        'adminId'=>$adminId,
+        'exactAdminInfo'=>$exactAdminInfo,
+        'all_bonus_since_Empty'=>$all_bonus_since_Empty,
+        'count_All_aghlam'=>$count_All_aghlam,
+        'count_All_Install'=>$count_All_Install,
+        'count_All_New_buys'=>$count_All_New_buys,
+        'sum_all_money'=>$sum_all_money,
+        'bonus_All_aghlam'=>$bonus_All_aghlam,
+        'bonus_All_Install'=>$bonus_All_Install,
+        'bonus_All_New_buys'=>$bonus_All_New_buys,
+        'bonus_all_money'=>$bonus_all_money,
+        'emptydate'=>$EMPTYDATE,
+        'selfHistory'=>$selfHistory,
+        'all_monthly_bonuses'=>$all_monthly_bonuses
+    ]);
     }
 
     public function getEmployies(Request $request)
@@ -4167,20 +4407,13 @@ public function sendBackReport(Request $request){
         }
         return Response::json("good");
     }
+
+
+    
     public function getManagerByLine(Request $request){
         $lineId=$request->get("lineId");
         $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin where SaleLineId=$lineId");
         return Response::json($managers);
-    }
-    public function getCustomers(Request $request){
-        $adminId=$request->get("adminId");
-        $customers;
-        $customers=DB::select("SELECT Name,PSN,PCode,lastFactorSn,FactNo,FactDate,lastVisitDate FROM Shop.dbo.Peopels 
-                                JOIN CRM.dbo.crm_customer_added ON PSN=customer_id LEFT JOIN (SELECT lastFactorSn,FactNo,FactDate,a.CustomerSn 
-                                FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)a JOIN Shop.dbo.FactorHDS ON lastFactorSn=SerialNoHDS)b ON b.CustomerSn=PSN
-                                LEFT JOIN (SELECT max(visitDate) AS lastVisitDate,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY customerId)t ON Peopels.PSN=t.customerId
-                                WHERE returnState=0 AND admin_id=$adminId");
-        return Response::json($customers);
     }
 
 }

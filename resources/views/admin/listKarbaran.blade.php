@@ -207,92 +207,96 @@
                         <form action="{{url('/addAdmin')}}" method="POST"  enctype="multipart/form-data">
                             {{ csrf_field() }}
                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نام </label>
-                                        <input type="text" required minlength="3" maxlength="12" class="form-control" autocomplete="off" name="name">
+                                        <input type="text" required minlength="3" maxlength="12" class="form-control form-control-sm" autocomplete="off" name="name">
                                     </div>
                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نام خانوادگی</label>
-                                        <input type="text" required  minlength="3" maxlength="12" class="form-control" autocomplete="off" name="lastName">
+                                        <input type="text" required  minlength="3" maxlength="12" class="form-control form-control-sm" autocomplete="off" name="lastName">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label"> نام کاربری</label>
-                                        <input type="text" id="userName"  minlength="3" maxlength="12" onblur="checkExistance(this)" required class="form-control" autocomplete="off" name="userName">
+                                        <input type="text" id="userName"  minlength="3" maxlength="12" onblur="checkExistance(this)" required class="form-control form-control-sm" autocomplete="off" name="userName">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label"> رمز</label>
-                                        <input type="text" onblur="clearRiplicateData()"  minlength="3" maxlength="12" required class="form-control" autocomplete="off" name="password" >
+                                        <input type="text" onblur="clearRiplicateData()"  minlength="3" maxlength="12" required class="form-control form-control-sm" autocomplete="off" name="password" >
                                     </div>
                                 </div> 
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6"> 
-                                    <div class="form-group">
-                                        <label class="form-label"> آدرس </label>
-                                        <input type="text" required  minlength="3"  class="form-control" autocomplete="off" name="address" >
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <span id="existAlert" style="color: red"> </span>
-                                    <div class="form-group">
-                                        <label class="form-label"> شماره تماس </label>
-                                        <input type="number"   minlength="11" maxlength="12" required class="form-control" autocomplete="off" name="phone">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row"> 
-                                <div class="col-md-6">
+                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> جنسیت  </label>
-                                        <select class="form-select" name="sex">
+                                        <select class="form-select form-select-sm" name="sex">
                                                 <option value="1" >زن </option>
                                                 <option value="2" >مرد</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <span id="existAlert" style="color: red"> </span>
                                     <div class="form-group">
-                                        <label class="dashboardLabel form-label"> نوع کاربر </label>
-                                        <select class="form-select" name="employeeType"  id="employeeType">
-                                                <option value="1" > مدیر </option>
-                                                <option value="2" > سرپرست </option>
-                                                <option value="3" > کارمند </option>
-                                        </select>
+                                        <label class="form-label"> شماره تماس </label>
+                                        <input type="number"   minlength="11" maxlength="12" required class="form-control form-control-sm" autocomplete="off" name="phone">
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group" style="display:none" id="employeeJobDiv">
-                                        <label class="dashboardLabel form-label">وظیفه کارمند</label>
-                                        <select class="form-select" name="poshtibanType" >
-                                                <option value="1" >راننده</option>
-                                                <option value="2" >پشتیبان حضوری</option>
-                                                <option value="2" >پشتیبان هماهنگی</option>
-                                                <option value="2" >پشتیبان تلفنی</option>
-                                                <option value="3" >بازاریاب حضوری</option>
-                                                <option value="3" >بازاریاب هماهنگی</option>
-                                                <option value="3" >بازاریاب تلفنی</option>
-                                        </select>
+                                <div class="col-md-6"> 
+                                    <div class="form-group">
+                                        <label class="form-label"> آدرس </label>
+                                        <input type="text" required  minlength="3"  class="form-control form-control-sm" autocomplete="off" name="address" >
                                     </div>
+                                </div>
+                                 
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label"> عکس </label>
+                                        <input type="file" class="form-control form-control-sm" name="picture" placeholder="">
+                                    </div>
+                                </div>
+                            </div><br>
+
+                            <div class="row rounded px-0 mx-0" style="background-color:#abd2ed; padding-bottom:5px;"> 
+                                   <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label"> نوع کاربر </label>
+                                            <select class="form-select form-select-sm" name="employeeType"  id="employeeType">
+                                                    <option value="1" > مدیر </option>
+                                                    <option value="2" > سرپرست </option>
+                                                    <option value="3" > کارمند </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                              
+                                 <div class="col-md-2">
+                                        <div class="form-group" style="display:none" id="employeeJobDiv">
+                                            <label class="dashboardLabel form-label">وظیفه کارمند</label>
+                                            <select class="form-select form-select-sm" name="poshtibanType" >
+                                                    <option value="1" >راننده</option>
+                                                    <option value="2" >پشتیبان حضوری</option>
+                                                    <option value="2" >پشتیبان هماهنگی</option>
+                                                    <option value="2" >پشتیبان تلفنی</option>
+                                                    <option value="3" >بازاریاب حضوری</option>
+                                                    <option value="3" >بازاریاب هماهنگی</option>
+                                                    <option value="3" >بازاریاب تلفنی</option>
+                                            </select>
+                                        </div>
                                 </div> 
 
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <div class="form-group"  style="display:none"  id="saleLineDive">
                                         <label class="dashboardLabel form-label"> خط فروش </label>
-                                        <select class="form-select" name="saleLine">
+                                        <select class="form-select form-select-sm" name="saleLine">
                                                 <option value="0" > -- </option>
                                             @foreach($saleLines as $saleLine)
                                                 <option value="{{$saleLine->SaleLineSn}}" >{{$saleLine->LineName}}</option>
@@ -300,13 +304,11 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row"> 
-                                <div class="col-md-6">
+                             
+                                <div class="col-md-2">
                                     <div class="form-group" style="display:none" id="managerDiv">
                                         <label class="dashboardLabel form-label"> مدیر </label>
-                                        <select class="form-select" name="manager" id="manager">
+                                        <select class="form-select form-select-sm" name="manager" id="manager">
                                                 <option value="0" > -- </option>
                                             @foreach($managers as $manager)
                                                 <option value="{{$manager->id}}" > {{$manager->name .' '. $manager->lastName}} </option>
@@ -314,10 +316,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <div class="form-group" style="display:none" id="headDiv">
                                         <label class="dashboardLabel form-label"> سرپرست </label>
-                                        <select class="form-select" name="head" id="head">
+                                        <select class="form-select form-select-sm" name="head" id="head">
                                                 <option value="0" > -- </option>
                                         @foreach($heads as $head)
                                                 <option value="{{$head->id}}" > {{$head->name .' '. $head->lastName}} </option>
@@ -327,40 +329,30 @@
                                 </div>
                             </div>
 
-                            <div class="row">  
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label"> عکس </label>
-                                        <input type="file" class="form-control" name="picture" placeholder="">
+                            <div class="row text-end">
+                                <div class="col-md-4 mt-3">
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">آیابه همه کاربران دسترسی داشته باشد؟</label>
+                                        <input class="form-check-input p-2" name="hasAllCustomer" type="checkbox" id="flexSwitchCheckChecked" checked>
                                     </div>
+                                     <div class="form-check">
+                                        <label class="form-check-label" for="flexSwitchCheckChecked"> آیا نظر سنجی داشته باشد؟</label>
+                                        <input class="form-check-input p-2" name="hasAsses" type="checkbox" id="flexSwitchCheckChecked" checked>
+                                    </div> 
                                 </div>
-                                <div class="col-md-6 ps-5">
-                                    <div class="form-check form-switch mt-2">
-                                        <input class="form-check-input me-0" name="hasAsses" type="checkbox" id="flexSwitchCheckChecked" checked style="font-size:25px;">
-                                        <label class="form-check-label" for="flexSwitchCheckChecked">آیا نظر سنجی داشته باشد؟</label>
-                                    </div> <br>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 ps-5">
-                                    <div class="form-check form-switch mt-2">
-                                        <input class="form-check-input me-0" name="hasAllCustomer" type="checkbox" id="flexSwitchCheckChecked" checked style="font-size:25px;">
-                                        <label class="form-check-label">آیابه همه کاربران دسترسی داشته باشد؟</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label class="form-label"> توضیحات</label>
-                                            <textarea class="form-control"  minlength="3" cols="10" rows="4" name="discription" style="background-color:blanchedalmond"></textarea>
+                                            <textarea class="form-control"  minlength="3" rows="2" name="discription" style="background-color:blanchedalmond"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row"> 
+                            <div class="row text-start"> 
                                 <div class="form-group" style="margin-top:2%">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="cancelAddAddmin"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                                    <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="cancelAddAddmin"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                                    <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
                                 </div>
                             </div>
                         </div>

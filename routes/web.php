@@ -31,7 +31,9 @@ Route::get("/logoutUser",[Admin::class,"logoutUser"])->middleware('CheckCommon')
 Route::get("/userProfile",[Admin::class,"userProfile"])->middleware('CheckCommon');
 Route::get("/customerLocation",[Customer::class,"customerLocation"])->middleware('CheckCommon');
 Route::post("/editOwnAdmin",[Admin::class,"editOwnAdmin"])->middleware('CheckCommon');
+
 Route::get("/getAdminInfo",[Admin::class,"getAdminInfo"])->middleware('CheckCommon');
+
 Route::get("/addMessage",[Admin::class,"addMessage"])->middleware('CheckCommon');
 Route::get("/getDiscusstion",[Admin::class,"getDiscusstion"])->middleware('CheckCommon');
 Route::get("/addDiscussion",[Admin::class,"addDiscussion"])->middleware('CheckCommon');
@@ -256,7 +258,9 @@ Route::get("/getDriverTodayAghlam",[Poshtiban::class,"getDriverTodayAghlam"])->m
 Route::get("/getDriverAllAghlam",[Poshtiban::class,"getDriverAllAghlam"])->middleware('CheckCommon');
 Route::get("/getAllFactorDriver",[Poshtiban::class,"getAllFactorDriver"])->middleware('CheckCommon');
 Route::get("/getTodayDriverFactors",[Poshtiban::class,"getTodayDriverFactors"])->middleware('CheckCommon');
+
 Route::get("/driverService",[DriverController::class,"driverService"])->middleware('CheckCommon');
+
 Route::get("/addService",[DriverController::class,"addService"])->middleware('CheckCommon');
 Route::get("/getInfoForDriverService",[DriverController::class,"getInfoForDriverService"])->middleware('CheckCommon');
 Route::get("/getServiceInfo",[DriverController::class,"getServiceInfo"])->middleware('CheckCommon');
@@ -306,6 +310,9 @@ Route::get('/searchUnAlarmByMantagheh',[Admin::class,'searchUnAlarmByMantagheh']
 Route::get('/orderUnAlarms',[Admin::class,'orderUnAlarms'])->middleware('CheckCommon');
 Route::get('/getUnAlarmHistory',[Admin::class,'getUnAlarmHistory'])->middleware('CheckCommon');
 Route::get('/getPersonals',[Admin::class,'getPersonals'])->middleware('CheckCommon');
+
 Route::get('/getManagerByLine',[Admin::class,'getManagerByLine'])->middleware('CheckCommon');
+
 Route::get('/getCustomers',[Admin::class,'getCustomers'])->middleware('CheckCommon');
+Route::get('/getOrgChart',[Admin::class,'getOrgChart'])->middleware('CheckCommon');
 
