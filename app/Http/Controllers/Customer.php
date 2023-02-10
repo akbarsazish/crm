@@ -3226,15 +3226,12 @@ public function searchReturnedByName(Request $request){
 public function withoutAdmins(Request $request){   
     $searchTerm=$request->get("searchTerm");
     $snMantagheh=$request->get("SnMantagheh");    
-    $evacuatedCustomers=DB::select("SELECT * FROM Shop.dbo.Peopels
-            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-            FROM Shop.dbo.PhoneDetail
-            GROUP BY SnPeopel)a on PSN=a.SnPeopel
-            where PSN not in ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 AND customer_id is not null)
-            AND PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null AND state=1)
-            AND PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null AND returnState=1)
-            AND CompanyNo=5 AND IsActive=1
-            AND GroupCode IN(291,297,299,312,313,314) AND Name like N'%$searchTerm%' AND SnMantagheh like '%$snMantagheh%'");
+    $evacuatedCustomers=DB::select("SELECT Name,dbo.getCustomerPhone(PSN)as PhoneStr FROM Shop.dbo.Peopels
+                            WHERE PSN not in ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 AND customer_id is not null)
+                            AND PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null AND state=1)
+                            AND PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null AND returnState=1)
+                            AND CompanyNo=5 AND IsActive=1
+                            AND GroupCode IN(291,297,299,312,313,314) AND Name like N'%$searchTerm%' AND SnMantagheh like '%$snMantagheh%'");
         return Response::json($evacuatedCustomers);
 }
 
@@ -3306,5 +3303,183 @@ public function orderLogins(Request $request){
     WHERE SnMantagheh like N'%$snMantagheh%' and Name like N'%$searchTerm%'
         order by '$baseName' desc");
     return Response::json($logins);
+    }
+
+    public function filterNoAdmins(Request $request){
+        $buyState=$request->get("boughtState");
+        $customers=DB::select("SELECT * FROM (SELECT CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr,CRM.dbo.getLastDateFactor(PSN) as LastDate,*,CRM.dbo.checkBoughtOrNot(PSN,$buyState) as buyOrNot FROM Shop.dbo.Peopels) a
+                                WHERE PSN not in ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 AND customer_id is not null)
+                                AND PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null AND state=1)
+                                AND PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null AND returnState=1)
+                                AND CompanyNo=5
+                                AND GroupCode IN(291,297,299,312,313,314) and buyOrNot=$buyState");
+        return Response::json($customers);
+    }
+
+    public function filterReturneds(Request $request){
+        $buyState=$request->get("buyState");
+        $returnName=$request->get("returner");
+        $customers=DB::select("SELECT * FROM (SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr,CRM.dbo.checkBoughtOrNot(PSN,$buyState) as buyOrNot FROM Shop.dbo.Peopels 
+                                    JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
+                                    JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId)C
+                                    WHERE returnState=1 and adminName like N'%$returnName%' and buyOrNot=$buyState ORDER BY returnDate DESC");
+        return Response::json($customers);
+    }
+    public function getHistroyLogins(Request $request){
+        $history=$request->get("history");
+        $customers;
+        if($history=="TODAY"){
+            $customers=DB::select("SELECT lastVisit,PSN,countLogin,Name,platform,browser,firstVisit,visitDate,countSameTime FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT MAX(visitDate) as lastVisit,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)a
+                JOIN   (SELECT Name,PSN,GroupCode FROM Shop.dbo.Peopels)b
+                ON a.customerId=b.PSN)c
+                JOIN   (SELECT COUNT(id) as countLogin,customerId as csn FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)d ON c.customerId=d.csn)e
+                JOIN   (SELECT visitDate,browser,platform,customerId as cid FROM NewStarfood.dbo.star_customerTrack)f ON e.lastVisit=f.visitDate)g
+                JOIN   (SELECT MIN(visitDate) as firstVisit,customerId as CUSTOMERID2 FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)h ON g.PSN=h.CUSTOMERID2)i
+                left join (select count(customerId) as countSameTime,customerId from NewStarfood.dbo.star_customerSession1 group by customerId)j on j.customerId=i.PSN
+
+                where CONVERT(date,lastVisit)=convert(date,CURRENT_TIMESTAMP)
+                order by lastVisit desc");
+        }
+        if($history=="YESTERDAY"){
+            $customers=DB::select("SELECT lastVisit,PSN,countLogin,Name,platform,browser,firstVisit,visitDate,countSameTime FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT MAX(visitDate) as lastVisit,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)a
+                JOIN   (SELECT Name,PSN,GroupCode FROM Shop.dbo.Peopels)b
+                ON a.customerId=b.PSN)c
+                JOIN   (SELECT COUNT(id) as countLogin,customerId as csn FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)d ON c.customerId=d.csn)e
+                JOIN   (SELECT visitDate,browser,platform,customerId as cid FROM NewStarfood.dbo.star_customerTrack)f ON e.lastVisit=f.visitDate)g
+                JOIN   (SELECT MIN(visitDate) as firstVisit,customerId as CUSTOMERID2 FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)h ON g.PSN=h.CUSTOMERID2)i
+                left join (select count(customerId) as countSameTime,customerId from NewStarfood.dbo.star_customerSession1 group by customerId)j on j.customerId=i.PSN
+
+				where CONVERT(date,lastVisit)=DATEADD(DAY,-1,convert(date,GETDATE()))
+                order by lastVisit desc");
+        }
+
+        if($history=="LASTHUNDRED"){
+            $customers=DB::select("SELECT top 100 lastVisit,PSN,countLogin,Name,platform,browser,firstVisit,visitDate,countSameTime FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT MAX(visitDate) as lastVisit,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)a
+                JOIN   (SELECT Name,PSN,GroupCode FROM Shop.dbo.Peopels)b
+                ON a.customerId=b.PSN)c
+                JOIN   (SELECT COUNT(id) as countLogin,customerId as csn FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)d ON c.customerId=d.csn)e
+                JOIN   (SELECT visitDate,browser,platform,customerId as cid FROM NewStarfood.dbo.star_customerTrack)f ON e.lastVisit=f.visitDate)g
+                JOIN   (SELECT MIN(visitDate) as firstVisit,customerId as CUSTOMERID2 FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)h ON g.PSN=h.CUSTOMERID2)i
+                left join (select count(customerId) as countSameTime,customerId from NewStarfood.dbo.star_customerSession1 group by customerId)j on j.customerId=i.PSN
+                order by lastVisit desc");  
+        }
+
+        if($history=="ALL"){
+            $customers=DB::select("SELECT lastVisit,PSN,countLogin,Name,platform,browser,firstVisit,visitDate,countSameTime FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT * FROM(
+                SELECT MAX(visitDate) as lastVisit,customerId FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)a
+                JOIN   (SELECT Name,PSN,GroupCode FROM Shop.dbo.Peopels)b
+                ON a.customerId=b.PSN)c
+                JOIN   (SELECT COUNT(id) as countLogin,customerId as csn FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)d ON c.customerId=d.csn)e
+                JOIN   (SELECT visitDate,browser,platform,customerId as cid FROM NewStarfood.dbo.star_customerTrack)f ON e.lastVisit=f.visitDate)g
+                JOIN   (SELECT MIN(visitDate) as firstVisit,customerId as CUSTOMERID2 FROM NewStarfood.dbo.star_customerTrack GROUP BY    customerId)h ON g.PSN=h.CUSTOMERID2)i
+                left join (select count(customerId) as countSameTime,customerId from NewStarfood.dbo.star_customerSession1 group by customerId)j on j.customerId=i.PSN
+                order by lastVisit desc");  
+        }
+
+        return Response::json($customers);
+    }
+
+    public function getReferencialReport(Request $request){
+        $history=$request->get("history");
+        $customers;
+        if($history=="TODAY"){
+            $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM Shop.dbo.Peopels 
+            JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
+            JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId
+            WHERE returnState=1 and convert(date,returnDate)=dateadd(day,1,convert(date,getdate())) ORDER BY returnDate DESC");
+        }
+        if($history=="YESTERDAY"){
+            $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM Shop.dbo.Peopels 
+            JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
+            JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId
+            WHERE returnState=1 and convert(date,returnDate)=dateadd(day,-1,convert(date,getdate())) ORDER BY returnDate DESC");
+        }
+
+        if($history=="LASTHUNDRED"){
+            $customers=DB::select("SELECT top 100 *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM Shop.dbo.Peopels 
+            JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
+            JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId
+            WHERE returnState=1 ORDER BY returnDate DESC");  
+        }
+
+        if($history=="ALL"){
+            $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM Shop.dbo.Peopels 
+            JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
+            JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId
+            WHERE returnState=1 ORDER BY returnDate DESC");  
+        }
+
+        return Response::json($customers);
+
+    }
+
+    public function getInactiveReport(Request $request){
+        $history=$request->get("history");
+        $customers;
+        if($history=="TODAY"){
+            $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM (
+                SELECT * FROM (
+                SELECT * FROM (
+                SELECT * FROM CRM.dbo.crm_inactiveCustomer
+                JOIN(SELECT name,lastName,id as admin_id FROM CRM.dbo.crm_admin)a ON a.admin_id=adminId)b
+                JOIN (SELECT Name as CustomerName,PSN,PCode,SnMantagheh FROM Shop.dbo.Peopels)c ON c.PSN=b.customerId)d
+                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM)e ON d.SnMantagheh=e.SnMNM)f
+                WHERE  state=1 and CONVERT(DATE,TimeStamp)=CONVERT(DATE,GETDATE()) order by TimeStamp desc");
+        }
+        if($history=="YESTERDAY"){
+            $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM (
+                SELECT * FROM (
+                SELECT * FROM (
+                SELECT * FROM CRM.dbo.crm_inactiveCustomer
+                JOIN(SELECT name,lastName,id as admin_id FROM CRM.dbo.crm_admin)a ON a.admin_id=adminId)b
+                JOIN (SELECT Name as CustomerName,PSN,PCode,SnMantagheh FROM Shop.dbo.Peopels)c ON c.PSN=b.customerId)d
+                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM)e ON d.SnMantagheh=e.SnMNM)f
+                WHERE  state=1 and CONVERT(DATE,TimeStamp)=DATEADD(DAY,-1,CONVERT(DATE,GETDATE())) order by TimeStamp desc");
+        }
+
+        if($history=="LASTHUNDRED"){
+            $customers=DB::select("					SELECT TOP 100 *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM (
+                SELECT * FROM (
+                SELECT * FROM (
+                SELECT * FROM CRM.dbo.crm_inactiveCustomer
+                JOIN(SELECT name,lastName,id as admin_id FROM CRM.dbo.crm_admin)a ON a.admin_id=adminId)b
+                JOIN (SELECT Name as CustomerName,PSN,PCode,SnMantagheh FROM Shop.dbo.Peopels)c ON c.PSN=b.customerId)d
+                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM)e ON d.SnMantagheh=e.SnMNM)f
+                
+                WHERE  state=1 order by TimeStamp desc");  
+        }
+
+        if($history=="ALL"){
+            $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM (
+                SELECT * FROM (
+                SELECT * FROM (
+                SELECT * FROM CRM.dbo.crm_inactiveCustomer
+                JOIN(SELECT name,lastName,id as admin_id FROM CRM.dbo.crm_admin)a ON a.admin_id=adminId)b
+                JOIN (SELECT Name as CustomerName,PSN,PCode,SnMantagheh FROM Shop.dbo.Peopels)c ON c.PSN=b.customerId)d
+                JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM)e ON d.SnMantagheh=e.SnMNM)f
+                
+                WHERE  state=1 order by TimeStamp desc");  
+        }
+
+        return Response::json($customers);
     }
 }

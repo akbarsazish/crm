@@ -616,24 +616,16 @@ SELECT * FROM (
     public function report(){
 		$amdins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  adminType=2 and deleted=0");
 		$inActiverAdmins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  (adminType=1 or adminType=5) and deleted=0");
-        $customers=DB::select("SELECT * FROM(
-            SELECT * FROM (
-                SELECT * FROM (
-                SELECT * FROM (SELECT PSN,Name,peopeladdress,CompanyNo,GroupCode,IsActive FROM Shop.dbo.Peopels) a
-                left JOIN   (
-                SELECT COUNT(SerialNoHDS) as countFactor,FactorHDS.CustomerSn FROM Shop.dbo.FactorHDS where FactType=3 GROUP BY    FactorHDS.CustomerSn) b ON a.PSN=b.CustomerSn )c
-                left join(SELECT MAX(FactorHDS.FactDate)as lastDate,CustomerSn as customerId FROM Shop.dbo.FactorHDS GROUP BY    FactorHDS.CustomerSn
-                )d
-                ON d.customerId=c.PSN )e
-                left JOIN   (SELECT customer_id,admin_id,name as adminName,lastName,returnState FROM CRM.dbo.crm_customer_added JOIN   CRM.dbo.crm_admin ON CRM.dbo.crm_customer_added.admin_id=crm_admin.id where returnState=0)f ON f.customer_id=e.PSN
+        $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr,CRM.dbo.getLastDateFactor(PSN) as lastDate  FROM (
+                                SELECT * FROM (
+                                SELECT * FROM (SELECT PSN,Name,peopeladdress,CompanyNo,GroupCode,IsActive FROM Shop.dbo.Peopels) a
+                                left JOIN   (
+                                SELECT COUNT(SerialNoHDS) as countFactor,FactorHDS.CustomerSn FROM Shop.dbo.FactorHDS where FactType=3 GROUP BY    FactorHDS.CustomerSn) b ON a.PSN=b.CustomerSn )e
+                                left JOIN   (SELECT customer_id,admin_id,name as adminName,lastName,returnState FROM CRM.dbo.crm_customer_added JOIN   CRM.dbo.crm_admin ON CRM.dbo.crm_customer_added.admin_id=crm_admin.id where returnState=0)f ON f.customer_id=e.PSN
 
-                )g
-                JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-                FROM Shop.dbo.PhoneDetail
-                GROUP BY SnPeopel)p on p.SnPeopel=g.PSN
-                left join(select state,customerId as csn from CRM.dbo.crm_inactiveCustomer)h on g.customerId=h.csn
-                WHERE  g.GroupCode IN (291,297,299,312,313,314) and g.CompanyNo=5 ORDER BY countFactor desc
-                ");
+                                )g
+                                left join(select state,customerId as csn from CRM.dbo.crm_inactiveCustomer)h on g.customer_id=h.csn
+                                WHERE  g.GroupCode IN (291,297,299,312,313,314) and g.CompanyNo=5 ");
         $cities=DB::table("Shop.dbo.MNM")->where("Rectype",1)->where("FatherMNM",79)->get();
 
 
@@ -659,23 +651,19 @@ SELECT * FROM (
                 ->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType")
                 ->get();
 
-        $inActiveCustomers=DB::select("SELECT * FROM (
+        $inActiveCustomers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM (
                     SELECT * FROM (
                     SELECT * FROM (
                     SELECT * FROM CRM.dbo.crm_inactiveCustomer
                     JOIN(SELECT name,lastName,id as admin_id FROM CRM.dbo.crm_admin)a ON a.admin_id=adminId)b
                     JOIN (SELECT Name as CustomerName,PSN,PCode,SnMantagheh FROM Shop.dbo.Peopels)c ON c.PSN=b.customerId)d
                     JOIN (SELECT SnMNM,NameRec FROM Shop.dbo.MNM)e ON d.SnMantagheh=e.SnMNM)f
-                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-                    FROM Shop.dbo.PhoneDetail
-                    GROUP BY SnPeopel)p on p.SnPeopel=f.PSN
+                    
                     WHERE  state=1");
             // evacuated customer query
 
-            $evacuatedCustomers=DB::select("SELECT * FROM Shop.dbo.Peopels
-               JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-                FROM Shop.dbo.PhoneDetail
-                GROUP BY SnPeopel)a on PSN=a.SnPeopel
+            $evacuatedCustomers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr,CRM.dbo.getLastDateFactor(PSN) as LastDate FROM Shop.dbo.Peopels
+               
                 where PSN not in ( SELECT distinct customer_id FROM CRM.dbo.crm_customer_added where returnState=0 and customer_id is not null)
                 and PSN not in (SELECT customerId FROM CRM.dbo.crm_inactiveCustomer where customerId is not null and state=1)
                 and PSN not in(SELECT customerId FROM CRM.dbo.crm_returnCustomer where customerId is not null and returnState=1)
@@ -691,12 +679,9 @@ SELECT * FROM (
                 ->select("crm_admin.id","crm_admin.name","crm_admin.lastName",
                 "crm_admin.adminType as adminTypeId","crm_adminType.adminType")->get();
 
-            $referencialCustomers=DB::select("SELECT * FROM Shop.dbo.Peopels 
+            $referencialCustomers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN)as PhoneStr FROM Shop.dbo.Peopels 
                                                     JOIN (SELECT DISTINCT name AS adminName,lastName AS adminLastName,crm_admin.id AS adminId,customerId,returnDate,returnState FROM CRM.dbo.crm_returnCustomer 
                                                     JOIN CRM.dbo.crm_admin ON crm_returnCustomer.adminId=crm_admin.id)a ON PSN=a.customerId
-                                                    JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
-                                                    FROM Shop.dbo.PhoneDetail
-                                                    GROUP BY SnPeopel)p on p.SnPeopel=PSN 
                                                     WHERE returnState=1 ORDER BY returnDate DESC");
 
             $returnerAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin 

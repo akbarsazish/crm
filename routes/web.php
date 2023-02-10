@@ -317,3 +317,8 @@ Route::get('/orderInActiveCustomers',[Customer::class,'orderInActiveCustomers'])
 Route::get('/orderReturned',[Customer::class,'orderReturned'])->middleware('CheckCommon');
 Route::get('/orderwithoutAdmins',[Customer::class,'orderwithoutAdmins'])->middleware('CheckCommon');
 Route::get('/orderLogins',[Customer::class,'orderLogins'])->middleware('CheckCommon');
+Route::get('/filterNoAdmins',[Customer::class,'filterNoAdmins'])->middleware('CheckCommon');
+Route::get('/filterReturneds',[Customer::class,'filterReturneds'])->middleware('CheckCommon');
+Route::get('/getHistroyLogins',[Customer::class,'getHistroyLogins'])->middleware('CheckCommon');
+Route::get('/getReferencialReport',[Customer::class,'getReferencialReport'])->middleware('CheckCommon');
+Route::get('/getInactiveReport',[Customer::class,'getInactiveReport'])->middleware('CheckCommon');

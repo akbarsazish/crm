@@ -171,13 +171,13 @@
                     </div>
 
                     <!-- evacuated Customers tools -->
-                     <div class="row evcuatedCustomer">
-                           
+                    <div class="row evcuatedCustomer">
                         <div class="form-group col-sm-12 mb-1">
+                            <label class="form-label">وضعیت خرید</label>
                             <select class="form-select form-select-sm" id="buyOrNot">
-                                <option value="-1"> خرید  </option>
-                                <option value="2"> دارد </option>
-                                <option value="1"> ندارد </option>
+                                <option value="-1">همه</option>
+                                <option value="1">دارد</option>
+                                <option value="0">ندارد</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-12 mb-1">
@@ -187,35 +187,31 @@
                             <input type="text" name=""  placeholder="تا تاریخ" class="form-control form-control-sm" id="searchEmptySecondDate">
                         </div>
                         <div class="form-group col-sm-12 mb-1">
-                            <button class='btn btn-primary btn-sm text-warning' type="submit"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                            <button class='btn btn-primary btn-sm text-warning' type="button" id="filterNoAdminsBtn"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                         </div>
                     </div>
 
                  <!-- referencial tools  -->
                         <div class="row referencialTools">
-                            <div class="form-group col-sm-12 mb-2">
-                                <input type="text" name="" placeholder="ازتاریخ" class="form-control form-control-sm" id="firstDateReturned">
-                            </div>
-                            <div class="form-group col-sm-12 mb-2">
-                                <input type="text" name="" placeholder="تا تاریخ" class="form-control form-control-sm" id="secondDateReturned">
-                            </div>
                             <div class="form-group col-sm-12 mb-1">
-                                <select class="form-select form-select-sm" id="buyOrNot">
-                                    <option value="-1"> خرید  </option>
-                                    <option value="2"> دارد </option>
-                                    <option value="1"> ندارد </option>
+                                <label class="form-label">وضعیت خرید</label>
+                                <select class="form-select form-select-sm" id="buyState">
+                                    <option value="-1"> همه  </option>
+                                    <option value="1"> دارد </option>
+                                    <option value="0"> ندارد </option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-12 mb-2">
-                                <select class="form-select form-select-sm" id="searchByReturner">
-                                    <option value="0">کاربر ارجاع دهنده</option>
+                                <label class="form-label">کاربر ارجاع دهنده</label>
+                                <select class="form-select form-select-sm" id="returner">
+                                    <option value="">همه</option>  
                                     @foreach ($returners as $returner)
-                                        <option value="{{$returner->id}}">{{$returner->name.' '.$returner->lastName}}</option>  
+                                        <option value="{{$returner->name}}">{{$returner->name.' '.$returner->lastName}}</option>  
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-sm-12 mb-1">
-                                <button class='btn btn-primary btn-sm text-warning' type="submit"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
+                                <button class='btn btn-primary btn-sm text-warning' id="filterReturnedsBtn" type="button"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                             </div>
                         </div>
                     </fieldset>
@@ -440,6 +436,7 @@
                                     <th style="width:66px;">کد</th>
                                     <th style="width:333px;">آدرس  </th>
                                     <th>همراه</th>
+                                    <th>آخرین تاریخ </th>
                                     <th>انتخاب</th>
                                 </tr>
                             </thead>
@@ -451,13 +448,14 @@
                                         <td style="width:66px;">{{$customer->PCode}}</td>
                                         <td style="width:333px;">{{$customer->peopeladdress}}</td>
                                         <td>{{$customer->PhoneStr}}</td>
+                                        <td>{{$customer->LastDate}}</td>
                                         <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="{{$customer->PSN}}"></td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                             <div class="grid-today rounded-2">
-                                <div class="today-item"> <span style="color:red; font-weight:bold;">  تاریخ آخرین فاکتور : </span> <span id="loginTimeToday"></span>  </div>
+                                <div class="today-item"><span style="color:red; font-weight:bold;">تاریخ آخرین فاکتور:</span><span id="loginTimeToday"></span></div>
                             </div>
                         </div>
 
@@ -497,20 +495,20 @@
                       </div>
                        <div class="row contentFooter"> 
                             <div class="col-lg-12 text-start mt-2">
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> امروز  : </button>
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> دیروز : </button>
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> صد تای آخر : 100</button>
-                                <button type="button" class="btn btn-sm btn-primary loginReport"> همه : </button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('TODAY')"> امروز  : </button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('YESTERDAY')"> دیروز : </button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('LASTHUNDRED')"> صد تای آخر : 100</button>
+                                <button type="button" class="btn btn-sm btn-primary loginReport" onclick="getLoginReport('ALL')"> همه : </button>
 
-                                <button type="button" class="btn btn-sm btn-primary referencialReport"> امروز  : </button>
-                                <button type="button" class="btn btn-sm btn-primary referencialReport"> دیروز : </button>
-                                <button type="button" class="btn btn-sm btn-primary referencialReport"> صد تای آخر : 100 </button>
-                                <button type="button" class="btn btn-sm btn-primary referencialReport"> همه : </button>
+                                <button type="button" class="btn btn-sm btn-primary referencialReport" onclick="getReferencialReport('TODAY')"> امروز  : </button>
+                                <button type="button" class="btn btn-sm btn-primary referencialReport" onclick="getReferencialReport('YESTERDAY')"> دیروز : </button>
+                                <button type="button" class="btn btn-sm btn-primary referencialReport" onclick="getReferencialReport('LASTHUNDRED')"> صد تای آخر : 100 </button>
+                                <button type="button" class="btn btn-sm btn-primary referencialReport" onclick="getReferencialReport('ALL')"> همه : </button>
 
-                                <button type="button" class="btn btn-sm btn-primary inactiveReport"> امروز  : </button>
-                                <button type="button" class="btn btn-sm btn-primary inactiveReport"> دیروز : </button>
-                                <button type="button" class="btn btn-sm btn-primary inactiveReport"> صد تای آخر : 100 </button>
-                                <button type="button" class="btn btn-sm btn-primary inactiveReport"> همه : </button>
+                                <button type="button" class="btn btn-sm btn-primary inactiveReport" onclick="getInactiveReport('TODAY')"> امروز  : </button>
+                                <button type="button" class="btn btn-sm btn-primary inactiveReport" onclick="getInactiveReport('YESTERDAY')"> دیروز : </button>
+                                <button type="button" class="btn btn-sm btn-primary inactiveReport" onclick="getInactiveReport('LASTHUNDRED')"> صد تای آخر : 100 </button>
+                                <button type="button" class="btn btn-sm btn-primary inactiveReport" onclick="getInactiveReport('ALL')"> همه : </button>
                            </div>
                     </div>
              </div>
