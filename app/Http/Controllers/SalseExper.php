@@ -809,4 +809,5 @@ public function getAdminType($adminId)
     $adminType=DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->get()[0]->adminType;
     return $adminType;
 }
+
 }

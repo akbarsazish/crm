@@ -79,7 +79,6 @@
                                         </a>
                                         <ul>
                                         <li class=''><a class="mySidenav__item" href="{{url('/listKarbaran')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; لیست کاربران</span></a> </li>
-                                            <li class=''><a class="mySidenav__item" href="#"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; لیست موارد </span></a> </li>
                                         </ul>
                                     </li>
 

@@ -457,6 +457,7 @@ function showFactorDetails(element) {
     let input = $(element).find("input:radio");
     $("tr").removeClass("selected");
     $(element).parent("tr").toggleClass("selected");
+    alert(input.val())
     $.ajax({
         method: "get",
         url: baseUrl + "/getFactorDetail",
@@ -466,6 +467,7 @@ function showFactorDetails(element) {
         },
         async: true,
         success: function (arrayed_result) {
+            console.log(arrayed_result)
             let factor = arrayed_result[0];
             if (arrayed_result[0]) {
                 $("#factorDate").text(factor.FactDate);
@@ -4484,6 +4486,7 @@ function returnedCustomerStuff(element) {
     $("#customerSn").val(input.val().split("_")[0]);
     $("#adminSn").val(input.val().split("_")[1]);
     $(".enableBtn").prop("disabled", false);
+    $(".enableBtn").val(input.val().split("_")[0]);
 }
 
 $("#returnCustomer").on("click", () => {
@@ -5138,6 +5141,8 @@ $("#takhsisButton").on("click", () => {
 function setInActiveCustomerStuff(element) {
     let input = $(element).find("input:radio").prop("checked", true);
     $("#customerSn").val(input.val());
+    $(".enableBtn").val(input.val());
+    $(".enableBtn").prop("disabled",false);
 }
 
 $("#inactiveCustomerForm").submit(function (e) {
@@ -6315,55 +6320,488 @@ $("#searchEmptyPCode").on("keyup", () => {
 
 $("#searchAllName").on("keyup", () => {
     let searchTerm = $("#searchAllName").val();
-    $.ajax({
-        method: "get",
-        url: baseUrl + "/searchAllCustomerByName",
-        data: {
-            _token: "{{ csrf_token() }}",
-            searchTerm: searchTerm,
-        },
-        async: true,
-        success: function (msg) {
+    snMantagheh=$("#searchByMantagheh").val();
+    if($(".reportRadio:checked").val()=="all"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchAllCustomerByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
             $("#allCustomerReportyBody").empty();
             msg.forEach((element, index) => {
-                $("#allCustomerReportyBody").append(
-                    `
-        <tr  onclick="setAlarmCustomerStuff(this)">
-        <td>` +
-                        (index + 1) +
-                        `</td>
-        <td>` +
-                        element.Name +
-                        `</td>
-        <td>` +
-                        element.hamrah +
-                        ` ` +
-                        element.sabit +
-                        `</td>
-        <td>` +
-                        element.peopeladdress +
-                        `</td>
-        <td>` +
-                        element.countFactor +
-                        `</td>
-        <td>` +
-                        element.lastDate +
-                        `</td>
-        <td>هنوز نیست</td>
-        <td style="width:60px">` +
-                        element.adminName +
-                        ` ` +
-                        element.lastName +
-                        `</td>
-        <td> <input class="customerList form-check-input" name="customerId" type="radio" value="` +
-                        element.PSN +
-                        `"></td>
-    </tr>`
-                );
-            });
-        },
-        error: function (data) {},
-    });
+                $checkState="disabled";
+                if(element.state==1){
+                    $checkState="checked"
+                }
+                    $("#allCustomerReportyBody").append(`
+                        <tr  onclick="setAmalkardStuff(this,`+element.PSN+`)">
+                            <td >` +(index + 1) + `</td>
+                            <td style="width:333px">` +element.Name + `</td>
+                            <td style="width:177px">` +element.PhoneStr+`</td>
+                            <td>` +element.lastDate +`</td>
+                            <td>` +element.adminName+` `+element.lastName +`</td>
+                            <td  style="width:66px"><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                            <td><input type="checkbox" `+$checkState+` /></td>
+                        </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="inactive"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchInActivesByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#inactiveCustomerBody").empty();
+            msg.forEach((element, index) => {
+                    $("#inactiveCustomerBody").append(`
+                                <tr onclick="setInActiveCustomerStuff(this,`+element.PSN+`)">
+                                    <td>`+(index+1)+`</td>
+                                    <td>`+element.CustomerName+`</td>
+                                    <td  style="width:99px">`+element.PhoneStr+`</td>
+                                    <td style="width:133px">`+moment(element.TimeStamp, "YYYY-M-D HH:mm:ss")
+                                    .locale("fa")
+                                    .format("HH:mm:ss YYYY/M/D")+`</td>
+                                    <td style="width:133px">`+element.name+` `+element.lastName+`</td>
+                                    <td  style="font-size:12px;">`+element.comment+`</td>
+                                    <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                                </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="returned"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchReturnedByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#returnedCustomerList").empty();
+            msg.forEach((element, index) => {
+                    $("#returnedCustomerList").append(`
+                            <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                <td>`+(index+1)+`</td>
+                                <td style="width:188px; font-size:12px">`+element.Name+`</td>
+                                <td style="width:144px;">`+element.PhoneStr+`</td>
+                                <td style="width:133px;">`+element.adminName+` `+element.adminLastName+`</td>
+                                <td style="width:88px;">`+moment(element.returnDate, "YYYY-M-D HH:mm:ss")
+                                .locale("fa")
+                                .format("HH:mm:ss YYYY/M/D")+`</td>
+                                <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`_`+element.adminId+`"></td>
+                            </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="noAdmin"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/withoutAdmins",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#evacuatedCustomers").empty();
+            msg.forEach((element, index) => {
+                    $("#evacuatedCustomers").append(`
+                                    <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                        <td>`+(index+1)+`</td>
+                                        <td>`+element.Name+`</td>
+                                        <td style="width:66px;">`+element.PCode+`</td>
+                                        <td style="width:333px;">`+element.peopeladdress+`</r->td>
+                                        <td>`+element.PhoneStr+`</td>
+                                        <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`"></td>
+                                    </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="login"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchLoginsByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#listVisitorBody").empty();
+            msg.forEach((element, index) => {
+                    $("#listVisitorBody").append(`
+                    <tr onclick="setAmalkardStuff(this,`+element.PSN+`)">
+                        <td >`+(index+1)+`</td>
+                        <td > </td>
+                        <td >`+moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
+                        .locale("fa")
+                        .format("HH:mm:ss YYYY/M/D")+`</td>
+                        <td style="width:244px">`+element.Name+`</td>
+                        <td >`+element.platform+`</td>
+                        <td >`+element.browser+`</td>
+                        <td   style="width:77px">`+element.countLogin+`</td>
+                        <td>`+element.countSameTime+`</td>
+                    </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+});
+
+$("#searchByMantagheh").on("change", () => {
+    let searchTerm = $("#searchAllName").val();
+    snMantagheh=$("#searchByMantagheh").val();
+    if($(".reportRadio:checked").val()=="all"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchAllCustomerByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+            $("#allCustomerReportyBody").empty();
+            msg.forEach((element, index) => {
+                $checkState="disabled";
+                if(element.state==1){
+                    $checkState="checked"
+                }
+                    $("#allCustomerReportyBody").append(`
+                        <tr  onclick="setAmalkardStuff(this,`+element.PSN+`)">
+                            <td >` +(index + 1) + `</td>
+                            <td style="width:333px">` +element.Name + `</td>
+                            <td style="width:177px">` +element.PhoneStr+`</td>
+                            <td>` +element.lastDate +`</td>
+                            <td>` +element.adminName+` `+element.lastName +`</td>
+                            <td  style="width:66px"><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                            <td><input type="checkbox" `+$checkState+` /></td>
+                        </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="inactive"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchInActivesByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#inactiveCustomerBody").empty();
+            msg.forEach((element, index) => {
+                    $("#inactiveCustomerBody").append(`
+                                <tr onclick="setInActiveCustomerStuff(this,`+element.PSN+`)">
+                                    <td>`+(index+1)+`</td>
+                                    <td>`+element.CustomerName+`</td>
+                                    <td  style="width:99px">`+element.PhoneStr+`</td>
+                                    <td style="width:133px">`+moment(element.TimeStamp, "YYYY-M-D HH:mm:ss")
+                                    .locale("fa")
+                                    .format("HH:mm:ss YYYY/M/D")+`</td>
+                                    <td style="width:133px">`+element.name+` `+element.lastName+`</td>
+                                    <td  style="font-size:12px;">`+element.comment+`</td>
+                                    <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                                </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="returned"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchReturnedByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#returnedCustomerList").empty();
+            msg.forEach((element, index) => {
+                    $("#returnedCustomerList").append(`
+                            <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                <td>`+(index+1)+`</td>
+                                <td style="width:188px; font-size:12px">`+element.Name+`</td>
+                                <td style="width:144px;">`+element.PhoneStr+`</td>
+                                <td style="width:133px;">`+element.adminName+` `+element.adminLastName+`</td>
+                                <td style="width:88px;">`+moment(element.returnDate, "YYYY-M-D HH:mm:ss")
+                                .locale("fa")
+                                .format("HH:mm:ss YYYY/M/D")+`</td>
+                                <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`_`+element.adminId+`"></td>
+                            </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="noAdmin"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/withoutAdmins",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#evacuatedCustomers").empty();
+            msg.forEach((element, index) => {
+                    $("#evacuatedCustomers").append(`
+                                    <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                        <td>`+(index+1)+`</td>
+                                        <td>`+element.Name+`</td>
+                                        <td style="width:66px;">`+element.PCode+`</td>
+                                        <td style="width:333px;">`+element.peopeladdress+`</r->td>
+                                        <td>`+element.PhoneStr+`</td>
+                                        <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`"></td>
+                                    </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="login"){
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/searchLoginsByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#listVisitorBody").empty();
+            msg.forEach((element, index) => {
+                    $("#listVisitorBody").append(`
+                    <tr onclick="setAmalkardStuff(this,`+element.PSN+`)">
+                        <td >`+(index+1)+`</td>
+                        <td > </td>
+                        <td >`+moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
+                        .locale("fa")
+                        .format("HH:mm:ss YYYY/M/D")+`</td>
+                        <td style="width:244px">`+element.Name+`</td>
+                        <td >`+element.platform+`</td>
+                        <td >`+element.browser+`</td>
+                        <td   style="width:77px">`+element.countLogin+`</td>
+                        <td>`+element.countSameTime+`</td>
+                    </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+});
+
+
+$(".orderReport").on("change", () => {
+    let searchTerm = $("#searchAllName").val();
+    snMantagheh=$("#searchByMantagheh").val();
+    let baseName;
+    if($(".reportRadio:checked").val()=="all"){
+        baseName=$("#orderAllCustomers").val();
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/orderAllCustomerByName",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh,
+                baseName
+            },
+            async: true,
+            success: function (msg) {
+            $("#allCustomerReportyBody").empty();
+            msg.forEach((element, index) => {
+                $checkState="disabled";
+                if(element.state==1){
+                    $checkState="checked"
+                }
+                    $("#allCustomerReportyBody").append(`
+                        <tr  onclick="setAmalkardStuff(this,`+element.PSN+`)">
+                            <td >` +(index + 1) + `</td>
+                            <td style="width:333px">` +element.Name + `</td>
+                            <td style="width:177px">` +element.PhoneStr+`</td>
+                            <td>` +element.lastDate +`</td>
+                            <td>` +element.adminName+` `+element.lastName +`</td>
+                            <td  style="width:66px"><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                            <td><input type="checkbox" `+$checkState+` /></td>
+                        </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="inactive"){
+        baseName=$("#orderInActiveCustomers").val();
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/orderInActiveCustomers",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh,
+                baseName:baseName
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#inactiveCustomerBody").empty();
+            msg.forEach((element, index) => {
+                    $("#inactiveCustomerBody").append(`
+                                <tr onclick="setInActiveCustomerStuff(this,`+element.PSN+`)">
+                                    <td>`+(index+1)+`</td>
+                                    <td>`+element.CustomerName+`</td>
+                                    <td  style="width:99px">`+element.PhoneStr+`</td>
+                                    <td style="width:133px">`+moment(element.TimeStamp, "YYYY-M-D HH:mm:ss")
+                                    .locale("fa")
+                                    .format("HH:mm:ss YYYY/M/D")+`</td>
+                                    <td style="width:133px">`+element.name+` `+element.lastName+`</td>
+                                    <td  style="font-size:12px;">`+element.comment+`</td>
+                                    <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                                </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="returned"){
+        baseName=$("#orderReportCustomers").val();
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/orderReturned",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh,
+                baseName:baseName
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#returnedCustomerList").empty();
+            msg.forEach((element, index) => {
+                    $("#returnedCustomerList").append(`
+                            <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                <td>`+(index+1)+`</td>
+                                <td style="width:188px; font-size:12px">`+element.Name+`</td>
+                                <td style="width:144px;">`+element.PhoneStr+`</td>
+                                <td style="width:133px;">`+element.adminName+` `+element.adminLastName+`</td>
+                                <td style="width:88px;">`+moment(element.returnDate, "YYYY-M-D HH:mm:ss")
+                                .locale("fa")
+                                .format("HH:mm:ss YYYY/M/D")+`</td>
+                                <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`_`+element.adminId+`"></td>
+                            </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="noAdmin"){
+        baseName=$("#orderNoAdminCustomers").val();
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/orderwithoutAdmins",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh,
+                baseName:baseName
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#evacuatedCustomers").empty();
+            msg.forEach((element, index) => {
+                    $("#evacuatedCustomers").append(`
+                                    <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                        <td>`+(index+1)+`</td>
+                                        <td>`+element.Name+`</td>
+                                        <td style="width:66px;">`+element.PCode+`</td>
+                                        <td style="width:333px;">`+element.peopeladdress+`</r->td>
+                                        <td>`+element.PhoneStr+`</td>
+                                        <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`"></td>
+                                    </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
+    if($(".reportRadio:checked").val()=="login"){
+        baseName=$("#orderLoginCustomers").val();
+        $.ajax({
+            method: "get",
+            url: baseUrl + "/orderLogins",
+            data: {
+                _token: "{{ csrf_token() }}",
+                searchTerm: searchTerm,
+                SnMantagheh:snMantagheh,
+                baseName:baseName
+            },
+            async: true,
+            success: function (msg) {
+                console.log(msg)
+            $("#listVisitorBody").empty();
+            msg.forEach((element, index) => {
+                    $("#listVisitorBody").append(`
+                    <tr onclick="setAmalkardStuff(this,`+element.PSN+`)">
+                        <td >`+(index+1)+`</td>
+                        <td > </td>
+                        <td >`+moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
+                        .locale("fa")
+                        .format("HH:mm:ss YYYY/M/D")+`</td>
+                        <td style="width:244px">`+element.Name+`</td>
+                        <td >`+element.platform+`</td>
+                        <td >`+element.browser+`</td>
+                        <td   style="width:77px">`+element.countLogin+`</td>
+                        <td>`+element.countSameTime+`</td>
+                    </tr>`);
+                });
+            },
+            error: function (data) {},
+        });
+    }
 });
 
 $("#searchByAdmin").on("change", () => {
@@ -6537,72 +6975,58 @@ $("#searchAllActiveOrNot").on("change", () => {
     }
 });
 
-$("#searchByMantagheh").on("change", () => {
-    $.ajax({
-        method: "get",
-        url: baseUrl + "/searchAllCustomerByMantagheh",
-        data: {
-            _token: "{{ csrf_token() }}",
-            searchTerm: $("#searchByMantagheh").val(),
-        },
-        async: true,
-        success: function (msg) {
-            $("#allCustomerReportyBody").empty();
-            msg.forEach((element, index) => {
-                let checkOrNot = "";
-                if (element.state == 1) {
-                    checkOrNot = "";
-                } else {
-                    checkOrNot = "checked";
-                }
-                $("#allCustomerReportyBody").append(
-                    `
-            <tr  onclick="setAlarmCustomerStuff(this)">
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td style="width:333px">` +
-                        element.Name +
-                        `</td>
-                <td style="width:177px">` +
-                        element.hamrah +
-                        ` ` +
-                        element.sabit +
-                        `</td>
-                <td>` +
-                        element.lastDate +
-                        `</td>
-                <td>` +
-                        element.adminName +
-                        ` ` +
-                        element.lastName +
-                        `</td>
-                <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="` +
-                        element.PSN +
-                        `"></td>
-                <td><input type="checkbox" disabled ` +
-                        checkOrNot +
-                        ` /></td>
-            </tr>`
-                );
-            });
-        },
-        error: function (data) {},
-    });
-});
+// $("#searchByMantagheh").on("change", () => {
+//     $.ajax({
+//         method: "get",
+//         url: baseUrl + "/searchAllCustomerByMantagheh",
+//         data: {
+//             _token: "{{ csrf_token() }}",
+//             searchTerm: $("#searchByMantagheh").val(),
+//         },
+//         async: true,
+//         success: function (msg) {
+//             $("#allCustomerReportyBody").empty();
+//             msg.forEach((element, index) => {
+//                 let checkOrNot = "";
+//                 if (element.state == 1) {
+//                     checkOrNot = "";
+//                 } else {
+//                     checkOrNot = "checked";
+//                 }
+//                 $("#allCustomerReportyBody").append(`
+//                 <tr  onclick="setAmalkardStuff(this,`+element.PSN+`)">
+//                     <td>` +(index + 1) +`</td>
+//                     <td style="width:333px">` +element.Name +`</td>
+//                     <td style="width:177px">` +element.PhoneStr +`</td>
+//                     <td>` +element.lastDate +`</td>
+//                     <td>` +element.adminName +` ` +element.lastName +`</td>
+//                     <td style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="` +element.PSN +`"></td>
+//                     <td><input type="checkbox" disabled ` +checkOrNot +`/></td>
+//                 </tr>`);
+//             });
+//         },
+//         error: function (data) {},
+//     });
+// });
 
-$("#locationOrNot").on("change", () => {
-    let searchTerm = $("#locationOrNot").val();
-    if (searchTerm != 0) {
+
+    function getAllCustomerInfos(){
+    let locationState = $("#AllLocationOrNot").val();
+    let factorState=$("#AllFactorOrNot").val();
+    let basketState=$("#AllBasketOrNot").val();
+    let adminId=$("#AllByAdmin").val();
         $.ajax({
             method: "get",
-            url: baseUrl + "/searchAllCustomerLocationOrNot",
+            url: baseUrl + "/filterAllCustomer",
             data: {
                 _token: "{{ csrf_token() }}",
-                searchTerm: searchTerm,
-            },
+                locationState: locationState,
+                factorState:factorState,
+                basketState:basketState,
+                adminId:adminId},
             async: true,
             success: function (msg) {
+                console.log(msg)
                 $("#allCustomerReportyBody").empty();
                 msg.forEach((element, index) => {
                     let checkOrNot = "";
@@ -6613,17 +7037,14 @@ $("#locationOrNot").on("change", () => {
                     }
                     $("#allCustomerReportyBody").append(
                         `
-                <tr  onclick="setAlarmCustomerStuff(this)">
+                <tr  onclick="setAmalkardStuff(this,`+element.PSN+`)">
                 <td>` +
                             (index + 1) +
                             `</td>
                 <td style="width:333px">` +
                             element.Name +
                             `</td>
-                <td  style="width:177px">` +
-                            element.hamrah +
-                            ` ` +
-                            element.sabit +
+                <td  style="width:177px">` +element.PhoneStr +
                             `</td>
               
                 <td>` +
@@ -6646,8 +7067,7 @@ $("#locationOrNot").on("change", () => {
             },
             error: function (data) {},
         });
-    }
-});
+}
 
 $("#searchAllFactorOrNot").on("change", () => {
     let searchTerm = $("#searchAllFactorOrNot").val();
@@ -7415,7 +7835,7 @@ $("#searchInActiveByName").on("keyup", () => {
             msg.forEach((element, index) => {
                 $("#inactiveCustomerBody").append(
                     `
-            <tr onclick="setInActiveCustomerStuff(this)">
+            <tr onclick="setInActiveCustomerStuff(this,`+element.PSN+`)">
             <td>` +
                         (index + 1) +
                         `</td>
@@ -7556,6 +7976,125 @@ $("#searchInActiveByLocation").on("change", () => {
     }
 });
 
+$("#filterInActivesBtn").on("click",function(){
+    let inactiverAdmin=$("#inactiverAdmin").val();
+    let boughtState=$("#boughtState").val();
+    
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/filterInactiveCustomers",
+        data: {
+            _token: "{{ csrf_token() }}",
+            inactiverAdmin: inactiverAdmin,
+            boughtState: boughtState
+        },
+        async: true,
+        success: function (msg) {
+            console.log(msg)
+            $("#inactiveCustomerBody").empty();
+            msg.forEach((element, index) => {
+                $("#inactiveCustomerBody").append(
+                    `
+            <tr onclick="setInActiveCustomerStuff(this)">
+            <td>` +
+                        (index + 1) +
+                        `</td>
+            <td>` +
+                        element.CustomerName +
+                        `</td>
+            <td style="width:99px">` +
+                        element.PhoneStr +
+                        `</td>
+            <td style="width:133px">` +
+                        moment(element.TimeStamp, "YYYY-M-D HH:mm:ss")
+                            .locale("fa")
+                            .format("HH:mm:ss YYYY/M/D") +
+                        `</td>
+            <td style="width:133px">` +
+                        element.name +
+                        ` ` +
+                        element.lastName +
+                        `</td>
+            <td>` +
+                        element.comment +
+                        `</td>
+            <td><input class="customerList form-check-input" name="customerId" type="radio" value="` +
+                        element.PSN +
+                        `"></td>
+        </tr>`
+                );
+            });
+        },
+        error:function(error){
+
+    }
+});
+});
+
+$("#filterNoAdminsBtn").on("click",function(){
+    let boughtState=$("#buyOrNot").val();
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/filterNoAdmins",
+        data: {
+            _token: "{{ csrf_token() }}",
+            boughtState: boughtState
+        },
+        async: true,
+        success: function (msg) {
+            console.log(msg)
+            $("#evacuatedCustomers").empty();
+            msg.forEach((element, index) => {
+                    $("#evacuatedCustomers").append(`
+                                    <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                                        <td>`+(index+1)+`</td>
+                                        <td>`+element.Name+`</td>
+                                        <td style="width:66px;">`+element.PCode+`</td>
+                                        <td style="width:333px;">`+element.peopeladdress+`</td>
+                                        <td>`+element.PhoneStr+`</td>
+                                        <td>`+element.LastDate+`</td>
+                                        <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`"></td>
+                                    </tr>`);
+                });
+        }
+        ,error:function(error){}
+    });
+    
+});
+
+$("#filterReturnedsBtn").on("click",function(){
+    buyState=$("#buyState").val();
+    returner=$("#returner").val();
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/filterReturneds",
+        data: {
+            _token: "{{ csrf_token() }}",
+            buyState: buyState,
+            returner:returner
+        },
+        async: true,
+        success: function (msg) {
+            $("#returnedCustomerList").empty();
+            msg.forEach((element, index) => {
+            $("#returnedCustomerList").append(`
+                <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                    <td>`+(index+1)+`</td>
+                    <td style="width:188px; font-size:12px">`+element.Name+`</td>
+                    <td style="width:144px;">`+element.PhoneStr+`</td>
+                    <td style="width:133px;">`+element.adminName+` `+element.adminLastName+`</td>
+                    <td style="width:88px;">`+moment(element.returnDate, "YYYY-M-D HH:mm:ss")
+                    .locale("fa")
+                    .format("HH:mm:ss YYYY/M/D")+`</td>
+                    <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`_`+element.adminId+`"></td>
+                </tr>`);
+            });
+        },
+        error:function(error){
+        }
+    });
+});
+
 $("#addProvincePhoneCode").on("submit", function (e) {
     $.ajax({
         url: $(this).attr("action"),
@@ -7632,6 +8171,113 @@ $("#orderInactiveCustomers").on("change", () => {
         });
     }
 });
+
+function getLoginReport(history) {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getHistroyLogins",
+        data: {
+            _token: "{{ csrf_token() }}",
+            history:""+history+""
+        },
+        async: true,
+        success: function (msg) {
+            console.log(msg)
+            $("#listVisitorBody").empty();
+            msg.forEach((element, index) => {
+                $("#listVisitorBody").append(
+                    `<tr onclick="setAmalkardStuff(`+element.PSN+`)">
+            <td >` +
+                        (index + 1) +
+                        `</td>
+            <td >  </td>
+            <td >` +moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
+                            .locale("fa")
+                            .format("D/M/YYYY HH:mm:ss") +
+                        `</td>
+            <td style="width:244px">` +
+                        element.Name +
+                        `</td>
+            <td >` +
+                        element.platform +
+                        `</td>
+            <td >` +
+                        element.browser +
+                        `</td>
+            <td style="width:77px">` +
+                        element.countLogin +
+                        `</td>
+            <td >` +
+                        element.countSameTime +
+                        `</td>
+            </tr>`
+                );
+            });
+        },
+        error: function (data) {
+            alert("bad");
+        },
+    });
+}
+function getReferencialReport(history) {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getReferencialReport",
+        data: {
+            _token: "{{ csrf_token() }}",
+            history: history
+        },
+        async: true,
+        success: function (msg) {
+            $("#returnedCustomerList").empty();
+            msg.forEach((element, index) => {
+            $("#returnedCustomerList").append(`
+                <tr onclick="returnedCustomerStuff(this,`+element.PSN+`)">
+                    <td>`+(index+1)+`</td>
+                    <td style="width:188px; font-size:12px">`+element.Name+`</td>
+                    <td style="width:144px;">`+element.PhoneStr+`</td>
+                    <td style="width:133px;">`+element.adminName+` `+element.adminLastName+`</td>
+                    <td style="width:88px;">`+moment(element.returnDate, "YYYY-M-D HH:mm:ss")
+                    .locale("fa")
+                    .format("HH:mm:ss YYYY/M/D")+`</td>
+                    <td> <input class="customerList form-check-input" name="customerId[]" type="radio" value="`+element.PSN+`_`+element.adminId+`"></td>
+                </tr>`);
+            });
+        },
+        error:function(error){
+        }
+    });
+}
+function getInactiveReport(history) {
+    $.ajax({
+        method: "get",
+        url: baseUrl + "/getInactiveReport",
+        data: {
+            _token: "{{ csrf_token() }}",
+            history: history
+        },
+        async: true,
+        success: function (msg) {
+            console.log(msg)
+        $("#inactiveCustomerBody").empty();
+        msg.forEach((element, index) => {
+                $("#inactiveCustomerBody").append(`
+                            <tr onclick="setInActiveCustomerStuff(this,`+element.PSN+`)">
+                                <td>`+(index+1)+`</td>
+                                <td>`+element.CustomerName+`</td>
+                                <td  style="width:99px">`+element.PhoneStr+`</td>
+                                <td style="width:133px">`+moment(element.TimeStamp, "YYYY-M-D HH:mm:ss")
+                                .locale("fa")
+                                .format("HH:mm:ss YYYY/M/D")+`</td>
+                                <td style="width:133px">`+element.name+` `+element.lastName+`</td>
+                                <td  style="font-size:12px;">`+element.comment+`</td>
+                                <td><input class="customerList form-check-input" name="customerId" type="radio" value="`+element.PSN+`"></td>
+                            </tr>`);
+            });
+        },
+        error: function (data) {},
+    });
+}
 
 $("#searchByReturner").on("change", () => {
     let searchTerm = $("#searchByReturner").val();
@@ -7825,16 +8471,23 @@ $("#LoginFrom").on("keyup", function () {
     });
 });
 
-$("#visitorPlatform").on("change", function () {
+$("#filterAllLoginsBtn").on("click", function () {
     $.ajax({
         method: "get",
-        url: baseUrl + "/searchVisotrsPlatform",
+        url: baseUrl + "/filterAllLogins",
         data: {
             _token: "{{ csrf_token() }}",
             platform: $("#visitorPlatform").val(),
+            countLoginFrom:$("#LoginFrom").val(),
+            countLoginTo:$("#LoginTo").val(),
+            countSameTimeFrom:$("#countSameTime").val(),
+            countSameTimeTo:$("#countSameTimeTo").val(),
+            firstDate:$("#LoginDate1").val(),
+            secondDate:$("#LoginDate2").val()
         },
         async: true,
         success: function (msg) {
+            console.log(msg)
             $("#listVisitorBody").empty();
             msg.forEach((element, index) => {
                 $("#listVisitorBody").append(
@@ -7843,8 +8496,7 @@ $("#visitorPlatform").on("change", function () {
                         (index + 1) +
                         `</td>
             <td >  </td>
-            <td >` +
-                        moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
+            <td >` +moment(element.lastVisit, "YYYY-M-D HH:mm:ss")
                             .locale("fa")
                             .format("D/M/YYYY HH:mm:ss") +
                         `</td>
@@ -9311,8 +9963,16 @@ function salesExpertSelfInfo(adminId) {
     });
 }
 
+function setAmalkardStuff(element,customerId) {
+    $("tr").removeClass("selected");
+    $(element).toggleClass("selected");
+    $(".enableBtn").val(customerId);
+    $("#customerSnLogin").val(customerId);
+    $(".enableBtn").prop("disabled",false);
+}
 function openDashboard(customerId) {
     let csn = customerId;
+    $("#customerSnLogin").val(customerId);
     if ($("#customerSn")) {
         $("#customerSn").val(csn);
     }
@@ -9327,6 +9987,7 @@ function openDashboard(customerId) {
         },
         async: true,
         success: function (msg) {
+            console.log(msg)
             moment.locale("en");
             let exactCustomer = msg[0];
             let factors = msg[1];
@@ -12895,6 +13556,26 @@ $("#bazarYabRadioBtn").on("change", () => {
     $("#karbaranActionContainer").css("display", "none");
 });
 
+$("#allCustomerReportRadio").on("change", () => {
+    $("#staffVisitor").css("display", "none");
+    $("#loginTosystemReport").css("display", "none");
+    $("#allCustomerStaff").css("display", "inline");
+    $("#customerActionTable").css("display", "inline");
+    $(".inActiveBtn").css("display", "none");
+    $(".customerDashboarBtn ").css("display", "inline");
+    $("#inActiveTools").css("display", "none");
+    $("#inActiveCustomerTable").css("display", "none");
+    $(".referencialTools").css("display", "none");
+    $(".evcuatedCustomer").css("display", "none");
+    $(".referencialReport").css("display", "none");
+    $(".inactiveReport").css("display", "none");
+    $("#orderAll").css("display", "inline");
+    $("#orderLogins").css("display", "none");
+    $("#orderNoAdmins").css("display", "none");
+    $("#orderInActives").css("display", "none");
+    $("#orderReturn").css("display", "none");
+});
+
 $("#customerLoginReportRadio").on("change", () => {
     $("#staffVisitor").css("display", "flex");
     $("#loginTosystemReport").css("display", "block");
@@ -12909,6 +13590,13 @@ $("#customerLoginReportRadio").on("change", () => {
     $(".evcuatedCustomer").css("display", "none");
     $(".referencialReport").css("display", "none");
     $(".inactiveReport").css("display", "none");
+    
+    $("#orderAll").css("display", "none");
+    $("#orderLogins").css("display", "inline");
+    $("#orderNoAdmins").css("display", "none");
+    $("#orderInActives").css("display", "none");
+    $("#orderReturn").css("display", "none");
+
 });
 
 $("#customerInactiveRadio").on("change", () => {
@@ -12925,6 +13613,13 @@ $("#customerInactiveRadio").on("change", () => {
     $(".referencialTools").css("display", "none");
     $(".referencialReport").css("display", "none");
     $(".loginReport").css("display", "none");
+
+    $("#orderAll").css("display", "none");
+    $("#orderLogins").css("display", "none");
+    $("#orderNoAdmins").css("display", "none");
+    $("#orderInActives").css("display", "inline");
+    $("#orderReturn").css("display", "none");
+
 });
 $("#evacuatedCustomerRadio").on("change", () => {
     $(".evcuatedCustomer").css("display", "inline");
@@ -12940,6 +13635,12 @@ $("#evacuatedCustomerRadio").on("change", () => {
     $(".referencialReport").css("display", "none");
     $(".loginReport").css("display", "none");
     $(".inactiveReport").css("display", "none");
+
+    $("#orderAll").css("display", "none");
+    $("#orderLogins").css("display", "none");
+    $("#orderNoAdmins").css("display", "inline");
+    $("#orderInActives").css("display", "none");
+    $("#orderReturn").css("display", "none");
 });
 
 $("#referentialCustomerRadio").on("change", () => {
@@ -12956,6 +13657,12 @@ $("#referentialCustomerRadio").on("change", () => {
     $(".loginReport").css("display", "none");
     $("#staffVisitor").css("display", "none");
     $(".inactiveReport").css("display", "none");
+
+    $("#orderAll").css("display", "none");
+    $("#orderLogins").css("display", "none");
+    $("#orderNoAdmins").css("display", "none");
+    $("#orderInActives").css("display", "none");
+    $("#orderReturn").css("display", "inline");
 });
 
 $(".alarmRighRdios").on("change", () => {
@@ -13511,7 +14218,7 @@ $(document).on("click", "#loadMore", () => {
 
 function openAddCommentModal(customerId) {
     $("#customerIdForComment").val(customerId);
-    $("#addComment").modal("show");
+    $("#viewComment").modal("show");
 }
 
 

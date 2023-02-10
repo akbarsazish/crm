@@ -100,7 +100,8 @@ Route::get("/referedCustomer",[Admin::class,"referedCustomer"])->middleware('che
 Route::get("/visitorReport",[Admin::class,"visitorReport"])->middleware('checkUser');
 Route::get("/searchVisotrsByDate",[Admin::class,"searchVisotrsByDate"])->middleware('checkUser');
 Route::get("/searchVisotrsLoginFrom",[Admin::class,"searchVisotrsLoginFrom"])->middleware('checkUser');
-Route::get("/searchVisotrsPlatform",[Admin::class,"searchVisotrsPlatform"])->middleware('checkUser');
+Route::get("/filterAllLogins",[Customer::class,"filterAllLogins"])->middleware('CheckCommon');
+Route::get("/filterInactiveCustomers",[Customer::class,"filterInactiveCustomers"])->middleware('CheckCommon');
 Route::get("/searchSameTimeCountLogin",[Admin::class,"searchSameTimeCountLogin"])->middleware('checkUser');
 Route::get("/searchVisotrsLoginTo",[Admin::class,"searchVisotrsLoginTo"])->middleware('checkUser');
 Route::get("/inactivCustomer",[Admin::class,"inactivCustomer"])->middleware('checkUser');
@@ -127,7 +128,7 @@ Route::get("/sendBackReport",[Admin::class,"sendBackReport"])->middleware('check
 Route::get("/kalaSettings",[Admin::class,"kalaSettings"])->middleware('checkUser');
 Route::get("/adminDashboard",[Admin::class,"adminDashboard"])->middleware('checkUser');
 Route::get("/getAdminTodayInfo",[Admin::class,"getAdminTodayInfo"])->middleware('checkUser');
-Route::get("/takhsisCustomer",[Admin::class,"takhsisCustomer"])->middleware('checkUser');
+Route::get("/takhsisCustomer",[Admin::class,"takhsisCustomer"])->middleware('CheckCommon');
 Route::get("/takhsisNewCustomer",[Admin::class,"takhsisNewCustomer"])->middleware('checkUser');
 Route::get("/takhsisCustomerFromEmpty",[Admin::class,"takhsisCustomerFromEmpty"])->middleware('checkUser');
 Route::post("/loginUser",[Admin::class,"loginUser"]);
@@ -155,7 +156,7 @@ Route::get("/searchAllCustomerByName",[Customer::class,"searchAllCustomerByName"
 Route::get("/searchAllCustomerByPCode",[Customer::class,"searchAllCustomerByPCode"])->middleware('checkUser');
 Route::get("/searchAllCustomerByAdmin",[Customer::class,"searchAllCustomerByAdmin"])->middleware('checkUser');
 Route::get("/searchAllCustomerActiveOrNot",[Customer::class,"searchAllCustomerActiveOrNot"])->middleware('checkUser');
-Route::get("/searchAllCustomerLocationOrNot",[Customer::class,"searchAllCustomerLocationOrNot"])->middleware('checkUser');
+Route::get("/filterAllCustomer",[Customer::class,"filterAllCustomer"])->middleware('CheckCommon');
 Route::get("/searchAllCustomerFactorOrNot",[Customer::class,"searchAllCustomerFactorOrNot"])->middleware('checkUser');
 Route::get("/searchAllCustomerBasketOrNot",[Customer::class,"searchAllCustomerBasketOrNot"])->middleware('checkUser');
 Route::get("/searchAllCustomerLoginOrNot",[Customer::class,"searchAllCustomerLoginOrNot"])->middleware('checkUser');
@@ -176,7 +177,6 @@ Route::get("/searchAdminCustomerLoginOrNot",[Admin::class,"searchAdminCustomerLo
 Route::get("/searchInActiveCustomerByName",[Customer::class,"searchInActiveCustomerByName"])->middleware('checkUser');
 Route::get("/searchInActiveCustomerByCode",[Customer::class,"searchInActiveCustomerByCode"])->middleware('checkUser');
 Route::get("/searchInActiveCustomerByLocation",[Customer::class,"searchInActiveCustomerByLocation"])->middleware('checkUser');
-Route::get("/orderInactiveCustomers",[Customer::class,"orderInactiveCustomers"])->middleware('checkUser');
 Route::get("/viewReturnComment",[Customer::class,"viewReturnComment"])->middleware('checkUser');
 Route::get("/allCustomers",[Admin::class,"allCustomers"])->middleware('checkUser');
 Route::get("/searchAllCustomerByCode",[Admin::class,"searchAllCustomerByCode"])->middleware('checkUser');
@@ -311,8 +311,24 @@ Route::get('/orderUnAlarms',[Admin::class,'orderUnAlarms'])->middleware('CheckCo
 Route::get('/getUnAlarmHistory',[Admin::class,'getUnAlarmHistory'])->middleware('CheckCommon');
 Route::get('/getPersonals',[Admin::class,'getPersonals'])->middleware('CheckCommon');
 
+
 Route::get('/getManagerByLine',[Admin::class,'getManagerByLine'])->middleware('CheckCommon');
 
-Route::get('/getCustomers',[Admin::class,'getCustomers'])->middleware('CheckCommon');
 Route::get('/getOrgChart',[Admin::class,'getOrgChart'])->middleware('CheckCommon');
 
+Route::get('/getManagerByLine',[Admin::class,'getManagerByLine'])->middleware('CheckCommon');
+Route::get('/getCustomers',[Admin::class,'getCustomers'])->middleware('CheckCommon');
+Route::get('/orderAllCustomerByName',[Customer::class,'orderAllCustomerByName'])->middleware('CheckCommon');
+Route::get('/searchLoginsByName',[Customer::class,'searchLoginsByName'])->middleware('CheckCommon');
+Route::get('/searchInActivesByName',[Customer::class,'searchInActivesByName'])->middleware('CheckCommon');
+Route::get('/searchReturnedByName',[Customer::class,'searchReturnedByName'])->middleware('CheckCommon');
+Route::get('/withoutAdmins',[Customer::class,'withoutAdmins'])->middleware('CheckCommon');
+Route::get('/orderInActiveCustomers',[Customer::class,'orderInActiveCustomers'])->middleware('CheckCommon');
+Route::get('/orderReturned',[Customer::class,'orderReturned'])->middleware('CheckCommon');
+Route::get('/orderwithoutAdmins',[Customer::class,'orderwithoutAdmins'])->middleware('CheckCommon');
+Route::get('/orderLogins',[Customer::class,'orderLogins'])->middleware('CheckCommon');
+Route::get('/filterNoAdmins',[Customer::class,'filterNoAdmins'])->middleware('CheckCommon');
+Route::get('/filterReturneds',[Customer::class,'filterReturneds'])->middleware('CheckCommon');
+Route::get('/getHistroyLogins',[Customer::class,'getHistroyLogins'])->middleware('CheckCommon');
+Route::get('/getReferencialReport',[Customer::class,'getReferencialReport'])->middleware('CheckCommon');
+Route::get('/getInactiveReport',[Customer::class,'getInactiveReport'])->middleware('CheckCommon');
