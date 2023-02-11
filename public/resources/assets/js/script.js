@@ -14303,77 +14303,73 @@ $.ajax({method:"get",
 
 
 
+
 $("#searchManagerSelect").on("change",()=>{
    
     $.ajax({method:"get",
         url:baseUrl+'/getOrgChart',
         data:{_token:"{{@csrf}}",
-                managerId:$("#searchManagerSelect").val()},
+              managerId:$("#searchManagerSelect").val()},
         async:true,
         success:function(respons){
             console.log(respons)
-
               
 // Create root and chart for oganizational chart
-        var root = am5.Root.new("chartdiv12");
+    var root = am5.Root.new("chartdiv12");
         root._logo.dispose();
 
         root.setThemes([
-        am5themes_Animated.new(root)
+             am5themes_Animated.new(root)
         ]);
 
-        var data =respons;
+        var data = respons;
 
-var container = root.container.children.push(
-  am5.Container.new(root, {
-    width: am5.percent(100),
-    height: am5.percent(100),
-    layout: root.verticalLayout
-  })
-);
+        var container = root.container.children.push(
+            am5.Container.new(root, {
+                width: am5.percent(100),
+                height: am5.percent(100),
+                layout: root.verticalLayout
+            })
+        );
+
+        var series = container.children.push(
+            am5hierarchy.Tree.new(root, {
+                singleBranchOnly: false,
+                downDepth: 1,
+                initialDepth: 5,
+                topDepth: 0,
+                valueField: "value",
+                categoryField: "name",
+                childDataField: "children",
+                idField: "idField",
+                linkWithField: "link"
+            })
+        );
+
+        series.circles.template.setAll({
+                radius:38,
+        });
+
+        series.outerCircles.template.setAll({
+               radius:38
+        });
+
+        series.labels.template.setAll({
+              fontSize: 30,
+         });
 
 
-var series = container.children.push(
-  am5hierarchy.Tree.new(root, {
-    singleBranchOnly: false,
-    downDepth: 1,
-    initialDepth: 5,
-    topDepth: 0,
-    valueField: "value",
-    categoryField: "name",
-    childDataField: "children"
-  })
-);
-
-
-series.circles.template.setAll({
-  radius: 30
-});
-
-
-series.outerCircles.template.setAll({
-  radius: 30
-});
-
-
-series.circles.template.events.on("click", function(ev) {
-//  $("#amalKardModal").modal("show");
-//  var url = baseUrl + "/saleExpertActionInfo";
-// console.log(series.dataItems.value)
-alert(series.dataItems.value);
-
-//   window.open(url);
-
-});
-
-series.data.setAll(data);
-series.set("selectedDataItem", series.dataItems[0]);
-
-     
-    },
-    error:function(error){
+        series.circles.template.events.on("click", function(ev) {
+           var nextUrl = ev.target.dataItem.dataContext.idField;
+           var url = baseUrl + "/saleExpertActionInfo?subId="+nextUrl;
+               window.open(url);
+           });
+        series.data.setAll(data);
+        series.set("selectedDataItem", series.dataItems[0]);
+      },
+        error:function(error){
         
-    }
+       }
     })
 });
 

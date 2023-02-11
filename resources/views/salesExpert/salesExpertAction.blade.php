@@ -1,28 +1,43 @@
 @extends('layout')
 @section('content')
 
-<div class="container" style="margin-top:66px;">
-    <div class="row text-center">
-      <div class="col-lg-7 col-sm-7 d-flex justify-content-start"> 
-            <button class="btn btn-sm btn-info" id="salesExpert" onclick="salesExpertSelfInfo({{$adminId}})"> عملکرد: {{$exactAdminInfo->name.' '.$exactAdminInfo->lastName}} </button>
-            <button class="btn btn-primary btn-sm " id="addingEmtyazBtn"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
-            <input type="hidden" id="adminSn" value="{{$adminId}}">
-            <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
-        </div>
-        <div class="col-lg-4 col-sm-4 col-12 mt-2" id="advancedSearch">
-                <span class="row me-2">
-                    <div class="form-group col-sm-6 mb-2">
-                        <input type="text" name="" class="form-control publicTop" value="از تاریخ" id="firstDateSefSaleExpert">
-                        <input type="hidden" id="adminId" value="{{$adminId}}">
-                    </div> 
-                    <div class="form-group col-sm-6">
-                        <input type="text" name="" class="form-control publicTop" value="تا تاریخ" id="secondDateSefSaleExpert">
-                    </div> 
-            </span>
-        </div>
-    </div>
+<div class="container-fluid containerDiv">
     <div class="row">
-            <div class="forChangeState text-center" id="salesExpertTask">
+            <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                <fieldset class="border rounded mt-5 sidefieldSet">
+                    <legend  class="float-none w-auto legendLabel mb-0"> عملکرد: {{$exactAdminInfo->name.' '.$exactAdminInfo->lastName}}  </legend>
+                    <div class="form-check">
+                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
+                        <label class="form-check-label me-4" for="assesPast">  سطح دسترسی  </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
+                        <label class="form-check-label me-4" for="assesPast"> تارگت ها و امتیازات </label>
+                    </div>
+                    
+                </fieldset>
+                </div>
+            <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                <div class="row contentHeader">
+                        <div class="form-group col-sm-2 mt-2">
+                            <input type="text" name="" class="form-control form-control-sm" value="از تاریخ" id="firstDateSefSaleExpert">
+                            <input type="hidden" id="adminId" value="{{$adminId}}">
+                        </div> 
+                        <div class="form-group col-sm-2 mt-2">
+                            <input type="text" name="" class="form-control form-control-sm" value="تا تاریخ" id="secondDateSefSaleExpert">
+                        </div> 
+                    <div class="col-sm-8 text-start">
+                            <button class="btn btn-primary btn-sm" id="salesExpert" onclick="salesExpertSelfInfo({{$adminId}})"> عملکرد: {{$exactAdminInfo->name.' '.$exactAdminInfo->lastName}}  </button>
+                            <button class="btn btn-primary btn-sm" type="button" onclick="openHistoryModal()"> تاریخچه عملکرد </button>
+                            <button class="btn btn-primary btn-sm " id="addingEmtyazBtn"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
+                            <input type="hidden" id="adminSn" value="{{$adminId}}">
+                            <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
+                            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
+                            
+                    </div>
+                </div>
+                <div class="row mainContent">
+                      <div class=" text-center" id="salesExpertTask">
                 <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
                     <!-- item1 -->
                     @foreach($specialBonuses as $base)
@@ -55,10 +70,11 @@
                                 <div class="accordion-body pe-0" >
                                     <div class="row mb-2 me-1 rounded bg-primary text-white text-center"> 
                                         <div class="col-9 col-sm-9"> هر {{number_format($base->limitAmount)}} {{$base->BaseName}} {{$base->Bonus}} امتیاز  </div>
-                                        <div class="col-3 col-sm-3">@if($base->id==11) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==12) {{(int)($base->count_aghlam_today/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==13) {{(int)($base->sum_today_money/10/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==14) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif </div>
+                                        <div class="col-3 col-sm-3">
+                                            @if($base->id==11) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif
+                                            @if($base->id==12) {{(int)($base->count_aghlam_today/$base->limitAmount)*$base->Bonus}} @endif
+                                            @if($base->id==13) {{(int)($base->sum_today_money/10/$base->limitAmount)*$base->Bonus}} @endif
+                                            @if($base->id==14) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif </div>
                                     </div>
                                     <div    @if($base->id==11) id="new_customer_today_div" @endif
                                             @if($base->id==14) id="new_buy_today_div"     @endif
@@ -120,78 +136,16 @@
                 <!-- end -->
                 </div>
             </div>
-        </div>
-    <div class="row">
-        <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
-            <div class="accordion-item pe-3">
-                <h2 class="accordion-header" id="flush-headingTotal">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTotal" aria-expanded="false" aria-controls="flush-collapseTotal">
-                        جمع کل امتیازات  (آذر) <span class="count"> {{$all_bonus_since_Empty}} </span>
-                    </button>
-                    </h2>
-                <div id="flush-collapseTotal" class="accordion-collapse collapse" aria-labelledby="flush-headingTotal">
-                    <div class="accordion-body">
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">نصب خالص</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_Install}} </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-primary btn-sm nasb-button text-white"> امتیاز {{$bonus_All_Install}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">امتیازات اضافی</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-primary btn-sm nasb-button text-white"> امتیاز {{$all_monthly_bonuses}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">اقلام</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_aghlam}}</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">{{$bonus_All_aghlam}}</button> </div>
-                            </div>
 
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">مبلغ خرید</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{number_format($sum_all_money/10)}} </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$bonus_all_money}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">خرید اولیه</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_New_buys}}</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$bonus_All_New_buys}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های نصب </button> </div>
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های اقلام </button> </div>
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های خرید </button> </div>
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های مبلغ </button> </div>
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-        
-            <div class="accordion-item pe-3">
-                <h2 class="accordion-header" id="flush-headingHistory">
-                    <button class="accordion-button collapsed" type="button" onclick="openHistoryModal()">
-                        تاریخچه عملکرد 
-                    </button>
-                    </h2>
-                <div id="flush-collapseHistory" class="accordion-collapse collapse" aria-labelledby="flush-headingHistory" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                            <div class="row mb-2 totlalAction" > 
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button dateSytle">آذر</button> </div>
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button">  200 مجموع امتیازات  </button> </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="row contentFooter"> </div>
             </div>
+    </div>
+</div>
+
+
+
+
     <div class="modal fade notScroll dragableModal" id="customerDashboard" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable  modal-xl">
             <div class="modal-content">
@@ -628,6 +582,12 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
             <!--- modal for adding comments -->
     <div class="modal" id="addComment" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel">
         <div class="modal-dialog modal-dialog-scrollable ">
@@ -682,6 +642,9 @@
 </div>
 
 
+
+</div>
+
 <!-- Modal for adding Emtyaz -->
 <div class="modal fade dragableModal" id="creditSetting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="creditSettingLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -721,6 +684,7 @@
 
 
 
+
 <!-- Modal for listing of history  -->
 <div class="modal fade dragableModal" id="adminEmtyazHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="emtyazHistoryLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -754,6 +718,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 <!-- Modal for editing  Emtyaz -->
 <div class="modal fade dragableModal" id="editingEmtyaz" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editingEmtyazLabel" aria-hidden="true">
@@ -790,6 +757,66 @@
     </div>
   </div>
 </div>
+</div>
+
+
+<!-- Modal for total  Emtyaz -->
+<div class="modal fade dragableModal" id="totalEmtyaz" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="totalEmtyazLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h6 class="modal-title" id="totalEmtyazLabel">  جمع کل امتیاز:  </h6>
+                </div>
+                <div class="modal-body">
+                    
+                 <div class="row mb-2"> 
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">نصب خالص</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_Install}} </button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-primary btn-sm nasb-button text-white"> امتیاز {{$bonus_All_Install}} </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">امتیازات اضافی</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-primary btn-sm nasb-button text-white"> امتیاز {{$all_monthly_bonuses}} </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">اقلام</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_aghlam}}</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">{{$bonus_All_aghlam}}</button> </div>
+                            </div>
+
+                            <div class="row mb-2"> 
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">مبلغ خرید</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{number_format($sum_all_money/10)}} </button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$bonus_all_money}} </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">خرید اولیه</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_New_buys}}</button> </div>
+                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$bonus_All_New_buys}} </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های نصب </button> </div>
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های اقلام </button> </div>
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های خرید </button> </div>
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
+                            </div>
+                            <div class="row mb-2"> 
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> تارگت های مبلغ </button> </div>
+                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button"> هیچ تارگت تکمیل نشده است </button> </div>
+                            </div>
+                </div>
+          </div>
+     </div>
+ </div>
+
+
 
 
 

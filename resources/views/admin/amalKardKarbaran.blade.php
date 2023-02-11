@@ -30,10 +30,11 @@
 
 #chartdiv12 {
   width: 100%;
-  height: 400px;
+  height:400px;
   text-align:center;
   direction:ltr;
   margin-top:22px !important;
+  z-index: 9999999;
 
 }
 
