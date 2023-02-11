@@ -17,7 +17,7 @@ class Customer extends Controller
     {
         $adminId=Session::get('asn');
         $todayDate=Carbon::now()->format('Y-m-d');
-        $customers=DB::select("SELECT TOP 20 * FROM(
+        $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN) as PhoneStr FROM(
                         SELECT * FROM(SELECT * FROM(
                         SELECT * FROM(
                         SELECT PSN,Name,SnMantagheh,admin_id,returnState,PCode,peopeladdress,GroupCode FROM Shop.dbo.Peopels JOIN (SELECT * FROM CRM.dbo.crm_customer_added)a ON Peopels.PSN=a.customer_id)b
@@ -29,20 +29,7 @@ class Customer extends Controller
                         JOIN CRM.dbo.crm_workList 
                         on crm_comment.id=crm_workList.commentId where doneState=0 and crm_workList.specifiedDate>'".$todayDate."'
                         )a group by customerId)b)h on g.PSN=h.customerId)i  where PSN not in(select customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) order by i.maxTime asc");
-        foreach ($customers as $customer) {
-            $phones=DB::table("Shop.dbo.PhoneDetail")->where("SnPeopel",$customer->PSN)->get();
-            $hamrah="";
-            $sabit="";
-            foreach ($phones as $phone) {
-                if($phone->PhoneType==1){
-                    $sabit.="\n".$phone->PhoneStr;
-                }else{
-                    $hamrah.="\n".$phone->PhoneStr;
-                }
-            }
-            $customer->sabit=$sabit;
-            $customer->hamrah=$hamrah;
-        }
+        
         $cities=DB::table("Shop.dbo.MNM")->where("RecType",1)->where("FatherMNM",79)->get();
         return View('customer.customerList',['customers'=>$customers,'cities'=>$cities]);
     }

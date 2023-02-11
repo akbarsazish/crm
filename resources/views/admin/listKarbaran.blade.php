@@ -245,16 +245,29 @@
                                 <div class="col-md-4">
                                     <span id="existAlert" style="color: red"> </span>
                                     <div class="form-group">
-                                        <label class="form-label"> شماره تماس </label>
-                                        <input type="number"   minlength="11" maxlength="12" required class="form-control form-control-sm" autocomplete="off" name="phone">
+                                        <label class="dashboardLabel form-label"> نوع کاربر </label>
+                                        <select class="form-select" name="employeeType"  id="employeeType">
+                                                <option value="" > -- </option>
+                                                <option value="1" > مدیر </option>
+                                                <option value="2" > سرپرست </option>
+                                                <option value="3" > کارمند </option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6"> 
-                                    <div class="form-group">
-                                        <label class="form-label"> آدرس </label>
-                                        <input type="text" required  minlength="3"  class="form-control form-control-sm" autocomplete="off" name="address" >
+                                <div class="col-md-6">
+                                    <div class="form-group" style="display:none" id="employeeJobDiv">
+                                        <label class="dashboardLabel form-label">وظیفه کارمند</label>
+                                        <select class="form-select" name="poshtibanType" >
+                                                <option value="4" >راننده</option>
+                                                <option value="2" >پشتیبان حضوری</option>
+                                                <option value="2" >پشتیبان هماهنگی</option>
+                                                <option value="2" >پشتیبان تلفنی</option>
+                                                <option value="3" >بازاریاب حضوری</option>
+                                                <option value="3" >بازاریاب هماهنگی</option>
+                                                <option value="3" >بازاریاب تلفنی</option>
+                                        </select>
                                     </div>
                                 </div>
                                  
@@ -466,6 +479,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="dashboardLabel form-label"> نوع کاربر </label>
+                                                <option value=""> -- </option>
                                                 <select class="form-select" name="employeeType"  id="employeeTypeEdit">
                                                         <option value="1" id="managerEdit" > مدیر </option>
                                                         <option value="2" id="headEdit"> سرپرست </option>
@@ -479,7 +493,7 @@
                                     <div class="form-group"  style="display:none" id="employeeJobDivEdit">
                                         <label class="dashboardLabel form-label">وظیفه کارمند</label>
                                         <select class="form-select" name="poshtibanType" >
-                                                <option value="1" id="jobEdit1">راننده</option>
+                                                <option value="4" id="jobEdit1">راننده</option>
                                                 <option value="2" id="jobEdit2">پشتیبان حضوری</option>
                                                 <option value="2" id="jobEdit3">پشتیبان هماهنگی</option>
                                                 <option value="2" id="jobEdit4">پشتیبان تلفنی</option>

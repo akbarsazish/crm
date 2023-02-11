@@ -8861,6 +8861,7 @@ $("#searchCustomerName").on("keyup", function () {
         },
         async: true,
         success: function (msg) {
+            console.log(msg)
             // $('.crmDataTable').dataTable().fnDestroy();
             $("#customerListBody1").empty();
             msg.forEach((element, index) => {
@@ -15367,7 +15368,22 @@ success: function(data) {
     });
 
    
-
+$("#calendarRadioBtn").on("change", ()=>{
+    $("#timeTable").css("display", "table")
+    $(".calendarStaff").css("display", "inline")
+    $("#month").css("display", "inline")
+    $("#year").css("display", "inline")
+    $("#customerTable").css("display", "none")
+    $(".customerStaff").css("display", "none")
+})
+$("#customerListRadioBtn").on("change", ()=>{
+    $("#customerTable").css("display", "table")
+    $(".customerStaff").css("display", "inline")
+    $("#timeTable").css("display", "none")
+    $(".calendarStaff").css("display", "none")
+    $("#month").css("display", "none")
+    $("#year").css("display", "none")
+})
 
 
 
