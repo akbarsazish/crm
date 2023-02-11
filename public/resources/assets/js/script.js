@@ -14362,7 +14362,9 @@ $("#searchManagerSelect").on("change",()=>{
 
         series.circles.template.events.on("click", function(ev) {
            var nextUrl = ev.target.dataItem.dataContext.idField;
-           var url = baseUrl + "/saleExpertActionInfo?subId="+nextUrl;
+           var url;
+           url = baseUrl + "/poshtibanActionInfo?subPoshtibanId="+nextUrl;
+          // url = baseUrl + "/saleExpertActionInfo?subId="+nextUrl;
                window.open(url);
            });
         series.data.setAll(data);
