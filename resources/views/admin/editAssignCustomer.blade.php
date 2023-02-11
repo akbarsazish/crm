@@ -69,7 +69,7 @@
                                         <tr>
                                             <th>ردیف</th>
                                             <th> منطقه  </th>
-                                            <th> نام و نام خانوادگی</th>
+                                            <th> نام  </th>
                                             <th> <input type="checkbox" class="selectAllFromTop form-check-input" id="selectAllTopRight"></th>
                                         </tr>
                                     </thead>
@@ -98,7 +98,7 @@
                                         <tr>
                                         <th>ردیف</th>
                                         <th> منطقه  </th>
-                                        <th> نام و نام خانوادگی</th>
+                                        <th> نام </th>
                                         <th> <input type="checkbox" class="selectAllFromTop form-check-input" id="selectAllTopLeft"></th>
                                     </tr>
                                 </thead>

@@ -41,10 +41,53 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{trim($admin->name)." ".trim($admin->lastName)}}</td>
                                             <td>{{trim($admin->phone)}}</td>
+<<<<<<< HEAD
+                                            <td> <a href="{{url('crmDriver?asn='.$admin->driverId.'')}}"> <i class="fa fa-eye fa-lg" style="color:#000;"></i> </a> </td>
+=======
+>>>>>>> 89e064e2226f3b1b33769e779dc485d30cdb6b08
                                             <td>
                                                 <input class="mainGroupId" type="radio" name="AdminId[]" value="{{$admin->id}}">
                                             </td>
                                         </tr>
+<<<<<<< HEAD
+                                    @endforeach
+                                </tbody>
+                             </table>
+                            <table class="table table-bordered bargeriTable" id="tableGroupList">
+                                <thead class="bg-primary text-warning tableHeader">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>نام مشتری</th>
+                                        <th> آدرس </th>
+                                        <th>تلفن </th>
+                                        <th style="width:111px">فاکتور</th>
+                                        <th> انتخاب</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tableBody" id="crmDriverBargeri" style="height:250px !important">
+                                </tbody>
+                            </table>
+                     </div>
+                </div>
+                <div class="row contentFooter">
+                    <div class="col-lg-12 text-start mt-1" id="bottomServiceBttons">
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> امروز  : </button>
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> دیروز : </button>
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> صد تای آخر : 100</button>
+                        <button type="button" class="btn btn-sm btn-primary footerButton"> همه : </button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+@endsection
+
+
+
+
+
+=======
                                 @endforeach
                             </tbody>
                         </table>
@@ -118,3 +161,4 @@
     </div>
 </section>
 @endsection
+>>>>>>> 89e064e2226f3b1b33769e779dc485d30cdb6b08

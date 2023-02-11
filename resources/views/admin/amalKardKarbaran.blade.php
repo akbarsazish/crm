@@ -27,6 +27,17 @@
     margin-bottom:15px;
 
 }
+
+#chartdiv12 {
+  width: 100%;
+  height: 400px;
+  text-align:center;
+  direction:ltr;
+  margin-top:22px !important;
+
+}
+
+
 </style>
     <div class="container-fluid containerDiv">
       <div class="row">
@@ -52,127 +63,66 @@
                                     </select>
                                 </div>
                             </div>
-                        <button class='btn btn-sm btn-primary text-warning w-50' type="button" id='openDashboard' style="margin-top:33vh"> تراز نامه  <i class="fal fa-dashboard"></i></button>
+                        <button class='btn btn-sm btn-primary text-warning w-75' type="button" id='openDashboard' style="margin-top:33vh"> تراز نامه  <i class="fal fa-dashboard"></i></button>
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
-                    <div class="row contentHeader" style="height:20px;"></div>
+                    <div class="row contentHeader"></div>
                     <div class="row mainContent"> 
-                      <fieldset class="border rounded-2 pb-0" style="border:2px solid #0860d7 !important;">
-                          <legend  class="float-none w-auto legendLabel mb-0"> <span id="managerName">مدیران</span> </legend>
-                            
-                            <div class="col-lg-12 text-start"> 
-                                <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
-                                <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
-                            </div>
 
-                            <div class="col-lg-12">
-                                <div class="traz-today rounded-2 mx-0 mt-1">
-                                    <div class="traz-item"> <span style="color:red;"> نصب: </span> <span id="loginTimeToday"></span>  </div>
-                                    <div class="traz-item"> <span style="color:red;"> اقلام: </span> <span id="loginTimeToday"></span>  </div>
-                                    <div class="traz-item"> <span style="color:red;"> فاکتورها: </span> <span id="loginTimeToday"></span>  </div>
-                                    <div class="traz-item"> <span style="color:red;"> خرید اولیه: </span> <span id="loginTimeToday"></span>  </div>
-                                </div>
-                            </div>
-                    </fieldset>
-                   <fieldset class="border rounded-2 pb-0" style="border:2px solid #0860d7 !important;">
-                     <legend  class="float-none w-auto legendLabel mb-0">  سرپرستان  </legend>
+                        <div class="col-lg-12">
+                            <div id="chartdiv12"></div>
+                        </div>
 
-                           <div class="row">
-                                <div class="col-lg-2" id="listHead">
-                                </div>
-                                
-                                <div class="col-lg-10 amalKardContent" >
-                                        <div class="row">
-                                            <div class="col-lg-10">
-                                                <div class="grid-amalKard">
-                                                    <div class="amalKarItem today"> نصب امروز </div>
-                                                    <div class="amalKarItem today"> اقلام امروز </div>
-                                                    <div class="amalKarItem today"> فاکتور امروز </div>  
-                                                    <div class="amalKarItem today"> خرید اولیه امروز</div>
-                                                    <div class="amalKarItem"> نصب ها   </div>
-                                                    <div class="amalKarItem"> اقلامها </div>  
-                                                    <div class="amalKarItem"> فاکتورها </div>
-                                                    <div class="amalKarItem"> خریدهای اولیه </div>
-                                                    <div class="amalKarItem"> کل امتیاز (آذر) </div>  
-                                                    <div class="amalKarItem"> تاریخچه عملکرد </div>  
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-2 p-0 m-0"> 
-                                                <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
-                                                <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
-                                            </div>
-                                        </div>
-                                 </div>
-                             </div>
-                       
-                    </fieldset>  
-                     <fieldset class="border rounded-2 pb-0" style="border:2px solid #0860d7 !important;">
-                       <legend  class="float-none w-auto legendLabel mb-0">  بازاریابها  </legend>            
-                         <div class="row">
-                                <div class="col-lg-2" id="bazaryabList">
-                                    <div class="form-check bg-gray">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> بازاریاب 1 </label>
-                                    </div>
-                                      <div class="form-check bg-gray">
-                                        <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerInactiveRadio">
-                                        <label class="form-check-label me-4" for="assesPast"> بازاریاب 1 </label>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-10 amalKardContent" >
-                                        <div class="row">
-                                            <div class="col-lg-10">
-                                                <div class="grid-amalKard">
-                                                    <div class="amalKarItem today"> نصب امروز </div>
-                                                    <div class="amalKarItem today"> اقلام امروز </div>
-                                                    <div class="amalKarItem today"> فاکتور امروز </div>  
-                                                    <div class="amalKarItem today"> خرید اولیه امروز</div>
-                                                    <div class="amalKarItem"> نصب ها   </div>
-                                                    <div class="amalKarItem"> اقلامها </div>  
-                                                    <div class="amalKarItem"> فاکتورها </div>
-                                                    <div class="amalKarItem"> خریدهای اولیه </div>
-                                                    <div class="amalKarItem"> کل امتیاز (آذر) </div>  
-                                                    <div class="amalKarItem"> تاریخچه عملکرد </div>  
-                                                </div>
-                                            </div>
-                                             <div class="col-lg-2 p-0 m-0"> 
-                                                <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
-                                                <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
-                                            </div>
-                                        </div>
-                                 </div>
-                             </div>
-                     </fieldset> 
-                        <div class="col-lg-12 px-0">
-                        <table class="table table-bordered table-striped" id="tableGroupList">
-                            <thead class="tableHeader">
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th> اسم مشتری </th>
-                                    <th> آخرین فاکتور </th>
-                                    <th> ورود به سیستم </th>
-                                    <th> انتخاب </th>
-                                </tr>
-                            </thead>
-                            <tbody class="tableBody" id="customerListBody" style="height:200px!important;">
-                                <tr>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="traz-today rounded-2 mx-2">
-                            <div class="traz-item"> <span style="color:red;"> توضیحات: </span> <span id="customerSpecialComment"></span>  </div>
-                        </div> <br>
-                   </div>
                     </div>
-                    <div class="row contentFooter" style="height:20px;"> </div>
+                    <div class="row contentFooter"> </div>
                 </div>
         </div>
     </div>
 
-@endsection
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="amalKardModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="amalKardModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header py-2 ">
+          <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="amalKardModalLabel"> عملکرد  </h5>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-10">
+                <div class="grid-amalKard">
+                    <div class="amalKarItem today"> نصب امروز </div>
+                    <div class="amalKarItem today"> اقلام امروز </div>
+                    <div class="amalKarItem today"> فاکتور امروز </div>  
+                    <div class="amalKarItem today"> خرید اولیه امروز</div>
+                    <div class="amalKarItem"> نصب ها   </div>
+                    <div class="amalKarItem"> اقلامها </div>  
+                    <div class="amalKarItem"> فاکتورها </div>
+                    <div class="amalKarItem"> خریدهای اولیه </div>
+                    <div class="amalKarItem"> کل امتیاز (آذر) </div>  
+                    <div class="amalKarItem"> تاریخچه عملکرد </div>  
+                </div>
+            </div>
+                <div class="col-lg-2 p-0 m-0"> 
+                <button class="btn btn-sm btn-primary" type="button">  امتیاز <i class="fa fa-rocket"></i></button>
+                <button class="btn btn-sm btn-primary" type="button">  تسویه <i class="fas fa-balance-scale"></i> </button>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
+        <button type="button" class="btn btn-sm btn-primary">دخیره <i class="fa fa-save"></i> </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+@endsection
 
 
