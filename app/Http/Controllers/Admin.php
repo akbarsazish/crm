@@ -62,7 +62,6 @@ class Admin extends Controller
         }
         $managers=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=1 and deleted=0");
         $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=2  and deleted=0");
-return $saleLines;
         return View('admin.listKarbaran',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'saleLines'=>$saleLines,'managers'=>$managers,'heads'=>$heads]);
     }
     public function karbaranOperations(Request $request)

@@ -226,6 +226,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -243,41 +244,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <span id="existAlert" style="color: red"> </span>
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> نوع کاربر </label>
-                                        <select class="form-select" name="employeeType"  id="employeeType">
-                                                <option value="" > -- </option>
-                                                <option value="1" > مدیر </option>
-                                                <option value="2" > سرپرست </option>
-                                                <option value="3" > کارمند </option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group" style="display:none" id="employeeJobDiv">
-                                        <label class="dashboardLabel form-label">وظیفه کارمند</label>
-                                        <select class="form-select" name="poshtibanType" >
-                                                <option value="4" >راننده</option>
-                                                <option value="2" >پشتیبان حضوری</option>
-                                                <option value="2" >پشتیبان هماهنگی</option>
-                                                <option value="2" >پشتیبان تلفنی</option>
-                                                <option value="3" >بازاریاب حضوری</option>
-                                                <option value="3" >بازاریاب هماهنگی</option>
-                                                <option value="3" >بازاریاب تلفنی</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                 
-                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label"> عکس </label>
                                         <input type="file" class="form-control form-control-sm" name="picture" placeholder="">
                                     </div>
                                 </div>
-                            </div><br>
+                            </div> <br>
+                         
 
                             <div class="row rounded px-0 mx-0" style="background-color:#abd2ed; padding-bottom:5px;"> 
                                    <div class="col-md-2">
