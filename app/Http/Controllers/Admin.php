@@ -346,7 +346,7 @@ SELECT * FROM (
         $lastName=$request->post("lastName");
         
         $password=$request->post("password");
-        $adminType=$request->post("adminType");
+        $adminType=$request->post("poshtibanType");
         $phone=$request->post("phone");
         $address=$request->post("address");
         $sex=$request->post("sex");
@@ -393,39 +393,39 @@ SELECT * FROM (
         'bossId'=>$bossId,'employeeType'=>$employeeType,'SaleLineId'=>$saleLineSn,'poshtibanType'=>$poshtibanType]);
         return redirect("/listKarbaran");
     }
-    public function addAdminFromList(Request $request)
-    {
-        $name=$request->post("name");
-        $userName=$request->post("userName");
-        $lastName=$request->post("lastName");
-        $password=$request->post("password");
-        $adminType=$request->post("adminType");
-        $bossId=$request->post("bossId");
-        $phone=$request->post("phone");
-        $address=$request->post("address");
-        $sex=$request->post("sex");
-        $discription=$request->post("discription");
-        $hasAsses=$request->post("hasAsses");
-        $hasAllCustomer=$request->post("hasAllCustomer");
-        $picture=$request->file('picture');
-        if($picture){
-            $fileName=$picture->getClientOriginalName();
-            list($a,$b)=explode(".",$fileName);
-            $maxId=0;
-            $maxId=DB::table("CRM.dbo.crm_admin")->max('id');
-            if($maxId>1){
-                $maxId=$maxId+1;
-            }else{
-                $maxId=1;
-            }
+    // public function addAdminFromList(Request $request)
+    // {
+    //     $name=$request->post("name");
+    //     $userName=$request->post("userName");
+    //     $lastName=$request->post("lastName");
+    //     $password=$request->post("password");
+    //     $adminType=$request->post("adminType");
+    //     $bossId=$request->post("bossId");
+    //     $phone=$request->post("phone");
+    //     $address=$request->post("address");
+    //     $sex=$request->post("sex");
+    //     $discription=$request->post("discription");
+    //     $hasAsses=$request->post("hasAsses");
+    //     $hasAllCustomer=$request->post("hasAllCustomer");
+    //     $picture=$request->file('picture');
+    //     if($picture){
+    //         $fileName=$picture->getClientOriginalName();
+    //         list($a,$b)=explode(".",$fileName);
+    //         $maxId=0;
+    //         $maxId=DB::table("CRM.dbo.crm_admin")->max('id');
+    //         if($maxId>1){
+    //             $maxId=$maxId+1;
+    //         }else{
+    //             $maxId=1;
+    //         }
 
-            $fileName=$maxId.".jpg";
-            $picture->move("resources/assets/images/admins/",$fileName);
-        }
+    //         $fileName=$maxId.".jpg";
+    //         $picture->move("resources/assets/images/admins/",$fileName);
+    //     }
 
-        DB::table("CRM.dbo.crm_admin")->insert(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'hasAllCustomer'=>$hasAllCustomer,'bossId'=>"".$bossId.""]);
-        return redirect("/assignCustomer"); 
-    }
+    //     DB::table("CRM.dbo.crm_admin")->insert(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'hasAllCustomer'=>$hasAllCustomer,'bossId'=>"".$bossId.""]);
+    //     return redirect("/assignCustomer"); 
+    // }
     public function AddCustomerToAdmin(Request $request)
     {
         $adminId=$request->get("adminId");
@@ -490,13 +490,31 @@ SELECT * FROM (
         $adminType=$salesExpert->getAdminType(Session::get('asn'));
         $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=4 and deleted=0");
         if($adminType!=5){
-            $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE bossId=".Session::get('asn')." AND deleted=0");
+            $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE (bossId=".Session::get('asn')." or id=".Session::get('asn').")  AND deleted=0");
         }else{
             $employies=$allEmployies;
         }
         $workList=DB::select("SELECT count(a.workId) as count,a.specifiedDate FROM (SELECT DISTINCT crm_workList.id as workId, crm_workList.specifiedDate FROM CRM.dbo.crm_workList Join CRM.dbo.crm_comment ON crm_workList.commentId=crm_comment.id
         JOIN   CRM.dbo.crm_customer_added ON crm_comment.customerId=crm_customer_added.customer_id WHERE  crm_customer_added.admin_id=".$adminId." and crm_workList.doneState=0 and crm_customer_added.returnState=0)a GROUP BY    a.specifiedDate");
-        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year,'employies'=>$employies,'adminId'=>$adminId]);
+
+        //جدول مشتریان
+        $todayDate=Carbon::now()->format('Y-m-d');
+        $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN) as PhoneStr FROM(
+                        SELECT * FROM(SELECT * FROM(
+                        SELECT * FROM(
+                        SELECT PSN,Name,SnMantagheh,admin_id,returnState,PCode,peopeladdress,GroupCode FROM Shop.dbo.Peopels JOIN (SELECT * FROM CRM.dbo.crm_customer_added)a ON Peopels.PSN=a.customer_id)b
+                        where  b.admin_id=".$adminId." AND b.returnState=0)e
+                        JOIN(SELECT SnMNM,NameRec FROM Shop.dbo.MNM )f on e.SnMantagheh=f.SnMNM)g
+                        left JOIN (SELECT  maxTime,customerId FROM(
+                        SELECT customerId,Max(TimeStamp) as maxTime FROM(
+                        SELECT crm_comment.TimeStamp,customerId FROM CRM.dbo.crm_comment
+                        JOIN CRM.dbo.crm_workList 
+                        on crm_comment.id=crm_workList.commentId where doneState=0 and crm_workList.specifiedDate>'".$todayDate."'
+                        )a group by customerId)b)h on g.PSN=h.customerId)i  where PSN not in(select customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) order by i.maxTime asc");
+        
+        $cities=DB::table("Shop.dbo.MNM")->where("RecType",1)->where("FatherMNM",79)->get();
+
+        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year,'employies'=>$employies,'adminId'=>$adminId,'customers'=>$customers,'cities'=>$cities]);
     }
 
     public function changeDate(Request $request)
@@ -508,14 +526,31 @@ SELECT * FROM (
         $adminType=$salesExpert->getAdminType(Session::get('asn'));
         $allEmployies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE adminType!=5 and adminType!=4 and deleted=0");
         if($adminType!=5){
-            $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE bossId=".Session::get('asn')." AND deleted=0");
+            $employies=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE (bossId=".Session::get('asn')." or id=".Session::get('asn').") AND deleted=0");
         }else{
             $employies=$allEmployies;
         }
         $workList=DB::select("SELECT count(a.workId) as count,a.specifiedDate FROM (SELECT crm_workList.id as workId, crm_workList.specifiedDate FROM CRM.dbo.crm_workList Join CRM.dbo.crm_comment ON crm_workList.commentId=crm_comment.id
                               JOIN CRM.dbo.crm_customer_added ON crm_comment.customerId=crm_customer_added.customer_id 
                               WHERE  crm_customer_added.admin_id=".$adminId." AND crm_workList.doneState=0 and crm_customer_added.returnState=0 and crm_comment.customerId not IN  (SELECT customerId FROM CRM.dbo.crm_returnCustomer WHERE  crm_returnCustomer.returnState=1))a GROUP BY    a.specifiedDate");
-        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year,'employies'=>$employies,'adminId'=>$adminId]);
+        //جدول مشتریان
+        $todayDate=Carbon::now()->format('Y-m-d');
+        $customers=DB::select("SELECT *,CRM.dbo.getCustomerPhoneNumbers(PSN) as PhoneStr FROM(
+                        SELECT * FROM(SELECT * FROM(
+                        SELECT * FROM(
+                        SELECT PSN,Name,SnMantagheh,admin_id,returnState,PCode,peopeladdress,GroupCode FROM Shop.dbo.Peopels JOIN (SELECT * FROM CRM.dbo.crm_customer_added)a ON Peopels.PSN=a.customer_id)b
+                        where  b.admin_id=".$adminId." AND b.returnState=0)e
+                        JOIN(SELECT SnMNM,NameRec FROM Shop.dbo.MNM )f on e.SnMantagheh=f.SnMNM)g
+                        left JOIN (SELECT  maxTime,customerId FROM(
+                        SELECT customerId,Max(TimeStamp) as maxTime FROM(
+                        SELECT crm_comment.TimeStamp,customerId FROM CRM.dbo.crm_comment
+                        JOIN CRM.dbo.crm_workList 
+                        on crm_comment.id=crm_workList.commentId where doneState=0 and crm_workList.specifiedDate>'".$todayDate."'
+                        )a group by customerId)b)h on g.PSN=h.customerId)i  where PSN not in(select customerId from CRM.dbo.crm_inactiveCustomer where state=1 and customerId is not null) order by i.maxTime asc");
+        
+        $cities=DB::table("Shop.dbo.MNM")->where("RecType",1)->where("FatherMNM",79)->get();
+
+        return view ("admin.calendar",['commenDates'=>$workList,'month'=>$month,'year'=>$year,'employies'=>$employies,'adminId'=>$adminId,'customers'=>$customers,'cities'=>$cities]);
     }
     public function takhsisCustomer(Request $request)
     {
@@ -2625,7 +2660,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
         $userName=$request->post("userName");
         $lastName=$request->post("lastName");
         $password=$request->post("password");
-        $adminType=$request->post("adminType");
+        $adminType=$request->post("poshtibanType");
         $poshtibanType=$request->post("poshtibanType");
         $phone=$request->post("phone");
         $address=$request->post("address");

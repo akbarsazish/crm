@@ -61,8 +61,8 @@ Route::get("/getFactorInfo",[DriverController::class,"getFactorInfo"])->middlewa
 //Admins routes
 
 Route::get('/getAdminHistoryComment',[Admin::class,'getAdminHistoryComment'])->middleware('checkUser');
-Route::get('/',[Admin::class,'crmTerminal']);
-Route::get('/home', [Admin::class,'dashboard'])->middleware('checkUser');
+Route::get('/',[Admin::class,'crmTerminal'])->middleware('CheckCommon');
+Route::get('/home', [Admin::class,'dashboard'])->middleware('CheckCommon');
 Route::post('/addCustomer',[Customer::class,'addCustomer'])->middleware('CheckCommon');
 Route::get("/getCustomer",[Customer::class,"getCustomer"])->middleware('checkUser');
 Route::get("/getAddedCustomer",[Customer::class,"getAddedCustomer"])->middleware('checkUser');

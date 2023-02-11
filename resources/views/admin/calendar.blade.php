@@ -11,15 +11,33 @@
 tr > th:last-child, tr > td:last-child{
     width:40px;
 }
+
+#customerTable{
+    display: none;
+
+}
+
+.customerStaff{
+    display: none;
+}
 </style>
  <div class="container-fluid containerDiv">
-      <div class="row">
-               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
-                   <fieldset class="border rounded mt-5 sidefieldSet">
+            <div class="row">
+                 <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                     <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> تقویم روزانه  </legend>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="calendarRadioBtn">
+                                <label class="form-check-label me-4" for="assesPast"> تقویم روزانه </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" type="radio" name="settings" id="customerListRadioBtn">
+                                <label class="form-check-label me-4" for="assesPast"> لیست مشتریان </label>
+                            </div>
+
                             <form action="{{url('/changeDate')}}" method="POST">
                                 @csrf
-                            <select class="form-select form-select-sm col-sm6 d-inline" name="month" style="font-size:16px; width:48%">
+                            <select class="form-select form-select-sm col-sm6" id="month" name="month" style="font-size:16px; width:48%;display:inline">
                                 @for ($i = 1; $i < 13; $i++)
                                     @switch($i)
                                         @case(1)
@@ -63,7 +81,7 @@ tr > th:last-child, tr > td:last-child{
                                     @endswitch
                                 @endfor
                             </select>
-                            <select class="form-select form-select-sm col-sm-6 w-50 d-inline" name="year" style="font-size:16px; width:48%">
+                            <select class="form-select form-select-sm col-sm-6 w-50" id="year" name="year" style="font-size:16px; width:48%;display:inline">
                                 @for ($i = 1397; $i < 1420; $i++)
                                     <option @if($i==$year) selected @endif value="{{$i}}">{{$i}}</option>
                                 @endfor
@@ -76,86 +94,121 @@ tr > th:last-child, tr > td:last-child{
                             </select>
                             <button type="submit" class="btn btn-primary btn-sm"> بازخوانی <i class="fa fa-edit"></i> </button>
                         </form>
-                    </fieldset>
+                      </fieldset>
                   </div>
+
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
-                    <div class="row contentHeader"> </div>
+                      <div class="row contentHeader pt-3">
+                            <div class="form-group col-sm-2 customerStaff">
+                                <input type="text" name="" placeholder="جستجو" class="form-control publicTop" id="searchCustomerName">
+                            </div>
+                            <div class="form-group col-sm-2 customerStaff">
+                                <input type="number" name="" placeholder="جستجوی کد حساب" class="form-control publicTop" id="searchCustomerCode">
+                            </div>
+                            <div class="form-group col-sm-2 customerStaff">
+                                <select class="form-select publicTop" id="orderByCodeOrName">
+                                    <option value="1" hidden>مرتب سازی</option>
+                                    <option value="1">اسم</option>
+                                    <option value="0">کد</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-2 customerStaff">
+                                <select class="form-select publicTop" id="findMantaghehByCity">
+                                <option value="شهر" hidden>شهر</option>
+                                    @foreach($cities as $city)
+                                    <option value="{{$city->SnMNM}}">{{trim($city->NameRec)}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-2 customerStaff">
+                                <select class="form-select publicTop" id="searchCustomerByMantagheh">
+                                    <option value="مناطق" hidden>مناطق</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2 text-start">
+                                <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button>
+                                <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='returnCustomer'> ارجاع به مدیر<i class="fal fa-history"></i></button>
+                            </div>
+                        </div>
+                        
                     <div class="row mainContent">
-                       
-                    <table class="table table-bordered border-primary resizableTable" id="timeTable">
-                                    <thead class="monthDay text-warning">
-                                        <th class="weekDay">روزهای هفته</th>
-                                        @for ($v = 1; $v < 32; $v++)
-
+                        <div class="col-lg-12 px-0 pd-0">
+                              <table class="table table-bordered border-primary resizableTable" id="timeTable">
+                                <thead class="monthDay text-warning">
+                                    <th class="weekDay">روزهای هفته</th>
+                                    @for ($v = 1; $v < 32; $v++)
                                         <th >{{$v}}</th>
-                                        @endfor
-
-                                    </thead>
-                                    <tbody class="monthDay">
-                                        @for ($i = 0; $i < 7; $i++)
-
-                                        <tr style="background-color:#b3d1ef">
+                                    @endfor
+                                </thead>
+                                <tbody class="monthDay">
+                                    @for ($i = 0; $i < 7; $i++)
+                                    <tr style="background-color:#b3d1ef">
                                         <td class="weekDay">
-                                            @switch($i)
-                                                @case(0)
-                                                    شنبه
-                                                    @break
-                                                @case(1)
-
-                                                    یکشنبه
-                                                    @break
-                                                @case(2)
-
-                                                    دوشنبه
-                                                    @break
-                                                @case(3)
-                                                
-                                                    سه شنبه
-                                                    @break
-                                                @case(4)
-
-                                                    چهار شنبه
-                                                    @break
-                                                @case(5)
-
-                                                    پنجشنبه
-                                                    @break
-                                                @case(6)
-
-                                                    جمعه
-                                                    @break
+                                            @switch($i) 
+                                               @case(0)شنبه @break
+                                                @case(1) یکشنبه @break
+                                                @case(2)  دوشنبه @break
+                                                @case(3)  سه شنبه @break
+                                                @case(4) چهار شنبه @break
+                                                @case(5)پنجشنبه @break
+                                                @case(6) جمعه  @break
                                                 @default
                                             @endswitch
                                         </td>
-                                    @for($j = 1; $j < 32; $j++)
-
-                                            <td onclick="showTimeTableTasks(this,{{$adminId}})" style="cursor:pointer" class=""><span>
+                                     @for($j = 1; $j < 32; $j++)
+                                            <td onclick="showTimeTableTasks(this,{{$adminId}})" style="cursor:pointer" class="">
                                                 @foreach ($commenDates as $dt)
-                                                @php
-                                                    $monthDay=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getDay();
-                                                    $commenYear=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getYear();
-                                                    $commenMonth=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getMonth();
-                                                    $weekDay=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getDayOfWeek();
-                                                @endphp
+                                                    @php
+                                                        $monthDay=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getDay();
+                                                        $commenYear=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getYear();
+                                                        $commenMonth=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getMonth();
+                                                        $weekDay=\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($dt->specifiedDate))->getDayOfWeek();
+                                                    @endphp
                                                     @if( $monthDay==$j and $weekDay==$i and $commenYear==$year and $commenMonth==$month)
-                                                    {{$dt->count}}
-
+                                                        {{$dt->count}}
                                                     <input type="radio" style="display: none;" name="" value="{{$dt->specifiedDate}}" id="">
                                                     @endif
-                                                @endforeach
-
-                                                </span>
+                                                  @endforeach
                                             </td>
-                                            @endfor
+                                  @endfor
+                                </tr>
+                            @endfor
+                            </tbody>
+                        </table>
 
-                                        </tr>
-                                        @endfor
-
-                                    </tbody>
-                                </table>
+                        <table class='table table-bordered table-striped table-sm' id="customerTable">
+                            <thead class="tableHeader">
+                              <tr>
+                                  <th>ردیف</th>
+                                  <th>کد</th>
+                                  <th>اسم</th>
+                                  <th>آدرس </th>
+                                  <th>تلفن</th>
+                                  <th>همراه</th>
+                                  <th>منطقه </th>
+                                  <th>انتخاب</th>
+                              </tr>
+                              </thead>
+                              <tbody class="select-highlight tableBody" id="customerListBody1">
+                                  @foreach ($customers as $customer)
+                                      <tr @if($customer->maxTime) style="background-color:lightblue" @endif>
+                                          <td>{{$loop->iteration}}</td>
+                                          <td>{{trim($customer->PCode)}}</td>
+                                          <td>{{trim($customer->Name)}}</td>
+                                          <td>{{trim($customer->peopeladdress)}}</td>
+                                          <td>{{trim($customer->PhoneStr)}}</td>
+                                          <td>{{trim($customer->PhoneStr)}}</td>
+                                          <td>{{trim($customer->NameRec)}}</td>
+                                          <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
+                                      </tr>
+                                  @endforeach
+                              </tbody>
+                          </table>  
+                       </div>
                     </div>
-                    <div class="row contentFooter"> </div>
-                </div>
+
+                <div class="row contentFooter"> </div>
+            </div>
         </div>
     </div>     
 </div>

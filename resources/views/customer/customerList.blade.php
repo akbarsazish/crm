@@ -43,6 +43,7 @@
                         <button class='enableBtn btn btn-primary text-warning mx-1' type="button" disabled id='returnCustomer'> ارجاع به مدیر<i class="fal fa-history"></i></button>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="well" style="margin-top:1%;">
@@ -68,8 +69,8 @@
                                                     <td style="width:80px;">{{trim($customer->PCode)}}</td>
                                                     <td>{{trim($customer->Name)}}</td>
                                                     <td style="width:300px; font-size:13px">{{trim($customer->peopeladdress)}}</td>
-                                                    <td>{{trim($customer->sabit)}}</td>
-                                                    <td>{{trim($customer->hamrah)}}</td>
+                                                    <td>{{trim($customer->PhoneStr)}}</td>
+                                                    <td>{{trim($customer->PhoneStr)}}</td>
                                                     <td style="width:80px;">{{trim($customer->NameRec)}}</td>
                                                     <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
                                                 </tr>
