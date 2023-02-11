@@ -6572,7 +6572,6 @@ css for customer profile
     margin: 0 auto 0 0 !important;
 }
 .forChangeState {
-    display: none;
     text-align: center;
 }
 #salesExpertTask {
@@ -6615,11 +6614,7 @@ p.bonus {
         padding: 10px;
         cursor: pointer;
     }
-    .forChangeState {
-        display: none;
-        text-align: center;
-        text-align: center;
-    }
+   
 }
 
 .nasb-button {
