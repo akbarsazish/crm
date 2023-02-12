@@ -332,3 +332,4 @@ Route::get('/filterReturneds',[Customer::class,'filterReturneds'])->middleware('
 Route::get('/getHistroyLogins',[Customer::class,'getHistroyLogins'])->middleware('CheckCommon');
 Route::get('/getReferencialReport',[Customer::class,'getReferencialReport'])->middleware('CheckCommon');
 Route::get('/getInactiveReport',[Customer::class,'getInactiveReport'])->middleware('CheckCommon');
+Route::get('/getEmployeeInfo',[Admin::class,'getEmployeeInfo'])->middleware('CheckCommon');

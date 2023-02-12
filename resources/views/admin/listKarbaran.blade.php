@@ -263,8 +263,7 @@
                                             </select>
                                         </div>
                                     </div>
-                              
-                                 <div class="col-md-2">
+                                    <div class="col-md-2">
                                         <div class="form-group" style="display:none" id="employeeJobDiv">
                                             <label class="dashboardLabel form-label">وظیفه کارمند</label>
                                             <select class="form-select form-select-sm" name="poshtibanType" >

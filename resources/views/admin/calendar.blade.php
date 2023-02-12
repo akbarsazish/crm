@@ -12,12 +12,12 @@ tr > th:last-child, tr > td:last-child{
     width:40px;
 }
 
-#customerTable{
+#timeTable{
     display: none;
 
 }
 
-.customerStaff{
+.calendarStaff{
     display: none;
 }
 </style>
@@ -37,7 +37,7 @@ tr > th:last-child, tr > td:last-child{
 
                             <form action="{{url('/changeDate')}}" method="POST">
                                 @csrf
-                            <select class="form-select form-select-sm col-sm6" id="month" name="month" style="font-size:16px; width:48%;display:inline">
+                            <select class="form-select form-select-sm col-sm6" id="month" name="month" style="font-size:16px; width:48%;display:none">
                                 @for ($i = 1; $i < 13; $i++)
                                     @switch($i)
                                         @case(1)
@@ -81,7 +81,7 @@ tr > th:last-child, tr > td:last-child{
                                     @endswitch
                                 @endfor
                             </select>
-                            <select class="form-select form-select-sm col-sm-6 w-50" id="year" name="year" style="font-size:16px; width:48%;display:inline">
+                            <select class="form-select form-select-sm col-sm-6 w-50" id="year" name="year" style="font-size:16px; width:48%;display:none">
                                 @for ($i = 1397; $i < 1420; $i++)
                                     <option @if($i==$year) selected @endif value="{{$i}}">{{$i}}</option>
                                 @endfor
@@ -226,7 +226,6 @@ tr > th:last-child, tr > td:last-child{
                     <input type="hidden" id="customerSn" style="" name="customerSn" value="" />
                     <button class="btn-primary btn-sm text-warning" disabled id="openDashboard"> داشبورد <i class="fal fa-dashboard"> </i> </button>
                     <button class='btn-primary btn-sm text-warning' disabled id='returnCustomer'> ارجاع به مدیر <i class="fal fa-history"></i></button>
-              
                 <table class='table table-bordered table-striped table-sm'>
                     <thead class="tableHeader">
                         <tr>
@@ -250,9 +249,6 @@ tr > th:last-child, tr > td:last-child{
     </div>
   </div>
 </div>
-
-
-
 <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable  modal-xl">
         <div class="modal-content">
