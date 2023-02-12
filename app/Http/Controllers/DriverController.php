@@ -21,7 +21,7 @@ class DriverController extends Controller
     public function crmDriver(Request $request) {
         $adminId=$request->get("asn");
         $todayDate=Jalalian::fromCarbon(Carbon::now())->format('Y/m/d');
-        $factors=DB::select("select Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS from Shop.dbo.BargiryBYS Join Shop.dbo.FactorHDS on BargiryBYS.SnFact=FactorHDS.SerialNoHDS Join Shop.dbo.Peopels on FactorHDS.CustomerSn=Peopels.PSN 
+        $factors=DB::select("SELECT Peopels.PSN,Peopels.Name,FactorHDS.FactNo,Peopels.LatPers,Peopels.LonPers,FactorHDS.SerialNoHDS,FactorHDS.FactDate,Sla_Drivers.NameDriver,a.PhoneStr,Peopels.peopeladdress,SnBargiryBYS,TotalPriceHDS from Shop.dbo.BargiryBYS Join Shop.dbo.FactorHDS on BargiryBYS.SnFact=FactorHDS.SerialNoHDS Join Shop.dbo.Peopels on FactorHDS.CustomerSn=Peopels.PSN 
         Join Shop.dbo.BargiryHDS on BargiryHDS.SnMasterBar=BargiryBYS.SnMaster Join Shop.dbo.Sla_Drivers on Sla_Drivers.SnDriver=BargiryHDS.SnDriver
         Join (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr
 							FROM Shop.dbo.PhoneDetail

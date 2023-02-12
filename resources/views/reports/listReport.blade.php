@@ -316,7 +316,7 @@
                                         <td >{{$loop->iteration}}</td>
                                         <td style="width:333px">{{trim($customer->Name)}}</td>
                                         <td style="width:177px">{{trim($customer->PhoneStr)}}</td>
-                                        <td >{{trim($customer->lastDate)}}</td>
+                                        <td >{{trim($customer->LastDate)}}</td>
                                         <td >{{trim($customer->adminName).' '.trim($customer->lastName)}}</td>
                                         <td  style="width:66px"> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN}}"></td>
                                         <td >@if($customer->state==1) <input type="checkbox" disabled /> @else <input disabled type="checkbox" checked />  @endif</td>

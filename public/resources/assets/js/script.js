@@ -17,7 +17,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -14363,9 +14363,28 @@ $("#searchManagerSelect").on("change",()=>{
         series.circles.template.events.on("click", function(ev) {
            var nextUrl = ev.target.dataItem.dataContext.idField;
            var url;
-           url = baseUrl + "/poshtibanActionInfo?subPoshtibanId="+nextUrl;
-          // url = baseUrl + "/saleExpertActionInfo?subId="+nextUrl;
-               window.open(url);
+           $.ajax({method:"get",
+                    url:baseUrl+'/getEmployeeInfo',
+                    data:{_token:"{{@csrf}}",
+                            adminId:nextUrl},
+                        async:true,
+                    success:function(respond){
+                        if(respond.adminType==2 || respond.adminType==4){
+                            if(respond.adminType==4){
+                                url = baseUrl + "/poshtibanActionInfo?subPoshtibanId="+respond.driverId;
+                                window.open(url);
+                            }else{
+                                url = baseUrl + "/poshtibanActionInfo?subPoshtibanId="+nextUrl;
+                                window.open(url);
+                            }
+                        }else{
+                            url = baseUrl + "/saleExpertActionInfo?subId="+nextUrl;
+                            window.open(url);
+                        }
+                    },
+                    error:function(error){
+                    }
+                });
            });
         series.data.setAll(data);
         series.set("selectedDataItem", series.dataItems[0]);

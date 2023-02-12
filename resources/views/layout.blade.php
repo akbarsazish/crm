@@ -105,51 +105,15 @@
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/amalKardKarbarn')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; تراز کاربران  </a></li>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/reports')}}"><i class="fas fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عملکرد مشتریان </a></li>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/kalaAction')}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد کالا </a></li>
+                                        @if(Session::get("employeeType")==3)
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/saleExpertActionInfo?subId='.Session::get('asn'))}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد</a></li>
+                                        @elseif(Session::get("employeeType")==4)
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/poshtibanActionInfo?subPoshtibanId='.Session::get('dsn'))}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد </a></li>
+                                        @else
+                                        <li class=''><a class="mySidenav__item text-white" href="{{url('/poshtibanActionInfo?subPoshtibanId='.Session::get('asn'))}}"><i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp; عملکرد</a></li>
+                                        @endif
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/sendBackReport')}}"><i class="fa-regular fa-send-back fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp;  گزارش برگشتی کالا </a></li>
                                         <li class=''><a class="mySidenav__item text-white" href="{{url('/bargeryInfo')}}"><span> &nbsp; &nbsp;  <i class="fas fa-car fa-lg" style="color:#fff;"></i>&nbsp;&nbsp;   گزارش بارگیری  </span></a></li>
-                                        
-                                            <li class='has-sub newSub'><a class="mySidenav__item" href="#"><span> <i class="fa fa-check fa-lg" style="color:#ba7802; margin-right:15px;"></i> عملکرد کارمندان </span></a>
-                                                <ul class="newSubli">
-                                                    <li></li>
-                                                    <li class=''><a class="mySidenav__item text-white" href="{{url('/subTrees')}}"><i class="fas fa-user-plus fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp;بازاریابها</a></li>
-                                                    
-                                                    <li class=''><a class="mySidenav__item text-white" href="{{url('/listPoshtibans')}}"><i class="fas fa-user-plus fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp;رانندها و پشتیبانها</a></li>
-                                                    
-                                                    <li class=''><a class="mySidenav__item text-white" href="{{url('/karbarAction')}}">  <i class="fa-regular fa-tasks fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp;عملکرد کاربران</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class='has-sub newSub'><a class="mySidenav__item" href="#"><span><i class="fa fa-check fa-lg" style="color:#ba7802; margin-right:15px"></i> عملکرد مشتریان </span></a>
-                                                <ul class="newSubli">
-                                                    <li></li>
-                                                    <li><a class="mySidenav__item text-white" href="{{url('/reports')}}"><i class="fa-regular fa-user fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; عمکرد عمومی </a></li>
-                                                    <li><a class="mySidenav__item text-white" href="{{url('/visitorReport')}}"><i class="fa fa-bar-chart fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp; گزارش ورود </a></li>
-                                                    <li>
-                                                        <a class="mySidenav__item text-white" href="{{url('/inactivCustomer')}}"><i class="fas fa-ban fa-lg" style="color:#fff; margin-right:20px;"></i> &nbsp;  غیر فعال 
-                                                        @if($countInactives>0)   
-                                                            <span class="position-absolute badge rounded-pill bg-danger">{{$countInactives}}</span>
-                                                        @endif
-                                                        </a>
-                                                    </li>
-                                                    <li class=''><a class="mySidenav__item text-white" href="{{url('/gotEmpty')}}"> <i class="fas fa-history fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp;فاقد کاربر </a></li>
-                                                    <li class=''>
-                                                        <a class="mySidenav__item text-white" href="{{url('/referedCustomer')}}">
-                                                            <span><i class="fas fa-history fa-lg" style="color:#fff; margin-right:20px;"></i>&nbsp;   ارجاعی 
-                                                                @if($reffs>0) 
-                                                                    <span class="position-absolute badge rounded-pill bg-danger">{{$reffs}}</span>
-                                                                @endif
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                    <li class=''> <a class="mySidenav__item text-white" href="{{url('/newCustomer')}}"> <i class="fas fa-user-plus fa-lg" style="color:#fff; margin-right:20px;"></i>  جدید
-                                                            @if($countNewCustomers>0)
-                                                                <span class="position-absolute badge rounded-pill bg-danger">{{$countNewCustomers}}</span>
-                                                            @endif
-                                                        </a>
-                                                    </li>
-                                                    <li class=''><a class="mySidenav__item text-white" href="{{url('/customerLocation')}}"><i class="fas fa-map-marker-alt fa-lg" style="color:#fff; margin-right:20px;"></i> موقعیت  </a></li>
-                                                </ul>
-                                            </li>
-                                          
                                         </ul>
                                     </li>
 
