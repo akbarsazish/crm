@@ -64,7 +64,7 @@
         <div class="modal-content">
             <div class="modal-header py-2">
                 <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close" style="display: inline; background-color:red;"></button>
-                <p> پیام های من</p>
+                <h6> پیام های من</h6>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -111,7 +111,7 @@
                 <div class="modal-content">
                     <div class="modal-header py-2">
                         <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close" style="display: inline; background-color:red;"></button>
-                        <p> پیام های من   </p>
+                        <h5> پیام های من   </h5>
                     </div>
                     <div class="modal-body">
                         <div class="row">

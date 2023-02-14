@@ -2106,36 +2106,16 @@ $("#searchCustomerByMantagheh").on("change", () => {
                 }
                 $("#customerListBody1").append(
                     `
-                <tr onclick="selectAndHighlight(this)" style="background-color:` +
-                        backgroundColor +
-                        `">
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` +
-                        element.PCode +
-                        `</td>
-                <td>` +
-                        element.Name +
-                        `</td>
-                <td  class="scrollTd">` +
-                        element.peopeladdress +
-                        `</td>
-                <td>` +
-                        element.sabit +
-                        `</td>
-                <td>` +
-                        element.hamrah +
-                        `</td>
-                <td>` +
-                        element.NameRec +
-                        `</td>
+                <tr onclick="selectAndHighlight(this)" style="background-color:` + backgroundColor +`">
+                <td>` +(index + 1) +`</td>
+                <td style="width:66px;">` + element.PCode +`</td>
+                <td>` + element.Name +`</td>
+                <td>` +element.peopeladdress + `</td>
+                <td>` + element.sabit + `</td>
+                <td>` +  element.hamrah +`</td>
+                <td>` + element.NameRec + `</td>
                 <td>2</td>
-                <td> <input class="customerList form-check-input" name="customerId" type="radio" value="` +
-                        element.PSN +
-                        `_` +
-                        element.GroupCode +
-                        `"></td>
+                <td style="width:100px;"> <input class="customerList form-check-input" name="customerId" type="radio" value="` + element.PSN +  `_` +  element.GroupCode +`"></td>
                 </tr>`
                 );
             });
@@ -2325,29 +2305,11 @@ $("#addCommentForm").submit(function (e) {
             data[0].forEach((element, index) => {
                 $("#customerComments").append(
                     `<tr class="tbodyTr">
-                <td> ` +
-                        (index + 1) +
-                        ` </td>
-                <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td onclick="viewComment(` +
-                        element.id +
-                        `)">` +
-                        element.newComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i> </td>
-                <td onclick="viewNextComment(` +
-                        element.id +
-                        `)">` +
-                        element.nexComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i>  </td>
-                <td>` +
-                        moment(element.specifiedDate, "YYYY/M/D HH:mm:ss")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
+                <td> ` +(index + 1) +` </td>
+                <td>` +  moment(element.TimeStamp, "YYYY/M/D HH:mm:ss") .locale("fa") .format("YYYY/M/D") +`</td>
+                <td onclick="viewComment(` + element.id + `)">` +element.newComment.substr(0, 10) +`... <i class="fas fa-comment-dots float-end"></i> </td>
+                <td onclick="viewNextComment(` +   element.id +  `)">` + element.nexComment.substr(0, 10) +`... <i class="fas fa-comment-dots float-end"></i>  </td>
+                <td style="width:111px;">` + moment(element.specifiedDate, "YYYY/M/D HH:mm:ss") .locale("fa").format("YYYY/M/D") +`</td>
                 </tr>`
                 );
             });
@@ -2359,36 +2321,16 @@ $("#addCommentForm").submit(function (e) {
                 }
                 $("#customerListBody1").append(
                     `
-            <tr onclick="selectAndHighlight(this)" style="background-color:` +
-                        backgroundColor +
-                        `">
-            <td>` +
-                        (index + 1) +
-                        `</td>
-            <td>` +
-                        element.PCode +
-                        `</td>
-            <td>` +
-                        element.Name +
-                        `</td>
-            <td  class="scrollTd">` +
-                        element.peopeladdress +
-                        `</td>
-            <td>` +
-                        element.sabit +
-                        `</td>
-            <td>` +
-                        element.hamrah +
-                        `</td>
-            <td>` +
-                        element.NameRec +
-                        `</td>
+            <tr onclick="selectAndHighlight(this)" style="background-color:` + backgroundColor + `">
+            <td>` + (index + 1) + `</td>
+            <td style="66px;">` + element.PCode + `</td>
+            <td>` + element.Name + `</td>
+            <td>` +element.peopeladdress +`</td>
+            <td>` + element.sabit +`</td>
+            <td>` + element.hamrah +`</td>
+            <td>` + element.NameRec +`</td>
             <td>2</td>
-            <td> <input class="customerList form-check-input" name="customerId" type="radio" value="` +
-                        element.PSN +
-                        `_` +
-                        element.GroupCode +
-                        `"></td>
+            <td style="width:100px;"> <input class="customerList form-check-input" name="customerId" type="radio" value="` + element.PSN + `_` + element.GroupCode +`"></td>
             </tr>`
                 );
             });
@@ -2548,20 +2490,10 @@ $("#openDashboardForAlarm").on("click", () => {
                 loginInfo.forEach((element, index) => {
                     $("#customerLoginInfoBody").append(
                         `<tr>
-                <td>` +
-                            (index + 1) +
-                            `</td>
-                <td>` +
-                            moment(element.visitDate, "YYYY/M/D HH:mm:ss")
-                                .locale("fa")
-                                .format("YYYY/M/D") +
-                            `</td>
-                <td>` +
-                            element.platform +
-                            `</td>
-                <td>` +
-                            element.browser +
-                            `</td>
+                <td>` +(index + 1) +`</td>
+                <td>` +moment(element.visitDate, "YYYY/M/D HH:mm:ss").locale("fa").format("YYYY/M/D") + `</td>
+                <td>` + element.platform + `</td>
+                <td style="width:100px;">` +element.browser +`</td>
                 </tr>`
                     );
                 });
@@ -2569,31 +2501,12 @@ $("#openDashboardForAlarm").on("click", () => {
 
             $("#customerComments").empty();
             comments.forEach((element, index) => {
-                $("#customerComments").append(
-                    `<tr class="tbodyTr">
-                <td> ` +
-                        (index + 1) +
-                        ` </td>
-                <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td onclick="viewComment(` +
-                        element.id +
-                        `)"</td>` +
-                        element.newComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i> </td>
-                <td onclick="viewNextComment(` +
-                        element.id +
-                        `)">` +
-                        element.nexComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i>  </td>
-                <td>` +
-                        moment(element.specifiedDate, "YYYY/M/D")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
+                $("#customerComments").append(  `<tr class="tbodyTr">
+                <td> ` + (index + 1) + ` </td>
+                <td>` + moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")  .locale("fa") .format("YYYY/M/D") +  `</td>
+                <td onclick="viewComment(` + element.id +   `)"</td>` +  element.newComment.substr(0, 10) +  `... <i class="fas fa-comment-dots float-end"></i> </td>
+                <td onclick="viewNextComment(` +  element.id +  `)">` + element.nexComment.substr(0, 10) + `... <i class="fas fa-comment-dots float-end"></i>  </td>
+                <td style=""width:111px;">` + moment(element.specifiedDate, "YYYY/M/D").locale("fa").format("YYYY/M/D") + `</td>
                 </tr>`
                 );
             });
@@ -2870,29 +2783,11 @@ $("#openCustomerActionModal").on("click", () => {
             comments.forEach((element, index) => {
                 $("#customerComments").append(
                     `<tr>
-                <td> ` +
-                        (index + 1) +
-                        ` </td>
-                <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td  onclick="viewComment(` +
-                        element.id +
-                        `)"</td>` +
-                        element.newComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i> </td>
-                <td  onclick="viewNextComment(` +
-                        element.id +
-                        `)">` +
-                        element.nexComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i>  </td>
-                <td>` +
-                        moment(element.specifiedDate, "YYYY/M/D")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
+                <td> ` + (index + 1) + ` </td>
+                <td>` + moment(element.TimeStamp, "YYYY/M/D").locale("fa").format("YYYY/M/D") + `</td>
+                <td  onclick="viewComment(` +element.id + `)"</td>` +  element.newComment.substr(0, 10) + `... <i class="fas fa-comment-dots float-end"></i> </td>
+                <td  onclick="viewNextComment(` + element.id + `)">` + element.nexComment.substr(0, 10) + `... <i class="fas fa-comment-dots float-end"></i>  </td>
+                <td style="width:111px !important;">` + moment(element.specifiedDate, "YYYY/M/D").locale("fa").format("YYYY/M/D") +`</td>
                 </tr>`
                 );
             });
@@ -3522,14 +3417,14 @@ $("#openDashboard").on("click", () => {
                 $("#customerProperty").val(specialComment.comment.trim());
             }
             $("#dashboardTitle").text(exactCustomer.Name);
-            $("#customerCode").val(exactCustomer.PCode);
-            $("#customerName").val(exactCustomer.Name);
-            $("#customerAddress").val(exactCustomer.peopeladdress);
-            $("#username").val(exactCustomer.userName);
-            $("#password").val(exactCustomer.customerPss);
-            $("#mobile1").val(exactCustomer.PhoneStr);
-            $("#customerIdForComment").val(exactCustomer.PSN);
-            $("#countFactor").val(exactCustomer.countFactor);
+            $("#customerCode").text(exactCustomer.PCode);
+            $("#customerName").text(exactCustomer.Name);
+            $("#customerAddress").text(exactCustomer.peopeladdress);
+            $("#username").text(exactCustomer.userName);
+            $("#password").text(exactCustomer.customerPss);
+            $("#mobile1").text(exactCustomer.PhoneStr);
+            $("#customerIdForComment").text(exactCustomer.PSN);
+            $("#countFactor").text(exactCustomer.countFactor);
             $("#factorTable").empty();
             factors.forEach((element, index) => {
                 $("#factorTable").append(
@@ -3557,18 +3452,10 @@ $("#openDashboard").on("click", () => {
             returnedFactors.forEach((element, index) => {
                 $("#returnedFactorsBody").append(
                     `<tr class="tbodyTr">
-            <td>` +
-                        (index + 1) +
-                        `</td>
-            <td>` +
-                        element.FactDate +
-                        `</td>
+            <td>` + (index + 1) +  `</td>
+            <td>` + element.FactDate + `</td>
             <td>نامعلوم</td>
-            <td>` +
-                        parseInt(element.TotalPriceHDS / 10).toLocaleString(
-                            "en-us"
-                        ) +
-                        `</td>
+            <td>` +  parseInt(element.TotalPriceHDS / 10).toLocaleString( "en-us" ) + `</td>
             <td></td>
             </tr>`
                 );
@@ -3578,17 +3465,11 @@ $("#openDashboard").on("click", () => {
                 $("#goodDetail").append(
                     `
             <tr class="tbodyTr">
-                <td>` +
-                        (index + 1) +
-                        ` </td>
-                <td>` +
-                        moment(element.maxTime, "YYYY/M/D HH:mm:ss")
+                <td>` +(index + 1) + ` </td>
+                <td>` +  moment(element.maxTime, "YYYY/M/D HH:mm:ss")
                             .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td>` +
-                        element.GoodName +
-                        `</td>
+                            .format("YYYY/M/D") + `</td>
+                <td>` + element.GoodName + `</td>
                 <td>  </td>
                 <td>  </td>
                 
@@ -3600,23 +3481,13 @@ $("#openDashboard").on("click", () => {
             basketOrders.forEach((element, index) => {
                 $("#basketOrders").append(
                     `<tr>
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
+                <td>` + (index + 1) + `</td>
+                <td>` + moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
                             .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td>` +
-                        element.GoodName +
-                        `</td>
-                <td>` +
-                        element.Amount +
-                        `</td>
-                <td>` +
-                        element.Fi +
-                        `</td>
+                            .format("YYYY/M/D") +  `</td>
+                <td>` + element.GoodName + `</td>
+                <td>` +  element.Amount +  `</td>
+                <td>` + element.Fi +  `</td>
                 </tr>`
                 );
             });
@@ -3626,20 +3497,10 @@ $("#openDashboard").on("click", () => {
                 loginInfo.forEach((element, index) => {
                     $("#customerLoginInfoBody").append(
                         `<tr>
-                <td>` +
-                            (index + 1) +
-                            `</td>
-                <td>` +
-                            moment(element.visitDate, "YYYY/M/D HH:mm:ss")
-                                .locale("fa")
-                                .format("YYYY/M/D") +
-                            `</td>
-                <td>` +
-                            element.platform +
-                            `</td>
-                <td>` +
-                            element.browser +
-                            `</td>
+                        <td>` +  (index + 1) + `</td>
+                        <td>` +  moment(element.visitDate, "YYYY/M/D HH:mm:ss").locale("fa").format("YYYY/M/D") +`</td>
+                        <td>` +  element.platform + `</td>
+                        <td style="width:100px;">` + element.browser +  `</td>
                 </tr>`
                     );
                 });
@@ -3649,29 +3510,11 @@ $("#openDashboard").on("click", () => {
             comments.forEach((element, index) => {
                 $("#customerComments").append(
                     `<tr class="tbodyTr">
-                <td> ` +
-                        (index + 1) +
-                        ` </td>
-                <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td onclick="viewComment(` +
-                        element.id +
-                        `)"</td>` +
-                        element.newComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i> </td>
-                <td onclick="viewNextComment(` +
-                        element.id +
-                        `)">` +
-                        element.nexComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i>  </td>
-                <td>` +
-                        moment(element.specifiedDate, "YYYY/M/D")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
+                <td> ` + (index + 1) +` </td>
+                <td>` +  moment(element.TimeStamp, "YYYY/M/D HH:mm:ss").locale("fa").format("YYYY/M/D") +`</td>
+                <td onclick="viewComment(` +  element.id + `)"</td>` + element.newComment.substr(0, 10) + `... <i class="fas fa-comment-dots float-end"></i> </td>
+                <td onclick="viewNextComment(` + element.id +`)">` +element.nexComment.substr(0, 10) +`... <i class="fas fa-comment-dots float-end"></i>  </td>
+                <td style="width:101px !important;">` + moment(element.specifiedDate, "YYYY/M/D").locale("fa").format("YYYY/M/D") +`</td>
                 </tr>`
                 );
             });
@@ -3701,24 +3544,12 @@ $("#openDashboard").on("click", () => {
                 $("#customerAssesments").append(
                     `
             <tr>
-            <td>` +
-                        (index + 1) +
-                        `</td>
-            <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-            <td>` +
-                        element.comment +
-                        `</td>
-            <td>` +
-                        driverBehavior +
-                        `</td>
-            <td class="scrollTd">` +
-                        shipmentProblem +
-                        `</td>
-            <td></td>
+            <td>` + (index + 1) + `</td>
+            <td>` + moment(element.TimeStamp, "YYYY/M/D").locale("fa").format("YYYY/M/D") +`</td>
+            <td>` +  element.comment +  `</td>
+            <td>` +  driverBehavior + `</td>
+            <td>` + shipmentProblem + `</td>
+            <td style="width:100px"></td>
         </tr>`
                 );
             });
@@ -4068,32 +3899,14 @@ $("#addCommentTimeTable").submit(function (e) {
                         $("#customerListBody").append(
                             `
                     <tr  onclick="timeTableCustomerStuff(this)">
-                        <td>` +
-                                (index + 1) +
-                                `</td>
-                        <td>` +
-                                element.PCode +
-                                `</td>
-                        <td>` +
-                                element.Name +
-                                `</td>
-                        <td  class="scrollTd">` +
-                                element.peopeladdress +
-                                `</td>
-                        <td>` +
-                                element.sabit +
-                                `</td>
-                        <td>` +
-                                element.hamrah +
-                                `</td>
-                        <td>` +
-                                element.NameRec +
-                                `</td>
-                        <td> <input name="timeTableCustomer" class="form-check-input" type="radio" value="` +
-                                element.PSN +
-                                `_` +
-                                element.commentId +
-                                `"></td>
+                        <td>` + (index + 1) + `</td>
+                        <td style="width:66px">` + element.PCode + `</td>
+                        <td>` +  element.Name +`</td>
+                        <td>` + element.peopeladdress +`</td>
+                        <td>` + element.sabit +`</td>
+                        <td>` + element.hamrah + `</td>
+                        <td>` + element.NameRec +`</td>
+                        <td style="width:100px"> <input name="timeTableCustomer" class="form-check-input" type="radio" value="` + element.PSN +  `_` + element.commentId + `"></td>
                     </tr>`
                         );
                     });
@@ -4417,32 +4230,14 @@ function showTimeTableTasks(element,adminId) {
                 $("#customerListBody").append(
                     `
             <tr  onclick="timeTableCustomerStuff(this)">
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` +
-                        element.PCode +
-                        `</td>
-                <td>` +
-                        element.Name +
-                        `</td>
-                <td  class="scrollTd">` +
-                        element.peopeladdress +
-                        `</td>
-                <td>` +
-                        element.sabit +
-                        `</td>
-                <td>` +
-                        element.hamrah +
-                        `</td>
-                <td>` +
-                        element.NameRec +
-                        `</td>
-                <td> <input name="timeTableCustomer" class="form-check-input" type="radio" value="` +
-                        element.PSN +
-                        `_` +
-                        element.commentId +
-                        `"></td>
+                <td>` +  (index + 1) + `</td>
+                <td style="width:66px">` + element.PCode +  `</td>
+                <td>` +  element.Name + `</td>
+                <td>` +  element.peopeladdress + `</td>
+                <td>` +  element.sabit + `</td>
+                <td>` +  element.hamrah +  `</td>
+                <td>` + element.NameRec + `</td>
+                <td style="width:100px;"> <input name="timeTableCustomer" class="form-check-input" type="radio" value="` + element.PSN + `_` + element.commentId +`"></td>
             </tr>`
                 );
             });
@@ -4769,36 +4564,16 @@ $("#returnCustomerForm").submit(function (e) {
                 }
                 $("#customerListBody1").append(
                     `
-            <tr onclick="selectAndHighlight(this)" style="background-color:` +
-                        backgroundColor +
-                        `">
-            <td>` +
-                        (index + 1) +
-                        `</td>
-            <td>` +
-                        element.PCode +
-                        `</td>
-            <td>` +
-                        element.Name +
-                        `</td>
-            <td  class="scrollTd">` +
-                        element.peopeladdress +
-                        `</td>
-            <td>` +
-                        element.sabit +
-                        `</td>
-            <td>` +
-                        element.hamrah +
-                        `</td>
-            <td>` +
-                        element.NameRec +
-                        `</td>
-            <td>2</td>
-            <td> <input class="customerList form-check-input" name="customerId" type="radio" value="` +
-                        element.PSN +
-                        `_` +
-                        element.GroupCode +
-                        `"></td>
+            <tr onclick="selectAndHighlight(this)" style="background-color:` + backgroundColor +`">
+                    <td>` + (index + 1) +`</td>
+                    <td style="width:66px">` + element.PCode + `</td>
+                    <td>` + element.Name + `</td>
+                    <td>` + element.peopeladdress + `</td>
+                    <td>` + element.sabit +`</td>
+                    <td>` +  element.hamrah +`</td>
+                    <td>` + element.NameRec + `</td>
+                    <td>2</td>
+                    <td style="width:100px;"> <input class="customerList form-check-input" name="customerId" type="radio" value="` +  element.PSN +  `_` +  element.GroupCode + `"></td>
             </tr>`
                 );
             });
@@ -10108,20 +9883,10 @@ function openDashboard(customerId) {
                 loginInfo.forEach((element, index) => {
                     $("#customerLoginInfoBody").append(
                         `<tr>
-                <td>` +
-                            (index + 1) +
-                            `</td>
-                <td>` +
-                            moment(element.visitDate, "YYYY/M/D HH:mm:ss")
-                                .locale("fa")
-                                .format("YYYY/M/D") +
-                            `</td>
-                <td>` +
-                            element.platform +
-                            `</td>
-                <td>` +
-                            element.browser +
-                            `</td>
+                            <td>` + (index + 1) + `</td>
+                            <td>` + moment(element.visitDate, "YYYY/M/D HH:mm:ss").locale("fa").format("YYYY/M/D") +`</td>
+                            <td>` +element.platform +`</td>
+                            <td style="width:100px;">` +element.browser +`</td>
                 </tr>`
                     );
                 });
@@ -10131,26 +9896,11 @@ function openDashboard(customerId) {
             comments.forEach((element, index) => {
                 $("#customerComments").append(
                     `<tr class="tbodyTr">
-                <td> ` +
-                        (index + 1) +
-                        ` </td>
-                <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D HH:mm:ss")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-                <td onclick="viewComment(` +
-                        element.id +
-                        `)"</td>` +
-                        element.newComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i> </td>
-                <td onclick="viewNextComment(` +
-                        element.id +
-                        `)">` +
-                        element.nexComment.substr(0, 10) +
-                        `... <i class="fas fa-comment-dots float-end"></i>  </td>
-                <td>` +
-                        moment(element.specifiedDate, "YYYY/M/D")
+                <td> ` +  (index + 1) +  ` </td>
+                <td>` +  moment(element.TimeStamp, "YYYY/M/D HH:mm:ss") .locale("fa") .format("YYYY/M/D") + `</td>
+                <td onclick="viewComment(` + element.id + `)"</td>` +  element.newComment.substr(0, 10) +  `... <i class="fas fa-comment-dots float-end"></i> </td>
+                <td onclick="viewNextComment(` +element.id + `)">` +  element.nexComment.substr(0, 10) +  `... <i class="fas fa-comment-dots float-end"></i>  </td>
+                <td style="width:111px !important;">` +   moment(element.specifiedDate, "YYYY/M/D")
                             .locale("fa")
                             .format("YYYY/M/D") +
                         `</td>
@@ -10183,24 +9933,12 @@ function openDashboard(customerId) {
                 $("#customerAssesments").append(
                     `
             <tr>
-            <td>` +
-                        (index + 1) +
-                        `</td>
-            <td>` +
-                        moment(element.TimeStamp, "YYYY/M/D")
-                            .locale("fa")
-                            .format("YYYY/M/D") +
-                        `</td>
-            <td>` +
-                        element.comment +
-                        `</td>
-            <td>` +
-                        driverBehavior +
-                        `</td>
-            <td class="scrollTd">` +
-                        shipmentProblem +
-                        `</td>
-            <td></td>
+            <td>` + (index + 1) +`</td>
+            <td>` + moment(element.TimeStamp, "YYYY/M/D").locale("fa").format("YYYY/M/D") +`</td>
+            <td>` +element.comment + `</td>
+            <td>` + driverBehavior + `</td>
+            <td class="scrollTd">` +shipmentProblem +`</td>
+            <td style="width:100px"></td>
         </tr>`
                 );
             });
@@ -12837,6 +12575,7 @@ function setDriverServiceStuff(element, serviceId) {
     $("tr").removeClass("selected");
     $(element).toggleClass("selected");
     $("#serviceSn").val(serviceId);
+    $("#editDriverServicesBtn").prop("disabled", false);
 }
 
 $("#editDriverServicesBtn").on("click", () => {
@@ -13810,19 +13549,10 @@ function setHeadStuff(element, headId) {
                 $("#customerListBody").append(
                     `
                 <tr onclick="checkCheckBox(this,event)">
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` + element.name +
-                        ` ` +
-                        element.lastName +
-                        `</td>
-                <td>` +
-                        element.phone +
-                        `</td>
-                <td>` +
-                        element.discription +
-                        `</td>
+                <td>` + (index + 1) +`</td>
+                <td>` + element.name + ` ` + element.lastName +`</td>
+                <td>` + element.phone +`</td>
+                <td>` +element.discription +`</td>
                 <td>
                     <input class="mainGroupId" type="checkbox" name="customerIDs[]" value="` +
                         element.id +
@@ -13854,27 +13584,13 @@ function setHeadOpStuff(element, headId) {
             response.forEach((element, index) => {
                 $("#customerListBody").append(
                     `
-                <tr onclick="setKarbarOpStuff(this,` +
-                        element.id +
-                        `)">
-                <td>` +
-                        (index + 1) +
-                        `</td>
-                <td>` +
-                        element.name +
-                        ` ` +
-                        element.lastName +
-                        `</td>
-                <td>` +
-                        element.phone +
-                        `</td>
-                <td>` +
-                        element.discription +
-                        `</td>
+                <tr onclick="setKarbarOpStuff(this,` +element.id +`)">
+                <td>` +(index + 1) + `</td>
+                <td>` + element.name + ` ` +element.lastName + `</td>
+                <td>` + element.phone +`</td>
+                <td>` + element.discription +`</td>
                 <td>
-                    <input class="mainGroupId" type="radio" name="customerIDs[]" value="` +
-                        element.id +
-                        `">
+                    <input class="mainGroupId" type="radio" name="customerIDs[]" value="` + element.id +`">
                 </td>`
                 );
             });
@@ -14318,7 +14034,7 @@ $("#searchManagerSelect").on("change",()=>{
 // Create root and chart for oganizational chart
     var root = am5.Root.new("chartdiv12");
         root._logo.dispose();
-
+    
         root.setThemes([
              am5themes_Animated.new(root)
         ]);
@@ -14336,7 +14052,7 @@ $("#searchManagerSelect").on("change",()=>{
         var series = container.children.push(
             am5hierarchy.Tree.new(root, {
                 singleBranchOnly: false,
-                downDepth: 1,
+                downDepth:1,
                 initialDepth: 5,
                 topDepth: 0,
                 valueField: "value",
@@ -14352,7 +14068,7 @@ $("#searchManagerSelect").on("change",()=>{
         });
 
         series.outerCircles.template.setAll({
-               radius:38
+               radius:39
         });
 
         series.labels.template.setAll({

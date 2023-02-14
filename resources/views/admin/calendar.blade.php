@@ -2,15 +2,8 @@
 @section('content')
 
 <style>
-    .tableHeader .tableBbody, tr > th:first-child {
-    width: 100px !important;
-}
-.tableHeader .tableBbody, tr > td:first-child {
-    width: 100px !important;
-}
-tr > th:last-child, tr > td:last-child{
-    width:40px;
-}
+
+
 
 #timeTable{
     display: none;
@@ -98,22 +91,22 @@ tr > th:last-child, tr > td:last-child{
                   </div>
 
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
-                      <div class="row contentHeader pt-3">
+                      <div class="row contentHeader pt-1">
                             <div class="form-group col-sm-2 customerStaff">
-                                <input type="text" name="" placeholder="جستجو" class="form-control publicTop" id="searchCustomerName">
+                                <input type="text" name="" placeholder="جستجو" class="form-control form-control-sm" id="searchCustomerName">
+                            </div>
+                            <div class="form-group col-sm-1 customerStaff">
+                                <input type="number" name="" placeholder=" کد " class="form-control form-control-sm" id="searchCustomerCode">
                             </div>
                             <div class="form-group col-sm-2 customerStaff">
-                                <input type="number" name="" placeholder="جستجوی کد حساب" class="form-control publicTop" id="searchCustomerCode">
-                            </div>
-                            <div class="form-group col-sm-2 customerStaff">
-                                <select class="form-select publicTop" id="orderByCodeOrName">
+                                <select class="form-select form-select-sm" id="orderByCodeOrName">
                                     <option value="1" hidden>مرتب سازی</option>
                                     <option value="1">اسم</option>
                                     <option value="0">کد</option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-2 customerStaff">
-                                <select class="form-select publicTop" id="findMantaghehByCity">
+                                <select class="form-select form-select-sm" id="findMantaghehByCity">
                                 <option value="شهر" hidden>شهر</option>
                                     @foreach($cities as $city)
                                     <option value="{{$city->SnMNM}}">{{trim($city->NameRec)}}</option>
@@ -121,11 +114,11 @@ tr > th:last-child, tr > td:last-child{
                                 </select>
                             </div>
                             <div class="form-group col-sm-2 customerStaff">
-                                <select class="form-select publicTop" id="searchCustomerByMantagheh">
+                                <select class="form-select form-select-sm" id="searchCustomerByMantagheh">
                                     <option value="مناطق" hidden>مناطق</option>
                                 </select>
                             </div>
-                            <div class="col-sm-2 text-start">
+                            <div class="col-sm-3 text-start">
                                 <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button>
                                 <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='returnCustomer'> ارجاع به مدیر<i class="fal fa-history"></i></button>
                             </div>
@@ -179,27 +172,27 @@ tr > th:last-child, tr > td:last-child{
                         <table class='table table-bordered table-striped table-sm' id="customerTable">
                             <thead class="tableHeader">
                               <tr>
-                                  <th>ردیف</th>
-                                  <th>کد</th>
+                                  <th style="width:55px">ردیف</th>
+                                  <th style="width:66px">کد</th>
                                   <th>اسم</th>
-                                  <th>آدرس </th>
+                                  <th style="width:222px">آدرس </th>
                                   <th>تلفن</th>
                                   <th>همراه</th>
                                   <th>منطقه </th>
-                                  <th>انتخاب</th>
+                                  <th style="width:88px">انتخاب</th>
                               </tr>
                               </thead>
                               <tbody class="select-highlight tableBody" id="customerListBody1">
                                   @foreach ($customers as $customer)
                                       <tr @if($customer->maxTime) style="background-color:lightblue" @endif>
-                                          <td>{{$loop->iteration}}</td>
-                                          <td>{{trim($customer->PCode)}}</td>
-                                          <td>{{trim($customer->Name)}}</td>
-                                          <td>{{trim($customer->peopeladdress)}}</td>
+                                          <td style="width:55px">{{$loop->iteration}}</td>
+                                          <td style="width:66px">{{trim($customer->PCode)}}</td>
+                                          <td >{{trim($customer->Name)}}</td>
+                                          <td style="width:222px">{{trim($customer->peopeladdress)}}</td>
                                           <td>{{trim($customer->PhoneStr)}}</td>
                                           <td>{{trim($customer->PhoneStr)}}</td>
                                           <td>{{trim($customer->NameRec)}}</td>
-                                          <td> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
+                                          <td style="width:77px"> <input class="customerList form-check-input" name="customerId" type="radio" value="{{$customer->PSN.'_'.$customer->GroupCode}}"></td>
                                       </tr>
                                   @endforeach
                               </tbody>
@@ -224,19 +217,17 @@ tr > th:last-child, tr > td:last-child{
         <div class="modal-body p-1">
             <div class="col-sm-12 text-start" id="customerListSection">
                     <input type="hidden" id="customerSn" style="" name="customerSn" value="" />
-                    <button class="btn-primary btn-sm text-warning" disabled id="openDashboard"> داشبورد <i class="fal fa-dashboard"> </i> </button>
-                    <button class='btn-primary btn-sm text-warning' disabled id='returnCustomer'> ارجاع به مدیر <i class="fal fa-history"></i></button>
                 <table class='table table-bordered table-striped table-sm'>
                     <thead class="tableHeader">
                         <tr>
                             <th>ردیف</th>
-                            <th>کد</th>
+                            <th style="width:66px">کد</th>
                             <th>اسم</th>
                             <th>آدرس </th>
                             <th>تلفن</th>
                             <th>همراه</th>
                             <th>منطقه </th>
-                            <th>انتخاب</th>
+                            <th style="width:111px;">انتخاب</th>
                         </tr>
                     </thead>
                     <tbody class="select-highlight tableBody" id="customerListBody" style="height:300px !important;">
@@ -250,87 +241,42 @@ tr > th:last-child, tr > td:last-child{
   </div>
 </div>
 <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable  modal-xl">
+    <div class="modal-dialog  modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header py-2">
                 <button type="button" class="btn-close btn-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h5 class="modal-title" id="exampleModalLabel"> داشبورد </h5>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <Button class="btn btn-sm buttonHover crmButtonColor float-end  mx-2" id="openAddCommentModal" type="button" value="" name="" > کامنت <i class="fas fa-comment fa-lg"> </i> </Button>
-                        <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                            <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
-                            <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                            <Button class="btn btn-sm buttonHover crmButtonColor float-end" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
-                        </form>
-                    </div>
-                </div><hr>
-                    <div class="row">
-                        <div class="col-lg-8 col-md-8 col-sm-8">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4 mb-2">
-                                    <div class="form-outline" style="padding-bottom:1%">
-                                        <label class="dashboardLabel form-label">کد</label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-outline " style="padding-bottom:1%">
-                                        <label class="dashboardLabel form-label">نام و نام خانوادگی</label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="customerName"  value="علی حسینی" >
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> تعداد فاکتور </label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="countFactor">
-                                    </div>
-                                </div>
+                     <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="flex-container">
+                                <div style="flex-grow: 1"> کد:  <span id="customerCode"></span> </div>
+                                <div style="flex-grow: 1">  نام و نام خانوادگی : <span id="customerName"> </span>  </div>
+                                <div style="flex-grow: 1"> تعداد فاکتور : <span id="countFactor"> </span>  </div>
+                                <div style="flex-grow: 1"> شماره های تماس :  <span id="mobile1"> </span>  </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> شماره های تماس </label>
-                                        <input class="form-control noChange" type="text" id="mobile1" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label">نام کاربری</label>
-                                        <input class="form-control noChange" type="text" id="username" >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label">رمز کاربری</label>
-                                        <input class="form-control noChange" type="text" id="password" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> آدرس </label>
-                                        <input type="text" class="form-control form-control-sm noChange" id="customerAddress" value="آدرس">
-                                    </div>
-                                </div>
+                            <div class="flex-container">
+                                <div style="flex-grow: 1">  نام کاربری: <span id="username"> </span>  </div>
+                                <div style="flex-grow: 1"> رمز کاربری:   <span  id="password"> </span>  </div>
+                                <div style="flex-grow: 2"> ادرس :   <span id="customerAddress"> </span>  </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="col-lg-4 col-md-4 col-sm-12">
-                                <div class="mb-3" style="width:350px;">
-                                    <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت</label>
-                                    <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="6"></textarea>
-                                </div>
+                            <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
+                               <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                                <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
+                                    <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                                    <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
+                                    <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                </form>
+                            <div class="mb-2"> <br> <br>
+                                <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
+                                <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
                             </div>
                         </div>
-                    </div>
+                  </div>
+
 
                 <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
                     <div class="col-sm-12" style="margin: 0; padding:0;">
@@ -347,17 +293,17 @@ tr > th:last-child, tr > td:last-child{
                     <div class="c-checkout tab-content"   style="background-color:#f5f5f5; margin:0;padding:0.3%; border-radius:10px 10px 2px 2px;">
                         <div class="row c-checkout rounded-3 tab-pane active" id="custAddress"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                             <div class="col-sm-12">
-                                <table class="homeTables factor crmDataTable tableSection4 table table-bordered table-striped table-sm">
-                                    <thead  style="position: sticky;top: 0;">
+                                <table class="table table-bordered table-striped table-sm">
+                                    <thead class="tableHeader">
                                     <tr>
                                         <th> ردیف</th>
                                         <th>تاریخ</th>
                                         <th> نام راننده</th>
                                         <th>مبلغ </th>
-                                        <th>مشاهد جزئیات </th>
+                                        <th style="width:88px; !important;"> جزئیات </th>
                                     </tr>
                                     </thead>
-                                    <tbody  id="factorTable">
+                                    <tbody class="tableBody" id="factorTable">
                                     </tbody>
                                 </table>
                             </div>
@@ -365,8 +311,8 @@ tr > th:last-child, tr > td:last-child{
                         <div class="row c-checkout rounded-3 tab-pane" id="moRagiInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                             <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="homeTables crmDataTable buyiedKala tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead  style="position: sticky;top: 0;">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -375,7 +321,7 @@ tr > th:last-child, tr > td:last-child{
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody id="goodDetail">
+                                        <tbody class="tableBdoy" id="goodDetail">
 
                                         </tbody>
                                     </table>
@@ -386,8 +332,8 @@ tr > th:last-child, tr > td:last-child{
                         <div class="row c-checkout rounded-3 tab-pane" id="userLoginInfo1" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                             <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="homeTables crmDataTable basketKala tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead  style="position: sticky;top: 0;">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -396,7 +342,7 @@ tr > th:last-child, tr > td:last-child{
                                             <th>فی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="basketOrders">
+                                        <tbody class="tableBody" id="basketOrders">
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -413,22 +359,17 @@ tr > th:last-child, tr > td:last-child{
                         <div class="row c-checkout rounded-3 tab-pane" id="customerLoginInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                             <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="homeTables crmDataTable returnedFactor tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead  style="position: sticky;top: 0;">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
                                             <th>نوع پلتفورم</th>
-                                            <th>مرورگر</th>
+                                            <th style="width:111px !important;">مرورگر</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerLoginInfoBody">
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        <tbody class="tableBody" id="customerLoginInfoBody">
+                                    
                                         </tbody>
                                     </table>
                                 </div>
@@ -438,8 +379,8 @@ tr > th:last-child, tr > td:last-child{
                         <div class="row c-checkout rounded-3 tab-pane" id="returnedFactors1"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                         <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="homeTables crmDataTable comments tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead  style="position: sticky;top: 0;">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
@@ -447,7 +388,7 @@ tr > th:last-child, tr > td:last-child{
                                             <th>مبلغ </th>
                                         </tr>
                                         </thead>
-                                        <tbody id="returnedFactorsBody">
+                                        <tbody class="tableBody" id="returnedFactorsBody">
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -463,17 +404,17 @@ tr > th:last-child, tr > td:last-child{
                         <div class="c-checkout tab-pane" id="comments" style="margin:0; border-radius:10px 10px 2px 2px;">
                             <div class="row c-checkout rounded-3 tab-pane active"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="homeTables crmDataTable nazarSanji tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead  style="position: sticky;top: 0;">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
                                             <th> کامنت</th>
                                             <th> کامنت بعدی</th>
-                                            <th> تاریخ بعدی </th>
+                                            <th style="width:111px !important;"> تاریخ بعدی </th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerComments"  >
+                                        <tbody class="tableBody" id="customerComments"  >
 
                                         </tbody>
                                     </table>
@@ -483,18 +424,18 @@ tr > th:last-child, tr > td:last-child{
                         <div class="c-checkout tab-pane" id="assesments" style="margin:0; border-radius:10px 10px 2px 2px;">
                             <div class="row c-checkout rounded-3 tab-pane active" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                                 <div class="col-sm-12">
-                                    <table class="homeTables crmDataTable myCustomer tableSection4 table table-bordered table-striped table-sm" style="text-align:center;">
-                                        <thead  style="position: sticky;top: 0;">
+                                    <table class="table table-bordered table-striped table-sm" style="text-align:center;">
+                                        <thead class="tableHeader">
                                         <tr>
                                             <th> ردیف</th>
                                             <th>تاریخ</th>
                                             <th> کامنت</th>
                                             <th> برخورد راننده</th>
                                             <th> مشکل در بارگیری</th>
-                                            <th> کالاهای برگشتی</th>
+                                            <th style="width:110px;"> کالاهای برگشتی</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="customerAssesments"  >
+                                        <tbody class="tableBody" id="customerAssesments"  >
                                         </tbody>
                                     </table>
                                 </div>
@@ -510,60 +451,35 @@ tr > th:last-child, tr > td:last-child{
     <div class="modal fade" id="viewFactorDetail" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog   modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header py-2">
                     <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h5 class="modal-title" id="exampleModalLabel">جزئیات فاکتور</h5>
                 </div>
                 <div class="modal-body" id="readCustomerComment">
                     <div class="container">
-                        <div class="row" style=" border:1px solid #dee2e6; padding:10px">
-                                <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
-                                <div class="col-sm-6">
-                                    <table class="crmDataTable table table-borderless" style="background-color:#dee2e6">
-                                        <tbody>
-                                        <tr>
-                                            <td>تاریخ فاکتور:</td>
-                                            <td id="factorDate"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>مشتری:</td>
-                                            <td id="customerNameFactor"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-sm-6">
-                                    <table class="table table-borderless" style="background-color:#dee2e6">
-                                        <tbody>
-                                            <tr>
-                                                <td>تلفن :</td>
-                                                <td id="customerPhoneFactor"></td>
-                                            </tr>
-                                        <tr>
-                                            <td>کاربر :</td>
-                                            <td id="Admin">3</td>
-                                        </tr>
-                                        <tr>
-                                            <td>شماره فاکتور :</td>
-                                            <td id="factorSnFactor"></td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                        <div class="row">
+                                 <div class="flex-container">
+                                    <div style="flex-grow: 1"> تاریخ فاکتور: <span id="factorDate"> </span>  </div>
+                                    <div style="flex-grow: 1"> مشتری:  <span  id="customerNameFactor"> </span>  </div>
+                                    <div style="flex-grow: 1"> ادرس :   <span id="customerAddress"> </span>  </div>
+                                    <div style="flex-grow: 1"> تلفن :  <span id="customerPhoneFactor"> </span>  </div>
+                                    <div style="flex-grow: 1"> کاربر :  <span id="Admin"> </span>  </div>
+                                    <div style="flex-grow: 1"> شماره فاکتور :  <span id="factorSnFactor"> </span>  </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <table id="strCusDataTable"  class='homeTables crmDataTable dashbordTables table table-bordered table-striped table-sm' style="background-color:#dee2e6">
-                                    <thead>
+                                <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
+                                    <thead class="tableHeader">
                                     <tr>
-                                        <th scope="col">ردیف</th>
-                                        <th scope="col">نام کالا </th>
-                                        <th scope="col">تعداد/مقدار</th>
-                                        <th scope="col">واحد کالا</th>
-                                        <th scope="col">فی (تومان)</th>
-                                        <th scope="col">مبلغ (تومان)</th>
+                                        <th>ردیف</th>
+                                        <th>نام کالا </th>
+                                        <th>تعداد/مقدار</th>
+                                        <th>واحد کالا</th>
+                                        <th>فی (تومان)</th>
+                                        <th style="width:120px;">مبلغ (تومان)</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="productList">
+                                    <tbody class="tableBody" id="productList" style="height: 255px !important;">
 
                                     </tbody>
                                 </table>
@@ -605,7 +521,7 @@ tr > th:last-child, tr > td:last-child{
 <div class="modal fade" id="viewComment" tabindex="1"  data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header py-2">
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h5 class="modal-title" id="exampleModalLabel">کامنت ها</h5>
             </div>
@@ -613,7 +529,7 @@ tr > th:last-child, tr > td:last-child{
                 <h3 id="readCustomerComment1"></h3>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">بستن</button>
             </div>
         </div>
     </div>
@@ -622,8 +538,8 @@ tr > th:last-child, tr > td:last-child{
 <div class="modal" id="addComment"  data-bs-backdrop="static" >
     <div class="modal-dialog modal-dialog-scrollable ">
         <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title"> افزودن کامنت </h5>
+            <div class="modal-header py-2">
+                <h5 class="modal-title"> افزودن کامنت </h5>
             </div>
             <div class="modal-body">
                 <form action="{{url('/addComment')}}" id='addCommentTimeTable' method="get" style="background-color:transparent; box-shadow:none;">
@@ -631,7 +547,7 @@ tr > th:last-child, tr > td:last-child{
                 <div class="row">
                     <div class="col-lg-12 fw-bold">
                         <label for="tahvilBar">نوع تماس</label>
-                        <select class="form-select" name="callType">
+                        <select class="form-select form-select-sm" name="callType">
                             <option value="1">موبایل  </option>
                             <option value="2"> تلفن ثابت </option>
                             <option value="3"> واتساپ</option>
@@ -644,27 +560,27 @@ tr > th:last-child, tr > td:last-child{
                 <div class="row">
                     <div class="col-sm-12 fw-bold">
                         <label for="tahvilBar" >کامنت </label>
-                        <textarea class="form-control" style="position:relative" required name="firstComment" rows="3" ></textarea>
+                        <textarea class="form-control" style="position:relative" required name="firstComment" rows="2" ></textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12 fw-bold">
                         <label for="tahvilBar" >زمان تماس بعدی </label>
-                        <input class="form-control" autocomplete="off" required name="nextDate" id="commentDate2">
+                        <input class="form-control form-control-sm" autocomplete="off" required name="nextDate" id="commentDate2">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 fw-bold">
                         <label for="tahvilBar">کامنت بعدی</label>
-                        <textarea class="form-control" name="secondComment" required rows="5" ></textarea>
+                        <textarea class="form-control" name="secondComment" required rows="2" ></textarea>
                         <input type="text" id="lastCommentId" style="display: none" name="lastCommentId">
                         <input type="text"  style="display: none" name="place" value="calendar">
                     </div>
                 </div>
             
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancelComment">انصراف <i class="fa fa-xmark"></i></button>
-                    <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save"></i></button>
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" id="cancelComment">انصراف <i class="fa fa-xmark"></i></button>
+                    <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save"></i></button>
                 </div>
             </form>
         </div>

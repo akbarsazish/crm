@@ -91,7 +91,7 @@
                                     <thead class="tableHeader">
                                     <tr>
                                         <th class="forMobileDisplay">ردیف</th>
-                                        <th class="forMobileResize" style="width:244px;">اسم</th>
+                                        <th class="forMobileResize" style="width:300px;">اسم</th>
                                         <th class="forMobileDisplay" style="width:199px;">شماره تماس</th>
                                         <th class="forMobileDisplay" style="width:88px">منطقه </th>
                                         <th style="width:88px">تاریخ ثبت</th>
@@ -103,7 +103,7 @@
                                         @foreach($customers as $customer)
                                             <tr onclick="setEditRTStuff({{$customer->PSN}})">
                                                 <td class="forMobileDisplay" style="width:40px">{{$loop->iteration}}</td>
-                                                <td class="forMobileResize" style="width:244px;">{{$customer->Name}}</td>
+                                                <td class="forMobileResize" style="width:300px;">{{$customer->Name}}</td>
                                                 <td class="forMobileDisplay" style="width:199px;">{{$customer->PhoneStr}}</td>
                                                 <td class="forMobileDisplay" style="width:88px">{{$customer->NameRec}}</td>
                                                 <td style="width:88px">{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($customer->TimeStamp))->format("Y/m/d")}}</td>
@@ -230,7 +230,7 @@
                        
                         <div class="row">
                             @if(Session::get('adminType')==1 or Session::get('adminType')==5)
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                 <label class="dashboardLabel dashboardLabel form-label">پشتیبان</label>
                                     <select class="form-select" name="adminId" id="">
@@ -243,23 +243,23 @@
                             @else
                             <input type="hidden" name="adminId" value="{{Session::get('asn')}}">
                             @endif
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                <div class="form-group">
                                <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label">توضیح</label>
-                                    <textarea name="discription"   required class="form-control" cols="20" rows="3"></textarea>
+                                    <textarea name="discription"   required class="form-control" rows="2"></textarea>
                                 </div>
                                 </div>
                             </div>  
-							<div class="col-md-3">           
+							<div class="col-md-3 text-start">           
                                  <input type="text" id="customerLocation" name="location">  
-                               <button type="button" class="btn btn-success mt-3" id="openCurrentLocationModal" >دریافت لوکیشن خودکار</button>
+                               <button type="button" class="btn btn-sm btn-success mt-3" id="openCurrentLocationModal" >دریافت لوکیشن خودکار</button>
                            </div>
 						</div>
                    
                         <div class="modal-footer mt-2">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="submit" id="submitRT"  class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                            <button type="submit" id="submitRT"  class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
                         </div>
                     </form>
                 </div>
@@ -272,7 +272,7 @@
     <div class="modal fade dragableModal" id="editNewCustomer" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="margin:0; border:none">
+                <div class="modal-header py-2" style="margin:0; border:none">
                     <h5 class="modal-title" id="exampleModalLongTitle"> ویرایش مشتری</h5>
                 </div>
                 <div class="modal-body">
@@ -280,42 +280,42 @@
                     @csrf   
                     <input type="hidden" name="customerId" id="customerID" value="3004345"> 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label">نام و نام خانوادگی</label>
                                     <input type="text" required class="form-control" autocomplete="off" name="name" id="name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label">کد</label>
                                     <input type="text" required class="form-control" autocomplete="off" name="PCode" id="PCode">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> شماره همراه  </label>
                                     <input type="number" required class="form-control" autocomplete="off" name="mobilePhone" id="mobilePhone">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                        </div>
+                        <div class="row">
+                            
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> شماره ثابت </label>
                                     <input type="number" required class="form-control" autocomplete="off" name="sabitPhone" id="sabitPhone">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                       
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> جنسیت</label>
                                     <select class="form-select" name="gender" id="gender">
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> شهر</label>
                                     <select class="form-select" name="snNahiyeh" id="snNahiyehE">
@@ -327,7 +327,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> منطقه </label>
                                     <select class="form-select" name="snMantagheh" id="snMantaghehE">
@@ -337,15 +337,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> ادرس کامل  </label>
                                     <input type="text" required class="form-control" autocomplete="off" name="peopeladdress" id="peopeladdress">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
+                       
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label"> نوع مشتری </label>
                                     <select class="form-select" name="secondGroupCode">
@@ -355,18 +354,19 @@
                                     </select>
                                 </div>
                             </div>
-							<div class="col-md-6">           
+                            </div>
+							<div class="col-md-12">           
                                 <div class="form-group">
                                     <label class="dashboardLabel dashboardLabel form-label">توضیح</label>
-                                    <textarea name="discription"  required class="form-control" id="discription" cols="20" rows="3"></textarea>
+                                    <textarea name="discription"  required class="form-control" id="discription"  rows="2"></textarea>
                                 </div>
                             </div>
                         </div>
                         
                         
-                        <div class="form-group" style="margin-top:4%">
-                            <button type="button" class="btn btn-danger" id="cancelEditCustomer"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
-                            <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
+                        <div class="form-group text-start" style="margin-top:4%">
+                            <button type="button" class="btn btn-sm btn-danger" id="cancelEditCustomer"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
+                            <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
                         </div>
                     </form>
                 </div>

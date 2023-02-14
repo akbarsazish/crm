@@ -76,35 +76,34 @@
                           </div>
                     </div>
                     <div class="row mainContent">
-                <div class="row p-0 m-0">
-                  <table class="table table-bordered table-striped driverServicesTable" id="driverServicesTable">
-                        <thead class="tableHeader">
-                            <tr>
-                            <th>  دریف  </th>
-                            <th> نام راننده</th>
-                            <th> نوع مسیر </th>
-                            <th> توضیحات </th>
-                            <th> تاریخ </th>
-                            <th> انتخاب </th>
-                            </tr>
-                        </thead>
-                        <tbody class="tableBody" id="driverServiceBodyList">
-                          @foreach($services as $service)
+                        <table class="table table-bordered table-striped driverServicesTable px-0" id="driverServicesTable">
+                              <thead class="tableHeader">
+                                  <tr>
+                                  <th>  دریف  </th>
+                                  <th> نام راننده</th>
+                                  <th> نوع مسیر </th>
+                                  <th> توضیحات </th>
+                                  <th> تاریخ </th>
+                                  <th> انتخاب </th>
+                                  </tr>
+                              </thead>
+                              <tbody class="tableBody" id="driverServiceBodyList">
+                                @foreach($services as $service)
 
-                            <tr onclick="setDriverServiceStuff(this,{{$service->ServiceSn}})">
-                                <th>{{$loop->iteration}}</th>
-                                <td> {{$service->name.' '.$service->lastName}}</td>
-                                <td>@if($service->serviceType==2) متوسط @endif @if($service->serviceType==1) دور @endif @if($service->serviceType==3) نزدیک @endif </td>
-                                <td>{{$service->discription}} </td>
-                                <td>{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($service->TimeStamp))->format('Y/m/d H:i:s')}}</td>
-                                <td>  <input  type="radio" name="radioBtn" value="{{$service->ServiceSn}}"> </td>
-                            </tr>
-                          @endforeach
-                          </tbody>
-                    </table>
+                                  <tr onclick="setDriverServiceStuff(this,{{$service->ServiceSn}})">
+                                      <th>{{$loop->iteration}}</th>
+                                      <td> {{$service->name.' '.$service->lastName}}</td>
+                                      <td>@if($service->serviceType==2) متوسط @endif @if($service->serviceType==1) دور @endif @if($service->serviceType==3) نزدیک @endif </td>
+                                      <td>{{$service->discription}} </td>
+                                      <td>{{\Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::parse($service->TimeStamp))->format('Y/m/d H:i:s')}}</td>
+                                      <td>  <input  type="radio" name="radioBtn" value="{{$service->ServiceSn}}"> </td>
+                                  </tr>
+                                @endforeach
+                                </tbody>
+                          </table>
 
                     <!-- bargeri tables -->
-                     <table class="select-highlight table table-bordered table-striped bargeriTable" id="">
+                        <table class="select-highlight table table-bordered table-striped bargeriTable px-0" id="">
                                 <thead class="tableHeader">
                                     <tr>
                                         <th>ردیف</th>
@@ -130,7 +129,8 @@
                                     @endforeach
                                 </tbody>
                              </table>
-                            <table class="table table-bordered bargeriTable" id="tableGroupList">
+
+                            <table class="table table-bordered bargeriTable px-0" id="tableGroupList">
                                 <thead class="bg-primary text-warning tableHeader">
                                     <tr>
                                         <th>#</th>
@@ -144,8 +144,6 @@
                                 <tbody class="tableBody" id="crmDriverBargeri" style="height:250px !important">
                                 </tbody>
                             </table>
-               
-                       </div>
                     </div>
                     <div class="row contentFooter"> 
                         <div class="col-lg-12 text-start mt-1" id="bottomServiceBttons">
@@ -171,7 +169,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="{{url('/addService')}}" id="addService" method="get">
-          <div class="modal-header bg-primary text-white py-3">
+          <div class="modal-header bg-primary text-white py-2">
               <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
               <h6 class="modal-title" id="driverServicesModalLabel"> افزودن سرویس راننده ها  </h6>
           </div>
@@ -215,7 +213,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form action="{{url('/editDriverService')}}" id="editServiceForm" method="get">
-      <div class="modal-header bg-primary text-white py-3">
+      <div class="modal-header bg-primary text-white py-2">
           <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
           <h6 class="modal-title" id="editDriverServicModalLabel"> ویرایش سرویس راننده ها  </h6>
       </div>
@@ -256,7 +254,7 @@
             <div class="modal fade" id="bargiriFactor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header py-2">
                         <button type="button" class="btn-close bg-danger" data-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLabel">فاکتور فروش <span  id="totalMoney"> </span> </h5>
                     </div>

@@ -35,9 +35,6 @@ input[type=checkbox] {
     height: auto;
 }
 
-
-
-
 </style>
 <div class="modalBackdrop">
     <div id='unitStuffContainer' class="alert alert-danger" style="max-width: 200px; background-color: #ffffff66; padding: 5px; width: 100%; max-height: 85vh; overflow: auto;">
@@ -291,8 +288,8 @@ input[type=checkbox] {
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
             <div class="modal-header py-2 myModalHeader">
+                <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" id="closeEditModal" aria-label="Close"></button> 
                 <h6 class="modal-title" id="editKalaTitle"> </h6>
-               <span style="display: flex; float:left;"> <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" id="closeEditModal" aria-label="Close"></button> </span>
             </div>
             <div class="modal-body py-1">
                     <div class="row mb-1">

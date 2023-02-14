@@ -8,7 +8,6 @@
 
 }
 
-
 .flex-left {
   width:49% !important;
    background-color: #b3d1ef;
@@ -28,10 +27,7 @@
       <div class="row">
               <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                   <fieldset class="border rounded mt-5 sidefieldSet">
-                      <div class="col-lg-12">
-                          <button class="w-50 btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
-                          <button class="w-50 btn btn-sm btn-danger" data-toggle="modal" data-target="#"> حذف <i class="fa fa-trash"> </i>  </button>
-                      </div>
+                     
                   </fieldset>
                 </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -65,8 +61,8 @@
                                   <div class="flex-left">   آدرس   </div>
                                   <div class="flex-right">  {{$admin->address}} </div>
                                 </div>
+                                <button class="w-50 btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
                               </div>
-
                               
 
                     </div>
@@ -92,26 +88,40 @@
                         <div class="modal-body">
                                 <form action="{{url('/editOwnAdmin')}}" method="post"  enctype="multipart/form-data">
                                   @csrf
-                                    <div class="form-group">
-                                        <label class="form-label"> نام کاربری</label>
-                                        <input type="text" required maxlength="20" minlength="5" class="form-control" value="{{trim($admin->username)}}" autocomplete="off" name="userName">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label"> شماره تماس </label>
-                                        <input type="number" maxlength="12" minlength="10" required class="form-control" value="{{trim($admin->phone)}}" autocomplete="off" name="phone">
-                                    </div>
+
+                                  <div class="row">
+                                      <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> نام کاربری</label>
+                                            <input type="text" required maxlength="20" minlength="5" class="form-control" value="{{trim($admin->username)}}" autocomplete="off" name="userName">
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="form-group">
+                                              <label class="form-label"> شماره تماس </label>
+                                              <input type="number" maxlength="12" minlength="10" required class="form-control" value="{{trim($admin->phone)}}" autocomplete="off" name="phone">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-lg-6">
+                                         <div class="form-group">
+                                            <label class="form-label"> رمز</label>
+                                            <input type="text" required class="form-control"  maxlength="20" minlength="4" value="{{trim($admin->password)}}" autocomplete="off" name="password" >
+                                        </div>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <div class="form-group">
+                                              <label class="form-label"> عکس </label>
+                                              <input type="file" class="form-control" required name="picture" placeholder="">
+                                          </div>
+                                      </div>
+                                  </div>
                                     <div class="form-group">
                                         <label class="form-label"> ادرس  </label>
                                         <input type="text" required class="form-control" value="{{trim($admin->address)}}" autocomplete="off" name="address">
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label"> رمز</label>
-                                        <input type="text" required class="form-control"  maxlength="20" minlength="4" value="{{trim($admin->password)}}" autocomplete="off" name="password" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label"> عکس </label>
-                                        <input type="file" class="form-control" required name="picture" placeholder="">
-                                    </div>
+                                    
                                     <div class="form-group tex-end mt-3">
                                         <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
                                         <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
