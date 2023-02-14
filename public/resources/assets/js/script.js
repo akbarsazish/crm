@@ -17,7 +17,7 @@ document
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -15455,25 +15455,25 @@ $("#addSaleLineN").on("change",function(){
 })
 
 
-$("#baseInfoSetting").on("change",function(){
-    if($("#baseInfoSetting").is(":checked")){
+$("#baseInfoSettingN").on("change",function(){
+    if($("#baseInfoSettingN").is(":checked")){
         $("#baseInfoN").prop("checked",true);
-        $("#InfoSettingAccess").prop("checked",true);
-        $("#seeSettingAccess").prop("checked",true);
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#seeSettingAccessN").prop("checked",true);
 
-        $("#InfoSettingTarget").prop("checked",true);
+        $("#InfoSettingTargetN").prop("checked",true);
         $("#seeSettingTargetN").prop("checked",true);
 
     }else{
         if(!$(".baseInfoN").is(":checked")){
             $("#baseInfoN").prop("checked",false);
             }
-        $("#InfoSettingAccess").prop("checked",false);
-        $("#deleteSettingAccess").prop("checked",false);
-        $("#editSettingAccess").prop("checked",false);
-        $("#seeSettingAccess").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
 
-        $("#InfoSettingTarget").prop("checked",false);
+        $("#InfoSettingTargetN").prop("checked",false);
         $("#deleteSettingTargetN").prop("checked",false);
         $("#editSettingTargetN").prop("checked",false);
         $("#seeSettingTargetN").prop("checked",false);
@@ -15644,43 +15644,43 @@ $("#deleteSaleLineN").on("change",function(){
 })
 
 //
-$("#seeSettingAccess").on("change",function(){
-    if(!$("#seeSettingAccess").is(":checked")){
-        $("#InfoSettingAccess").prop("checked",false);
-        $("#InfoSettingAccess").trigger("change");
+$("#seeSettingAccessN").on("change",function(){
+    if(!$("#seeSettingAccessN").is(":checked")){
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#InfoSettingAccessN").trigger("change");
     }else{
-        $("#InfoSettingAccess").prop("checked",true);
-        $("#InfoSettingAccess").trigger("change");
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#InfoSettingAccessN").trigger("change");
     }
 })
 
 
-$("#editSettingAccess").on("change",function(){
-    if(!$("#editSettingAccess").is(":checked")){
-        $("#deleteSettingAccess").prop("checked",false);
+$("#editSettingAccessN").on("change",function(){
+    if(!$("#editSettingAccessN").is(":checked")){
+        $("#deleteSettingAccessN").prop("checked",false);
     }else{
-        $("#InfoSettingAccess").prop("checked",true);
-        $("#InfoSettingAccess").trigger("change");
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#InfoSettingAccessN").trigger("change");
     }
 });
 
 
-$("#deleteSettingAccess").on("change",function(){
-    if(!$("#deleteSettingAccess").is(":checked")){
+$("#deleteSettingAccessN").on("change",function(){
+    if(!$("#deleteSettingAccessN").is(":checked")){
     }else{
-        $("#InfoSettingAccess").prop("checked",true);
-        $("#editSettingAccess").prop("checked",true);
-        $("#InfoSettingAccess").trigger("change");
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#editSettingAccessN").prop("checked",true);
+        $("#InfoSettingAccessN").trigger("change");
     }
 })
 //
 $("#seeSettingTargetN").on("change",function(){
     if(!$("#seeSettingTargetN").is(":checked")){
-        $("#InfoSettingTarget").prop("checked",false);
-        $("#InfoSettingTarget").trigger("change");
+        $("#InfoSettingTargetN").prop("checked",false);
+        $("#InfoSettingTargetN").trigger("change");
     }else{
-        $("#InfoSettingTarget").prop("checked",true);
-        $("#InfoSettingTarget").trigger("change");
+        $("#InfoSettingTargetN").prop("checked",true);
+        $("#InfoSettingTargetN").trigger("change");
     }
 })
 
@@ -15689,8 +15689,8 @@ $("#editSettingTargetN").on("change",function(){
     if(!$("#editSettingTargetN").is(":checked")){
         $("#deleteSettingTargetN").prop("checked",false);
     }else{
-        $("#InfoSettingTarget").prop("checked",true);
-        $("#InfoSettingTarget").trigger("change");
+        $("#InfoSettingTargetN").prop("checked",true);
+        $("#InfoSettingTargetN").trigger("change");
     }
 });
 
@@ -15698,9 +15698,9 @@ $("#editSettingTargetN").on("change",function(){
 $("#deleteSettingTargetN").on("change",function(){
     if(!$("#deleteSettingTargetN").is(":checked")){
     }else{
-        $("#InfoSettingTarget").prop("checked",true);
+        $("#InfoSettingTargetN").prop("checked",true);
         $("#editSettingTargetN").prop("checked",true);
-        $("#InfoSettingTarget").trigger("change");
+        $("#InfoSettingTargetN").trigger("change");
     }
 })
 //
@@ -15712,7 +15712,18 @@ $("#seedeclareElementN").on("change",function(){
         $("#declareElementN").prop("checked",true);
         $("#declareElementN").trigger("change");
     }
-})
+});
+
+$("#declareElementN").on("change",function(){
+    if(!$("#declareElementN").is(":checked")){
+        $("#editdeclareElementN").prop("checked",false);
+        $("#deletedeclareElementN").prop("checked",false);
+        $("#seedeclareElementN").prop("checked",false);
+    }else{
+        $("#seedeclareElementN").prop("checked",true);
+    }
+});
+
 
 
 $("#editdeclareElementN").on("change",function(){
@@ -15734,33 +15745,33 @@ $("#deletedeclareElementN").on("change",function(){
     }
 });
 
-$("#InfoSettingAccess").on("change",function(){
-    if($("#InfoSettingAccess").is(":checked")){
-        $("#baseInfoSetting").prop("checked",true);
+$("#InfoSettingAccessN").on("change",function(){
+    if($("#InfoSettingAccessN").is(":checked")){
+        $("#baseInfoSettingN").prop("checked",true);
         $("#baseInfoN").prop("checked",true);
-        $("#InfoSettingAccess").prop("checked",true);
-        $("#seeSettingAccess").prop("checked",true);
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#seeSettingAccessN").prop("checked",true);
     }else{
-        if(!$(".InfoSetting").is(":checked")){
-            $("#baseInfoSetting").prop("checked",false);
-            $("#baseInfoSetting").trigger("change");
+        if(!$(".InfoSettingN").is(":checked")){
+            $("#baseInfoSettingN").prop("checked",false);
+            $("#baseInfoSettingN").trigger("change");
         }
-        $("#deleteSettingAccess").prop("checked",false);
-        $("#editSettingAccess").prop("checked",false);
-        $("#seeSettingAccess").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
     }
 });
 
 
-$("#InfoSettingTarget").on("change",function(){
-    if($("#InfoSettingTarget").is(":checked")){
-        $("#baseInfoSetting").prop("checked",true);
+$("#InfoSettingTargetN").on("change",function(){
+    if($("#InfoSettingTargetN").is(":checked")){
+        $("#baseInfoSettingN").prop("checked",true);
         $("#baseInfoN").prop("checked",true);
         $("#seeSettingTargetN").prop("checked",true);
     }else{
         if(!$(".InfoSetting").is(":checked")){
-            $("#baseInfoSetting").prop("checked",false);
-            $("#baseInfoSetting").trigger("change");
+            $("#baseInfoSettingN").prop("checked",false);
+            $("#baseInfoSettingN").trigger("change");
         }
         $("#deleteSettingTargetN").prop("checked",false);
         $("#editSettingTargetN").prop("checked",false);
@@ -15785,11 +15796,11 @@ $("#baseInfoN").on("change",function(){
         $("#addSaleLineN").prop("checked",true);
         $("#seeSaleLineN").prop("checked",true);
 
-        $("#baseInfoSetting").prop("checked",true);
-        $("#InfoSettingAccess").prop("checked",true);
-        $("#seeSettingAccess").prop("checked",true);
+        $("declareElementN").prop("checked",true);
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#seeSettingAccessN").prop("checked",true);
 
-        $("#InfoSettingTarget").prop("checked",true);
+        $("#InfoSettingTargetN").prop("checked",true);
         $("#seeSettingTargetN").prop("checked",true);
     }else{
         $("#rdSentN").prop("checked",false);
@@ -15813,13 +15824,13 @@ $("#baseInfoN").on("change",function(){
         $("#editSaleLineN").prop("checked",false);
         $("#seeSaleLineN").prop("checked",false);
 
-        $("#baseInfoSetting").prop("checked",false);
-        $("#InfoSettingAccess").prop("checked",false);
-        $("#deleteSettingAccess").prop("checked",false);
-        $("#editSettingAccess").prop("checked",false);
-        $("#seeSettingAccess").prop("checked",false);
+        $("#baseInfoSettingN").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
 
-        $("#InfoSettingTarget").prop("checked",false);
+        $("#InfoSettingTargetN").prop("checked",false);
         $("#deleteSettingTargetN").prop("checked",false);
         $("#editSettingTargetN").prop("checked",false);
         $("#seeSettingTargetN").prop("checked",false);
