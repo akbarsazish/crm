@@ -15363,8 +15363,6 @@ success: function(data) {
     return false;
     });
 
-
-
     // for submiting description kala data 
   $("#completDescription").submit(function(e) {
         $.ajax({
@@ -15391,22 +15389,1716 @@ success: function(data) {
    
 $("#calendarRadioBtn").on("change", ()=>{
     $("#timeTable").css("display", "table")
-    $(".calendarStaff").css("display", "inline")
+    $("#calendarStaff").css("display", "inline")
     $("#month").css("display", "inline")
     $("#year").css("display", "inline")
     $("#customerTable").css("display", "none")
-    $(".customerStaff").css("display", "none")
+    $("#customerStaff").css("display", "none")
 })
 $("#customerListRadioBtn").on("change", ()=>{
     $("#customerTable").css("display", "table")
-    $(".customerStaff").css("display", "inline")
+    $("#customerStaff").css("display", "inline")
     $("#timeTable").css("display", "none")
-    $(".calendarStaff").css("display", "none")
+    $("#calendarStaff").css("display", "none")
     $("#month").css("display", "none")
     $("#year").css("display", "none")
 })
 
 
+$("#rdSentN").on("change",function(){
+    if($("#rdSentN").is(":checked")){
+        $("#baseInfoN").prop("checked",true);
+        $("#infoRdN").prop("checked",true);
+        $("#deleteSentRdN").prop("checked",true);
+        $("#editSentRdN").prop("checked",true);
+        $("#seeSentRdN").prop("checked",true);
+    }else{
+        if(!$(".rdN").is(":checked")){
+            $("#infoRdN").prop("checked",false);
+            $("#infoRdN").trigger("change");
+        }
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+    }
+});
+
+$("#rdNotSentN").on("change",function(){
+    if($("#rdNotSentN").is(":checked")){
+        $("#baseInfoN").prop("checked",true);
+        $("#infoRdN").prop("checked",true);
+        $("#rdNotSentN").prop("checked",true);
+        $("#deleteRdNotSentN").prop("checked",true);
+        $("#editRdNotSentN").prop("checked",true);
+        $("#seeRdNotSentN").prop("checked",true);
+    }else{
+        if(!$(".rdN").is(":checked")){
+            $("#infoRdN").prop("checked",false);
+            $("#infoRdN").trigger("change");
+        }
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+    }
+})
+
+
+$("#addSaleLineN").on("change",function(){
+    if($("#addSaleLineN").is(":checked")){
+        $("#baseInfoN").prop("checked",true);
+        $("#deleteSaleLineN").prop("checked",true);
+        $("#editSaleLineN").prop("checked",true);
+        $("#seeSaleLineN").prop("checked",true);
+    }else{
+        if(!$(".baseInfoN").is(":checked")){
+            $("#baseInfoN").prop("checked",false);
+            }
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+    }
+})
+
+
+$("#baseInfoSetting").on("change",function(){
+    if($("#baseInfoSetting").is(":checked")){
+        $("#baseInfoN").prop("checked",true);
+        $("#InfoSettingAccess").prop("checked",true);
+        $("#deleteSettingAccess").prop("checked",true);
+        $("#editSettingAccess").prop("checked",true);
+        $("#seeSettingAccess").prop("checked",true);
+
+        $("#InfoSettingTarget").prop("checked",true);
+        $("#deleteSettingTargetN").prop("checked",true);
+        $("#editSettingTargetN").prop("checked",true);
+        $("#seeSettingTargetN").prop("checked",true);
+
+    }else{
+        if(!$(".baseInfoN").is(":checked")){
+            $("#baseInfoN").prop("checked",false);
+            }
+        $("#InfoSettingAccess").prop("checked",false);
+        $("#deleteSettingAccess").prop("checked",false);
+        $("#editSettingAccess").prop("checked",false);
+        $("#seeSettingAccess").prop("checked",false);
+
+        $("#InfoSettingTarget").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+
+    }
+})
+
+$("#baseInfoProfileN").on("change",function(){
+    if($("#baseInfoProfileN").is(":checked")){
+        $("#baseInfoN").prop("checked",true);
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+    }else{
+        if(!$(".baseInfoN").is(":checked")){
+            $("#baseInfoN").prop("checked",false);
+            }
+            $("#deleteProfileN").prop("checked",false);
+            $("#editProfileN").prop("checked",false);
+            $("#seeProfileN").prop("checked",false);
+    }
+})
+
+$("#infoRdN").on("change",function(){
+    if($("#infoRdN").is(":checked")){
+
+        $("#baseInfoN").prop("checked",true);
+        $("#rdSentN").prop("checked",true);
+        $("#deleteSentRdN").prop("checked",true);
+        $("#editSentRdN").prop("checked",true);
+        $("#seeSentRdN").prop("checked",true);
+
+        $("#rdNotSentN").prop("checked",true);
+        $("#deleteRdNotSentN").prop("checked",true);
+        $("#editRdNotSentN").prop("checked",true);
+        $("#seeRdNotSentN").prop("checked",true);
+
+    }else{
+        if(!$(".baseInfoN").is(":checked")){
+            
+        $("#baseInfoN").prop("checked",false);
+        }
+        $("#rdSentN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+    }
+});
+
+$("#seeProfileN").on("change",function(){
+    if(!$("#seeProfileN").is(":checked")){
+        $(".ProfileN").prop("checked",false);
+        $("#baseInfoProfileN").prop("checked",false);
+        $("#baseInfoProfileN").trigger("change");
+    }else{
+        $("#baseInfoProfileN").prop("checked",true);
+        $("#baseInfoProfileN").trigger("change");
+    }
+})
+
+$("#editProfileN").on("change",function(){
+    if(!$("#editProfileN").is(":checked")){
+        $("#deleteProfileN").prop("checked",false);
+    }else{
+        $("#seeProfileN").prop("checked",false);
+        $("#baseInfoProfileN").prop("checked",true);
+        $("#baseInfoProfileN").trigger("change");
+    }
+})
+
+$("#deleteProfileN").on("change",function(){
+    if(!$("#deleteProfileN").is(":checked")){
+    }else{
+        $(".ProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+        $("#baseInfoProfileN").trigger("change");
+    }
+})
+
+//
+$("#seeSentRdN").on("change",function(){
+    if(!$("#seeSentRdN").is(":checked")){
+        $("#rdSentN").prop("checked",false);
+        $("#rdSentN").trigger("change");
+    }else{
+        $("#rdSentN").prop("checked",true);
+        $("#rdSentN").trigger("change");
+    }
+})
+
+$("#editSentRdN").on("change",function(){
+    if(!$("#editSentRdN").is(":checked")){
+        $("#deleteSentRdN").prop("checked",false);
+    }else{
+        $("#rdSentN").prop("checked",true);
+        $("#rdSentN").trigger("change");
+    }
+});
+
+$("#deleteSentRdN").on("change",function(){
+    if(!$("#deleteSentRdN").is(":checked")){
+    }else{
+        $("#rdSentN").prop("checked",true);
+        $("#rdSentN").trigger("change");
+    }
+})
+//
+$("#seeRdNotSentN").on("change",function(){
+    if(!$("#seeRdNotSentN").is(":checked")){
+        $("#rdNotSentN").prop("checked",false);
+        $("#rdNotSentN").trigger("change");
+    }else{
+        $("#rdNotSentN").prop("checked",true);
+        $("#rdNotSentN").trigger("change");
+    }
+})
+
+
+$("#editRdNotSentN").on("change",function(){
+    if(!$("#editRdNotSentN").is(":checked")){
+        $("#deleteRdNotSentN").prop("checked",false);
+    }else{
+        $("#seeSentRdN").prop("checked",false);
+        $("#rdNotSentN").prop("checked",true);
+        $("#rdNotSentN").trigger("change");
+    }
+});
+
+
+$("#deleteRdNotSentN").on("change",function(){
+    if(!$("#deleteRdNotSentN").is(":checked")){
+    }else{
+        $("#rdNotSentN").prop("checked",true);
+        $("#rdNotSentN").trigger("change");
+    }
+})
+
+//
+$("#seeSaleLineN").on("change",function(){
+    if(!$("#seeSaleLineN").is(":checked")){
+        $("#addSaleLineN").prop("checked",false);
+        $("#addSaleLineN").trigger("change");
+    }else{
+        $("#addSaleLineN").prop("checked",true);
+        $("#addSaleLineN").trigger("change");
+    }
+})
+
+
+$("#editSaleLineN").on("change",function(){
+    if(!$("#editSaleLineN").is(":checked")){
+        $("#deleteSaleLineN").prop("checked",false);
+    }else{
+        $("#addSaleLineN").prop("checked",true);
+        $("#addSaleLineN").trigger("change");
+    }
+});
+
+
+$("#deleteSaleLineN").on("change",function(){
+    if(!$("#deleteSaleLineN").is(":checked")){
+    }else{
+        $("#addSaleLineN").prop("checked",true);
+        $("#addSaleLineN").trigger("change");
+    }
+})
+
+//
+$("#seeSettingAccess").on("change",function(){
+    if(!$("#seeSettingAccess").is(":checked")){
+        $("#InfoSettingAccess").prop("checked",false);
+        $("#InfoSettingAccess").trigger("change");
+    }else{
+        $("#InfoSettingAccess").prop("checked",true);
+        $("#InfoSettingAccess").trigger("change");
+    }
+})
+
+
+$("#editSettingAccess").on("change",function(){
+    if(!$("#editSettingAccess").is(":checked")){
+        $("#deleteSettingAccess").prop("checked",false);
+    }else{
+        $("#InfoSettingAccess").prop("checked",true);
+        $("#InfoSettingAccess").trigger("change");
+    }
+});
+
+
+$("#deleteSettingAccess").on("change",function(){
+    if(!$("#deleteSettingAccess").is(":checked")){
+    }else{
+        $("#InfoSettingAccess").prop("checked",true);
+        $("#InfoSettingAccess").trigger("change");
+    }
+})
+//
+$("#seeSettingTargetN").on("change",function(){
+    if(!$("#seeSettingTargetN").is(":checked")){
+        $("#InfoSettingTarget").prop("checked",false);
+        $("#InfoSettingTarget").trigger("change");
+    }else{
+        $("#InfoSettingTarget").prop("checked",true);
+        $("#InfoSettingTarget").trigger("change");
+    }
+})
+
+
+$("#editSettingTargetN").on("change",function(){
+    if(!$("#editSettingTargetN").is(":checked")){
+        $("#deleteSettingTargetN").prop("checked",false);
+    }else{
+        $("#InfoSettingTarget").prop("checked",true);
+        $("#InfoSettingTarget").trigger("change");
+    }
+});
+
+
+$("#deleteSettingTargetN").on("change",function(){
+    if(!$("#deleteSettingTargetN").is(":checked")){
+    }else{
+        $("#InfoSettingTarget").prop("checked",true);
+        $("#InfoSettingTarget").trigger("change");
+    }
+})
+//
+$("#seedeclareElementN").on("change",function(){
+    if(!$("#seedeclareElementN").is(":checked")){
+        $("#declareElementN").prop("checked",false);
+        $("#declareElementN").trigger("change");
+    }else{
+        $("#declareElementN").prop("checked",true);
+        $("#declareElementN").trigger("change");
+    }
+})
+
+
+$("#editdeclareElementN").on("change",function(){
+    if(!$("#editdeclareElementN").is(":checked")){
+        $("#deletedeclareElementN").prop("checked",false);
+    }else{
+        $("#declareElementN").prop("checked",true);
+        $("#declareElementN").trigger("change");
+    }
+});
+
+
+$("#deletedeclareElementN").on("change",function(){
+    if(!$("#deletedeclareElementN").is(":checked")){
+    }else{
+        $("#declareElementN").prop("checked",true);
+        $("#declareElementN").trigger("change");
+    }
+});
+
+$("#InfoSettingAccess").on("change",function(){
+    if($("#InfoSettingAccess").is(":checked")){
+        $("#baseInfoSetting").prop("checked",true);
+        $("#baseInfoN").prop("checked",true);
+        $("#InfoSettingAccess").prop("checked",true);
+        $("#deleteSettingAccess").prop("checked",true);
+        $("#editSettingAccess").prop("checked",true);
+        $("#seeSettingAccess").prop("checked",true);
+    }else{
+        if(!$(".InfoSetting").is(":checked")){
+            $("#baseInfoSetting").prop("checked",false);
+            $("#baseInfoSetting").trigger("change");
+        }
+        $("#deleteSettingAccess").prop("checked",false);
+        $("#editSettingAccess").prop("checked",false);
+        $("#seeSettingAccess").prop("checked",false);
+    }
+});
+
+
+$("#InfoSettingTarget").on("change",function(){
+    if($("#InfoSettingTarget").is(":checked")){
+        $("#baseInfoSetting").prop("checked",true);
+        $("#baseInfoN").prop("checked",true);
+        $("#deleteSettingTargetN").prop("checked",true);
+        $("#editSettingTargetN").prop("checked",true);
+        $("#seeSettingTargetN").prop("checked",true);
+    }else{
+        if(!$(".InfoSetting").is(":checked")){
+            $("#baseInfoSetting").prop("checked",false);
+            $("#baseInfoSetting").trigger("change");
+        }
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+    }
+});
+
+
+
+$("#baseInfoN").on("change",function(){
+    if($("#baseInfoN").is(":checked")){
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+
+        $("#rdSentN").prop("checked",true);
+        $("#infoRdN").prop("checked",true);
+        $("#deleteSentRdN").prop("checked",true);
+        $("#editSentRdN").prop("checked",true);
+        $("#seeSentRdN").prop("checked",true);
+
+        $("#rdNotSentN").prop("checked",true);
+        $("#deleteRdNotSentN").prop("checked",true);
+        $("#editRdNotSentN").prop("checked",true);
+        $("#seeRdNotSentN").prop("checked",true);
+
+        $("#addSaleLineN").prop("checked",true);
+        $("#deleteSaleLineN").prop("checked",true);
+        $("#editSaleLineN").prop("checked",true);
+        $("#seeSaleLineN").prop("checked",true);
+
+        $("#baseInfoSetting").prop("checked",true);
+        $("#InfoSettingAccess").prop("checked",true);
+        $("#deleteSettingAccess").prop("checked",true);
+        $("#editSettingAccess").prop("checked",true);
+        $("#seeSettingAccess").prop("checked",true);
+
+        $("#InfoSettingTarget").prop("checked",true);
+        $("#deleteSettingTargetN").prop("checked",true);
+        $("#editSettingTargetN").prop("checked",true);
+        $("#seeSettingTargetN").prop("checked",true);
+    }else{
+        $("#rdSentN").prop("checked",false);
+        $("#infoRdN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+
+        $("#deleteProfileN").prop("checked",false);
+        $("#editProfileN").prop("checked",false);
+        $("#seeProfileN").prop("checked",false);
+        $("#baseInfoProfileN").prop("checked",false);
+
+        $("#addSaleLineN").prop("checked",false);
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+
+        $("#baseInfoSetting").prop("checked",false);
+        $("#InfoSettingAccess").prop("checked",false);
+        $("#deleteSettingAccess").prop("checked",false);
+        $("#editSettingAccess").prop("checked",false);
+        $("#seeSettingAccess").prop("checked",false);
+
+        $("#InfoSettingTarget").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+    }
+});
+
+
+
+$("#oppTakhsisN").on("change",function(){
+    if($("#oppTakhsisN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppManagerN").prop("checked",true);
+        $("#oppHeadN").prop("checked",true);
+        $("#oppBazaryabN").prop("checked",true);
+        $("#seeManagerOppN").prop("checked",true);
+        $("#seeBazaryabOppN").prop("checked",true);
+        $("#seeHeadOppN").prop("checked",true);
+        $("#seeBazaryabOppN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        
+        $("#oppManagerN").prop("checked",false);
+        $("#oppHeadN").prop("checked",false);
+        $("#oppBazaryabN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        $("#seeBazaryabOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+    }
+});
+
+$("#oppDriverN").on("change",function(){
+    if($("#oppDriverN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppDriverServiceN").prop("checked",true);
+        $("#oppBargiriN").prop("checked",true);
+
+        $("#seeoppDriverServiceN").prop("checked",true);
+        $("#seeoppBargiriN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#oppBargiriN").prop("checked",false);
+
+        $("#seeoppDriverServiceN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+    }
+});
+
+
+$("#oppNazarSanjiN").on("change",function(){
+    if($("#oppNazarSanjiN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        
+        $("#todayoppNazarsanjiN").prop("checked",false);
+        $("#pastoppNazarsanjiN").prop("checked",false);
+        $("#DoneoppNazarsanjiN").prop("checked",false);
+
+        $("#seetodayoppNazarsanjiN").prop("checked",false);
+        $("#seepastoppNazarsanjiN").prop("checked",false);
+        $("#seeDoneoppNazarsanjiN").prop("checked",false);
+    }
+});
+
+
+$("#OppupDownBonusN").on("change",function(){
+    if($("#OppupDownBonusN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#AddOppupDownBonusN").prop("checked",true);
+        $("#SubOppupDownBonusN").prop("checked",true);
+
+
+        $("#seeAddOppupDownBonusN").prop("checked",true);
+        $("#seeSubOppupDownBonusN").prop("checked",true);
+
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#SubOppupDownBonusN").prop("checked",false);
+
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+    }
+});
+
+$("#oppRDN").on("change",function(){
+    if($("#oppRDN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#AddedoppRDN").prop("checked",true);
+        $("#NotAddedoppRDN").prop("checked",true);
+
+        $("#seeAddedoppRDN").prop("checked",true);
+        $("#seeNotAddedoppRDN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+
+        $("#AddedoppRDN").prop("checked",false);
+        $("#NotAddedoppRDN").prop("checked",false);
+
+        $("#seeAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+    }
+});
+
+$("#oppCalendarN").on("change",function(){
+    if($("#oppCalendarN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#oppCustCalendarN").prop("checked",true);
+
+        $("#seeoppjustCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        
+        $("#oppjustCalendarN").prop("checked",false);
+        $("#oppCustCalendarN").prop("checked",false);
+
+        $("#seeoppjustCalendarN").prop("checked",false);
+        $("#seeoppCustCalendarN").prop("checked",false);
+    }
+});
+
+
+$("#alarmoppN").on("change",function(){
+    if($("#alarmoppN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#allalarmoppN").prop("checked",true);
+        $("#donealarmoppN").prop("checked",true);
+        $("#NoalarmoppN").prop("checked",true);
+
+        $("#seeallalarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        
+        $("#allalarmoppN").prop("checked",false);
+        $("#donealarmoppN").prop("checked",false);
+        $("#NoalarmoppN").prop("checked",false);
+
+        $("#seeallalarmoppN").prop("checked",false);
+        $("#seedonealarmoppN").prop("checked",false);
+        $("#seeNoalarmoppN").prop("checked",false);
+    }
+});
+
+$("#massageOppN").on("change",function(){
+    if($("#massageOppN").is(":checked")){
+        $("#seemassageOppN").prop("checked",true);
+        $("#oppN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        $("#seemassageOppN").prop("checked",false);
+    }
+});
+
+$("#justBargiriOppN").on("change",function(){
+    if($("#justBargiriOppN").is(":checked")){
+        $("#seejustBargiriOppN").prop("checked",true);
+        $("#oppN").prop("checked",true);
+    }else{
+        if(!$(".oppPartN").is(":checked")){
+            $("#oppN").prop("checked",false);
+        }
+        $("#seejustBargiriOppN").prop("checked",false);
+    }
+});
+
+
+$("#oppManagerN").on("change",function(){
+    if($("#oppManagerN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppTakhsisN").prop("checked",true);
+        $("#seeManagerOppN").prop("checked",true);
+    }else{
+        if(!$(".oppTakhsisN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppTakhsisN").prop("checked",false);
+        }
+        $("#seeManagerOppN").prop("checked",false);
+    }
+});
+
+$("#oppHeadN").on("change",function(){
+    if($("#oppHeadN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppTakhsisN").prop("checked",true);
+        $("#seeHeadOppN").prop("checked",true);
+    }else{
+        if(!$(".oppTakhsisN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppTakhsisN").prop("checked",false);
+        }
+        $("#seeHeadOppN").prop("checked",false);
+    }
+});
+
+$("#oppBazaryabN").on("change",function(){
+    if($("#oppBazaryabN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppTakhsisN").prop("checked",true);
+        $("#seeBazaryabOppN").prop("checked",true);
+    }else{
+        if(!$(".oppTakhsisN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppTakhsisN").prop("checked",false);
+        }
+        $("#seeBazaryabOppN").prop("checked",false);
+    }
+});
+
+$("#oppDriverServiceN").on("change",function(){
+    if($("#oppDriverServiceN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppDriverN").prop("checked",true);
+        $("#seeoppDriverServiceN").prop("checked",true);
+    }else{
+        if(!$(".oppTakhsisN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppDriverN").prop("checked",false);
+        }
+        $("#seeoppDriverServiceN").prop("checked",false);
+    }
+});
+
+$("#oppBargiriN").on("change",function(){
+    if($("#oppBargiriN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppDriverN").prop("checked",true);
+        $("#seeoppBargiriN").prop("checked",true);
+    }else{
+        if(!$(".oppTakhsisN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppDriverN").prop("checked",false);
+        }
+        $("#seeoppBargiriN").prop("checked",false);
+    }
+});
+
+$("#todayoppNazarsanjiN").on("change",function(){
+    if($("#todayoppNazarsanjiN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+    }else{
+        if(!$(".oppNazarSanjiN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppNazarSanjiN").prop("checked",false);
+        }
+        $("#seetodayoppNazarsanjiN").prop("checked",false);
+    }
+});
+
+$("#pastoppNazarsanjiN").on("change",function(){
+    if($("#pastoppNazarsanjiN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+    }else{
+        if(!$(".oppNazarSanjiN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppNazarSanjiN").prop("checked",false);
+        }
+        $("#seepastoppNazarsanjiN").prop("checked",false);
+    }
+});
+
+$("#DoneoppNazarsanjiN").on("change",function(){
+    if($("#DoneoppNazarsanjiN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#OppupDownBonusN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+    }else{
+        if(!$(".OppupDownBonusN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#OppupDownBonusN").prop("checked",false);
+        }
+        $("#seeDoneoppNazarsanjiN").prop("checked",false);
+    }
+});
+
+$("#AddOppupDownBonusN").on("change",function(){
+    if($("#AddOppupDownBonusN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#OppupDownBonusN").prop("checked",true);
+        $("#seeAddOppupDownBonusN").prop("checked",true);
+    }else{
+        if(!$(".OppupDownBonusN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#OppupDownBonusN").prop("checked",false);
+        }
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+    }
+});
+
+$("#SubOppupDownBonusN").on("change",function(){
+    if($("#SubOppupDownBonusN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#OppupDownBonusN").prop("checked",true);
+        $("#seeSubOppupDownBonusN").prop("checked",true);
+    }else{
+        if(!$(".OppupDownBonusN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#OppupDownBonusN").prop("checked",false);
+        }
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+    }
+});
+
+
+$("#AddedoppRDN").on("change",function(){
+    if($("#AddedoppRDN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppRDN").prop("checked",true);
+        $("#seeAddedoppRDN").prop("checked",true);
+    }else{
+        if(!$(".oppRDN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppRDN").prop("checked",false);
+        }
+        $("#seeAddedoppRDN").prop("checked",false);
+    }
+});
+
+$("#NotAddedoppRDN").on("change",function(){
+    if($("#NotAddedoppRDN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppRDN").prop("checked",true);
+        $("#seeNotAddedoppRDN").prop("checked",true);
+    }else{
+        if(!$(".oppRDN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppRDN").prop("checked",false);
+        }
+        $("#seeNotAddedoppRDN").prop("checked",false);
+    }
+});
+
+$("#oppjustCalendarN").on("change",function(){
+    if($("#oppjustCalendarN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppCalendarN").prop("checked",true);
+        $("#seeoppjustCalendarN").prop("checked",true);
+    }else{
+        if(!$(".oppCalendarN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppCalendarN").prop("checked",false);
+        }
+        $("#seeoppjustCalendarN").prop("checked",false);
+    }
+});
+
+$("#oppCustCalendarN").on("change",function(){
+    if($("#oppCustCalendarN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#oppCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+    }else{
+        if(!$(".oppCalendarN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#oppCalendarN").prop("checked",false);
+        }
+        $("#seeoppCustCalendarN").prop("checked",false);
+    }
+});
+
+$("#allalarmoppN").on("change",function(){
+    if($("#allalarmoppN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#alarmoppN").prop("checked",true);
+        $("#seeallalarmoppN").prop("checked",true);
+    }else{
+        if(!$(".alarmoppN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#alarmoppN").prop("checked",false);
+        }
+        $("#seeallalarmoppN").prop("checked",false);
+    }
+});
+
+$("#donealarmoppN").on("change",function(){
+    if($("#donealarmoppN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#alarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+    }else{
+        if(!$(".alarmoppN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#alarmoppN").prop("checked",false);
+        }
+        $("#seedonealarmoppN").prop("checked",false);
+    }
+});
+
+$("#NoalarmoppN").on("change",function(){
+    if($("#NoalarmoppN").is(":checked")){
+        $("#oppN").prop("checked",true);
+        $("#alarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+    }else{
+        if(!$(".alarmoppN").is(":checked")){
+            $("#oppN").prop("checked",false);
+            $("#alarmoppN").prop("checked",false);
+        }
+        $("#seeNoalarmoppN").prop("checked",false);
+    }
+});
+
+//
+$("#seeManagerOppN").on("change",function(){
+    if(!$("#seeManagerOppN").is(":checked")){
+        $("#oppManagerN").prop("checked",false);
+        $("#oppManagerN").trigger("change");
+    }else{
+        $("#oppManagerN").prop("checked",true);
+        $("#oppManagerN").trigger("change");
+    }
+})
+
+
+$("#editManagerOppN").on("change",function(){
+    if(!$("#editManagerOppN").is(":checked")){
+        $("#deleteManagerOppN").prop("checked",false);
+    }else{
+        $("#oppManagerN").prop("checked",true);
+
+        $("#oppManagerN").trigger("change");
+    }
+});
+
+
+$("#deleteManagerOppN").on("change",function(){
+    if(!$("#deleteManagerOppN").is(":checked")){
+    }else{
+        $("#oppManagerN").prop("checked",true);
+        $("#editManagerOppN").prop("checked",true);
+        $("#oppManagerN").trigger("change");
+    }
+});
+
+//
+$("#seeHeadOppN").on("change",function(){
+    if(!$("#seeHeadOppN").is(":checked")){
+        $("#oppHeadN").prop("checked",false);
+        $("#oppHeadN").trigger("change");
+    }else{
+        $("#oppHeadN").prop("checked",true);
+        $("#oppHeadN").trigger("change");
+    }
+})
+
+
+$("#editHeadOppN").on("change",function(){
+    if(!$("#editHeadOppN").is(":checked")){
+        $("#deleteHeadOppN").prop("checked",false);
+    }else{
+        $("#oppHeadN").prop("checked",true);
+
+        $("#oppHeadN").trigger("change");
+    }
+});
+
+
+$("#deleteHeadOppN").on("change",function(){
+    if(!$("#deleteHeadOppN").is(":checked")){
+    }else{
+        $("#oppHeadN").prop("checked",true);
+        $("#editHeadOppN").prop("checked",true);
+        $("#oppHeadN").trigger("change");
+    }
+});
+//
+$("#seeBazaryabOppN").on("change",function(){
+    if(!$("#seeBazaryabOppN").is(":checked")){
+        $("#oppBazaryabN").prop("checked",false);
+        $("#oppBazaryabN").trigger("change");
+    }else{
+        $("#oppBazaryabN").prop("checked",true);
+        $("#oppBazaryabN").trigger("change");
+    }
+})
+
+
+$("#editBazaryabOppN").on("change",function(){
+    if(!$("#editBazaryabOppN").is(":checked")){
+        $("#deleteBazaryabOppN").prop("checked",false);
+    }else{
+        $("#oppBazaryabN").prop("checked",true);
+
+        $("#oppBazaryabN").trigger("change");
+    }
+});
+
+
+$("#deleteBazaryabOppN").on("change",function(){
+    if(!$("#deleteBazaryabOppN").is(":checked")){
+    }else{
+        $("#oppBazaryabN").prop("checked",true);
+        $("#editBazaryabOppN").prop("checked",true);
+        $("#oppBazaryabN").trigger("change");
+    }
+});
+
+//
+$("#seeoppDriverServiceN").on("change",function(){
+    if(!$("#seeoppDriverServiceN").is(":checked")){
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#oppDriverServiceN").trigger("change");
+    }else{
+        $("#oppDriverServiceN").prop("checked",true);
+        $("#oppDriverServiceN").trigger("change");
+    }
+})
+
+
+$("#editoppDriverServiceN").on("change",function(){
+    if(!$("#editoppDriverServiceN").is(":checked")){
+        $("#deleteoppDriverServiceN").prop("checked",false);
+    }else{
+        $("#oppDriverServiceN").prop("checked",true);
+
+        $("#oppDriverServiceN").trigger("change");
+    }
+});
+
+
+$("#deleteoppDriverServiceN").on("change",function(){
+    if(!$("#deleteoppDriverServiceN").is(":checked")){
+    }else{
+        $("#oppDriverServiceN").prop("checked",true);
+        $("#editoppDriverServiceN").prop("checked",true);
+        $("#oppDriverServiceN").trigger("change");
+    }
+});
+$("#oppN").on("change",function(){
+    if($("#oppN").is(":checked")){
+        $("#oppTakhsisN").prop("checked",true);
+        $("#oppManagerN").prop("checked",true);
+        $("#deleteManagerOppN").prop("checked",true);
+        $("#editManagerOppN").prop("checked",true);
+        $("#seeManagerOppN").prop("checked",true);
+
+
+        $("#oppHeadN").prop("checked",true);
+        $("#deleteHeadOppN").prop("checked",true);
+        $("#editHeadOppN").prop("checked",true);
+        $("#seeHeadOppN").prop("checked",true);
+
+
+        $("#oppBazaryabN").prop("checked",true);
+        $("#deleteBazaryabOppN").prop("checked",true);
+        $("#editBazaryabOppN").prop("checked",true);
+        $("#seeBazaryabOppN").prop("checked",true);
+
+
+        $("#oppDriverN").prop("checked",true);
+        $("#oppDriverServiceN").prop("checked",true);
+        $("#deleteoppDriverServiceN").prop("checked",true);
+        $("#editoppDriverServiceN").prop("checked",true);
+        $("#seeoppDriverServiceN").prop("checked",true);
+
+
+        $("#oppBargiriN").prop("checked",true);
+        $("#deleteoppBargiriN").prop("checked",true);
+        $("#editoppBargiriN").prop("checked",true);
+        $("#seeoppBargiriN").prop("checked",true);
+
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#deletetodayoppNazarsanjiN").prop("checked",true);
+        $("#edittodayoppNazarsanjiN").prop("checked",true);
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+
+
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#deletepastoppNazarsanjiN").prop("checked",true);
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+
+
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",true);
+        $("#editDoneoppNazarsanjiN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+
+
+        $("#OppupDownBonusN").prop("checked",true);
+        $("#AddOppupDownBonusN").prop("checked",true);
+        $("#deleteAddOppupDownBonusN").prop("checked",true);
+        $("#editAddOppupDownBonusN").prop("checked",true);
+        $("#seeAddOppupDownBonusN").prop("checked",true);
+
+
+        $("#SubOppupDownBonusN").prop("checked",true);
+        $("#deleteSubOppupDownBonusN").prop("checked",true);
+        $("#editSubOppupDownBonusN").prop("checked",true);
+        $("#seeSubOppupDownBonusN").prop("checked",true);
+
+
+        $("#oppRDN").prop("checked",true);
+        $("#AddedoppRDN").prop("checked",true);
+        $("#deleteAddedoppRDN").prop("checked",true);
+        $("#editAddedoppRDN").prop("checked",true);
+        $("#seeAddedoppRDN").prop("checked",true);
+
+
+        $("#NotAddedoppRDN").prop("checked",true);
+        $("#deleteNotAddedoppRDN").prop("checked",true);
+        $("#editNotAddedoppRDN").prop("checked",true);
+        $("#seeNotAddedoppRDN").prop("checked",true);
+
+
+        $("#oppCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#deleteoppjustCalendarN").prop("checked",true);
+        $("#editoppjustCalendarN").prop("checked",true);
+        $("#seeoppjustCalendarN").prop("checked",true);
+
+
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#deleteoppCustCalendarN").prop("checked",true);
+        $("#editoppCustCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+
+
+        $("#alarmoppN").prop("checked",true);
+        $("#allalarmoppN").prop("checked",true);
+        $("#deleteallalarmoppN").prop("checked",true);
+        $("#editallalarmoppN").prop("checked",true);
+        $("#seeallalarmoppN").prop("checked",true);
+
+
+        $("#donealarmoppN").prop("checked",true);
+        $("#deletedonealarmoppN").prop("checked",true);
+        $("#editdonealarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+
+
+        $("#NoalarmoppN").prop("checked",true);
+        $("#deleteNoalarmoppN").prop("checked",true);
+        $("#editNoalarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+
+
+        $("#massageOppN").prop("checked",true);
+        $("#deletemassageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#seemassageOppN").prop("checked",true);
+
+
+        $("#justBargiriOppN").prop("checked",true);
+        $("#deletejustBargiriOppN").prop("checked",true);
+        $("#editjustBargiriOppN").prop("checked",true);
+        $("#seejustBargiriOppN").prop("checked",true);
+    }else{
+        $("#oppTakhsisN").prop("checked",false);
+        $("#oppManagerN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        
+        
+        $("#oppHeadN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+        
+        
+        $("#oppBazaryabN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#seeBazaryabOppN").prop("checked",false);
+        
+        
+        $("#oppDriverN").prop("checked",false);
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#seeoppDriverServiceN").prop("checked",false);
+        
+        
+        $("#oppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+        
+        $("#oppNazarSanjiN").prop("checked",false);
+        $("#todayoppNazarsanjiN").prop("checked",false);
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
+        $("#edittodayoppNazarsanjiN").prop("checked",false);
+        $("#seetodayoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",false);
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
+        $("#editpastoppNazarsanjiN").prop("checked",false);
+        $("#seepastoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
+        $("#editDoneoppNazarsanjiN").prop("checked",false);
+        $("#seeDoneoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#OppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#oppRDN").prop("checked",false);
+        $("#AddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#seeAddedoppRDN").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+        
+        
+        $("#oppCalendarN").prop("checked",false);
+        $("#oppjustCalendarN").prop("checked",false);
+        $("#deleteoppjustCalendarN").prop("checked",false);
+        $("#editoppjustCalendarN").prop("checked",false);
+        $("#seeoppjustCalendarN").prop("checked",false);
+        
+        
+        $("#oppCustCalendarN").prop("checked",false);
+        $("#deleteoppCustCalendarN").prop("checked",false);
+        $("#editoppCustCalendarN").prop("checked",false);
+        $("#seeoppCustCalendarN").prop("checked",false);
+        
+        
+        $("#alarmoppN").prop("checked",false);
+        $("#allalarmoppN").prop("checked",false);
+        $("#deleteallalarmoppN").prop("checked",false);
+        $("#editallalarmoppN").prop("checked",false);
+        $("#seeallalarmoppN").prop("checked",false);
+        
+        
+        $("#donealarmoppN").prop("checked",false);
+        $("#deletedonealarmoppN").prop("checked",false);
+        $("#editdonealarmoppN").prop("checked",false);
+        $("#seedonealarmoppN").prop("checked",false);
+        
+        
+        $("#NoalarmoppN").prop("checked",false);
+        $("#deleteNoalarmoppN").prop("checked",false);
+        $("#editNoalarmoppN").prop("checked",false);
+        $("#seeNoalarmoppN").prop("checked",false);
+        
+        
+        $("#massageOppN").prop("checked",false);
+        $("#deletemassageOppN").prop("checked",false);
+        $("#editmassageOppN").prop("checked",false);
+        $("#seemassageOppN").prop("checked",false);
+        
+        
+        $("#justBargiriOppN").prop("checked",false);
+        $("#deletejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
+        $("#seejustBargiriOppN").prop("checked",false); 
+    }
+});
+
+
+$("#amalKardreportN").on("change",function(){
+    if($("#amalKardreportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#managerreportN").prop("checked",true);
+        $("#HeadreportN").prop("checked",true);
+        $("#poshtibanreportN").prop("checked",true);
+        $("#bazaryabreportN").prop("checked",true);
+        $("#reportDriverN").prop("checked",true);
+        
+        $("#seemanagerreportN").prop("checked",true);
+        $("#seeHeadreportN").prop("checked",true);
+        $("#seebazaryabreportN").prop("checked",true);
+        $("#seeposhtibanreportN").prop("checked",true);
+        $("#seereportDriverN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#managerreportN").prop("checked",false);
+        $("#HeadreportN").prop("checked",false);
+        $("#poshtibanreportN").prop("checked",false);
+        $("#bazaryabreportN").prop("checked",false);
+        $("#reportDriverN").prop("checked",false);
+
+        $("#seemanagerreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+        $("#seebazaryabreportN").prop("checked",false);
+        $("#seeposhtibanreportN").prop("checked",false);
+        $("#seereportDriverN").prop("checked",false);
+    }
+});
+
+$("#trazEmployeeReportN").on("change",function(){
+    if($("#trazEmployeeReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#seetrazEmployeeReportN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#seetrazEmployeeReportN").prop("checked",false);
+    }
+});
+
+$("#customerReportN").on("change",function(){
+    if($("#customerReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#seecustomerReportN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#seecustomerReportN").prop("checked",false);
+    }
+});
+$("#goodsReport").on("change",function(){
+    if($("#goodsReport").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#nosalegoodsReportN").prop("checked",true);
+
+        $("#seesalegoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#salegoodsReportN").prop("checked",false);
+        $("#returnedgoodsReportN").prop("checked",false);
+        $("#NoExistgoodsReportN").prop("checked",false);
+        $("#nosalegoodsReportN").prop("checked",false);
+
+        $("#seesalegoodsReportN").prop("checked",false);
+        $("#seereturnedgoodsReportN").prop("checked",false);
+        $("#seeNoExistgoodsReportN").prop("checked",false);
+        $("#seenosalegoodsReportN").prop("checked",false);
+    }
+});
+
+$("#returnedReportgoodsReportN").on("change",function(){
+    if($("#returnedReportgoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#tasgoodsReprtN").prop("checked",true);
+
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#returnedNTasReportgoodsReportN").prop("checked",false);
+        $("#tasgoodsReprtN").prop("checked",false);
+
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#seetasgoodsReprtN").prop("checked",false);
+    }
+});
+
+
+$("#goodsbargiriReportN").on("change",function(){
+    if($("#goodsbargiriReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#seegoodsbargiriReportN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#seegoodsbargiriReportN").prop("checked",false);
+    }
+});
+
+$("#managerreportN").on("change",function(){
+    if($("#managerreportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+        $("#seemanagerreportN").prop("checked",true);
+    }else{
+        if(!$(".amalKardreportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalKardreportN").prop("checked",false);
+        }
+        $("#seemanagerreportN").prop("checked",false);
+    }
+});
+
+$("#HeadreportN").on("change",function(){
+    if($("#HeadreportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+        $("#seeHeadreportN").prop("checked",true);
+    }else{
+        if(!$(".amalKardreportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalKardreportN").prop("checked",false);
+        }
+        $("#seeHeadreportN").prop("checked",false);
+    }
+});
+
+$("#poshtibanreportN").on("change",function(){
+    if($("#poshtibanreportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+        $("#seeposhtibanreportN").prop("checked",true);
+    }else{
+        if(!$(".amalKardreportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalKardreportN").prop("checked",false);
+        }
+        $("#seeposhtibanreportN").prop("checked",false);
+    }
+});
+
+
+$("#bazaryabreportN").on("change",function(){
+    if($("#bazaryabreportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+        $("#seebazaryabreportN").prop("checked",true);
+    }else{
+        if(!$(".amalKardreportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalKardreportN").prop("checked",false);
+        }
+        $("#seebazaryabreportN").prop("checked",false);
+    }
+});
+
+$("#reportDriverN").on("change",function(){
+    if($("#reportDriverN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+        $("#seereportDriverN").prop("checked",true);
+    }else{
+        if(!$(".amalKardreportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalKardreportN").prop("checked",false);
+        }
+        $("#seereportDriverN").prop("checked",false);
+    }
+});
+
+ 
+$("#salegoodsReportN ").on("change",function(){
+    if($("#salegoodsReportN ").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReport").prop("checked",true);
+        $("#seesalegoodsReportN ").prop("checked",true);
+    }else{
+        if(!$(".goodsReport").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#goodsReport").prop("checked",false);
+        }
+        $("#seesalegoodsReportN ").prop("checked",false);
+    }
+});
+
+
+$("#returnedgoodsReportN ").on("change",function(){
+    if($("#returnedgoodsReportN ").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReport").prop("checked",true);
+        $("#seereturnedgoodsReportN ").prop("checked",true);
+    }else{
+        if(!$(".goodsReport").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#goodsReport").prop("checked",false);
+        }
+        $("#seereturnedgoodsReportN ").prop("checked",false);
+    }
+});
+$("#NoExistgoodsReportN ").on("change",function(){
+    if($("#NoExistgoodsReportN ").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReport").prop("checked",true);
+        $("#seeNoExistgoodsReportN ").prop("checked",true);
+    }else{
+        if(!$(".goodsReport").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#goodsReport").prop("checked",false);
+        }
+        $("#seeNoExistgoodsReportN ").prop("checked",false);
+    }
+});
+$("#nosalegoodsReportN ").on("change",function(){
+    if($("#nosalegoodsReportN ").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReport").prop("checked",true);
+        $("#seenosalegoodsReportN ").prop("checked",true);
+    }else{
+        if(!$(".goodsReport").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#goodsReport").prop("checked",false);
+        }
+        $("#seenosalegoodsReportN ").prop("checked",false);
+    }
+});
+
+$("#returnedNTasReportgoodsReportN ").on("change",function(){
+    if($("#returnedNTasReportgoodsReportN ").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN ").prop("checked",true);
+    }else{
+        if(!$(".returnedReportgoodsReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#returnedReportgoodsReportN").prop("checked",false);
+        }
+        $("#seereturnedNTasReportgoodsReportN ").prop("checked",false);
+    }
+});
+
+$("#tasgoodsReprtN ").on("change",function(){
+    if($("#tasgoodsReprtN ").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#seetasgoodsReprtN ").prop("checked",true);
+    }else{
+        if(!$(".returnedReportgoodsReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#returnedReportgoodsReportN").prop("checked",false);
+        }
+        $("#seetasgoodsReprtN ").prop("checked",false);
+    }
+});
+
+$(".reportN").on("change",function(){
+    if($(".reportN").is(":checked")){
+
+        $("#amalKardreportN").prop("checked",true);
+        $("#managerreportN").prop("checked",true);
+        $("#deletemanagerreportN").prop("checked",true);
+        $("#editmanagerreportN").prop("checked",true);
+        $("#seemanagerreportN").prop("checked",true);
+
+
+        $("#HeadreportN").prop("checked",true);
+        $("#deleteHeadreportN").prop("checked",true);
+        $("#editHeadreportN").prop("checked",true);
+        $("#seeHeadreportN").prop("checked",true);
+
+
+        $("#poshtibanreportN").prop("checked",true);
+        $("#deleteposhtibanreportN").prop("checked",true);
+        $("#editposhtibanreportN").prop("checked",true);
+        $("#seeposhtibanreportN").prop("checked",true);
+
+
+        $("#bazaryabreportN").prop("checked",true);
+        $("#deletebazaryabreportN").prop("checked",true);
+        $("#editbazaryabreportN").prop("checked",true);
+        $("#seebazaryabreportN").prop("checked",true);
+
+
+        $("#reportDriverN").prop("checked",true);
+        $("#deletereportDriverN").prop("checked",true);
+        $("#editreportDriverN").prop("checked",true);
+        $("#seereportDriverN").prop("checked",true);
+
+
+        $("#trazEmployeeReportN").prop("checked",true);
+        $("#deletetrazEmployeeReportN").prop("checked",true);
+        $("#edittrazEmployeeReportN").prop("checked",true);
+        $("#seetrazEmployeeReportN").prop("checked",true);
+
+
+        $("#customerReportN").prop("checked",true);
+        $("#deletecustomerReportN").prop("checked",true);
+        $("#editcustomerReportN").prop("checked",true);
+        $("#seecustomerReportN").prop("checked",true);
+
+
+        $("#goodsReport").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#deletesalegoodsReportN").prop("checked",true);
+        $("#editsalegoodsReportN").prop("checked",true);
+        $("#seesalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#deletereturnedgoodsReportN").prop("checked",true);
+        $("#editturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+
+
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#deleteNoExistgoodsReportN").prop("checked",true);
+        $("#editNoExistgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+
+
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#deletenosalegoodsReportN").prop("checked",true);
+        $("#editnosalegoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#editreturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+
+
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#deletetasgoodsReprtN").prop("checked",true);
+        $("#edittasgoodsReprtN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+
+
+        $("#goodsbargiriReportN").prop("checked",true);
+        $("#deletegoodsbargiriReportN").prop("checked",true);
+        $("#editgoodsbargiriReportN").prop("checked",true);
+        $("#seegoodsbargiriReportN").prop("checked",true);
+
+    }else{
+        $("#amalKardreportN").prop("checked",false);
+        $("#managerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#seemanagerreportN").prop("checked",false);
+
+
+        $("#HeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+
+
+        $("#poshtibanreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#seeposhtibanreportN").prop("checked",false);
+
+
+        $("#bazaryabreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#seebazaryabreportN").prop("checked",false);
+
+
+        $("#reportDriverN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+        $("#seereportDriverN").prop("checked",false);
+
+
+        $("#trazEmployeeReportN").prop("checked",false);
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
+        $("#seetrazEmployeeReportN").prop("checked",false);
+
+
+        $("#customerReportN").prop("checked",false);
+        $("#deletecustomerReportN").prop("checked",false);
+        $("#editcustomerReportN").prop("checked",false);
+        $("#seecustomerReportN").prop("checked",false);
+
+
+        $("#goodsReport").prop("checked",false);
+        $("#salegoodsReportN").prop("checked",false);
+        $("#deletesalegoodsReportN").prop("checked",false);
+        $("#editsalegoodsReportN").prop("checked",false);
+        $("#seesalegoodsReportN").prop("checked",false);
+
+
+        $("#returnedgoodsReportN").prop("checked",false);
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+        $("#editturnedgoodsReportN").prop("checked",false);
+        $("#seereturnedgoodsReportN").prop("checked",false);
+
+
+        $("#NoExistgoodsReportN").prop("checked",false);
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
+        $("#seeNoExistgoodsReportN").prop("checked",false);
+
+
+        $("#nosalegoodsReportN").prop("checked",false);
+        $("#deletenosalegoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
+        $("#seenosalegoodsReportN").prop("checked",false);
+
+
+        $("#returnedReportgoodsReportN").prop("checked",false);
+        $("#returnedNTasReportgoodsReportN").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
+
+
+        $("#tasgoodsReprtN").prop("checked",false);
+        $("#deletetasgoodsReprtN").prop("checked",false);
+        $("#edittasgoodsReprtN").prop("checked",false);
+        $("#seetasgoodsReprtN").prop("checked",false);
+
+
+        $("#goodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#seegoodsbargiriReportN").prop("checked",false);
+    }
+})
 
 // Create root and chart
 var root = am5.Root.new("chartdiv");

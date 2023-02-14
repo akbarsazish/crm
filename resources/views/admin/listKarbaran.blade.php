@@ -348,103 +348,103 @@
                                   <div class="row">
                                         <fieldset class="border rounded-3">
                                             <legend  class="float-none w-auto forLegend "> 
-                                                 <input type="checkbox" name="manageWeb" class="webPageN form-check-input d-inline-block"/> اطلاعات پایه </legend>
+                                                 <input type="checkbox" name="baseInfoN" class="baseInfoFirstN form-check-input d-inline-block" id="baseInfoN"/> اطلاعات پایه </legend>
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
                                                 <legend  class="float-none w-auto fs-6">
-                                                     <input type="checkbox" name="homePageN" id="homePageN" class="webN form-check-input d-inline-block"/> پروفایل </legend>
+                                                     <input type="checkbox" name="baseInfoProfileN" id="baseInfoProfileN" class="baseInfoN form-check-input d-inline-block"/> پروفایل </legend>
                                                      
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check" id="homeDeleteN" type="checkbox" name="homeDeleteN">
+                                                    <input class="ProfileN form-check-input box-check" id="deleteProfileN" type="checkbox" name="deleteProfileN">
                                                     <label class="form-check-label ">حذف</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check " id="homeChangeN" type="checkbox" name="changeHomePageN">
+                                                    <input class="ProfileN form-check-input box-check " id="editProfileN" type="checkbox" name="editProfileN">
                                                     <label class="form-check-label">تغییر</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check" id="homeSeeN" type="checkbox" name="seeHomePageN">
+                                                    <input class="ProfileN form-check-input box-check" id="seeProfileN" type="checkbox" name="seeProfileN">
                                                     <label class="form-check-label">مشاهده</label>
                                                 </div>
                                             </fieldset>
 
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="karbaranN" id="karbaranN" class="webN form-check-input d-inline-block"/> R & D  &nbsp;</legend>
+                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="infoRdN" id="infoRdN" class="baseInfoN form-check-input d-inline-block"/> R & D  &nbsp;</legend>
                                                        <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="karbaranN" id="karbaranN" class="webN form-check-input d-inline-block"/> وارد شده ها    &nbsp;</legend>
+                                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="rdSentN" id="rdSentN" class="rdN form-check-input d-inline-block"/> وارد شده ها    &nbsp;</legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input box-check" id="karbaranDeleteN" type="checkbox" name="karbaranDeleteN">
+                                                                <input class="form-check-input box-check" id="deleteSentRdN" type="checkbox" name="deleteSentRdN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="adminN form-check-input box-check" id="karbaranChangeN" type="checkbox" name="changeKarbaranN">
+                                                                <input class="adminN form-check-input box-check" id="editSentRdN" type="checkbox" name="editSentRdN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" id="karbaranSeeN" type="checkbox"  name="seeKarbaranN">
+                                                                <input class="poshtibanN form-check-input box-check" id="seeSentRdN" type="checkbox"  name="seeSentRdN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                             </div>
                                                         </fieldset>
                                                        <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="karbaranN" id="karbaranN" class="webN form-check-input d-inline-block"/> وارد نشده ها    &nbsp;</legend>
+                                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="rdNotSentN" id="rdNotSentN" class="rdN form-check-input d-inline-block"/> وارد نشده ها    &nbsp;</legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input box-check" id="karbaranDeleteN" type="checkbox" name="karbaranDeleteN">
+                                                                <input class="form-check-input box-check" id="deleteRdNotSentN" type="checkbox" name="deleteRdNotSentN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="adminN form-check-input box-check" id="karbaranChangeN" type="checkbox" name="changeKarbaranN">
+                                                                <input class="adminN form-check-input box-check" id="editRdNotSentN" type="checkbox" name="editRdNotSentN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" id="karbaranSeeN" type="checkbox"  name="seeKarbaranN">
+                                                                <input class="poshtibanN form-check-input box-check" id="seeRdNotSentN" type="checkbox"  name="seeRdNotSentN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                             </div>
                                                         </fieldset>
                                             </fieldset>
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="specialSettingN" class="webN form-check-input d-inline-block" name="specialSettingN" /> افزودن خط فروش </legend>
+                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="addSaleLineN" class="baseInfoN form-check-input d-inline-block" name="specialSettingN" /> افزودن خط فروش </legend>
                                                 <div class="form-check">
-                                                     <input class="form-check-input" id="specialDeleteN" type="checkbox" name="specialDeleteN"> 
+                                                     <input class="form-check-input" id="deleteSaleLineN" type="checkbox" name="deleteSaleLineN"> 
                                                     <label class="form-check-label box-check">حذف</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="adminN form-check-input" type="checkbox" id="specialChangeN" name="changeSpecialSettingN">
+                                                    <input class="adminN form-check-input" type="checkbox" id="editSaleLineN" name="editSaleLineN">
                                                     <label class="form-check-label box-check">تغییر</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="poshtibanN web form-check-input" id="specialSeeN" type="checkbox" name="seeSpecialSettingN">
+                                                     <input class="poshtibanN web form-check-input" id="seeSaleLineN" type="checkbox" name="seeSaleLineN">
                                                     <label class="form-check-label box-check">مشاهده</label>
                                                 </div>
                                             </fieldset>
 
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="specialSettingN" class="webN form-check-input d-inline-block" name="specialSettingN" /> تنظیمات </legend>
+                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="baseInfoSetting" class="baseInfoN form-check-input d-inline-block" name="baseInfoSetting" /> تنظیمات </legend>
                                                      <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="specialSettingN" class="webN form-check-input d-inline-block" name="specialSettingN" /> سطح دسترسی </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="InfoSettingAccess" class="InfoSetting form-check-input d-inline-block" name="InfoSettingAccess" /> سطح دسترسی </legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" id="specialDeleteN" type="checkbox" name="specialDeleteN"> 
+                                                                <input class="form-check-input" id="deleteSettingAccess" type="checkbox" name="deleteSettingAccess"> 
                                                                 <label class="form-check-label box-check">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="adminN form-check-input" type="checkbox" id="specialChangeN" name="changeSpecialSettingN">
+                                                                <input class="adminN form-check-input" type="checkbox" id="editSettingAccess" name="editSettingAccess">
                                                                 <label class="form-check-label box-check">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN web form-check-input" id="specialSeeN" type="checkbox" name="seeSpecialSettingN">
+                                                                <input class="poshtibanN web form-check-input" id="seeSettingAccess" type="checkbox" name="seeSettingAccess">
                                                                 <label class="form-check-label box-check">مشاهده</label>
                                                             </div>
                                                         </fieldset>
                                                      <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="specialSettingN" class="webN form-check-input d-inline-block" name="specialSettingN" />  تارگت ها و امتیازها  </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" id="InfoSettingTarget" class="InfoSetting form-check-input d-inline-block" name="InfoSettingTarget" />  تارگت ها و امتیازها  </legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" id="specialDeleteN" type="checkbox" name="specialDeleteN"> 
+                                                                <input class="form-check-input" id="deleteSettingTargetN" type="checkbox" name="deleteSettingTargetN"> 
                                                                 <label class="form-check-label box-check">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="adminN form-check-input" type="checkbox" id="specialChangeN" name="changeSpecialSettingN">
+                                                                <input class="adminN form-check-input" type="checkbox" id="editSettingTargetN" name="editSettingTargetN">
                                                                 <label class="form-check-label box-check">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN web form-check-input" id="specialSeeN" type="checkbox" name="seeSpecialSettingN">
+                                                                <input class="poshtibanN web form-check-input" id="seeSettingTargetN" type="checkbox" name="seeSettingTargetN">
                                                                 <label class="form-check-label box-check">مشاهده</label>
                                                             </div>
                                                         </fieldset>
@@ -459,17 +459,17 @@
                                   <div class="container">
                                       <div class="row">
                                             <fieldset class="border rounded-3">
-                                                <legend  class="float-none w-auto fs-6"><input type="checkbox" class="messagesN form-check-input d-inline-block" name="messagesN" /> تعریف عناصر  </legend>
+                                                <legend  class="float-none w-auto fs-6"><input type="checkbox" id="declareElementN" class="declareElementN form-check-input d-inline-block" name="declareElementN" /> تعریف عناصر  </legend>
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check" id="deleteMessagesN" type="checkbox" name="deleteMessagesN">
+                                                    <input class="form-check-input box-check" id="deletedeclareElementN" type="checkbox" name="deletedeclareElementN">
                                                     <label class="form-check-label">حذف</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="adminN form-check-input box-check" type="checkbox" id="changeMessagesN" name="changeMessagesN">
+                                                    <input class="adminN form-check-input box-check" type="checkbox" id="editdeclareElementN" name="editdeclareElementN">
                                                     <label class="form-check-label">تغییر</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeMessagesN" name="seeMessagesN">
+                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seedeclareElementN" name="seedeclareElementN">
                                                     <label class="form-check-label">مشاهده</label>
                                                 </div>
                                              </fieldset>
@@ -481,52 +481,52 @@
                                 <div class="container">
                                     <div class="row">
                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                        <legend  class="float-none w-auto forLegend"><input type="checkbox" class="kalasN form-check-input d-inline-block" name="kalasN"/> عملیات </legend>
+                                        <legend  class="float-none w-auto forLegend"><input type="checkbox" class="oppN form-check-input d-inline-block" name="oppN" id="oppN"/> عملیات </legend>
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="kalaListN" name="kalaListN"/> تخصیص به کاربر </legend>
+                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppTakhsisN" name="oppTakhsisN"/> تخصیص به کاربر </legend>
                                               <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="kalaListN" name="kalaListN"/> مدیران  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppTakhsisN form-check-input d-inline-block" id="oppManagerN" name="oppManagerN"/> مدیران  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteKalaListN" type="checkbox" name="deleteKalaListN">
+                                                            <input class="form-check-input box-check" id="deleteManagerOppN" type="checkbox" name="deleteManagerOppN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeKalaListN" name="changeKalaListN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editManagerOppN" name="editManagerOppN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeKalaListN" name="seeKalaListN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeManagerOppN" name="seeManagerOppN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                  </fieldset>
                                               <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="kalaListN" name="kalaListN"/> سرپرستان  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppTakhsisN form-check-input d-inline-block" id="oppHeadN" name="oppHeadN"/> سرپرستان  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteKalaListN" type="checkbox" name="deleteKalaListN">
+                                                            <input class="form-check-input box-check" id="deleteHeadOppN" type="checkbox" name="deleteHeadOppN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeKalaListN" name="changeKalaListN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editHeadOppN" name="editHeadOppN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeKalaListN" name="seeKalaListN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeHeadOppN" name="seeHeadOppN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                  </fieldset>
                                                 <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="kalaListN" name="kalaListN"/> بازاریابها  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppTakhsisN form-check-input d-inline-block" id="oppBazaryabN" name="oppBazaryabN"/> بازاریابها  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteKalaListN" type="checkbox" name="deleteKalaListN">
+                                                            <input class="form-check-input box-check" id="deleteBazaryabOppN" type="checkbox" name="deleteBazaryabOppN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeKalaListN" name="changeKalaListN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editBazaryabOppN" name="editBazaryabOppN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeKalaListN" name="seeKalaListN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeBazaryabOppN" name="seeBazaryabOppN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                  </fieldset>
@@ -534,151 +534,151 @@
 
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="requestedKalaN" name="requestedKalaN"/>  راننده ها  </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppDriverN" name="oppDriverN"/>  راننده ها  </legend>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="requestedKalaN" name="requestedKalaN"/> سرویس راننده ها  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppDriverN form-check-input d-inline-block" id="oppDriverServiceN" name="oppDriverServiceN"/> سرویس راننده ها  </legend>
                                                     <div class="form-check">
-                                                        <input class="form-check-input box-check" id="deleteRequestedKalaN" type="checkbox" name="deleteRequestedKalaN">
+                                                        <input class="form-check-input box-check" id="deleteoppDriverServiceN" type="checkbox" name="deleteoppDriverServiceN">
                                                         <label class="form-check-label">حذف</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="adminN form-check-input box-check " type="checkbox" id="changeRequestedKalaN" name="changeRequestedKalaN">
+                                                        <input class="adminN form-check-input box-check " type="checkbox" id="editoppDriverServiceN" name="editoppDriverServiceN">
                                                         <label class="form-check-label">تغییر</label>
                                                     </div>
                                                     <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check " type="checkbox" id="seeRequestedKalaN" name="seeRequestedKalaN">
+                                                    <input class="poshtibanN form-check-input box-check " type="checkbox" id="seeoppDriverServiceN" name="seeoppDriverServiceN">
                                                         <label class="form-check-label">مشاهده</label>
                                                     </div>
                                                 </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="requestedKalaN" name="requestedKalaN"/>  بار گیری  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppDriverN form-check-input d-inline-block" id="oppBargiriN" name="oppBargiriN"/>  بار گیری  </legend>
                                                     <div class="form-check">
-                                                        <input class="form-check-input box-check" id="deleteRequestedKalaN" type="checkbox" name="deleteRequestedKalaN">
+                                                        <input class="form-check-input box-check" id="deleteoppBargiriN" type="checkbox" name="deleteoppBargiriN">
                                                         <label class="form-check-label">حذف</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="adminN form-check-input box-check " type="checkbox" id="changeRequestedKalaN" name="changeRequestedKalaN">
+                                                        <input class="adminN form-check-input box-check " type="checkbox" id="editoppBargiriN" name="editoppBargiriN">
                                                         <label class="form-check-label">تغییر</label>
                                                     </div>
                                                     <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check " type="checkbox" id="seeRequestedKalaN" name="seeRequestedKalaN">
+                                                    <input class="poshtibanN form-check-input box-check " type="checkbox" id="seeoppBargiriN" name="seeoppBargiriN">
                                                         <label class="form-check-label">مشاهده</label>
                                                     </div>
                                                 </fieldset>
                                         </fieldset>
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="fastKalaN" name="fastKalaN"/> نظر سنجی </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppNazarSanjiN" name="oppNazarSanjiN"/> نظر سنجی </legend>
                                                 <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="fastKalaN" name="fastKalaN"/> نظرات امروز  </legend>
+                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppNazarSanjiN form-check-input d-inline-block" id="todayoppNazarsanjiN" name="todayoppNazarsanjiN"/> نظرات امروز  </legend>
                                                             <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteFastKalaN" type="checkbox" name="deleteFastKalaN">
+                                                            <input class="form-check-input box-check" id="deletetodayoppNazarsanjiN" type="checkbox" name="deletetodayoppNazarsanjiN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeFastKalaN" name="changeFastKalaN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="edittodayoppNazarsanjiN" name="edittodayoppNazarsanjiN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeFastKalaN" name="seeFastKalaN">
+                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seetodayoppNazarsanjiN" name="seetodayoppNazarsanjiN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                              </div>
                                                 </fieldset>
                                                 <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="fastKalaN" name="fastKalaN"/> نظرات گذشته   </legend>
+                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppNazarSanjiN form-check-input d-inline-block" id="pastoppNazarsanjiN" name="pastoppNazarsanjiN"/> نظرات گذشته   </legend>
                                                             <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteFastKalaN" type="checkbox" name="deleteFastKalaN">
+                                                            <input class="form-check-input box-check" id="deletepastoppNazarsanjiN" type="checkbox" name="deletepastoppNazarsanjiN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeFastKalaN" name="changeFastKalaN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editpastoppNazarsanjiN" name="editpastoppNazarsanjiN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeFastKalaN" name="seeFastKalaN">
+                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seepastoppNazarsanjiN" name="seepastoppNazarsanjiN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                              </div>
                                                 </fieldset>
                                                 <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="fastKalaN" name="fastKalaN"/> نظرات انجام شده    </legend>
+                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppNazarSanjiN form-check-input d-inline-block" id="DoneoppNazarsanjiN" name="DoneoppNazarsanjiN"/> نظرات انجام شده    </legend>
                                                             <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteFastKalaN" type="checkbox" name="deleteFastKalaN">
+                                                            <input class="form-check-input box-check" id="deleteDoneoppNazarsanjiN" type="checkbox" name="deleteDoneoppNazarsanjiN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeFastKalaN" name="changeFastKalaN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editDoneoppNazarsanjiN" name="editDoneoppNazarsanjiN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeFastKalaN" name="seeFastKalaN">
+                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeDoneoppNazarsanjiN" name="seeDoneoppNazarsanjiN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                              </div>
                                                 </fieldset>
                                         </fieldset>
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="pishKharidN" name="pishKharidN" /> افزایش و کاهش امتیازات  </legend>
+                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="OppupDownBonusN" name="OppupDownBonusN" /> افزایش و کاهش امتیازات  </legend>
                                               <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="pishKharidN" name="pishKharidN" />    اضافه شده  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="OppupDownBonusN form-check-input d-inline-block" id="AddOppupDownBonusN" name="AddOppupDownBonusN" />    اضافه شده  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deletePishKharidN" type="checkbox" name="deletePishKharidN">
+                                                            <input class="form-check-input box-check" id="deleteAddOppupDownBonusN" type="checkbox" name="deleteAddOppupDownBonusN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changePishKharidN" name="changePishKharidN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editAddOppupDownBonusN" name="editAddOppupDownBonusN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox"  id="seePishKharidN" name="seePishKharidN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox"  id="seeAddOppupDownBonusN" name="seeAddOppupDownBonusN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                 </fieldset>
                                               <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="pishKharidN" name="pishKharidN" />  کاهش یافته  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="OppupDownBonusN form-check-input d-inline-block" id="SubOppupDownBonusN" name="SubOppupDownBonusN" />  کاهش یافته  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deletePishKharidN" type="checkbox" name="deletePishKharidN">
+                                                            <input class="form-check-input box-check" id="deleteSubOppupDownBonusN" type="checkbox" name="deleteSubOppupDownBonusN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changePishKharidN" name="changePishKharidN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editSubOppupDownBonusN" name="editSubOppupDownBonusN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox"  id="seePishKharidN" name="seePishKharidN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox"  id="seeSubOppupDownBonusN" name="seeSubOppupDownBonusN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                 </fieldset>
                                         </fieldset>
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="brandsN" name="brandsN"/>  R & D </legend>
+                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppRDN" name="oppRDN"/>  R & D </legend>
                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="brandsN" name="brandsN"/>  وارده شده  </legend>
+                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppRDN form-check-input d-inline-block" id="AddedoppRDN" name="AddedoppRDN"/>  وارده شده  </legend>
                                                     <div class="form-check">
-                                                        <input class="form-check-input box-check" id="deleteBrandsN" type="checkbox" name="deleteBrandsN">
+                                                        <input class="form-check-input box-check" id="deleteAddedoppRDN" type="checkbox" name="deleteAddedoppRDN">
                                                         <label class="form-check-label">حذف</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="adminN form-check-input box-check" type="checkbox" id="changeBrandsN" name="changeBrandsN">
+                                                        <input class="adminN form-check-input box-check" type="checkbox" id="editAddedoppRDN" name="editAddedoppRDN">
                                                         <label class="form-check-label">تغییر</label>
                                                     </div>
                                                     <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeBrandsN" name="seeBrandsN">
+                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeAddedoppRDN" name="seeAddedoppRDN">
                                                         <label class="form-check-label">مشاهده</label>
                                                     </div>
                                                 </fieldset>
                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="brandsN" name="brandsN"/>  وارده نشده  </legend>
+                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppRDN form-check-input d-inline-block" id="NotAddedoppRDN" name="NotAddedoppRDN"/>  وارده نشده  </legend>
                                                     <div class="form-check">
-                                                        <input class="form-check-input box-check" id="deleteBrandsN" type="checkbox" name="deleteBrandsN">
+                                                        <input class="form-check-input box-check" id="deleteNotAddedoppRDN" type="checkbox" name="deleteNotAddedoppRDN">
                                                         <label class="form-check-label">حذف</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="adminN form-check-input box-check" type="checkbox" id="changeBrandsN" name="changeBrandsN">
+                                                        <input class="adminN form-check-input box-check" type="checkbox" id="editNotAddedoppRDN" name="editNotAddedoppRDN">
                                                         <label class="form-check-label">تغییر</label>
                                                     </div>
                                                     <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeBrandsN" name="seeBrandsN">
+                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeNotAddedoppRDN" name="seeNotAddedoppRDN">
                                                         <label class="form-check-label">مشاهده</label>
                                                     </div>
                                                 </fieldset>
@@ -686,34 +686,34 @@
 
                                         
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="alertedN" name="alertedN"/> تقویم روزانه  </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppCalendarN" name="oppCalendarN"/> تقویم روزانه  </legend>
                                               <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="alertedN" name="alertedN"/> تقویم روزانه </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppCalendarN form-check-input d-inline-block" id="oppjustCalendarN" name="oppjustCalendarN"/> تقویم روزانه </legend>
                                                     <div class="form-check">
-                                                    <input class="form-check-input box-check" id="deleteAlertedN" type="checkbox" name="deleteAlertedN">
+                                                    <input class="form-check-input box-check" id="deleteoppjustCalendarN" type="checkbox" name="deleteoppjustCalendarN">
                                                         <label class="form-check-label">حذف</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="adminN form-check-input box-check" type="checkbox" id="changeAlertedN" name="changeAlertedN">
+                                                        <input class="adminN form-check-input box-check" type="checkbox" id="editoppjustCalendarN" name="editoppjustCalendarN">
                                                         <label class="form-check-label">تغییر</label>
                                                     </div>
                                                     <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeAlertedN" name="seeAlertedN">
+                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeoppjustCalendarN" name="seeoppjustCalendarN">
                                                         <label class="form-check-label">مشاهده</label>
                                                     </div>
                                                 </fieldset>
                                               <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="alertedN" name="alertedN"/> لیست مشتریان </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppCalendarN form-check-input d-inline-block" id="oppCustCalendarN" name="oppCustCalendarN"/> لیست مشتریان </legend>
                                                     <div class="form-check">
-                                                    <input class="form-check-input box-check" id="deleteAlertedN" type="checkbox" name="deleteAlertedN">
+                                                    <input class="form-check-input box-check" id="deleteoppCustCalendarN" type="checkbox" name="deleteoppCustCalendarN">
                                                         <label class="form-check-label">حذف</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="adminN form-check-input box-check" type="checkbox" id="changeAlertedN" name="changeAlertedN">
+                                                        <input class="adminN form-check-input box-check" type="checkbox" id="editoppCustCalendarN" name="editoppCustCalendarN">
                                                         <label class="form-check-label">تغییر</label>
                                                     </div>
                                                     <div class="form-check">
-                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeAlertedN" name="seeAlertedN">
+                                                    <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeoppCustCalendarN" name="seeoppCustCalendarN">
                                                         <label class="form-check-label">مشاهده</label>
                                                     </div>
                                                 </fieldset>
@@ -721,86 +721,86 @@
 
                                         
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="groupListN" name="groupListN" /> آلارم  </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="alarmoppN" name="alarmoppN" /> آلارم  </legend>
                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="groupListN" name="groupListN" /> آلارمها   </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppN form-check-input d-inline-block" id="allalarmoppN" name="allalarmoppN" /> آلارمها   </legend>
                                                         
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteGroupListN" type="checkbox" name="deleteGroupListN">
+                                                            <input class="form-check-input box-check" id="deleteallalarmoppN" type="checkbox" name="deleteallalarmoppN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeGroupListN" name="changeGroupListN" >
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editallalarmoppN" name="editallalarmoppN" >
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeGroupListN" name="seeGroupListN" >
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeallalarmoppN" name="seeallalarmoppN" >
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                      <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="groupListN" name="groupListN" />  انجام شده </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppN form-check-input d-inline-block" id="donealarmoppN" name="donealarmoppN" />  انجام شده </legend>
                                                         
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteGroupListN" type="checkbox" name="deleteGroupListN">
+                                                            <input class="form-check-input box-check" id="deletedonealarmoppN" type="checkbox" name="deletedonealarmoppN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeGroupListN" name="changeGroupListN" >
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editdonealarmoppN" name="editdonealarmoppN" >
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeGroupListN" name="seeGroupListN" >
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seedonealarmoppN" name="seedonealarmoppN" >
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                      <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="groupListN" name="groupListN" />  مشتریان فاقد آلارم   </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppN form-check-input d-inline-block" id="NoalarmoppN" name="NoalarmoppN" />  مشتریان فاقد آلارم   </legend>
                                                         
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteGroupListN" type="checkbox" name="deleteGroupListN">
+                                                            <input class="form-check-input box-check" id="deleteNoalarmoppN" type="checkbox" name="deleteNoalarmoppN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeGroupListN" name="changeGroupListN" >
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editNoalarmoppN" name="editNoalarmoppN" >
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeGroupListN" name="seeGroupListN" >
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeNoalarmoppN" name="seeNoalarmoppN" >
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                         </fieldset>
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="groupListN" name="groupListN" /> پیام ها   </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="massageOppN" name="massageOppN" /> پیام ها   </legend>
                                             
                                             <div class="form-check">
-                                                 <input class="form-check-input box-check" id="deleteGroupListN" type="checkbox" name="deleteGroupListN">
+                                                 <input class="form-check-input box-check" id="deletemassageOppN" type="checkbox" name="deletemassageOppN">
                                                 <label class="form-check-label">حذف</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="adminN form-check-input box-check" type="checkbox" id="changeGroupListN" name="changeGroupListN" >
+                                                <input class="adminN form-check-input box-check" type="checkbox" id="editmassageOppN" name="editmassageOppN" >
                                                 <label class="form-check-label">تغییر</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeGroupListN" name="seeGroupListN" >
+                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seemassageOppN" name="seemassageOppN" >
                                                 <label class="form-check-label">مشاهده</label>
                                             </div>
                                         </fieldset>
 
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="form-check-input d-inline-block" id="groupListN" name="groupListN" /> بار گیری   </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="justBargiriOppN" name="justBargiriOppN" /> بار گیری   </legend>
                                             <div class="form-check">
-                                                 <input class="form-check-input box-check" id="deleteGroupListN" type="checkbox" name="deleteGroupListN">
+                                                 <input class="form-check-input box-check" id="deletejustBargiriOppN" type="checkbox" name="deletejustBargiriOppN">
                                                 <label class="form-check-label">حذف</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="adminN form-check-input box-check" type="checkbox" id="changeGroupListN" name="changeGroupListN" >
+                                                <input class="adminN form-check-input box-check" type="checkbox" id="editjustBargiriOppN" name="editjustBargiriOppN" >
                                                 <label class="form-check-label">تغییر</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeGroupListN" name="seeGroupListN" >
+                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seejustBargiriOppN" name="seejustBargiriOppN" >
                                                 <label class="form-check-label">مشاهده</label>
                                             </div>
                                         </fieldset>
@@ -813,81 +813,81 @@
                                 <div class="container">
                                     <div class="row">
                                     <fieldset class="border rounded-3">
-                                      <legend  class="float-none w-auto "><input type="checkbox" class="personsN form-check-input d-inline-block" name="personsN"/> گزارشات  </legend>
+                                      <legend  class="float-none w-auto "><input type="checkbox" class="reportN form-check-input d-inline-block" id="reportN" name="reportN"/> گزارشات  </legend>
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="customersN" name="customersN"/> عملکرد کاربران </legend>
+                                                <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="amalKardreportN" name="amalKardreportN"/> عملکرد کاربران </legend>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="customersN" name="customersN"/> مدیران  </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="managerreportN" name="managerreportN"/> مدیران  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteCustomersN" type="checkbox" name="deleteCustomersN">
+                                                            <input class="form-check-input box-check" id="deletemanagerreportN" type="checkbox" name="deletemanagerreportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeCustomersN" name="changeCustomersN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editmanagerreportN" name="editmanagerreportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeCustomersN" name="seeCustomersN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seemanagerreportN" name="seemanagerreportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="customersN" name="customersN"/>  سرپرستان   </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="HeadreportN" name="HeadreportN"/>  سرپرستان   </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteCustomersN" type="checkbox" name="deleteCustomersN">
+                                                            <input class="form-check-input box-check" id="deleteHeadreportN" type="checkbox" name="deleteHeadreportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeCustomersN" name="changeCustomersN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editHeadreportN" name="editHeadreportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeCustomersN" name="seeCustomersN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeHeadreportN" name="seeHeadreportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="customersN" name="customersN"/>  پشتیبانها   </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="poshtibanreportN" name="poshtibanreportN"/>  پشتیبانها   </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteCustomersN" type="checkbox" name="deleteCustomersN">
+                                                            <input class="form-check-input box-check" id="deleteposhtibanreportN" type="checkbox" name="deleteposhtibanreportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeCustomersN" name="changeCustomersN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editposhtibanreportN" name="editposhtibanreportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeCustomersN" name="seeCustomersN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeposhtibanreportN" name="seeposhtibanreportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="customersN" name="customersN"/>  بازاریابها    </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="bazaryabreportN" name="bazaryabreportN"/>  بازاریابها    </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteCustomersN" type="checkbox" name="deleteCustomersN">
+                                                            <input class="form-check-input box-check" id="deletebazaryabreportN" type="checkbox" name="deletebazaryabreportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeCustomersN" name="changeCustomersN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editbazaryabreportN" name="editbazaryabreportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeCustomersN" name="seeCustomersN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seebazaryabreportN" name="seebazaryabreportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="customersN" name="customersN"/>  راننده ها     </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="reportDriverN" name="reportDriverN"/>  راننده ها     </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteCustomersN" type="checkbox" name="deleteCustomersN">
+                                                            <input class="form-check-input box-check" id="deletereportDriverN" type="checkbox" name="deletereportDriverN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeCustomersN" name="changeCustomersN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editreportDriverN" name="editreportDriverN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeCustomersN" name="seeCustomersN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seereportDriverN" name="seereportDriverN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
@@ -895,146 +895,146 @@
 
 
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> تراز کاربران </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="trazEmployeeReportN" name="trazEmployeeReportN"/> تراز کاربران </legend>
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                    <input class="form-check-input box-check" id="deletetrazEmployeeReportN" type="checkbox" name="deletetrazEmployeeReportN">
                                                     <label class="form-check-label">حذف</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                     <input class="adminN form-check-input box-check" type="checkbox" id="edittrazEmployeeReportN" name="edittrazEmployeeReportN">
                                                     <label class="form-check-label">تغییر</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                     <input class="poshtibanN form-check-input box-check" type="checkbox" id="seetrazEmployeeReportN" name="seetrazEmployeeReportN">
                                                     <label class="form-check-label">مشاهده</label>
                                                 </div>
                                             </fieldset>
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/>  عملکرد مشتریان </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="customerReportN" name="customerReportN"/>  عملکرد مشتریان </legend>
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                    <input class="form-check-input box-check" id="deletecustomerReportN" type="checkbox" name="deletecustomerReportN">
                                                     <label class="form-check-label">حذف</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                     <input class="adminN form-check-input box-check" type="checkbox" id="editcustomerReportN" name="editcustomerReportN">
                                                     <label class="form-check-label">تغییر</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                     <input class="poshtibanN form-check-input box-check" type="checkbox" id="seecustomerReportN" name="seecustomerReportN">
                                                     <label class="form-check-label">مشاهده</label>
                                                 </div>
                                             </fieldset>
                                             
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> عملکرد کالا </legend>
+                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="goodsReport" name="goodsReport"/> عملکرد کالا </legend>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> گزارش فروش کالا  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="salegoodsReportN" name="salegoodsReportN"/> گزارش فروش کالا  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                            <input class="form-check-input box-check" id="deletesalegoodsReportN" type="checkbox" name="deletesalegoodsReportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editsalegoodsReportN" name="editsalegoodsReportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seesalegoodsReportN" name="seesalegoodsReportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> کالاهای برگشتی  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="returnedgoodsReportN" name="returnedgoodsReportN"/> کالاهای برگشتی  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                            <input class="form-check-input box-check" id="deletereturnedgoodsReportN" type="checkbox" name="deletereturnedgoodsReportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editreturnedgoodsReportN" name="editreturnedgoodsReportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seereturnedgoodsReportN" name="seereturnedgoodsReportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> کالاهای فقد موجودی  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="NoExistgoodsReportN" name="NoExistgoodsReportN"/> کالاهای فقد موجودی  </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                            <input class="form-check-input box-check" id="deleteNoExistgoodsReportN" type="checkbox" name="deleteNoExistgoodsReportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editNoExistgoodsReportN" name="editNoExistgoodsReportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeNoExistgoodsReportN" name="seeNoExistgoodsReportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> کالاهای راکت </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="nosalegoodsReportN" name="nosalegoodsReportN"/> کالاهای راکت </legend>
                                                         <div class="form-check">
-                                                            <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                            <input class="form-check-input box-check" id="deletenosalegoodsReportN" type="checkbox" name="deletenosalegoodsReportN">
                                                             <label class="form-check-label">حذف</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                            <input class="adminN form-check-input box-check" type="checkbox" id="editnosalegoodsReportN" name="editnosalegoodsReportN">
                                                             <label class="form-check-label">تغییر</label>
                                                         </div>
                                                         <div class="form-check">
-                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                            <input class="poshtibanN form-check-input box-check" type="checkbox" id="seenosalegoodsReportN" name="seenosalegoodsReportN">
                                                             <label class="form-check-label">مشاهده</label>
                                                         </div>
                                                     </fieldset>
                                             </fieldset>
 
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> گزارش برگشتی کالا </legend>
+                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="returnedReportgoodsReportN" name="returnedReportgoodsReportN"/> گزارش برگشتی کالا </legend>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> تسویه شده  </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="returnedReportgoodsReportN form-check-input d-inline-block" id="returnedNTasReportgoodsReportN" name="returnedNTasReportgoodsReportN"/> تسویه نشده  </legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                                <input class="form-check-input box-check" id="deletereturnedNTasReportgoodsReportN" type="checkbox" name="deletereturnedNTasReportgoodsReportN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                                <input class="adminN form-check-input box-check" type="checkbox" id="editreturnedNTasReportgoodsReportN" name="editreturnedNTasReportgoodsReportN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seereturnedNTasReportgoodsReportN" name="seereturnedNTasReportgoodsReportN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                             </div>
                                                         </fieldset>
                                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> تسویه شده  </legend>
+                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="returnedReportgoodsReportN form-check-input d-inline-block" id="tasgoodsReprtN" name="tasgoodsReprtN"/> تسویه شده  </legend>
                                                             <div class="form-check">
-                                                                <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                                <input class="form-check-input box-check" id="deletetasgoodsReprtN" type="checkbox" name="deletetasgoodsReprtN">
                                                                 <label class="form-check-label">حذف</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                                <input class="adminN form-check-input box-check" type="checkbox" id="edittasgoodsReprtN" name="edittasgoodsReprtN">
                                                                 <label class="form-check-label">تغییر</label>
                                                             </div>
                                                             <div class="form-check">
-                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                                <input class="poshtibanN form-check-input box-check" type="checkbox" id="seetasgoodsReprtN" name="seetasgoodsReprtN">
                                                                 <label class="form-check-label">مشاهده</label>
                                                             </div>
-                                                        </fieldset>
+                                                    </fieldset>
                                             </fieldset>
 
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="personN form-check-input d-inline-block" id="officialsN" name="officialsN"/> گزارش بارگیری </legend>
+                                            <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsbargiriReportN form-check-input d-inline-block" id="goodsbargiriReportN" name="goodsbargiriReportN"/> گزارش بارگیری </legend>
                                                 <div class="form-check">
-                                                    <input class="form-check-input box-check" id="deleteOfficialsN" type="checkbox" name="deleteOfficialsN">
+                                                    <input class="form-check-input box-check" id="deletegoodsbargiriReportN" type="checkbox" name="deletegoodsbargiriReportN">
                                                     <label class="form-check-label">حذف</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="adminN form-check-input box-check" type="checkbox" id="changeOfficialsN" name="changeOfficialsN">
+                                                     <input class="adminN form-check-input box-check" type="checkbox" id="editgoodsbargiriReportN" name="editgoodsbargiriReportN">
                                                     <label class="form-check-label">تغییر</label>
                                                 </div>
                                                 <div class="form-check">
-                                                     <input class="poshtibanN form-check-input box-check" type="checkbox" id="seeOfficialsN" name="seeOfficialsN">
+                                                     <input class="poshtibanN form-check-input box-check" type="checkbox" id="seegoodsbargiriReportN" name="seegoodsbargiriReportN">
                                                     <label class="form-check-label">مشاهده</label>
                                                 </div>
                                             </fieldset>
