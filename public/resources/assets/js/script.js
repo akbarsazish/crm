@@ -15292,6 +15292,7 @@ $("#deleteSentRdN").on("change",function(){
     if(!$("#deleteSentRdN").is(":checked")){
     }else{
         $("#rdSentN").prop("checked",true);
+        $("#editSentRdN").prop("checked",true);
         $("#rdSentN").trigger("change");
     }
 })
@@ -15322,6 +15323,7 @@ $("#deleteRdNotSentN").on("change",function(){
     if(!$("#deleteRdNotSentN").is(":checked")){
     }else{
         $("#rdNotSentN").prop("checked",true);
+        $("#editRdNotSentN").prop("checked",true);
         $("#rdNotSentN").trigger("change");
     }
 })
@@ -15352,6 +15354,7 @@ $("#deleteSaleLineN").on("change",function(){
     if(!$("#deleteSaleLineN").is(":checked")){
     }else{
         $("#addSaleLineN").prop("checked",true);
+        $("#editSaleLineN").prop("checked",true);
         $("#addSaleLineN").trigger("change");
     }
 })
@@ -15382,6 +15385,7 @@ $("#deleteSettingAccess").on("change",function(){
     if(!$("#deleteSettingAccess").is(":checked")){
     }else{
         $("#InfoSettingAccess").prop("checked",true);
+        $("#editSettingAccess").prop("checked",true);
         $("#InfoSettingAccess").trigger("change");
     }
 })
@@ -15411,6 +15415,7 @@ $("#deleteSettingTargetN").on("change",function(){
     if(!$("#deleteSettingTargetN").is(":checked")){
     }else{
         $("#InfoSettingTarget").prop("checked",true);
+        $("#editSettingTargetN").prop("checked",true);
         $("#InfoSettingTarget").trigger("change");
     }
 })
@@ -15440,6 +15445,7 @@ $("#deletedeclareElementN").on("change",function(){
     if(!$("#deletedeclareElementN").is(":checked")){
     }else{
         $("#declareElementN").prop("checked",true);
+        $("#editdeclareElementN").prop("checked",true);
         $("#declareElementN").trigger("change");
     }
 });
@@ -15559,6 +15565,14 @@ $("#oppTakhsisN").on("change",function(){
         $("#seeManagerOppN").prop("checked",false);
         $("#seeBazaryabOppN").prop("checked",false);
         $("#seeHeadOppN").prop("checked",false);
+        
+        $("#editManagerOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
     }
 });
 
@@ -15580,6 +15594,12 @@ $("#oppDriverN").on("change",function(){
 
         $("#seeoppDriverServiceN").prop("checked",false);
         $("#seeoppBargiriN").prop("checked",false);
+
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
     }
 });
 
@@ -15606,6 +15626,14 @@ $("#oppNazarSanjiN").on("change",function(){
         $("#seetodayoppNazarsanjiN").prop("checked",false);
         $("#seepastoppNazarsanjiN").prop("checked",false);
         $("#seeDoneoppNazarsanjiN").prop("checked",false);
+
+        $("#edittodayoppNazarsanjiN").prop("checked",false);
+        $("#editpastoppNazarsanjiN").prop("checked",false);
+        $("#editDoneoppNazarsanjiN").prop("checked",false);
+
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
     }
 });
 
@@ -15630,6 +15658,12 @@ $("#OppupDownBonusN").on("change",function(){
 
         $("#seeAddOppupDownBonusN").prop("checked",false);
         $("#seeSubOppupDownBonusN").prop("checked",false);
+
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
     }
 });
 
@@ -15651,6 +15685,12 @@ $("#oppRDN").on("change",function(){
 
         $("#seeAddedoppRDN").prop("checked",false);
         $("#seeNotAddedoppRDN").prop("checked",false);
+
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
     }
 });
 
@@ -15673,6 +15713,13 @@ $("#oppCalendarN").on("change",function(){
 
         $("#seeoppjustCalendarN").prop("checked",false);
         $("#seeoppCustCalendarN").prop("checked",false);
+
+        $("#editoppjustCalendarN").prop("checked",false);
+        $("#editoppCustCalendarN").prop("checked",false);
+
+        $("#deleteoppjustCalendarN").prop("checked",false);
+        $("#deleteoppCustCalendarN").prop("checked",false);
+
     }
 });
 
@@ -15699,6 +15746,15 @@ $("#alarmoppN").on("change",function(){
         $("#seeallalarmoppN").prop("checked",false);
         $("#seedonealarmoppN").prop("checked",false);
         $("#seeNoalarmoppN").prop("checked",false);
+
+        $("#editallalarmoppN").prop("checked",false);
+        $("#editdonealarmoppN").prop("checked",false);
+        $("#editNoalarmoppN").prop("checked",false);
+
+
+        $("#deleteallalarmoppN").prop("checked",false);
+        $("#deletedonealarmoppN").prop("checked",false);
+        $("#deleteNoalarmoppN").prop("checked",false);
     }
 });
 
@@ -15711,6 +15767,8 @@ $("#massageOppN").on("change",function(){
             $("#oppN").prop("checked",false);
         }
         $("#seemassageOppN").prop("checked",false);
+        $("#editmassageOppN").prop("checked",false);
+        $("#deletemassageOppN").prop("checked",false);
     }
 });
 
@@ -15723,6 +15781,8 @@ $("#justBargiriOppN").on("change",function(){
             $("#oppN").prop("checked",false);
         }
         $("#seejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
+        $("#deletejustBargiriOppN").prop("checked",false);
     }
 });
 
@@ -15738,6 +15798,8 @@ $("#oppManagerN").on("change",function(){
             $("#oppTakhsisN").prop("checked",false);
         }
         $("#seeManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
     }
 });
 
@@ -15752,6 +15814,8 @@ $("#oppHeadN").on("change",function(){
             $("#oppTakhsisN").prop("checked",false);
         }
         $("#seeHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
     }
 });
 
@@ -15766,6 +15830,8 @@ $("#oppBazaryabN").on("change",function(){
             $("#oppTakhsisN").prop("checked",false);
         }
         $("#seeBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
     }
 });
 
@@ -15780,6 +15846,8 @@ $("#oppDriverServiceN").on("change",function(){
             $("#oppDriverN").prop("checked",false);
         }
         $("#seeoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#deleteoppDriverServiceN").prop("checked",false);
     }
 });
 
@@ -15794,6 +15862,8 @@ $("#oppBargiriN").on("change",function(){
             $("#oppDriverN").prop("checked",false);
         }
         $("#seeoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
     }
 });
 
@@ -15808,6 +15878,8 @@ $("#todayoppNazarsanjiN").on("change",function(){
             $("#oppNazarSanjiN").prop("checked",false);
         }
         $("#seetodayoppNazarsanjiN").prop("checked",false);
+        $("#edittodayoppNazarsanjiN").prop("checked",false);
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
     }
 });
 
@@ -15822,6 +15894,8 @@ $("#pastoppNazarsanjiN").on("change",function(){
             $("#oppNazarSanjiN").prop("checked",false);
         }
         $("#seepastoppNazarsanjiN").prop("checked",false);
+        $("#editpastoppNazarsanjiN").prop("checked",false);
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
     }
 });
 
@@ -15836,6 +15910,8 @@ $("#DoneoppNazarsanjiN").on("change",function(){
             $("#oppNazarSanjiN").prop("checked",false);
         }
         $("#seeDoneoppNazarsanjiN").prop("checked",false);
+        $("#editDoneoppNazarsanjiN").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
     }
 });
 
@@ -15850,6 +15926,8 @@ $("#AddOppupDownBonusN").on("change",function(){
             $("#OppupDownBonusN").prop("checked",false);
         }
         $("#seeAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
     }
 });
 
@@ -15864,6 +15942,8 @@ $("#SubOppupDownBonusN").on("change",function(){
             $("#OppupDownBonusN").prop("checked",false);
         }
         $("#seeSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
     }
 });
 
@@ -15879,6 +15959,8 @@ $("#AddedoppRDN").on("change",function(){
             $("#oppRDN").prop("checked",false);
         }
         $("#seeAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
     }
 });
 
@@ -15893,6 +15975,8 @@ $("#NotAddedoppRDN").on("change",function(){
             $("#oppRDN").prop("checked",false);
         }
         $("#seeNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
     }
 });
 
@@ -15907,6 +15991,8 @@ $("#oppjustCalendarN").on("change",function(){
             $("#oppCalendarN").prop("checked",false);
         }
         $("#seeoppjustCalendarN").prop("checked",false);
+        $("#editoppjustCalendarN").prop("checked",false);
+        $("#deleteoppjustCalendarN").prop("checked",false);
     }
 });
 
@@ -15921,6 +16007,8 @@ $("#oppCustCalendarN").on("change",function(){
             $("#oppCalendarN").prop("checked",false);
         }
         $("#seeoppCustCalendarN").prop("checked",false);
+        $("#editoppCustCalendarN").prop("checked",false);
+        $("#deleteoppCustCalendarN").prop("checked",false);
     }
 });
 
@@ -15935,6 +16023,8 @@ $("#allalarmoppN").on("change",function(){
             $("#alarmoppN").prop("checked",false);
         }
         $("#seeallalarmoppN").prop("checked",false);
+        $("#editallalarmoppN").prop("checked",false);
+        $("#deleteallalarmoppN").prop("checked",false);
     }
 });
 
@@ -15949,6 +16039,8 @@ $("#donealarmoppN").on("change",function(){
             $("#alarmoppN").prop("checked",false);
         }
         $("#seedonealarmoppN").prop("checked",false);
+        $("#editdonealarmoppN").prop("checked",false);
+        $("#deletedonealarmoppN").prop("checked",false);
     }
 });
 
@@ -15963,6 +16055,8 @@ $("#NoalarmoppN").on("change",function(){
             $("#alarmoppN").prop("checked",false);
         }
         $("#seeNoalarmoppN").prop("checked",false);
+        $("#editNoalarmoppN").prop("checked",false);
+        $("#deleteNoalarmoppN").prop("checked",false);
     }
 });
 
@@ -15971,9 +16065,12 @@ $("#seeManagerOppN").on("change",function(){
     if(!$("#seeManagerOppN").is(":checked")){
         $("#oppManagerN").prop("checked",false);
         $("#oppManagerN").trigger("change");
+        $("#editManagerOppN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
     }else{
         $("#oppManagerN").prop("checked",true);
         $("#oppManagerN").trigger("change");
+
     }
 })
 
@@ -16003,9 +16100,12 @@ $("#seeHeadOppN").on("change",function(){
     if(!$("#seeHeadOppN").is(":checked")){
         $("#oppHeadN").prop("checked",false);
         $("#oppHeadN").trigger("change");
+        $("#editHeadOppN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
     }else{
         $("#oppHeadN").prop("checked",true);
         $("#oppHeadN").trigger("change");
+
     }
 })
 
@@ -16034,9 +16134,12 @@ $("#seeBazaryabOppN").on("change",function(){
     if(!$("#seeBazaryabOppN").is(":checked")){
         $("#oppBazaryabN").prop("checked",false);
         $("#oppBazaryabN").trigger("change");
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
     }else{
         $("#oppBazaryabN").prop("checked",true);
         $("#oppBazaryabN").trigger("change");
+
     }
 })
 
@@ -16066,9 +16169,12 @@ $("#seeoppDriverServiceN").on("change",function(){
     if(!$("#seeoppDriverServiceN").is(":checked")){
         $("#oppDriverServiceN").prop("checked",false);
         $("#oppDriverServiceN").trigger("change");
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
     }else{
         $("#oppDriverServiceN").prop("checked",true);
         $("#oppDriverServiceN").trigger("change");
+
     }
 })
 
@@ -16098,9 +16204,12 @@ $("#seeoppBargiriN").on("change",function(){
     if(!$("#seeoppBargiriN").is(":checked")){
         $("#oppBargiriN").prop("checked",false);
         $("#oppBargiriN").trigger("change");
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
     }else{
         $("#oppBargiriN").prop("checked",true);
         $("#oppBargiriN").trigger("change");
+
     }
 })
 
@@ -16130,9 +16239,12 @@ $("#seetodayoppNazarsanjiN").on("change",function(){
     if(!$("#seetodayoppNazarsanjiN").is(":checked")){
         $("#todayoppNazarsanjiN").prop("checked",false);
         $("#todayoppNazarsanjiN").trigger("change");
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
+        $("#edittodayoppNazarsanjiN").prop("checked",false);
     }else{
         $("#todayoppNazarsanjiN").prop("checked",true);
         $("#todayoppNazarsanjiN").trigger("change");
+
     }
 })
 
@@ -16161,9 +16273,12 @@ $("#seepastoppNazarsanjiN").on("change",function(){
     if(!$("#seepastoppNazarsanjiN").is(":checked")){
         $("#pastoppNazarsanjiN").prop("checked",false);
         $("#pastoppNazarsanjiN").trigger("change");
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
+        $("#editpastoppNazarsanjiN").prop("checked",false);
     }else{
         $("#pastoppNazarsanjiN").prop("checked",true);
         $("#pastoppNazarsanjiN").trigger("change");
+
     }
 })
 
@@ -16181,10 +16296,12 @@ $("#editpastoppNazarsanjiN").on("change",function(){
 
 $("#deletepastoppNazarsanjiN").on("change",function(){
     if(!$("#deletepastoppNazarsanjiN").is(":checked")){
+        $("#pastoppNazarsanjiN").trigger("change");
     }else{
         $("#pastoppNazarsanjiN").prop("checked",true);
-        $("#editpastoppNazarsanjiN").prop("checked",true);
         $("#pastoppNazarsanjiN").trigger("change");
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+
     }
 });
 //
@@ -16192,6 +16309,8 @@ $("#seeDoneoppNazarsanjiN").on("change",function(){
     if(!$("#seeDoneoppNazarsanjiN").is(":checked")){
         $("#DoneoppNazarsanjiN").prop("checked",false);
         $("#DoneoppNazarsanjiN").trigger("change");
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
+        $("#editDoneoppNazarsanjiN").prop("checked",false);
     }else{
         $("#DoneoppNazarsanjiN").prop("checked",true);
         $("#DoneoppNazarsanjiN").trigger("change");
@@ -16224,6 +16343,8 @@ $("#seeAddOppupDownBonusN").on("change",function(){
     if(!$("#seeAddOppupDownBonusN").is(":checked")){
         $("#AddOppupDownBonusN").prop("checked",false);
         $("#AddOppupDownBonusN").trigger("change");
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
     }else{
         $("#AddOppupDownBonusN").prop("checked",true);
         $("#AddOppupDownBonusN").trigger("change");
@@ -16256,6 +16377,8 @@ $("#seeSubOppupDownBonusN").on("change",function(){
     if(!$("#seeSubOppupDownBonusN").is(":checked")){
         $("#SubOppupDownBonusN").prop("checked",false);
         $("#SubOppupDownBonusN").trigger("change");
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
     }else{
         $("#SubOppupDownBonusN").prop("checked",true);
         $("#SubOppupDownBonusN").trigger("change");
@@ -16288,6 +16411,8 @@ $("#seeAddedoppRDN").on("change",function(){
     if(!$("#seeAddedoppRDN").is(":checked")){
         $("#AddedoppRDN").prop("checked",false);
         $("#AddedoppRDN").trigger("change");
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
     }else{
         $("#AddedoppRDN").prop("checked",true);
         $("#AddedoppRDN").trigger("change");
@@ -16320,6 +16445,8 @@ $("#seeNotAddedoppRDN").on("change",function(){
     if(!$("#seeNotAddedoppRDN").is(":checked")){
         $("#NotAddedoppRDN").prop("checked",false);
         $("#NotAddedoppRDN").trigger("change");
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
     }else{
         $("#NotAddedoppRDN").prop("checked",true);
         $("#NotAddedoppRDN").trigger("change");
@@ -16351,6 +16478,8 @@ $("#seeoppjustCalendarN").on("change",function(){
     if(!$("#seeoppjustCalendarN").is(":checked")){
         $("#oppjustCalendarN").prop("checked",false);
         $("#oppjustCalendarN").trigger("change");
+        $("#deleteoppjustCalendarN").prop("checked",false);
+        $("#editoppjustCalendarN").prop("checked",false);
     }else{
         $("#oppjustCalendarN").prop("checked",true);
         $("#oppjustCalendarN").trigger("change");
@@ -16383,6 +16512,8 @@ $("#seeoppCustCalendarN").on("change",function(){
     if(!$("#seeoppCustCalendarN").is(":checked")){
         $("#oppCustCalendarN").prop("checked",false);
         $("#oppCustCalendarN").trigger("change");
+        $("#editoppCustCalendarN").prop("checked",false);
+        $("#deleteoppCustCalendarN").prop("checked",false);
     }else{
         $("#oppCustCalendarN").prop("checked",true);
         $("#oppCustCalendarN").trigger("change");
@@ -16413,6 +16544,8 @@ $("#seeallalarmoppN").on("change",function(){
     if(!$("#seeallalarmoppN").is(":checked")){
         $("#allalarmoppN").prop("checked",false);
         $("#allalarmoppN").trigger("change");
+        $("#deleteallalarmoppN").prop("checked",false);
+        $("#editallalarmoppN").prop("checked",false);
     }else{
         $("#allalarmoppN").prop("checked",true);
         $("#allalarmoppN").trigger("change");
@@ -16443,6 +16576,8 @@ $("#seedonealarmoppN").on("change",function(){
     if(!$("#seedonealarmoppN").is(":checked")){
         $("#donealarmoppN").prop("checked",false);
         $("#donealarmoppN").trigger("change");
+        $("#deletedonealarmoppN").prop("checked",false);
+        $("#editdonealarmoppN").prop("checked",false);
     }else{
         $("#donealarmoppN").prop("checked",true);
         $("#donealarmoppN").trigger("change");
@@ -16473,6 +16608,8 @@ $("#seeNoalarmoppN").on("change",function(){
     if(!$("#seeNoalarmoppN").is(":checked")){
         $("#NoalarmoppN").prop("checked",false);
         $("#NoalarmoppN").trigger("change");
+        $("#deleteNoalarmoppN").prop("checked",false);
+        $("#editNoalarmoppN").prop("checked",false);
     }else{
         $("#NoalarmoppN").prop("checked",true);
         $("#NoalarmoppN").trigger("change");
@@ -16502,6 +16639,8 @@ $("#seemassageOppN").on("change",function(){
     if(!$("#seemassageOppN").is(":checked")){
         $("#massageOppN").prop("checked",false);
         $("#massageOppN").trigger("change");
+        $("#deletemassageOppN").prop("checked",false);
+        $("#editmassageOppN").prop("checked",false);
     }else{
         $("#massageOppN").prop("checked",true);
         $("#massageOppN").trigger("change");
@@ -16531,6 +16670,8 @@ $("#seejustBargiriOppN").on("change",function(){
     if(!$("#seejustBargiriOppN").is(":checked")){
         $("#justBargiriOppN").prop("checked",false);
         $("#justBargiriOppN").trigger("change");
+        $("#deletejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
     }else{
         $("#justBargiriOppN").prop("checked",true);
         $("#justBargiriOppN").trigger("change");
@@ -16773,6 +16914,9 @@ $("#amalKardreportN").on("change",function(){
         $("#seebazaryabreportN").prop("checked",true);
         $("#seeposhtibanreportN").prop("checked",true);
         $("#seereportDriverN").prop("checked",true);
+
+
+
     }else{
         if(!$(".reportPartN").is(":checked")){
             $("#reportN").prop("checked",false);
@@ -16788,6 +16932,18 @@ $("#amalKardreportN").on("change",function(){
         $("#seebazaryabreportN").prop("checked",false);
         $("#seeposhtibanreportN").prop("checked",false);
         $("#seereportDriverN").prop("checked",false);
+
+        $("#editmanagerreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
     }
 });
 
@@ -16800,6 +16956,8 @@ $("#trazEmployeeReportN").on("change",function(){
             $("#reportN").prop("checked",false);
         }
         $("#seetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
+        $("#deletetrazEmployeeReportN").prop("checked",false);
     }
 });
 
@@ -16840,6 +16998,17 @@ $("#amalkardCustReportN").on("change",function(){
         $("#seeinActiveCustRepN").prop("checked",false);
         $("#seenoAdminCustRepN").prop("checked",false);
         $("#seereturnedCustRepN").prop("checked",false);
+
+        $("#editloginCustRepN").prop("checked",false);
+        $("#editinActiveCustRepN").prop("checked",false);
+        $("#editnoAdminCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
+
+
+        $("#deleteloginCustRepN").prop("checked",false);
+        $("#deleteinActiveCustRepN").prop("checked",false);
+        $("#deletenoAdminCustRepN").prop("checked",false);
+        $("#deletereturnedCustRepN").prop("checked",false);
     }
 });
 
@@ -16936,6 +17105,16 @@ $("#goodsReport").on("change",function(){
         $("#seereturnedgoodsReportN").prop("checked",false);
         $("#seeNoExistgoodsReportN").prop("checked",false);
         $("#seenosalegoodsReportN").prop("checked",false);
+
+        $("#editsalegoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
+
+        $("#deletesalegoodsReportN").prop("checked",false);
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+        $("#deletenosalegoodsReportN").prop("checked",false);
     }
 });
 
@@ -16956,6 +17135,12 @@ $("#returnedReportgoodsReportN").on("change",function(){
 
         $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
         $("#seetasgoodsReprtN").prop("checked",false);
+
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#edittasgoodsReprtN").prop("checked",false);
+
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#deletetasgoodsReprtN").prop("checked",false);
     }
 });
 
@@ -16969,6 +17154,8 @@ $("#goodsbargiriReportN").on("change",function(){
             $("#reportN").prop("checked",false);
         }
         $("#seegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
     }
 });
 
@@ -16983,6 +17170,8 @@ $("#managerreportN").on("change",function(){
             $("#amalKardreportN").prop("checked",false);
         }
         $("#seemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
     }
 });
 
@@ -16997,6 +17186,8 @@ $("#HeadreportN").on("change",function(){
             $("#amalKardreportN").prop("checked",false);
         }
         $("#seeHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
     }
 });
 
@@ -17011,6 +17202,8 @@ $("#poshtibanreportN").on("change",function(){
             $("#amalKardreportN").prop("checked",false);
         }
         $("#seeposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
     }
 });
 
@@ -17026,6 +17219,8 @@ $("#bazaryabreportN").on("change",function(){
             $("#amalKardreportN").prop("checked",false);
         }
         $("#seebazaryabreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
     }
 });
 
@@ -17040,6 +17235,8 @@ $("#reportDriverN").on("change",function(){
             $("#amalKardreportN").prop("checked",false);
         }
         $("#seereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
     }
 });
 
@@ -17055,6 +17252,8 @@ $("#salegoodsReportN ").on("change",function(){
             $("#goodsReport").prop("checked",false);
         }
         $("#seesalegoodsReportN ").prop("checked",false);
+        $("#editsalegoodsReportN ").prop("checked",false);
+        $("#deletesalegoodsReportN ").prop("checked",false);
     }
 });
 
@@ -17070,6 +17269,8 @@ $("#returnedgoodsReportN ").on("change",function(){
             $("#goodsReport").prop("checked",false);
         }
         $("#seereturnedgoodsReportN ").prop("checked",false);
+        $("#editreturnedgoodsReportN ").prop("checked",false);
+        $("#deletereturnedgoodsReportN ").prop("checked",false);
     }
 });
 $("#NoExistgoodsReportN ").on("change",function(){
@@ -17083,6 +17284,8 @@ $("#NoExistgoodsReportN ").on("change",function(){
             $("#goodsReport").prop("checked",false);
         }
         $("#seeNoExistgoodsReportN ").prop("checked",false);
+        $("#editNoExistgoodsReportN ").prop("checked",false);
+        $("#deleteNoExistgoodsReportN ").prop("checked",false);
     }
 });
 $("#nosalegoodsReportN ").on("change",function(){
@@ -17096,6 +17299,8 @@ $("#nosalegoodsReportN ").on("change",function(){
             $("#goodsReport").prop("checked",false);
         }
         $("#seenosalegoodsReportN ").prop("checked",false);
+        $("#editnosalegoodsReportN ").prop("checked",false);
+        $("#deletenosalegoodsReportN ").prop("checked",false);
     }
 });
 
@@ -17110,6 +17315,8 @@ $("#returnedNTasReportgoodsReportN ").on("change",function(){
             $("#returnedReportgoodsReportN").prop("checked",false);
         }
         $("#seereturnedNTasReportgoodsReportN ").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportN ").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportN ").prop("checked",false);
     }
 });
 
@@ -17124,6 +17331,8 @@ $("#tasgoodsReprtN ").on("change",function(){
             $("#returnedReportgoodsReportN").prop("checked",false);
         }
         $("#seetasgoodsReprtN ").prop("checked",false);
+        $("#editasgoodsReprtN ").prop("checked",false);
+        $("#deleteasgoodsReprtN ").prop("checked",false);
     }
 });
 
@@ -17132,6 +17341,8 @@ $("#seemanagerreportN").on("change",function(){
     if(!$("#seemanagerreportN").is(":checked")){
         $("#managerreportN").prop("checked",false);
         $("#managerreportN").trigger("change");
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
     }else{
         $("#managerreportN").prop("checked",true);
         $("#managerreportN").trigger("change");
@@ -17161,6 +17372,8 @@ $("#seeHeadreportN").on("change",function(){
     if(!$("#seeHeadreportN").is(":checked")){
         $("#HeadreportN").prop("checked",false);
         $("#HeadreportN").trigger("change");
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
     }else{
         $("#HeadreportN").prop("checked",true);
         $("#HeadreportN").trigger("change");
@@ -17190,6 +17403,8 @@ $("#seeposhtibanreportN").on("change",function(){
     if(!$("#seeposhtibanreportN").is(":checked")){
         $("#poshtibanreportN").prop("checked",false);
         $("#poshtibanreportN").trigger("change");
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
     }else{
         $("#poshtibanreportN").prop("checked",true);
         $("#poshtibanreportN").trigger("change");
@@ -17219,6 +17434,8 @@ $("#seereportDriverN").on("change",function(){
     if(!$("#seereportDriverN").is(":checked")){
         $("#reportDriverN").prop("checked",false);
         $("#reportDriverN").trigger("change");
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
     }else{
         $("#reportDriverN").prop("checked",true);
         $("#reportDriverN").trigger("change");
@@ -17249,6 +17466,8 @@ $("#seebazaryabreportN").on("change",function(){
     if(!$("#seebazaryabreportN").is(":checked")){
         $("#bazaryabreportN").prop("checked",false);
         $("#bazaryabreportN").trigger("change");
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
     }else{
         $("#bazaryabreportN").prop("checked",true);
         $("#bazaryabreportN").trigger("change");
@@ -17279,6 +17498,8 @@ $("#seetrazEmployeeReportN").on("change",function(){
     if(!$("#seetrazEmployeeReportN").is(":checked")){
         $("#trazEmployeeReportN").prop("checked",false);
         $("#trazEmployeeReportN").trigger("change");
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
     }else{
         $("#trazEmployeeReportN").prop("checked",true);
         $("#trazEmployeeReportN").trigger("change");
@@ -17303,12 +17524,45 @@ $("#deletetrazEmployeeReportN").on("change",function(){
     }
 });
 
+//
+$("#seesalegoodsReportN").on("change",function(){
+    if(!$("#seesalegoodsReportN").is(":checked")){
+        $("#salegoodsReportN").prop("checked",false);
+        $("#salegoodsReportN").trigger("change");
+        $("#deletesalegoodsReportN").prop("checked",false);
+        $("#editsalegoodsReportN").prop("checked",false);
+    }else{
+        $("#salegoodsReportN").prop("checked",true);
+        $("#salegoodsReportN").trigger("change");
+    }
+});
+
+$("#editsalegoodsReportN").on("change",function(){
+    if(!$("#editsalegoodsReportN").is(":checked")){
+        $("#deletesalegoodsReportN").prop("checked",false);
+    }else{
+        $("#salegoodsReportN").prop("checked",true);
+        $("#salegoodsReportN").trigger("change");
+    }
+});
+
+$("#deletesalegoodsReportN").on("change",function(){
+    if(!$("#deletesalegoodsReportN").is(":checked")){
+    }else{
+        $("#salegoodsReportN").prop("checked",true);
+        $("#editsalegoodsReportN").prop("checked",true);
+        $("#salegoodsReportN").trigger("change");
+    }
+});
+
 
 //
 $("#seereturnedgoodsReportN").on("change",function(){
     if(!$("#seereturnedgoodsReportN").is(":checked")){
         $("#returnedgoodsReportN").prop("checked",false);
         $("#returnedgoodsReportN").trigger("change");
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
     }else{
         $("#returnedgoodsReportN").prop("checked",true);
         $("#returnedgoodsReportN").trigger("change");
@@ -17339,6 +17593,8 @@ $("#seeNoExistgoodsReportN").on("change",function(){
     if(!$("#seeNoExistgoodsReportN").is(":checked")){
         $("#NoExistgoodsReportN").prop("checked",false);
         $("#NoExistgoodsReportN").trigger("change");
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
     }else{
         $("#NoExistgoodsReportN").prop("checked",true);
         $("#NoExistgoodsReportN").trigger("change");
@@ -17368,6 +17624,8 @@ $("#seenosalegoodsReportN").on("change",function(){
     if(!$("#seenosalegoodsReportN").is(":checked")){
         $("#nosalegoodsReportN").prop("checked",false);
         $("#nosalegoodsReportN").trigger("change");
+        $("#deletenosalegoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
     }else{
         $("#nosalegoodsReportN").prop("checked",true);
         $("#nosalegoodsReportN").trigger("change");
@@ -17397,6 +17655,8 @@ $("#seereturnedNTasReportgoodsReportN").on("change",function(){
     if(!$("#seereturnedNTasReportgoodsReportN").is(":checked")){
         $("#returnedNTasReportgoodsReportN").prop("checked",false);
         $("#returnedNTasReportgoodsReportN").trigger("change");
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",false);
     }else{
         $("#returnedNTasReportgoodsReportN").prop("checked",true);
         $("#returnedNTasReportgoodsReportN").trigger("change");
@@ -17427,6 +17687,8 @@ $("#seetasgoodsReprtN").on("change",function(){
     if(!$("#seetasgoodsReprtN").is(":checked")){
         $("#tasgoodsReprtN").prop("checked",false);
         $("#tasgoodsReprtN").trigger("change");
+        $("#deletetasgoodsReprtN").prop("checked",false);
+        $("#edittasgoodsReprtN").prop("checked",false);
     }else{
         $("#tasgoodsReprtN").prop("checked",true);
         $("#tasgoodsReprtN").trigger("change");
@@ -17456,6 +17718,8 @@ $("#seegoodsbargiriReportN").on("change",function(){
     if(!$("#seegoodsbargiriReportN").is(":checked")){
         $("#goodsbargiriReportN").prop("checked",false);
         $("#goodsbargiriReportN").trigger("change");
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
     }else{
         $("#goodsbargiriReportN").prop("checked",true);
         $("#goodsbargiriReportN").trigger("change");
@@ -17485,6 +17749,8 @@ $("#seeloginCustRepN").on("change",function(){
     if(!$("#seeloginCustRepN").is(":checked")){
         $("#loginCustRepN").prop("checked",false);
         $("#loginCustRepN").trigger("change");
+        $("#deleteloginCustRepN").prop("checked",false);
+        $("#editloginCustRepN").prop("checked",false);
     }else{
         $("#loginCustRepN").prop("checked",true);
         $("#loginCustRepN").trigger("change");
@@ -17514,6 +17780,8 @@ $("#seeinActiveCustRepN").on("change",function(){
     if(!$("#seeinActiveCustRepN").is(":checked")){
         $("#inActiveCustRepN").prop("checked",false);
         $("#inActiveCustRepN").trigger("change");
+        $("#deleteinActiveCustRepN").prop("checked",false);
+        $("#editinActiveCustRepN").prop("checked",false);
     }else{
         $("#inActiveCustRepN").prop("checked",true);
         $("#inActiveCustRepN").trigger("change");
@@ -17543,6 +17811,8 @@ $("#seenoAdminCustRepN").on("change",function(){
     if(!$("#seenoAdminCustRepN").is(":checked")){
         $("#noAdminCustRepN").prop("checked",false);
         $("#noAdminCustRepN").trigger("change");
+        $("#deletenoAdminCustRepN").prop("checked",false);
+        $("#editnoAdminCustRepN").prop("checked",false);
     }else{
         $("#noAdminCustRepN").prop("checked",true);
         $("#noAdminCustRepN").trigger("change");
@@ -17572,6 +17842,8 @@ $("#seereturnedCustRepN").on("change",function(){
     if(!$("#seereturnedCustRepN").is(":checked")){
         $("#returnedCustRepN").prop("checked",false);
         $("#returnedCustRepN").trigger("change");
+        $("#deletereturnedCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
     }else{
         $("#returnedCustRepN").prop("checked",true);
         $("#returnedCustRepN").trigger("change");
