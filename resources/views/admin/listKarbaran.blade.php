@@ -1160,8 +1160,6 @@
 
 
 
-
-
               <!-- modal for editing user profile -->
               <div class="modal fade dragableModal" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
