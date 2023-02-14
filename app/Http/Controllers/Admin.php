@@ -861,10 +861,9 @@ $inActiverAdmins=DB::select("Select * FROM CRM.dbo.crm_admin WHERE  adminType !=
         
         }
 
-        $notAlarmedCustomers=DB::select("SELECT PSN,PCode,Name,NameRec,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,PhoneStr FROM(
+        $notAlarmedCustomers=DB::select("SELECT PSN,PCode,Name,lastFactorSn AS SerialNoHDS,adminId,adminName,FactDate,CRM.dbo.getCustomerPhoneNumbers(PSN) as PhoneStr,CRM.dbo.getCustomerMantagheh(SnMantagheh) as NameRec FROM(
             SELECT * FROM (SELECT MAX(SerialNoHDS) AS lastFactorSn,CustomerSn FROM Shop.dbo.FactorHDS GROUP BY CustomerSn)b WHERE b.lastFactorSn NOT IN(SELECT factorId FROM CRM.dbo.crm_alarm WHERE state=0))c RIGHT JOIN Shop.dbo.Peopels ON c.CustomerSn=Peopels.PSN 
-            JOIN (SELECT SnPeopel, STRING_AGG(PhoneStr, '-') AS PhoneStr FROM Shop.dbo.PhoneDetail GROUP BY SnPeopel)g ON PSN=g.SnPeopel
-            JOIN Shop.dbo.MNM ON SnMNM=SnMantagheh
+
             LEFT JOIN Shop.dbo.FactorHDS ON lastFactorSn=FactorHDS.SerialNoHDS
             LEFT JOIN (SELECT CONCAT(name,lastName) AS adminName,crm_admin.id AS adminId,customer_id AS customerId FROM CRM.dbo.crm_admin JOIN CRM.dbo.crm_customer_added ON crm_admin.id=crm_customer_added.admin_id WHERE returnState=0)b ON b.customerId=PSN
             WHERE IsActive=1 AND PSN NOT IN(SELECT customerId FROM CRM.dbo.crm_inactiveCustomer WHERE state=1 AND customerId IS NOT NULL) AND Peopels.CompanyNo=5 AND Peopels.SaleLevel=3");
