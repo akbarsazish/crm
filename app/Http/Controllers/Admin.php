@@ -64,6 +64,7 @@ class Admin extends Controller
         $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=2  and deleted=0");
         return View('admin.listKarbaran',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'saleLines'=>$saleLines,'managers'=>$managers,'heads'=>$heads]);
     }
+
     public function karbaranOperations(Request $request)
     {
         $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
@@ -338,8 +339,11 @@ SELECT * FROM (
                 'allEmptyCustomers'=>$allEmptyCustomers,'allGoods'=>$allGoods,'prebuyableGoods'=>$allPrebuyableGoods,'allboughtGoods'=>$boughtGoods,'allBrandGoods'=>$allBrandGoods
                 ,'allBrands'=>$allBrands,'allmainGroup'=>$allmainGroup,'allSubGroups'=>$allSubGroups,'allReturnedCustomer'=>$allReturnedCustomer,'admins'=>$admins]);
     }
-    public function AddAdmin(Request $request)
-    {
+
+
+
+
+    public function AddAdmin(Request $request){
         $name=$request->post("name");
         $userName=$request->post("userName");
         $lastName=$request->post("lastName");
@@ -358,8 +362,202 @@ SELECT * FROM (
         $manager=$request->post("manager");
         $head=$request->post("head");
         $saleLine=$request->post("saleLine");
+
+
+
+        $baseInfoN = $request->post("baseInfoN");
+        $baseInfoProfileN = $request->post("baseInfoProfileN");
+        $deleteProfileN = $request->post("deleteProfileN");
+        $editProfileN = $request->post("editProfileN");
+        $seeProfileN = $request->post("seeProfileN");
+        $infoRdN = $request->post("infoRdN");
+        $rdSentN = $request->post("rdSentN");
+        $deleteSentRdN = $request->post("deleteSentRdN");
+        $editSentRdN = $request->post("editSentRdN");
+        $seeSentRdN = $request->post("seeSentRdN");
+        $rdNotSentN = $request->post("rdNotSentN");
+        $deleteRdNotSentN = $request->post("deleteRdNotSentN");
+        $editRdNotSentN = $request->post("editRdNotSentN");
+        $seeRdNotSentN = $request->post("seeRdNotSentN");
+        $specialSettingN = $request->post("specialSettingN");
+        $deleteSaleLineN = $request->post("deleteSaleLineN");
+        $editSaleLineN = $request->post("editSaleLineN");
+        $seeSaleLineN = $request->post("seeSaleLineN");
+        $baseInfoSetting = $request->post("baseInfoSetting");
+        $InfoSettingAccess = $request->post("InfoSettingAccess");
+        $deleteSettingAccess = $request->post("deleteSettingAccess");
+        $editSettingAccess = $request->post("editSettingAccess");
+        $seeSettingAccess = $request->post("seeSettingAccess");
+        $InfoSettingTarget = $request->post("InfoSettingTarget");
+        $deleteSettingTargetN = $request->post("deleteSettingTargetN");
+        $editSettingTargetN = $request->post("editSettingTargetN");
+        $seeSettingTargetN = $request->post("seeSettingTargetN");
+        $declareElementN = $request->post("declareElementN");
+        $deletedeclareElementN = $request->post("deletedeclareElementN");
+        $editdeclareElementN = $request->post("editdeclareElementN");
+        $seedeclareElementN = $request->post("seedeclareElementN");
+        $oppN = $request->post("oppN");
+        $oppTakhsisN = $request->post("oppTakhsisN");
+        $oppManagerN = $request->post("oppManagerN");
+        $deleteManagerOppN = $request->post("deleteManagerOppN");
+        $editManagerOppN = $request->post("editManagerOppN");
+        $seeManagerOppN = $request->post("seeManagerOppN");
+        $oppHeadN = $request->post("oppHeadN");
+        $deleteHeadOppN = $request->post("deleteHeadOppN");
+        $editHeadOppN = $request->post("editHeadOppN");
+        $seeHeadOppN = $request->post("seeHeadOppN");
+        $deleteBazaryabOppN = $request->post("deleteBazaryabOppN");
+        $editBazaryabOppN = $request->post("editBazaryabOppN");
+        $seeBazaryabOppN = $request->post("seeBazaryabOppN");
+        $oppDriverN = $request->post("oppDriverN");
+        $deleteoppDriverServiceN = $request->post("deleteoppDriverServiceN");
+        $editoppDriverServiceN = $request->post("editoppDriverServiceN");
+        $seeoppDriverServiceN = $request->post("seeoppDriverServiceN");
+        $oppBargiriN = $request->post("oppBargiriN");
+        $deleteoppBargiriN = $request->post("deleteoppBargiriN");
+        $editoppBargiriN = $request->post("editoppBargiriN");
+        $seeoppBargiriN = $request->post("seeoppBargiriN");
+        $oppNazarSanjiN = $request->post("oppNazarSanjiN");
+        $deletetodayoppNazarsanjiN = $request->post("deletetodayoppNazarsanjiN");
+        $edittodayoppNazarsanjiN = $request->post("edittodayoppNazarsanjiN");
+        $seetodayoppNazarsanjiN = $request->post("seetodayoppNazarsanjiN");
+        $pastoppNazarsanjiN = $request->post("pastoppNazarsanjiN");
+        $deletepastoppNazarsanjiN = $request->post("deletepastoppNazarsanjiN");
+        $editpastoppNazarsanjiN = $request->post("editpastoppNazarsanjiN");
+        $seepastoppNazarsanjiN = $request->post("seepastoppNazarsanjiN");
+        $DoneoppNazarsanjiN = $request->post("DoneoppNazarsanjiN");
+        $deleteDoneoppNazarsanjiN = $request->post("deleteDoneoppNazarsanjiN");
+        $editDoneoppNazarsanjiN = $request->post("editDoneoppNazarsanjiN");
+        $seeDoneoppNazarsanjiN = $request->post("seeDoneoppNazarsanjiN");
+        $OppupDownBonusN = $request->post("OppupDownBonusN");
+        $AddOppupDownBonusN = $request->post("AddOppupDownBonusN");
+        $deleteAddOppupDownBonusN = $request->post("deleteAddOppupDownBonusN");
+        $editAddOppupDownBonusN = $request->post("editAddOppupDownBonusN");
+        $seeAddOppupDownBonusN = $request->post("seeAddOppupDownBonusN");
+        $SubOppupDownBonusN = $request->post("SubOppupDownBonusN");
+        $deleteSubOppupDownBonusN = $request->post("deleteSubOppupDownBonusN");
+        $editSubOppupDownBonusN = $request->post("editSubOppupDownBonusN");
+        $seeSubOppupDownBonusN = $request->post("seeSubOppupDownBonusN");
+        $oppRDN = $request->post("oppRDN");
+        $AddedoppRDN = $request->post("AddedoppRDN");
+        $deleteAddedoppRDN = $request->post("deleteAddedoppRDN");
+        $editAddedoppRDN = $request->post("editAddedoppRDN");
+        $seeAddedoppRDN = $request->post("seeAddedoppRDN");
+        $NotAddedoppRDN = $request->post("NotAddedoppRDN");
+        $deleteNotAddedoppRDN = $request->post("deleteNotAddedoppRDN");
+        $editNotAddedoppRDN = $request->post("editNotAddedoppRDN");
+        $seeNotAddedoppRDN = $request->post("seeNotAddedoppRDN");
+        $oppCalendarN = $request->post("oppCalendarN");
+        $oppjustCalendarN = $request->post("oppjustCalendarN");
+        $deleteoppjustCalendarN = $request->post("deleteoppjustCalendarN");
+        $editoppjustCalendarN = $request->post("editoppjustCalendarN");
+        $seeoppjustCalendarN = $request->post("seeoppjustCalendarN");
+        $oppCustCalendarN = $request->post("oppCustCalendarN");
+        $deleteoppCustCalendarN = $request->post("deleteoppCustCalendarN");
+        $editoppCustCalendarN = $request->post("editoppCustCalendarN");
+        $seeoppCustCalendarN = $request->post("seeoppCustCalendarN");
+        $alarmoppN = $request->post("alarmoppN");
+        $allalarmoppN = $request->post("allalarmoppN");
+        $deleteallalarmoppN = $request->post("deleteallalarmoppN");
+        $editallalarmoppN = $request->post("editallalarmoppN");
+        $seeallalarmoppN = $request->post("seeallalarmoppN");
+        $donealarmoppN = $request->post("donealarmoppN");
+        $deletedonealarmoppN = $request->post("deletedonealarmoppN");
+        $editdonealarmoppN = $request->post("editdonealarmoppN");
+        $seedonealarmoppN = $request->post("seedonealarmoppN");
+        $NoalarmoppN = $request->post("NoalarmoppN");
+        $deleteNoalarmoppN = $request->post("deleteNoalarmoppN");
+        $editNoalarmoppN = $request->post("editNoalarmoppN");
+        $seeNoalarmoppN = $request->post("seeNoalarmoppN");
+        $massageOppN = $request->post("massageOppN");
+        $deletemassageOppN = $request->post("deletemassageOppN");
+        $editmassageOppN = $request->post("editmassageOppN");
+        $seemassageOppN = $request->post("seemassageOppN");
+        $justBargiriOppN = $request->post("justBargiriOppN");
+        $deletejustBargiriOppN = $request->post("deletejustBargiriOppN");
+        $editjustBargiriOppN = $request->post("editjustBargiriOppN");
+        $seejustBargiriOppN = $request->post("seejustBargiriOppN");
+        $reportN = $request->post("reportN");
+        $amalKardreportN = $request->post("amalKardreportN");
+        $managerreportN = $request->post("managerreportN");
+        $deletemanagerreportN = $request->post("deletemanagerreportN");
+        $editmanagerreportN = $request->post("editmanagerreportN");
+        $seemanagerreportN = $request->post("seemanagerreportN");
+        $deleteHeadreportN = $request->post("deleteHeadreportN");
+        $editHeadreportN = $request->post("editHeadreportN");
+        $seeHeadreportN = $request->post("seeHeadreportN");
+        $deleteposhtibanreportN = $request->post("deleteposhtibanreportN");
+        $editposhtibanreportN = $request->post("editposhtibanreportN");
+        $seeposhtibanreportN = $request->post("seeposhtibanreportN");
+        $bazaryabreportN = $request->post("bazaryabreportN");
+        $deletebazaryabreportN = $request->post("deletebazaryabreportN");
+        $editbazaryabreportN = $request->post("editbazaryabreportN");
+        $seebazaryabreportN = $request->post("seebazaryabreportN");
+        $reportDriverN = $request->post("reportDriverN");
+        $deletereportDriverN = $request->post("deletereportDriverN");
+        $editreportDriverN = $request->post("editreportDriverN");
+        $seereportDriverN = $request->post("seereportDriverN");
+        $trazEmployeeReportN = $request->post("trazEmployeeReportN");
+        $deletetrazEmployeeReportN = $request->post("deletetrazEmployeeReportN");
+        $edittrazEmployeeReportN = $request->post("edittrazEmployeeReportN");
+        $seetrazEmployeeReportN = $request->post("seetrazEmployeeReportN");
+        $officialsN = $request->post("officialsN");
+        $deleteOfficialsN = $request->post("deleteOfficialsN");
+        $changeOfficialsN = $request->post("changeOfficialsN");
+        $seeOfficialsN = $request->post("seeOfficialsN");
+        $officialsN = $request->post("officialsN");
+        $deleteOfficialsN = $request->post("deleteOfficialsN");
+        $changeOfficialsN = $request->post("changeOfficialsN");
+        $seeOfficialsN = $request->post("seeOfficialsN");
+        $officialsN = $request->post("officialsN");
+        $deleteOfficialsN = $request->post("deleteOfficialsN");
+        $changeOfficialsN = $request->post("changeOfficialsN");
+        $seeOfficialsN = $request->post("seeOfficialsN");
+        $officialsN = $request->post("officialsN");
+        $deleteOfficialsN = $request->post("deleteOfficialsN");
+        $changeOfficialsN = $request->post("changeOfficialsN");
+        $seeOfficialsN = $request->post("seeOfficialsN");
+        $goodsReport = $request->post("goodsReport");
+        $salegoodsReportN = $request->post("salegoodsReportN");
+        $deletesalegoodsReportN = $request->post("deletesalegoodsReportN");
+        $editsalegoodsReportN = $request->post("editsalegoodsReportN");
+        $seesalegoodsReportN = $request->post("seesalegoodsReportN");
+        $returnedgoodsReportN = $request->post("returnedgoodsReportN");
+        $deletereturnedgoodsReportN = $request->post("deletereturnedgoodsReportN");
+        $editreturnedgoodsReportN = $request->post("editreturnedgoodsReportN");
+        $seereturnedgoodsReportN = $request->post("seereturnedgoodsReportN");
+        $NoExistgoodsReportN = $request->post("NoExistgoodsReportN");
+        $deleteNoExistgoodsReportN = $request->post("deleteNoExistgoodsReportN");
+        $editNoExistgoodsReportN = $request->post("editNoExistgoodsReportN");
+        $seeNoExistgoodsReportN = $request->post("seeNoExistgoodsReportN");
+        $nosalegoodsReportN = $request->post("nosalegoodsReportN");
+        $deletenosalegoodsReportN = $request->post("deletenosalegoodsReportN");
+        $editnosalegoodsReportN = $request->post("editnosalegoodsReportN");
+        $seenosalegoodsReportN = $request->post("seenosalegoodsReportN");
+        $returnedReportgoodsReportN = $request->post("returnedReportgoodsReportN");
+        $returnedNTasReportgoodsReportN = $request->post("returnedNTasReportgoodsReportN");
+        $deletereturnedNTasReportgoodsReportN = $request->post("deletereturnedNTasReportgoodsReportN");
+        $editreturnedNTasReportgoodsReportN = $request->post("editreturnedNTasReportgoodsReportN");
+        $seereturnedNTasReportgoodsReportN = $request->post("seereturnedNTasReportgoodsReportN");
+        $tasgoodsReprtN = $request->post("tasgoodsReprtN");
+        $deletetasgoodsReprtN = $request->post("deletetasgoodsReprtN");
+        $edittasgoodsReprtN = $request->post("edittasgoodsReprtN");
+        $seetasgoodsReprtN = $request->post("seetasgoodsReprtN");
+        $goodsbargiriReportN = $request->post("goodsbargiriReportN");
+        $deletegoodsbargiriReportN = $request->post("deletegoodsbargiriReportN");
+        $editgoodsbargiriReportN = $request->post("editgoodsbargiriReportN");
+        $seegoodsbargiriReportN = $request->post("seegoodsbargiriReportN");
+
+
+
+
+       return $request->all();
+        
+
         $bossId=0;
         $saleLineSn=0;
+
+
 
         if($manager){
             $bossId=$manager;  
@@ -392,6 +590,7 @@ SELECT * FROM (
         'bossId'=>$bossId,'employeeType'=>$employeeType,'SaleLineId'=>$saleLineSn,'poshtibanType'=>$poshtibanType]);
         return redirect("/listKarbaran");
     }
+
     // public function addAdminFromList(Request $request)
     // {
     //     $name=$request->post("name");
