@@ -15409,8 +15409,6 @@ $("#rdSentN").on("change",function(){
     if($("#rdSentN").is(":checked")){
         $("#baseInfoN").prop("checked",true);
         $("#infoRdN").prop("checked",true);
-        $("#deleteSentRdN").prop("checked",true);
-        $("#editSentRdN").prop("checked",true);
         $("#seeSentRdN").prop("checked",true);
     }else{
         if(!$(".rdN").is(":checked")){
@@ -15428,8 +15426,6 @@ $("#rdNotSentN").on("change",function(){
         $("#baseInfoN").prop("checked",true);
         $("#infoRdN").prop("checked",true);
         $("#rdNotSentN").prop("checked",true);
-        $("#deleteRdNotSentN").prop("checked",true);
-        $("#editRdNotSentN").prop("checked",true);
         $("#seeRdNotSentN").prop("checked",true);
     }else{
         if(!$(".rdN").is(":checked")){
@@ -15447,8 +15443,6 @@ $("#rdNotSentN").on("change",function(){
 $("#addSaleLineN").on("change",function(){
     if($("#addSaleLineN").is(":checked")){
         $("#baseInfoN").prop("checked",true);
-        $("#deleteSaleLineN").prop("checked",true);
-        $("#editSaleLineN").prop("checked",true);
         $("#seeSaleLineN").prop("checked",true);
     }else{
         if(!$(".baseInfoN").is(":checked")){
@@ -15465,13 +15459,9 @@ $("#baseInfoSetting").on("change",function(){
     if($("#baseInfoSetting").is(":checked")){
         $("#baseInfoN").prop("checked",true);
         $("#InfoSettingAccess").prop("checked",true);
-        $("#deleteSettingAccess").prop("checked",true);
-        $("#editSettingAccess").prop("checked",true);
         $("#seeSettingAccess").prop("checked",true);
 
         $("#InfoSettingTarget").prop("checked",true);
-        $("#deleteSettingTargetN").prop("checked",true);
-        $("#editSettingTargetN").prop("checked",true);
         $("#seeSettingTargetN").prop("checked",true);
 
     }else{
@@ -15494,8 +15484,6 @@ $("#baseInfoSetting").on("change",function(){
 $("#baseInfoProfileN").on("change",function(){
     if($("#baseInfoProfileN").is(":checked")){
         $("#baseInfoN").prop("checked",true);
-        $("#deleteProfileN").prop("checked",true);
-        $("#editProfileN").prop("checked",true);
         $("#seeProfileN").prop("checked",true);
     }else{
         if(!$(".baseInfoN").is(":checked")){
@@ -15512,13 +15500,9 @@ $("#infoRdN").on("change",function(){
 
         $("#baseInfoN").prop("checked",true);
         $("#rdSentN").prop("checked",true);
-        $("#deleteSentRdN").prop("checked",true);
-        $("#editSentRdN").prop("checked",true);
         $("#seeSentRdN").prop("checked",true);
 
         $("#rdNotSentN").prop("checked",true);
-        $("#deleteRdNotSentN").prop("checked",true);
-        $("#editRdNotSentN").prop("checked",true);
         $("#seeRdNotSentN").prop("checked",true);
 
     }else{
@@ -15749,8 +15733,6 @@ $("#InfoSettingAccess").on("change",function(){
         $("#baseInfoSetting").prop("checked",true);
         $("#baseInfoN").prop("checked",true);
         $("#InfoSettingAccess").prop("checked",true);
-        $("#deleteSettingAccess").prop("checked",true);
-        $("#editSettingAccess").prop("checked",true);
         $("#seeSettingAccess").prop("checked",true);
     }else{
         if(!$(".InfoSetting").is(":checked")){
@@ -15768,8 +15750,6 @@ $("#InfoSettingTarget").on("change",function(){
     if($("#InfoSettingTarget").is(":checked")){
         $("#baseInfoSetting").prop("checked",true);
         $("#baseInfoN").prop("checked",true);
-        $("#deleteSettingTargetN").prop("checked",true);
-        $("#editSettingTargetN").prop("checked",true);
         $("#seeSettingTargetN").prop("checked",true);
     }else{
         if(!$(".InfoSetting").is(":checked")){
@@ -15786,36 +15766,24 @@ $("#InfoSettingTarget").on("change",function(){
 
 $("#baseInfoN").on("change",function(){
     if($("#baseInfoN").is(":checked")){
-        $("#deleteProfileN").prop("checked",true);
-        $("#editProfileN").prop("checked",true);
         $("#seeProfileN").prop("checked",true);
         $("#baseInfoProfileN").prop("checked",true);
 
         $("#rdSentN").prop("checked",true);
         $("#infoRdN").prop("checked",true);
-        $("#deleteSentRdN").prop("checked",true);
-        $("#editSentRdN").prop("checked",true);
         $("#seeSentRdN").prop("checked",true);
 
         $("#rdNotSentN").prop("checked",true);
-        $("#deleteRdNotSentN").prop("checked",true);
-        $("#editRdNotSentN").prop("checked",true);
         $("#seeRdNotSentN").prop("checked",true);
 
         $("#addSaleLineN").prop("checked",true);
-        $("#deleteSaleLineN").prop("checked",true);
-        $("#editSaleLineN").prop("checked",true);
         $("#seeSaleLineN").prop("checked",true);
 
         $("#baseInfoSetting").prop("checked",true);
         $("#InfoSettingAccess").prop("checked",true);
-        $("#deleteSettingAccess").prop("checked",true);
-        $("#editSettingAccess").prop("checked",true);
         $("#seeSettingAccess").prop("checked",true);
 
         $("#InfoSettingTarget").prop("checked",true);
-        $("#deleteSettingTargetN").prop("checked",true);
-        $("#editSettingTargetN").prop("checked",true);
         $("#seeSettingTargetN").prop("checked",true);
     }else{
         $("#rdSentN").prop("checked",false);
@@ -16144,12 +16112,12 @@ $("#pastoppNazarsanjiN").on("change",function(){
 $("#DoneoppNazarsanjiN").on("change",function(){
     if($("#DoneoppNazarsanjiN").is(":checked")){
         $("#oppN").prop("checked",true);
-        $("#OppupDownBonusN").prop("checked",true);
+        $("#oppNazarSanjiN").prop("checked",false);
         $("#seeDoneoppNazarsanjiN").prop("checked",true);
     }else{
-        if(!$(".OppupDownBonusN").is(":checked")){
+        if(!$(".oppNazarSanjiN").is(":checked")){
             $("#oppN").prop("checked",false);
-            $("#OppupDownBonusN").prop("checked",false);
+            $("#oppNazarSanjiN").prop("checked",false);
         }
         $("#seeDoneoppNazarsanjiN").prop("checked",false);
     }
@@ -16408,125 +16376,549 @@ $("#deleteoppDriverServiceN").on("change",function(){
         $("#oppDriverServiceN").trigger("change");
     }
 });
+
+//
+$("#seeoppBargiriN").on("change",function(){
+    if(!$("#seeoppBargiriN").is(":checked")){
+        $("#oppBargiriN").prop("checked",false);
+        $("#oppBargiriN").trigger("change");
+    }else{
+        $("#oppBargiriN").prop("checked",true);
+        $("#oppBargiriN").trigger("change");
+    }
+})
+
+
+$("#editoppBargiriN").on("change",function(){
+    if(!$("#editoppBargiriN").is(":checked")){
+        $("#deleteoppBargiriN").prop("checked",false);
+    }else{
+        $("#oppBargiriN").prop("checked",true);
+
+        $("#oppBargiriN").trigger("change");
+    }
+});
+
+
+$("#deleteoppBargiriN").on("change",function(){
+    if(!$("#deleteoppBargiriN").is(":checked")){
+    }else{
+        $("#oppBargiriN").prop("checked",true);
+        $("#editoppBargiriN").prop("checked",true);
+        $("#oppBargiriN").trigger("change");
+    }
+});
+
+//
+$("#seetodayoppNazarsanjiN").on("change",function(){
+    if(!$("#seetodayoppNazarsanjiN").is(":checked")){
+        $("#todayoppNazarsanjiN").prop("checked",false);
+        $("#todayoppNazarsanjiN").trigger("change");
+    }else{
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").trigger("change");
+    }
+})
+
+
+$("#edittodayoppNazarsanjiN").on("change",function(){
+    if(!$("#edittodayoppNazarsanjiN").is(":checked")){
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
+    }else{
+        $("#todayoppNazarsanjiN").prop("checked",true);
+
+        $("#todayoppNazarsanjiN").trigger("change");
+    }
+});
+
+
+$("#deletetodayoppNazarsanjiN").on("change",function(){
+    if(!$("#deletetodayoppNazarsanjiN").is(":checked")){
+    }else{
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#edittodayoppNazarsanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").trigger("change");
+    }
+});
+//
+$("#seepastoppNazarsanjiN").on("change",function(){
+    if(!$("#seepastoppNazarsanjiN").is(":checked")){
+        $("#pastoppNazarsanjiN").prop("checked",false);
+        $("#pastoppNazarsanjiN").trigger("change");
+    }else{
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#pastoppNazarsanjiN").trigger("change");
+    }
+})
+
+
+$("#editpastoppNazarsanjiN").on("change",function(){
+    if(!$("#editpastoppNazarsanjiN").is(":checked")){
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
+    }else{
+        $("#pastoppNazarsanjiN").prop("checked",true);
+
+        $("#pastoppNazarsanjiN").trigger("change");
+    }
+});
+
+
+$("#deletepastoppNazarsanjiN").on("change",function(){
+    if(!$("#deletepastoppNazarsanjiN").is(":checked")){
+    }else{
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+        $("#pastoppNazarsanjiN").trigger("change");
+    }
+});
+//
+$("#seeDoneoppNazarsanjiN").on("change",function(){
+    if(!$("#seeDoneoppNazarsanjiN").is(":checked")){
+        $("#DoneoppNazarsanjiN").prop("checked",false);
+        $("#DoneoppNazarsanjiN").trigger("change");
+    }else{
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#DoneoppNazarsanjiN").trigger("change");
+    }
+})
+
+
+$("#editDoneoppNazarsanjiN").on("change",function(){
+    if(!$("#editDoneoppNazarsanjiN").is(":checked")){
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
+    }else{
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+
+        $("#DoneoppNazarsanjiN").trigger("change");
+    }
+});
+
+
+$("#deleteDoneoppNazarsanjiN").on("change",function(){
+    if(!$("#deleteDoneoppNazarsanjiN").is(":checked")){
+    }else{
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#editDoneoppNazarsanjiN").prop("checked",true);
+        $("#DoneoppNazarsanjiN").trigger("change");
+    }
+});
+
+//
+$("#seeAddOppupDownBonusN").on("change",function(){
+    if(!$("#seeAddOppupDownBonusN").is(":checked")){
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").trigger("change");
+    }else{
+        $("#AddOppupDownBonusN").prop("checked",true);
+        $("#AddOppupDownBonusN").trigger("change");
+    }
+})
+
+
+$("#editAddOppupDownBonusN").on("change",function(){
+    if(!$("#editAddOppupDownBonusN").is(":checked")){
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+    }else{
+        $("#AddOppupDownBonusN").prop("checked",true);
+
+        $("#AddOppupDownBonusN").trigger("change");
+    }
+});
+
+
+$("#deleteAddOppupDownBonusN").on("change",function(){
+    if(!$("#deleteAddOppupDownBonusN").is(":checked")){
+    }else{
+        $("#AddOppupDownBonusN").prop("checked",true);
+        $("#editAddOppupDownBonusN").prop("checked",true);
+        $("#AddOppupDownBonusN").trigger("change");
+    }
+});
+
+//
+$("#seeSubOppupDownBonusN").on("change",function(){
+    if(!$("#seeSubOppupDownBonusN").is(":checked")){
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#SubOppupDownBonusN").trigger("change");
+    }else{
+        $("#SubOppupDownBonusN").prop("checked",true);
+        $("#SubOppupDownBonusN").trigger("change");
+    }
+})
+
+
+$("#editSubOppupDownBonusN").on("change",function(){
+    if(!$("#editSubOppupDownBonusN").is(":checked")){
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+    }else{
+        $("#SubOppupDownBonusN").prop("checked",true);
+
+        $("#SubOppupDownBonusN").trigger("change");
+    }
+});
+
+
+$("#deleteSubOppupDownBonusN").on("change",function(){
+    if(!$("#deleteSubOppupDownBonusN").is(":checked")){
+    }else{
+        $("#SubOppupDownBonusN").prop("checked",true);
+        $("#editSubOppupDownBonusN").prop("checked",true);
+        $("#SubOppupDownBonusN").trigger("change");
+    }
+});
+
+//
+$("#seeAddedoppRDN").on("change",function(){
+    if(!$("#seeAddedoppRDN").is(":checked")){
+        $("#AddedoppRDN").prop("checked",false);
+        $("#AddedoppRDN").trigger("change");
+    }else{
+        $("#AddedoppRDN").prop("checked",true);
+        $("#AddedoppRDN").trigger("change");
+    }
+})
+
+
+$("#editAddedoppRDN").on("change",function(){
+    if(!$("#editAddedoppRDN").is(":checked")){
+        $("#deleteAddedoppRDN").prop("checked",false);
+    }else{
+        $("#AddedoppRDN").prop("checked",true);
+
+        $("#AddedoppRDN").trigger("change");
+    }
+});
+
+
+$("#deleteAddedoppRDN").on("change",function(){
+    if(!$("#deleteAddedoppRDN").is(":checked")){
+    }else{
+        $("#AddedoppRDN").prop("checked",true);
+        $("#editAddedoppRDN").prop("checked",true);
+        $("#AddedoppRDN").trigger("change");
+    }
+});
+
+//
+$("#seeNotAddedoppRDN").on("change",function(){
+    if(!$("#seeNotAddedoppRDN").is(":checked")){
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#NotAddedoppRDN").trigger("change");
+    }else{
+        $("#NotAddedoppRDN").prop("checked",true);
+        $("#NotAddedoppRDN").trigger("change");
+    }
+})
+
+
+$("#editNotAddedoppRDN").on("change",function(){
+    if(!$("#editNotAddedoppRDN").is(":checked")){
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+    }else{
+        $("#NotAddedoppRDN").prop("checked",true);
+        $("#NotAddedoppRDN").trigger("change");
+    }
+});
+
+
+$("#deleteNotAddedoppRDN").on("change",function(){
+    if(!$("#deleteNotAddedoppRDN").is(":checked")){
+    }else{
+        $("#NotAddedoppRDN").prop("checked",true);
+        $("#editNotAddedoppRDN").prop("checked",true);
+        $("#NotAddedoppRDN").trigger("change");
+    }
+});
+
+//
+$("#seeoppjustCalendarN").on("change",function(){
+    if(!$("#seeoppjustCalendarN").is(":checked")){
+        $("#oppjustCalendarN").prop("checked",false);
+        $("#oppjustCalendarN").trigger("change");
+    }else{
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").trigger("change");
+    }
+})
+
+
+$("#editoppjustCalendarN").on("change",function(){
+    if(!$("#editoppjustCalendarN").is(":checked")){
+        $("#deleteoppjustCalendarN").prop("checked",false);
+    }else{
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").trigger("change");
+    }
+});
+
+
+$("#deleteoppjustCalendarN").on("change",function(){
+    if(!$("#deleteoppjustCalendarN").is(":checked")){
+    }else{
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#editoppjustCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").trigger("change");
+    }
+});
+
+
+//
+$("#seeoppCustCalendarN").on("change",function(){
+    if(!$("#seeoppCustCalendarN").is(":checked")){
+        $("#oppCustCalendarN").prop("checked",false);
+        $("#oppCustCalendarN").trigger("change");
+    }else{
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#oppCustCalendarN").trigger("change");
+    }
+})
+
+$("#editoppCustCalendarN").on("change",function(){
+    if(!$("#editoppCustCalendarN").is(":checked")){
+        $("#deleteoppCustCalendarN").prop("checked",false);
+    }else{
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#oppCustCalendarN").trigger("change");
+    }
+});
+
+$("#deleteoppCustCalendarN").on("change",function(){
+    if(!$("#deleteoppCustCalendarN").is(":checked")){
+    }else{
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#editoppCustCalendarN").prop("checked",true);
+        $("#oppCustCalendarN").trigger("change");
+    }
+});
+
+
+//
+$("#seeallalarmoppN").on("change",function(){
+    if(!$("#seeallalarmoppN").is(":checked")){
+        $("#allalarmoppN").prop("checked",false);
+        $("#allalarmoppN").trigger("change");
+    }else{
+        $("#allalarmoppN").prop("checked",true);
+        $("#allalarmoppN").trigger("change");
+    }
+})
+
+$("#editallalarmoppN").on("change",function(){
+    if(!$("#editallalarmoppN").is(":checked")){
+        $("#deleteallalarmoppN").prop("checked",false);
+    }else{
+        $("#allalarmoppN").prop("checked",true);
+        $("#allalarmoppN").trigger("change");
+    }
+});
+
+$("#deleteallalarmoppN").on("change",function(){
+    if(!$("#deleteallalarmoppN").is(":checked")){
+    }else{
+        $("#allalarmoppN").prop("checked",true);
+        $("#editallalarmoppN").prop("checked",true);
+        $("#allalarmoppN").trigger("change");
+    }
+});
+
+
+//
+$("#seedonealarmoppN").on("change",function(){
+    if(!$("#seedonealarmoppN").is(":checked")){
+        $("#donealarmoppN").prop("checked",false);
+        $("#donealarmoppN").trigger("change");
+    }else{
+        $("#donealarmoppN").prop("checked",true);
+        $("#donealarmoppN").trigger("change");
+    }
+});
+
+$("#editdonealarmoppN").on("change",function(){
+    if(!$("#editdonealarmoppN").is(":checked")){
+        $("#deletedonealarmoppN").prop("checked",false);
+    }else{
+        $("#donealarmoppN").prop("checked",true);
+        $("#donealarmoppN").trigger("change");
+    }
+});
+
+$("#deletedonealarmoppN").on("change",function(){
+    if(!$("#deletedonealarmoppN").is(":checked")){
+    }else{
+        $("#donealarmoppN").prop("checked",true);
+        $("#editdonealarmoppN").prop("checked",true);
+        $("#donealarmoppN").trigger("change");
+    }
+});
+
+
+//
+$("#seeNoalarmoppN").on("change",function(){
+    if(!$("#seeNoalarmoppN").is(":checked")){
+        $("#NoalarmoppN").prop("checked",false);
+        $("#NoalarmoppN").trigger("change");
+    }else{
+        $("#NoalarmoppN").prop("checked",true);
+        $("#NoalarmoppN").trigger("change");
+    }
+});
+
+$("#editNoalarmoppN").on("change",function(){
+    if(!$("#editNoalarmoppN").is(":checked")){
+        $("#deleteNoalarmoppN").prop("checked",false);
+    }else{
+        $("#NoalarmoppN").prop("checked",true);
+        $("#NoalarmoppN").trigger("change");
+    }
+});
+
+$("#deleteNoalarmoppN").on("change",function(){
+    if(!$("#deleteNoalarmoppN").is(":checked")){
+    }else{
+        $("#NoalarmoppN").prop("checked",true);
+        $("#editNoalarmoppN").prop("checked",true);
+        $("#NoalarmoppN").trigger("change");
+    }
+});
+
+//
+$("#seemassageOppN").on("change",function(){
+    if(!$("#seemassageOppN").is(":checked")){
+        $("#massageOppN").prop("checked",false);
+        $("#massageOppN").trigger("change");
+    }else{
+        $("#massageOppN").prop("checked",true);
+        $("#massageOppN").trigger("change");
+    }
+});
+
+$("#editmassageOppN").on("change",function(){
+    if(!$("#editmassageOppN").is(":checked")){
+        $("#deletemassageOppN").prop("checked",false);
+    }else{
+        $("#massageOppN").prop("checked",true);
+        $("#massageOppN").trigger("change");
+    }
+});
+
+$("#deletemassageOppN").on("change",function(){
+    if(!$("#deletemassageOppN").is(":checked")){
+    }else{
+        $("#massageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#massageOppN").trigger("change");
+    }
+});
+
+//
+$("#seejustBargiriOppN").on("change",function(){
+    if(!$("#seejustBargiriOppN").is(":checked")){
+        $("#justBargiriOppN").prop("checked",false);
+        $("#justBargiriOppN").trigger("change");
+    }else{
+        $("#justBargiriOppN").prop("checked",true);
+        $("#justBargiriOppN").trigger("change");
+    }
+});
+
+$("#editjustBargiriOppN").on("change",function(){
+    if(!$("#editjustBargiriOppN").is(":checked")){
+        $("#deletejustBargiriOppN").prop("checked",false);
+    }else{
+        $("#justBargiriOppN").prop("checked",true);
+        $("#justBargiriOppN").trigger("change");
+    }
+});
+
+$("#deletejustBargiriOppN").on("change",function(){
+    if(!$("#deletejustBargiriOppN").is(":checked")){
+    }else{
+        $("#justBargiriOppN").prop("checked",true);
+        $("#editjustBargiriOppN").prop("checked",true);
+        $("#justBargiriOppN").trigger("change");
+    }
+});
 $("#oppN").on("change",function(){
     if($("#oppN").is(":checked")){
         $("#oppTakhsisN").prop("checked",true);
         $("#oppManagerN").prop("checked",true);
-        $("#deleteManagerOppN").prop("checked",true);
-        $("#editManagerOppN").prop("checked",true);
         $("#seeManagerOppN").prop("checked",true);
 
 
         $("#oppHeadN").prop("checked",true);
-        $("#deleteHeadOppN").prop("checked",true);
-        $("#editHeadOppN").prop("checked",true);
         $("#seeHeadOppN").prop("checked",true);
 
 
         $("#oppBazaryabN").prop("checked",true);
-        $("#deleteBazaryabOppN").prop("checked",true);
-        $("#editBazaryabOppN").prop("checked",true);
         $("#seeBazaryabOppN").prop("checked",true);
 
 
         $("#oppDriverN").prop("checked",true);
         $("#oppDriverServiceN").prop("checked",true);
-        $("#deleteoppDriverServiceN").prop("checked",true);
-        $("#editoppDriverServiceN").prop("checked",true);
         $("#seeoppDriverServiceN").prop("checked",true);
 
 
         $("#oppBargiriN").prop("checked",true);
-        $("#deleteoppBargiriN").prop("checked",true);
-        $("#editoppBargiriN").prop("checked",true);
         $("#seeoppBargiriN").prop("checked",true);
 
         $("#oppNazarSanjiN").prop("checked",true);
         $("#todayoppNazarsanjiN").prop("checked",true);
-        $("#deletetodayoppNazarsanjiN").prop("checked",true);
-        $("#edittodayoppNazarsanjiN").prop("checked",true);
         $("#seetodayoppNazarsanjiN").prop("checked",true);
 
 
         $("#pastoppNazarsanjiN").prop("checked",true);
-        $("#deletepastoppNazarsanjiN").prop("checked",true);
-        $("#editpastoppNazarsanjiN").prop("checked",true);
         $("#seepastoppNazarsanjiN").prop("checked",true);
 
 
         $("#DoneoppNazarsanjiN").prop("checked",true);
-        $("#deleteDoneoppNazarsanjiN").prop("checked",true);
-        $("#editDoneoppNazarsanjiN").prop("checked",true);
         $("#seeDoneoppNazarsanjiN").prop("checked",true);
 
 
         $("#OppupDownBonusN").prop("checked",true);
         $("#AddOppupDownBonusN").prop("checked",true);
-        $("#deleteAddOppupDownBonusN").prop("checked",true);
-        $("#editAddOppupDownBonusN").prop("checked",true);
         $("#seeAddOppupDownBonusN").prop("checked",true);
 
 
         $("#SubOppupDownBonusN").prop("checked",true);
-        $("#deleteSubOppupDownBonusN").prop("checked",true);
-        $("#editSubOppupDownBonusN").prop("checked",true);
         $("#seeSubOppupDownBonusN").prop("checked",true);
 
 
         $("#oppRDN").prop("checked",true);
         $("#AddedoppRDN").prop("checked",true);
-        $("#deleteAddedoppRDN").prop("checked",true);
-        $("#editAddedoppRDN").prop("checked",true);
         $("#seeAddedoppRDN").prop("checked",true);
 
 
         $("#NotAddedoppRDN").prop("checked",true);
-        $("#deleteNotAddedoppRDN").prop("checked",true);
-        $("#editNotAddedoppRDN").prop("checked",true);
         $("#seeNotAddedoppRDN").prop("checked",true);
 
 
         $("#oppCalendarN").prop("checked",true);
         $("#oppjustCalendarN").prop("checked",true);
-        $("#deleteoppjustCalendarN").prop("checked",true);
-        $("#editoppjustCalendarN").prop("checked",true);
         $("#seeoppjustCalendarN").prop("checked",true);
 
 
         $("#oppCustCalendarN").prop("checked",true);
-        $("#deleteoppCustCalendarN").prop("checked",true);
-        $("#editoppCustCalendarN").prop("checked",true);
         $("#seeoppCustCalendarN").prop("checked",true);
 
 
         $("#alarmoppN").prop("checked",true);
         $("#allalarmoppN").prop("checked",true);
-        $("#deleteallalarmoppN").prop("checked",true);
-        $("#editallalarmoppN").prop("checked",true);
         $("#seeallalarmoppN").prop("checked",true);
 
 
         $("#donealarmoppN").prop("checked",true);
-        $("#deletedonealarmoppN").prop("checked",true);
-        $("#editdonealarmoppN").prop("checked",true);
         $("#seedonealarmoppN").prop("checked",true);
 
 
         $("#NoalarmoppN").prop("checked",true);
-        $("#deleteNoalarmoppN").prop("checked",true);
-        $("#editNoalarmoppN").prop("checked",true);
         $("#seeNoalarmoppN").prop("checked",true);
 
 
         $("#massageOppN").prop("checked",true);
-        $("#deletemassageOppN").prop("checked",true);
-        $("#editmassageOppN").prop("checked",true);
         $("#seemassageOppN").prop("checked",true);
 
 
         $("#justBargiriOppN").prop("checked",true);
-        $("#deletejustBargiriOppN").prop("checked",true);
-        $("#editjustBargiriOppN").prop("checked",true);
         $("#seejustBargiriOppN").prop("checked",true);
     }else{
         $("#oppTakhsisN").prop("checked",false);
@@ -16706,6 +17098,103 @@ $("#customerReportN").on("change",function(){
         $("#seecustomerReportN").prop("checked",false);
     }
 });
+$("#amalkardCustReportN").on("change",function(){
+    if($("#amalkardCustReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#loginCustRepN").prop("checked",true);
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#returnedCustRepN").prop("checked",true);
+
+        $("#seeloginCustRepN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+        $("#seereturnedCustRepN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#salegoodsReportN").prop("checked",false);
+        $("#loginCustRepN").prop("checked",false);
+        $("#inActiveCustRepN").prop("checked",false);
+        $("#noAdminCustRepN").prop("checked",false);
+        $("#returnedCustRepN").prop("checked",false);
+
+        $("#seeloginCustRepN").prop("checked",false);
+        $("#seeinActiveCustRepN").prop("checked",false);
+        $("#seenoAdminCustRepN").prop("checked",false);
+        $("#seereturnedCustRepN").prop("checked",false);
+    }
+});
+
+$("#loginCustRepN").on("change",function(){
+    if($("#loginCustRepN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalkardCustReportN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+    }else{
+        if(!$(".amalkardCustReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalkardCustReportN").prop("checked",false);
+        }
+        $("#seeloginCustRepN").prop("checked",false);
+    }
+});
+
+$("#inActiveCustRepN").on("change",function(){
+    if($("#inActiveCustRepN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalkardCustReportN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+    }else{
+        if(!$(".amalkardCustReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalkardCustReportN").prop("checked",false);
+        }
+        $("#seeinActiveCustRepN").prop("checked",false);
+    }
+});
+$("#noAdminCustRepN").on("change",function(){
+    if($("#noAdminCustRepN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalkardCustReportN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+    }else{
+        if(!$(".amalkardCustReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalkardCustReportN").prop("checked",false);
+        }
+        $("#seenoAdminCustRepN").prop("checked",false);
+    }
+});
+$("#returnedCustRepN").on("change",function(){
+    if($("#returnedCustRepN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalkardCustReportN").prop("checked",true);
+        $("#seereturnedCustRepN").prop("checked",true);
+    }else{
+        if(!$(".amalkardCustReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalkardCustReportN").prop("checked",false);
+        }
+        $("#seereturnedCustRepN").prop("checked",false);
+    }
+});
+$("#loginCustRepN").on("change",function(){
+    if($("#loginCustRepN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#amalkardCustReportN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+    }else{
+        if(!$(".amalkardCustReportN").is(":checked")){
+            $("#reportN").prop("checked",false);
+            $("#amalkardCustReportN").prop("checked",false);
+        }
+        $("#seeloginCustRepN").prop("checked",false);
+    }
+});
+
+
 $("#goodsReport").on("change",function(){
     if($("#goodsReport").is(":checked")){
         $("#reportN").prop("checked",true);
@@ -16922,93 +17411,533 @@ $("#tasgoodsReprtN ").on("change",function(){
     }
 });
 
+//
+$("#seemanagerreportN").on("change",function(){
+    if(!$("#seemanagerreportN").is(":checked")){
+        $("#managerreportN").prop("checked",false);
+        $("#managerreportN").trigger("change");
+    }else{
+        $("#managerreportN").prop("checked",true);
+        $("#managerreportN").trigger("change");
+    }
+});
+
+$("#editmanagerreportN").on("change",function(){
+    if(!$("#editmanagerreportN").is(":checked")){
+        $("#deletejustBargiriOppN").prop("checked",false);
+    }else{
+        $("#managerreportN").prop("checked",true);
+        $("#managerreportN").trigger("change");
+    }
+});
+
+$("#deletemanagerreportN").on("change",function(){
+    if(!$("#deletemanagerreportN").is(":checked")){
+    }else{
+        $("#managerreportN").prop("checked",true);
+        $("#editmanagerreportN").prop("checked",true);
+        $("#managerreportN").trigger("change");
+    }
+});
+
+//
+$("#seeHeadreportN").on("change",function(){
+    if(!$("#seeHeadreportN").is(":checked")){
+        $("#HeadreportN").prop("checked",false);
+        $("#HeadreportN").trigger("change");
+    }else{
+        $("#HeadreportN").prop("checked",true);
+        $("#HeadreportN").trigger("change");
+    }
+});
+
+$("#editHeadreportN").on("change",function(){
+    if(!$("#editHeadreportN").is(":checked")){
+        $("#deleteHeadreportN").prop("checked",false);
+    }else{
+        $("#HeadreportN").prop("checked",true);
+        $("#HeadreportN").trigger("change");
+    }
+});
+
+$("#deleteHeadreportN").on("change",function(){
+    if(!$("#deleteHeadreportN").is(":checked")){
+    }else{
+        $("#HeadreportN").prop("checked",true);
+        $("#editHeadreportN").prop("checked",true);
+        $("#HeadreportN").trigger("change");
+    }
+});
+
+//
+$("#seeposhtibanreportN").on("change",function(){
+    if(!$("#seeposhtibanreportN").is(":checked")){
+        $("#poshtibanreportN").prop("checked",false);
+        $("#poshtibanreportN").trigger("change");
+    }else{
+        $("#poshtibanreportN").prop("checked",true);
+        $("#poshtibanreportN").trigger("change");
+    }
+});
+
+$("#editposhtibanreportN").on("change",function(){
+    if(!$("#editposhtibanreportN").is(":checked")){
+        $("#deleteposhtibanreportN").prop("checked",false);
+    }else{
+        $("#poshtibanreportN").prop("checked",true);
+        $("#poshtibanreportN").trigger("change");
+    }
+});
+
+$("#deleteposhtibanreportN").on("change",function(){
+    if(!$("#deleteposhtibanreportN").is(":checked")){
+    }else{
+        $("#poshtibanreportN").prop("checked",true);
+        $("#editposhtibanreportN").prop("checked",true);
+        $("#poshtibanreportN").trigger("change");
+    }
+});
+
+//
+$("#seereportDriverN").on("change",function(){
+    if(!$("#seereportDriverN").is(":checked")){
+        $("#reportDriverN").prop("checked",false);
+        $("#reportDriverN").trigger("change");
+    }else{
+        $("#reportDriverN").prop("checked",true);
+        $("#reportDriverN").trigger("change");
+    }
+});
+
+$("#editreportDriverN").on("change",function(){
+    if(!$("#editreportDriverN").is(":checked")){
+        $("#deletereportDriverN").prop("checked",false);
+    }else{
+        $("#reportDriverN").prop("checked",true);
+        $("#reportDriverN").trigger("change");
+    }
+});
+
+$("#deletereportDriverN").on("change",function(){
+    if(!$("#deletereportDriverN").is(":checked")){
+    }else{
+        $("#reportDriverN").prop("checked",true);
+        $("#editreportDriverN").prop("checked",true);
+        $("#reportDriverN").trigger("change");
+    }
+});
+
+
+//
+$("#seebazaryabreportN").on("change",function(){
+    if(!$("#seebazaryabreportN").is(":checked")){
+        $("#bazaryabreportN").prop("checked",false);
+        $("#bazaryabreportN").trigger("change");
+    }else{
+        $("#bazaryabreportN").prop("checked",true);
+        $("#bazaryabreportN").trigger("change");
+    }
+});
+
+$("#editbazaryabreportN").on("change",function(){
+    if(!$("#editbazaryabreportN").is(":checked")){
+        $("#deletereportDriverN").prop("checked",false);
+    }else{
+        $("#bazaryabreportN").prop("checked",true);
+        $("#bazaryabreportN").trigger("change");
+    }
+});
+
+$("#deletebazaryabreportN").on("change",function(){
+    if(!$("#deletebazaryabreportN").is(":checked")){
+    }else{
+        $("#bazaryabreportN").prop("checked",true);
+        $("#editbazaryabreportN").prop("checked",true);
+        $("#bazaryabreportN").trigger("change");
+    }
+});
+
+
+//
+$("#seetrazEmployeeReportN").on("change",function(){
+    if(!$("#seetrazEmployeeReportN").is(":checked")){
+        $("#trazEmployeeReportN").prop("checked",false);
+        $("#trazEmployeeReportN").trigger("change");
+    }else{
+        $("#trazEmployeeReportN").prop("checked",true);
+        $("#trazEmployeeReportN").trigger("change");
+    }
+});
+
+$("#edittrazEmployeeReportN").on("change",function(){
+    if(!$("#edittrazEmployeeReportN").is(":checked")){
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+    }else{
+        $("#trazEmployeeReportN").prop("checked",true);
+        $("#trazEmployeeReportN").trigger("change");
+    }
+});
+
+$("#deletetrazEmployeeReportN").on("change",function(){
+    if(!$("#deletetrazEmployeeReportN").is(":checked")){
+    }else{
+        $("#trazEmployeeReportN").prop("checked",true);
+        $("#edittrazEmployeeReportN").prop("checked",true);
+        $("#trazEmployeeReportN").trigger("change");
+    }
+});
+
+
+//
+$("#seereturnedgoodsReportN").on("change",function(){
+    if(!$("#seereturnedgoodsReportN").is(":checked")){
+        $("#returnedgoodsReportN").prop("checked",false);
+        $("#returnedgoodsReportN").trigger("change");
+    }else{
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#returnedgoodsReportN").trigger("change");
+    }
+});
+
+$("#editreturnedgoodsReportN").on("change",function(){
+    if(!$("#editreturnedgoodsReportN").is(":checked")){
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+    }else{
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#returnedgoodsReportN").trigger("change");
+    }
+});
+
+$("#deletereturnedgoodsReportN").on("change",function(){
+    if(!$("#deletereturnedgoodsReportN").is(":checked")){
+    }else{
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#editreturnedgoodsReportN").prop("checked",true);
+        $("#returnedgoodsReportN").trigger("change");
+    }
+});
+
+
+//
+$("#seeNoExistgoodsReportN").on("change",function(){
+    if(!$("#seeNoExistgoodsReportN").is(":checked")){
+        $("#NoExistgoodsReportN").prop("checked",false);
+        $("#NoExistgoodsReportN").trigger("change");
+    }else{
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#NoExistgoodsReportN").trigger("change");
+    }
+});
+
+$("#editNoExistgoodsReportN").on("change",function(){
+    if(!$("#editNoExistgoodsReportN").is(":checked")){
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+    }else{
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#NoExistgoodsReportN").trigger("change");
+    }
+});
+
+$("#deleteNoExistgoodsReportN").on("change",function(){
+    if(!$("#deleteNoExistgoodsReportN").is(":checked")){
+    }else{
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#editNoExistgoodsReportN").prop("checked",true);
+        $("#NoExistgoodsReportN").trigger("change");
+    }
+});
+
+//
+$("#seenosalegoodsReportN").on("change",function(){
+    if(!$("#seenosalegoodsReportN").is(":checked")){
+        $("#nosalegoodsReportN").prop("checked",false);
+        $("#nosalegoodsReportN").trigger("change");
+    }else{
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#nosalegoodsReportN").trigger("change");
+    }
+});
+
+$("#editnosalegoodsReportN").on("change",function(){
+    if(!$("#editnosalegoodsReportN").is(":checked")){
+        $("#deletenosalegoodsReportN").prop("checked",false);
+    }else{
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#nosalegoodsReportN").trigger("change");
+    }
+});
+
+$("#deletenosalegoodsReportN").on("change",function(){
+    if(!$("#deletenosalegoodsReportN").is(":checked")){
+    }else{
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#editnosalegoodsReportN").prop("checked",true);
+        $("#nosalegoodsReportN").trigger("change");
+    }
+});
+
+//
+$("#seereturnedNTasReportgoodsReportN").on("change",function(){
+    if(!$("#seereturnedNTasReportgoodsReportN").is(":checked")){
+        $("#returnedNTasReportgoodsReportN").prop("checked",false);
+        $("#returnedNTasReportgoodsReportN").trigger("change");
+    }else{
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").trigger("change");
+    }
+});
+
+$("#editreturnedNTasReportgoodsReportN").on("change",function(){
+    if(!$("#editreturnedNTasReportgoodsReportN").is(":checked")){
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+    }else{
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").trigger("change");
+    }
+});
+
+$("#deletereturnedNTasReportgoodsReportN").on("change",function(){
+    if(!$("#deletereturnedNTasReportgoodsReportN").is(":checked")){
+    }else{
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").trigger("change");
+    }
+});
+
+
+//
+$("#seetasgoodsReprtN").on("change",function(){
+    if(!$("#seetasgoodsReprtN").is(":checked")){
+        $("#tasgoodsReprtN").prop("checked",false);
+        $("#tasgoodsReprtN").trigger("change");
+    }else{
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#tasgoodsReprtN").trigger("change");
+    }
+});
+
+$("#edittasgoodsReprtN").on("change",function(){
+    if(!$("#edittasgoodsReprtN").is(":checked")){
+        $("#deletetasgoodsReprtN").prop("checked",false);
+    }else{
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#tasgoodsReprtN").trigger("change");
+    }
+});
+
+$("#deletetasgoodsReprtN").on("change",function(){
+    if(!$("#deletetasgoodsReprtN").is(":checked")){
+    }else{
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#edittasgoodsReprtN").prop("checked",true);
+        $("#tasgoodsReprtN").trigger("change");
+    }
+});
+
+//
+$("#seegoodsbargiriReportN").on("change",function(){
+    if(!$("#seegoodsbargiriReportN").is(":checked")){
+        $("#goodsbargiriReportN").prop("checked",false);
+        $("#goodsbargiriReportN").trigger("change");
+    }else{
+        $("#goodsbargiriReportN").prop("checked",true);
+        $("#goodsbargiriReportN").trigger("change");
+    }
+});
+
+$("#editgoodsbargiriReportN").on("change",function(){
+    if(!$("#editgoodsbargiriReportN").is(":checked")){
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+    }else{
+        $("#goodsbargiriReportN").prop("checked",true);
+        $("#goodsbargiriReportN").trigger("change");
+    }
+});
+
+$("#deletegoodsbargiriReportN").on("change",function(){
+    if(!$("#deletegoodsbargiriReportN").is(":checked")){
+    }else{
+        $("#goodsbargiriReportN").prop("checked",true);
+        $("#editgoodsbargiriReportN").prop("checked",true);
+        $("#goodsbargiriReportN").trigger("change");
+    }
+});
+
+//
+$("#seeloginCustRepN").on("change",function(){
+    if(!$("#seeloginCustRepN").is(":checked")){
+        $("#loginCustRepN").prop("checked",false);
+        $("#loginCustRepN").trigger("change");
+    }else{
+        $("#loginCustRepN").prop("checked",true);
+        $("#loginCustRepN").trigger("change");
+    }
+});
+
+$("#editloginCustRepN").on("change",function(){
+    if(!$("#editloginCustRepN").is(":checked")){
+        $("#deleteloginCustRepN").prop("checked",false);
+    }else{
+        $("#loginCustRepN").prop("checked",true);
+        $("#loginCustRepN").trigger("change");
+    }
+});
+
+$("#deleteloginCustRepN").on("change",function(){
+    if(!$("#deleteloginCustRepN").is(":checked")){
+    }else{
+        $("#loginCustRepN").prop("checked",true);
+        $("#editloginCustRepN").prop("checked",true);
+        $("#loginCustRepN").trigger("change");
+    }
+});
+
+//
+$("#seeinActiveCustRepN").on("change",function(){
+    if(!$("#seeinActiveCustRepN").is(":checked")){
+        $("#inActiveCustRepN").prop("checked",false);
+        $("#inActiveCustRepN").trigger("change");
+    }else{
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#inActiveCustRepN").trigger("change");
+    }
+});
+
+$("#editinActiveCustRepN").on("change",function(){
+    if(!$("#editinActiveCustRepN").is(":checked")){
+        $("#deleteinActiveCustRepN").prop("checked",false);
+    }else{
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#inActiveCustRepN").trigger("change");
+    }
+});
+
+$("#deleteinActiveCustRepN").on("change",function(){
+    if(!$("#deleteinActiveCustRepN").is(":checked")){
+    }else{
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#editinActiveCustRepN").prop("checked",true);
+        $("#inActiveCustRepN").trigger("change");
+    }
+});
+
+//
+$("#seenoAdminCustRepN").on("change",function(){
+    if(!$("#seenoAdminCustRepN").is(":checked")){
+        $("#noAdminCustRepN").prop("checked",false);
+        $("#noAdminCustRepN").trigger("change");
+    }else{
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#noAdminCustRepN").trigger("change");
+    }
+});
+
+$("#editnoAdminCustRepN").on("change",function(){
+    if(!$("#editnoAdminCustRepN").is(":checked")){
+        $("#deletenoAdminCustRepN").prop("checked",false);
+    }else{
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#noAdminCustRepN").trigger("change");
+    }
+});
+
+$("#deletenoAdminCustRepN").on("change",function(){
+    if(!$("#deletenoAdminCustRepN").is(":checked")){
+    }else{
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#editnoAdminCustRepN").prop("checked",true);
+        $("#noAdminCustRepN").trigger("change");
+    }
+});
+
+//
+$("#seereturnedCustRepN").on("change",function(){
+    if(!$("#seereturnedCustRepN").is(":checked")){
+        $("#returnedCustRepN").prop("checked",false);
+        $("#returnedCustRepN").trigger("change");
+    }else{
+        $("#returnedCustRepN").prop("checked",true);
+        $("#returnedCustRepN").trigger("change");
+    }
+});
+
+$("#editreturnedCustRepN").on("change",function(){
+    if(!$("#editreturnedCustRepN").is(":checked")){
+        $("#deletereturnedCustRepN").prop("checked",false);
+    }else{
+        $("#returnedCustRepN").prop("checked",true);
+        $("#returnedCustRepN").trigger("change");
+    }
+});
+
+$("#deletereturnedCustRepN").on("change",function(){
+    if(!$("#deletereturnedCustRepN").is(":checked")){
+    }else{
+        $("#returnedCustRepN").prop("checked",true);
+        $("#editreturnedCustRepN").prop("checked",true);
+        $("#returnedCustRepN").trigger("change");
+    }
+});
 $(".reportN").on("change",function(){
     if($(".reportN").is(":checked")){
 
         $("#amalKardreportN").prop("checked",true);
         $("#managerreportN").prop("checked",true);
-        $("#deletemanagerreportN").prop("checked",true);
-        $("#editmanagerreportN").prop("checked",true);
         $("#seemanagerreportN").prop("checked",true);
 
 
         $("#HeadreportN").prop("checked",true);
-        $("#deleteHeadreportN").prop("checked",true);
-        $("#editHeadreportN").prop("checked",true);
         $("#seeHeadreportN").prop("checked",true);
 
 
         $("#poshtibanreportN").prop("checked",true);
-        $("#deleteposhtibanreportN").prop("checked",true);
-        $("#editposhtibanreportN").prop("checked",true);
         $("#seeposhtibanreportN").prop("checked",true);
 
 
         $("#bazaryabreportN").prop("checked",true);
-        $("#deletebazaryabreportN").prop("checked",true);
-        $("#editbazaryabreportN").prop("checked",true);
         $("#seebazaryabreportN").prop("checked",true);
 
 
         $("#reportDriverN").prop("checked",true);
-        $("#deletereportDriverN").prop("checked",true);
-        $("#editreportDriverN").prop("checked",true);
         $("#seereportDriverN").prop("checked",true);
 
 
         $("#trazEmployeeReportN").prop("checked",true);
-        $("#deletetrazEmployeeReportN").prop("checked",true);
-        $("#edittrazEmployeeReportN").prop("checked",true);
         $("#seetrazEmployeeReportN").prop("checked",true);
 
 
         $("#customerReportN").prop("checked",true);
-        $("#deletecustomerReportN").prop("checked",true);
-        $("#editcustomerReportN").prop("checked",true);
         $("#seecustomerReportN").prop("checked",true);
 
 
         $("#goodsReport").prop("checked",true);
         $("#salegoodsReportN").prop("checked",true);
-        $("#deletesalegoodsReportN").prop("checked",true);
-        $("#editsalegoodsReportN").prop("checked",true);
         $("#seesalegoodsReportN").prop("checked",true);
 
 
         $("#returnedgoodsReportN").prop("checked",true);
-        $("#deletereturnedgoodsReportN").prop("checked",true);
-        $("#editturnedgoodsReportN").prop("checked",true);
         $("#seereturnedgoodsReportN").prop("checked",true);
 
 
         $("#NoExistgoodsReportN").prop("checked",true);
-        $("#deleteNoExistgoodsReportN").prop("checked",true);
-        $("#editNoExistgoodsReportN").prop("checked",true);
         $("#seeNoExistgoodsReportN").prop("checked",true);
 
 
         $("#nosalegoodsReportN").prop("checked",true);
-        $("#deletenosalegoodsReportN").prop("checked",true);
-        $("#editnosalegoodsReportN").prop("checked",true);
         $("#seenosalegoodsReportN").prop("checked",true);
 
 
         $("#returnedReportgoodsReportN").prop("checked",true);
         $("#returnedNTasReportgoodsReportN").prop("checked",true);
-        $("#deletereturnedNTasReportgoodsReportN").prop("checked",true);
-        $("#editreturnedgoodsReportN").prop("checked",true);
         $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
 
 
         $("#tasgoodsReprtN").prop("checked",true);
-        $("#deletetasgoodsReprtN").prop("checked",true);
-        $("#edittasgoodsReprtN").prop("checked",true);
         $("#seetasgoodsReprtN").prop("checked",true);
 
 
         $("#goodsbargiriReportN").prop("checked",true);
-        $("#deletegoodsbargiriReportN").prop("checked",true);
-        $("#editgoodsbargiriReportN").prop("checked",true);
         $("#seegoodsbargiriReportN").prop("checked",true);
 
     }else{
