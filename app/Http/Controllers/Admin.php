@@ -367,18 +367,61 @@ SELECT * FROM (
 
         $baseInfoN = $request->post("baseInfoN");
         $baseInfoProfileN = $request->post("baseInfoProfileN");
+
         $deleteProfileN = $request->post("deleteProfileN");
         $editProfileN = $request->post("editProfileN");
         $seeProfileN = $request->post("seeProfileN");
+
+        $baseInfoProfileN=0;
+
+        if($deleteProfileN=="on"){
+            $baseInfoProfileN=2;
+        }elseif($editProfileN=="on" and $deleteProfileN!="on"){
+            $baseInfoProfileN=1;
+        }elseif($editProfileN !="on" and $$seeProfileN =="on"){
+            $baseInfoProfileN=0;
+        }else{
+            $baseInfoProfileN=-1;
+        }
+
+
+
         $infoRdN = $request->post("infoRdN");
         $rdSentN = $request->post("rdSentN");
+
         $deleteSentRdN = $request->post("deleteSentRdN");
         $editSentRdN = $request->post("editSentRdN");
         $seeSentRdN = $request->post("seeSentRdN");
+
+        $rdSentN = 0;
+        if($deleteSentRdN=="on"){
+            $rdSentN=2;
+        }elseif($editSentRdN=="on" and $deleteSentRdN!="on"){
+            $rdSentN=1;
+        }elseif($editSentRdN!="on" and $seeSentRdN=="on"){
+             $rdSentN=0;
+        }else{
+              $rdSentN=-1;
+        }
+
+
         $rdNotSentN = $request->post("rdNotSentN");
+
         $deleteRdNotSentN = $request->post("deleteRdNotSentN");
         $editRdNotSentN = $request->post("editRdNotSentN");
         $seeRdNotSentN = $request->post("seeRdNotSentN");
+
+         $rdNotSentN = 0;
+        if($deleteRdNotSentN=="on"){
+            $rdNotSentN=2;
+        }elseif($editRdNotSentN=="on" and $deleteRdNotSentN!="on"){
+            $rdNotSentN=1;
+        }elseif($editRdNotSentN!="on" and $seeRdNotSentN=="on"){
+             $rdNotSentN=0;
+        }else{
+              $rdNotSentN=-1;
+        }
+
         $specialSettingN = $request->post("specialSettingN");
         $deleteSaleLineN = $request->post("deleteSaleLineN");
         $editSaleLineN = $request->post("editSaleLineN");

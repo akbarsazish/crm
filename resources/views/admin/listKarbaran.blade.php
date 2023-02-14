@@ -1104,6 +1104,21 @@
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- Modal for reading comments-->
     <div class="modal fade dragableModal" id="moveEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog   modal-lg">
@@ -1144,30 +1159,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
 
 
