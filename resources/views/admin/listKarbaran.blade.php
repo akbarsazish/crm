@@ -335,13 +335,13 @@
                 <div class='card mb-4 mt-1' style="background-color:#abd2ed; padding-top:1%; paddding:0;">
                    <div class="container">
                         <ul class="header-list nav nav-tabs" data-tabs="tabs">
-                            <li><a class="active" data-toggle="tab" style="color:black;" href="#webManagement"> اطلاعات پایه </a></li>
-                            <li><a data-toggle="tab" style="color:black;"  href="#definElement"> تعریف عناصر </a></li>
-                            <li><a data-toggle="tab" style="color:black;"  href="#kalasTab"> عملیات </a></li>
-                            <li><a data-toggle="tab" style="color:black;"  href="#peoples"> گزارشات </a></li>
+                            <li><a class="active" data-toggle="tab" style="color:black;" href="#baseInfoNEW"> اطلاعات پایه </a></li>
+                            <li><a data-toggle="tab" style="color:black;"  href="#definElementNEW"> تعریف عناصر </a></li>
+                            <li><a data-toggle="tab" style="color:black;"  href="#kalasTabNEW"> عملیات </a></li>
+                            <li><a data-toggle="tab" style="color:black;"  href="#peoplesNEW"> گزارشات </a></li>
                         </ul>
                         <div class="c-checkout tab-content" style="background-color:#f5f5f5; margin:0; margin-bottom:2%; padding:2%; border-radius:10px 10px 2px 2px; dir:ltr !important;">
-                            <div class="c-checkout tab-pane active" id="webManagement" style="border-radius:10px 10px 2px 2px;">
+                            <div class="c-checkout tab-pane active" id="baseInfoNEW" style="border-radius:10px 10px 2px 2px;">
                                 <div class="container">
                                   <div class="row">
                                         <fieldset class="border rounded-3">
@@ -453,7 +453,7 @@
                                 </div>
                             </div>
 
-                             <div class="c-checkout tab-pane" id="definElement" style="border-radius:10px 10px 2px 2px;">
+                             <div class="c-checkout tab-pane" id="definElementNEW" style="border-radius:10px 10px 2px 2px;">
                                   <div class="container">
                                       <div class="row">
                                             <fieldset class="border rounded-3">
@@ -475,7 +475,7 @@
                                     </div>
                                 </div>
 
-                            <div class="c-checkout tab-pane" id="kalasTab" style="border-radius:10px 10px 2px 2px;">
+                            <div class="c-checkout tab-pane" id="kalasTabNEW" style="border-radius:10px 10px 2px 2px;">
                                 <div class="container">
                                     <div class="row">
                                     <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
@@ -807,7 +807,7 @@
                                 </div>
                             </div>
 
-                            <div class="c-checkout tab-pane" id="peoples" style="border-radius:10px 10px 2px 2px;">
+                            <div class="c-checkout tab-pane" id="peoplesNEW" style="border-radius:10px 10px 2px 2px;">
                                 <div class="container">
                                     <div class="row">
                                     <fieldset class="border rounded-3">
@@ -972,9 +972,9 @@
                                             </fieldset>
                                             
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="goodsReport" name="goodsReport"/> عملکرد کالا </legend>
+                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="goodsReportN" name="goodsReport"/> عملکرد کالا </legend>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="salegoodsReportN" name="salegoodsReportN"/> گزارش فروش کالا  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportN form-check-input d-inline-block" id="salegoodsReportN" name="salegoodsReportN"/> گزارش فروش کالا  </legend>
                                                         <div class="form-check">
                                                             <input class="form-check-input box-check" id="deletesalegoodsReportN" type="checkbox" name="deletesalegoodsReportN">
                                                             <label class="form-check-label">حذف</label>
@@ -989,7 +989,7 @@
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="returnedgoodsReportN" name="returnedgoodsReportN"/> کالاهای برگشتی  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportN form-check-input d-inline-block" id="returnedgoodsReportN" name="returnedgoodsReportN"/> کالاهای برگشتی  </legend>
                                                         <div class="form-check">
                                                             <input class="form-check-input box-check" id="deletereturnedgoodsReportN" type="checkbox" name="deletereturnedgoodsReportN">
                                                             <label class="form-check-label">حذف</label>
@@ -1004,7 +1004,7 @@
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="NoExistgoodsReportN" name="NoExistgoodsReportN"/> کالاهای فقد موجودی  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportN form-check-input d-inline-block" id="NoExistgoodsReportN" name="NoExistgoodsReportN"/> کالاهای فقد موجودی  </legend>
                                                         <div class="form-check">
                                                             <input class="form-check-input box-check" id="deleteNoExistgoodsReportN" type="checkbox" name="deleteNoExistgoodsReportN">
                                                             <label class="form-check-label">حذف</label>
@@ -1019,7 +1019,7 @@
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="nosalegoodsReportN" name="nosalegoodsReportN"/> کالاهای راکت </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportN form-check-input d-inline-block" id="nosalegoodsReportN" name="nosalegoodsReportN"/> کالاهای راکت </legend>
                                                         <div class="form-check">
                                                             <input class="form-check-input box-check" id="deletenosalegoodsReportN" type="checkbox" name="deletenosalegoodsReportN">
                                                             <label class="form-check-label">حذف</label>
@@ -1142,7 +1142,7 @@
         </div>
     </div>
 
-
+{{-- 
               <!-- modal for editing user profile -->
               <div class="modal fade dragableModal" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
@@ -1287,13 +1287,13 @@
                                     <div class='card mb-4 mt-1' style="background-color:#abd2ed; padding-top:1%; paddding:0;">
                                         <div class="container">
                                              <ul class="header-list nav nav-tabs" data-tabs="tabs">
-                                                 <li><a class="active" data-toggle="tab" style="color:black;" href="#webManagement"> اطلاعات پایه </a></li>
-                                                 <li><a data-toggle="tab" style="color:black;"  href="#definElement"> تعریف عناصر </a></li>
-                                                 <li><a data-toggle="tab" style="color:black;"  href="#kalasTab"> عملیات </a></li>
-                                                 <li><a data-toggle="tab" style="color:black;"  href="#peoples"> گزارشات </a></li>
+                                                 <li><a class="active" data-toggle="tab" style="color:black;" href="#baseInfoEDIT"> اطلاعات پایه </a></li>
+                                                 <li><a data-toggle="tab" style="color:black;"  href="#definElementEDIT"> تعریف عناصر </a></li>
+                                                 <li><a data-toggle="tab" style="color:black;"  href="#kalasTabEDIT"> عملیات </a></li>
+                                                 <li><a data-toggle="tab" style="color:black;"  href="#peoplesEDIT"> گزارشات </a></li>
                                              </ul>
                                              <div class="c-checkout tab-content" style="background-color:#f5f5f5; margin:0; margin-bottom:2%; padding:2%; border-radius:10px 10px 2px 2px; dir:ltr !important;">
-                                                 <div class="c-checkout tab-pane active" id="webManagement" style="border-radius:10px 10px 2px 2px;">
+                                                 <div class="c-checkout tab-pane active" id="baseInfoEDIT" style="border-radius:10px 10px 2px 2px;">
                                                      <div class="container">
                                                        <div class="row">
                                                              <fieldset class="border rounded-3">
@@ -1405,7 +1405,7 @@
                                                      </div>
                                                  </div>
                      
-                                                  <div class="c-checkout tab-pane" id="definElement" style="border-radius:10px 10px 2px 2px;">
+                                                  <div class="c-checkout tab-pane" id="definElementEDIT" style="border-radius:10px 10px 2px 2px;">
                                                        <div class="container">
                                                            <div class="row">
                                                                  <fieldset class="border rounded-3">
@@ -1427,7 +1427,7 @@
                                                          </div>
                                                      </div>
                      
-                                                 <div class="c-checkout tab-pane" id="kalasTab" style="border-radius:10px 10px 2px 2px;">
+                                                 <div class="c-checkout tab-pane" id="kalasTabEDIT" style="border-radius:10px 10px 2px 2px;">
                                                      <div class="container">
                                                          <div class="row">
                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
@@ -1550,7 +1550,7 @@
                                                                                   </div>
                                                                      </fieldset>
                                                                      <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                          <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppNazarSanjiN form-check-input d-inline-block" id="DoneoppNazarsanjiED" name="DoneoppNazarsanjiED"/> نظرات انجام شده    </legend>
+                                                                          <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppNazarSanjiED form-check-input d-inline-block" id="DoneoppNazarsanjiED" name="DoneoppNazarsanjiED"/> نظرات انجام شده    </legend>
                                                                                  <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteDoneoppNazarsanjiED" type="checkbox" name="deleteDoneoppNazarsanjiED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -1567,9 +1567,9 @@
                                                              </fieldset>
                      
                                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="OppupDownBonusED" name="OppupDownBonusED" /> افزایش و کاهش امتیازات  </legend>
+                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartED form-check-input d-inline-block" id="OppupDownBonusED" name="OppupDownBonusED" /> افزایش و کاهش امتیازات  </legend>
                                                                    <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="OppupDownBonusN form-check-input d-inline-block" id="AddOppupDownBonusED" name="AddOppupDownBonusED" />    اضافه شده  </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="OppupDownBonusED form-check-input d-inline-block" id="AddOppupDownBonusED" name="AddOppupDownBonusED" />    اضافه شده  </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteAddOppupDownBonusED" type="checkbox" name="deleteAddOppupDownBonusED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1584,7 +1584,7 @@
                                                                              </div>
                                                                      </fieldset>
                                                                    <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="OppupDownBonusN form-check-input d-inline-block" id="SubOppupDownBonusED" name="SubOppupDownBonusED" />  کاهش یافته  </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="OppupDownBonusED form-check-input d-inline-block" id="SubOppupDownBonusED" name="SubOppupDownBonusED" />  کاهش یافته  </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteSubOppupDownBonusED" type="checkbox" name="deleteSubOppupDownBonusED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1601,9 +1601,9 @@
                                                              </fieldset>
                      
                                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppRDED" name="oppRDED"/>  R & D </legend>
+                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartED form-check-input d-inline-block" id="oppRDED" name="oppRDED"/>  R & D </legend>
                                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppRDN form-check-input d-inline-block" id="AddedoppRDED" name="AddedoppRDED"/>  وارده شده  </legend>
+                                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppRDED form-check-input d-inline-block" id="AddedoppRDED" name="AddedoppRDED"/>  وارده شده  </legend>
                                                                          <div class="form-check">
                                                                              <input class="form-check-input box-check" id="deleteAddedoppRDED" type="checkbox" name="deleteAddedoppRDED">
                                                                              <label class="form-check-label">حذف</label>
@@ -1618,7 +1618,7 @@
                                                                          </div>
                                                                      </fieldset>
                                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppRDN form-check-input d-inline-block" id="NotAddedoppRDED" name="NotAddedoppRDED"/>  وارده نشده  </legend>
+                                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppRDED form-check-input d-inline-block" id="NotAddedoppRDED" name="NotAddedoppRDED"/>  وارده نشده  </legend>
                                                                          <div class="form-check">
                                                                              <input class="form-check-input box-check" id="deleteNotAddedoppRDED" type="checkbox" name="deleteNotAddedoppRDED">
                                                                              <label class="form-check-label">حذف</label>
@@ -1636,9 +1636,9 @@
                      
                                                              
                                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="oppCalendarED" name="oppCalendarED"/> تقویم روزانه  </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartED form-check-input d-inline-block" id="oppCalendarED" name="oppCalendarED"/> تقویم روزانه  </legend>
                                                                    <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppCalendarN form-check-input d-inline-block" id="oppjustCalendarED" name="oppjustCalendarED"/> تقویم روزانه </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppCalendarED form-check-input d-inline-block" id="oppjustCalendarED" name="oppjustCalendarED"/> تقویم روزانه </legend>
                                                                          <div class="form-check">
                                                                          <input class="form-check-input box-check" id="deleteoppjustCalendarED" type="checkbox" name="deleteoppjustCalendarED">
                                                                              <label class="form-check-label">حذف</label>
@@ -1653,7 +1653,7 @@
                                                                          </div>
                                                                      </fieldset>
                                                                    <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppCalendarN form-check-input d-inline-block" id="oppCustCalendarED" name="oppCustCalendarED"/> لیست مشتریان </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppCalendarED form-check-input d-inline-block" id="oppCustCalendarED" name="oppCustCalendarED"/> لیست مشتریان </legend>
                                                                          <div class="form-check">
                                                                          <input class="form-check-input box-check" id="deleteoppCustCalendarED" type="checkbox" name="deleteoppCustCalendarED">
                                                                              <label class="form-check-label">حذف</label>
@@ -1671,9 +1671,9 @@
                      
                                                              
                                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="alarmoppED" name="alarmoppED" /> آلارم  </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartED form-check-input d-inline-block" id="alarmoppED" name="alarmoppED" /> آلارم  </legend>
                                                                       <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppN form-check-input d-inline-block" id="allalarmoppED" name="allalarmoppED" /> آلارمها   </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppED form-check-input d-inline-block" id="allalarmoppED" name="allalarmoppED" /> آلارمها   </legend>
                                                                              
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteallalarmoppED" type="checkbox" name="deleteallalarmoppED">
@@ -1689,7 +1689,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                           <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppN form-check-input d-inline-block" id="donealarmoppED" name="donealarmoppED" />  انجام شده </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppED form-check-input d-inline-block" id="donealarmoppED" name="donealarmoppED" />  انجام شده </legend>
                                                                              
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletedonealarmoppED" type="checkbox" name="deletedonealarmoppED">
@@ -1705,7 +1705,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                           <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppN form-check-input d-inline-block" id="NoalarmoppED" name="NoalarmoppED" />  مشتریان فاقد آلارم   </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="alarmoppED form-check-input d-inline-block" id="NoalarmoppED" name="NoalarmoppED" />  مشتریان فاقد آلارم   </legend>
                                                                              
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteNoalarmoppED" type="checkbox" name="deleteNoalarmoppED">
@@ -1723,7 +1723,7 @@
                                                              </fieldset>
                      
                                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="massageOppED" name="massageOppED" /> پیام ها   </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartED form-check-input d-inline-block" id="massageOppED" name="massageOppED" /> پیام ها   </legend>
                                                                  
                                                                  <div class="form-check">
                                                                       <input class="form-check-input box-check" id="deletemassageOppED" type="checkbox" name="deletemassageOppED">
@@ -1740,7 +1740,7 @@
                                                              </fieldset>
                      
                                                              <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="justBargiriOppED" name="justBargiriOppED" /> بار گیری   </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartED form-check-input d-inline-block" id="justBargiriOppED" name="justBargiriOppED" /> بار گیری   </legend>
                                                                  <div class="form-check">
                                                                       <input class="form-check-input box-check" id="deletejustBargiriOppED" type="checkbox" name="deletejustBargiriOppED">
                                                                      <label class="form-check-label">حذف</label>
@@ -1759,15 +1759,15 @@
                                                      </div>
                                                  </div>
                      
-                                                 <div class="c-checkout tab-pane" id="peoples" style="border-radius:10px 10px 2px 2px;">
+                                                 <div class="c-checkout tab-pane" id="peoplesEDIT" style="border-radius:10px 10px 2px 2px;">
                                                      <div class="container">
                                                          <div class="row">
                                                          <fieldset class="border rounded-3">
-                                                           <legend  class="float-none w-auto "><input type="checkbox" class="reportN form-check-input d-inline-block" id="reportED" name="reportED"/> گزارشات  </legend>
+                                                           <legend  class="float-none w-auto "><input type="checkbox" class="reportED form-check-input d-inline-block" id="reportED" name="reportED"/> گزارشات  </legend>
                                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="amalKardreportED" name="amalKardreportED"/> عملکرد کاربران </legend>
+                                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartED form-check-input d-inline-block" id="amalKardreportED" name="amalKardreportED"/> عملکرد کاربران </legend>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="managerreportED" name="managerreportED"/> مدیران  </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportED form-check-input d-inline-block" id="managerreportED" name="managerreportED"/> مدیران  </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletemanagerreportED" type="checkbox" name="deletemanagerreportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1782,7 +1782,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="HeadreportED" name="HeadreportED"/>  سرپرستان   </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportED form-check-input d-inline-block" id="HeadreportED" name="HeadreportED"/>  سرپرستان   </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteHeadreportED" type="checkbox" name="deleteHeadreportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1797,7 +1797,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="poshtibanreportED" name="poshtibanreportED"/>  پشتیبانها   </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportED form-check-input d-inline-block" id="poshtibanreportED" name="poshtibanreportED"/>  پشتیبانها   </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteposhtibanreportED" type="checkbox" name="deleteposhtibanreportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1812,7 +1812,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="bazaryabreportED" name="bazaryabreportED"/>  بازاریابها    </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportED form-check-input d-inline-block" id="bazaryabreportED" name="bazaryabreportED"/>  بازاریابها    </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletebazaryabreportED" type="checkbox" name="deletebazaryabreportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1827,7 +1827,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportN form-check-input d-inline-block" id="reportDriverED" name="reportDriverED"/>  راننده ها     </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalKardreportED form-check-input d-inline-block" id="reportDriverED" name="reportDriverED"/>  راننده ها     </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletereportDriverED" type="checkbox" name="deletereportDriverED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1845,7 +1845,7 @@
                      
                      
                                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="trazEmployeeReportED" name="trazEmployeeReportED"/> تراز کاربران </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartED form-check-input d-inline-block" id="trazEmployeeReportED" name="trazEmployeeReportED"/> تراز کاربران </legend>
                                                                      <div class="form-check">
                                                                          <input class="form-check-input box-check" id="deletetrazEmployeeReportED" type="checkbox" name="deletetrazEmployeeReportED">
                                                                          <label class="form-check-label">حذف</label>
@@ -1860,9 +1860,9 @@
                                                                      </div>
                                                                  </fieldset>
                                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="amalkardCustReportED" name="amalkardCustReportED"/>  عملکرد مشتریان </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartED form-check-input d-inline-block" id="amalkardCustReportED" name="amalkardCustReportED"/>  عملکرد مشتریان </legend>
                                                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportN form-check-input d-inline-block" id="loginCustRepED" name="loginCustRepED"/>  گزارش ورود  </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportED form-check-input d-inline-block" id="loginCustRepED" name="loginCustRepED"/>  گزارش ورود  </legend>
                                                                                  <div class="form-check">
                                                                                      <input class="form-check-input box-check" id="deleteloginCustRepED" type="checkbox" name="deleteloginCustRepED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -1877,7 +1877,7 @@
                                                                                  </div>
                                                                              </fieldset>
                                                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportN form-check-input d-inline-block" id="inActiveCustRepED" name="inActiveCustRepED"/>   غیر فعال   </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportED form-check-input d-inline-block" id="inActiveCustRepED" name="inActiveCustRepED"/>   غیر فعال   </legend>
                                                                                  <div class="form-check">
                                                                                      <input class="form-check-input box-check" id="deleteinActiveCustRepED" type="checkbox" name="deleteinActiveCustRepED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -1892,7 +1892,7 @@
                                                                                  </div>
                                                                              </fieldset>
                                                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportN form-check-input d-inline-block" id="noAdminCustRepED" name="noAdminCustRepED"/> فاقد کاربر </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportED form-check-input d-inline-block" id="noAdminCustRepED" name="noAdminCustRepED"/> فاقد کاربر </legend>
                                                                                  <div class="form-check">
                                                                                      <input class="form-check-input box-check" id="deletenoAdminCustRepED" type="checkbox" name="deletenoAdminCustRepED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -1907,7 +1907,7 @@
                                                                                  </div>
                                                                              </fieldset>
                                                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportN form-check-input d-inline-block" id="returnedCustRepED" name="returnedCustRepED"/> ارجاعی  </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="amalkardCustReportED form-check-input d-inline-block" id="returnedCustRepED" name="returnedCustRepED"/> ارجاعی  </legend>
                                                                                  <div class="form-check">
                                                                                      <input class="form-check-input box-check" id="deletereturnedCustRepED" type="checkbox" name="deletereturnedCustRepED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -1924,9 +1924,9 @@
                                                                  </fieldset>
                                                                  
                                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                   <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="goodsReport" name="goodsReport"/> عملکرد کالا </legend>
+                                                                   <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartED form-check-input d-inline-block" id="goodsReportED" name="goodsReportED"/> عملکرد کالا </legend>
                                                                        <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="salegoodsReportED" name="salegoodsReportED"/> گزارش فروش کالا  </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportED form-check-input d-inline-block" id="salegoodsReportED" name="salegoodsReportED"/> گزارش فروش کالا  </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletesalegoodsReportED" type="checkbox" name="deletesalegoodsReportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1941,7 +1941,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                        <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="returnedgoodsReportED" name="returnedgoodsReportED"/> کالاهای برگشتی  </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportED form-check-input d-inline-block" id="returnedgoodsReportED" name="returnedgoodsReportED"/> کالاهای برگشتی  </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletereturnedgoodsReportED" type="checkbox" name="deletereturnedgoodsReportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1956,7 +1956,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                        <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="NoExistgoodsReportED" name="NoExistgoodsReportED"/> کالاهای فقد موجودی  </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportED form-check-input d-inline-block" id="NoExistgoodsReportED" name="NoExistgoodsReportED"/> کالاهای فقد موجودی  </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deleteNoExistgoodsReportED" type="checkbox" name="deleteNoExistgoodsReportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1971,7 +1971,7 @@
                                                                              </div>
                                                                          </fieldset>
                                                                        <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="nosalegoodsReportED" name="nosalegoodsReportED"/> کالاهای راکت </legend>
+                                                                         <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReportED form-check-input d-inline-block" id="nosalegoodsReportED" name="nosalegoodsReportED"/> کالاهای راکت </legend>
                                                                              <div class="form-check">
                                                                                  <input class="form-check-input box-check" id="deletenosalegoodsReportED" type="checkbox" name="deletenosalegoodsReportED">
                                                                                  <label class="form-check-label">حذف</label>
@@ -1988,9 +1988,9 @@
                                                                  </fieldset>
                      
                                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                   <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="returnedReportgoodsReportED" name="returnedReportgoodsReportED"/> گزارش برگشتی کالا </legend>
+                                                                   <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartED form-check-input d-inline-block" id="returnedReportgoodsReportED" name="returnedReportgoodsReportED"/> گزارش برگشتی کالا </legend>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="returnedReportgoodsReportN form-check-input d-inline-block" id="returnedNTasReportgoodsReportED" name="returnedNTasReportgoodsReportED"/> تسویه نشده  </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="returnedReportgoodsReportED form-check-input d-inline-block" id="returnedNTasReportgoodsReportED" name="returnedNTasReportgoodsReportED"/> تسویه نشده  </legend>
                                                                                  <div class="form-check">
                                                                                      <input class="form-check-input box-check" id="deletereturnedNTasReportgoodsReportED" type="checkbox" name="deletereturnedNTasReportgoodsReportED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -2005,7 +2005,7 @@
                                                                                  </div>
                                                                              </fieldset>
                                                                          <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="returnedReportgoodsReportN form-check-input d-inline-block" id="tasgoodsReprtED" name="tasgoodsReprtED"/> تسویه شده  </legend>
+                                                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="returnedReportgoodsReportED form-check-input d-inline-block" id="tasgoodsReprtED" name="tasgoodsReprtED"/> تسویه شده  </legend>
                                                                                  <div class="form-check">
                                                                                      <input class="form-check-input box-check" id="deletetasgoodsReprtED" type="checkbox" name="deletetasgoodsReprtED">
                                                                                      <label class="form-check-label">حذف</label>
@@ -2022,7 +2022,7 @@
                                                                  </fieldset>
                      
                                                                  <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsbargiriReportN form-check-input d-inline-block" id="goodsbargiriReportED" name="goodsbargiriReportED"/> گزارش بارگیری </legend>
+                                                                 <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsbargiriReportED form-check-input d-inline-block" id="goodsbargiriReportED" name="goodsbargiriReportED"/> گزارش بارگیری </legend>
                                                                      <div class="form-check">
                                                                          <input class="form-check-input box-check" id="deletegoodsbargiriReportED" type="checkbox" name="deletegoodsbargiriReportED">
                                                                          <label class="form-check-label">حذف</label>
@@ -2043,7 +2043,7 @@
                                                  </div>
                                               </div>
                                             </div>
-                                          </div> 
+                                          </div>  --}}
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="cancelEditProfile"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
                                         <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button>
