@@ -1073,6 +1073,28 @@ SELECT * FROM (
         // اگر گزارشات آن بود 
         $reportN = $request->post("reportN");
         if($reportN =="on"){
+            $reportN=1;
+            $amalKardreportN;
+            $managerreportN;
+            $HeadreportN;
+            $poshtibanreportN;
+            $bazaryabreportN;
+            $reportDriverN;
+            $amalkardCustReportN;
+            $loginCustRepN;
+            $inActiveCustRepN;
+            $noAdminCustRepN;
+            $returnedCustRepN;
+            $trazEmployeeReportN;
+            $nosalegoodsReportN;
+            $NoExistgoodsReportN;
+            $returnedgoodsReportN;
+            $salegoodsReportN;
+            $goodsReportN;
+            $returnedNTasReportgoodsReportN;
+            $tasgoodsReprtN;
+            $returnedReportgoodsReportN;
+            $goodsbargiriReportN;
             // اگر عملکرد کاربران آن بود 
              $amalKardreportN = $request->post("amalKardreportN");
              if($amalKardreportN=="on"){
@@ -1083,13 +1105,16 @@ SELECT * FROM (
                     $editmanagerreportN = $request->post("editmanagerreportN");
                     $seemanagerreportN = $request->post("seemanagerreportN");
 
-                    $managerreportN= 0;
-                    if($deletemanagerreportN=="on"){
-                    $managerreportN=2;
-                    }elseif($editmanagerreportN=="on" and $deletemanagerreportN!="on"){
-                    $managerreportN=1;
-                    }elseif($editmanagerreportN!="on" and $seemanagerreportN=="on"){
-                        $managerreportN=0;
+                    if($managerreportN=="on"){
+                        if($deletemanagerreportN=="on"){
+                            $managerreportN=2;
+                        }elseif($editmanagerreportN=="on" and $deletemanagerreportN!="on"){
+                            $managerreportN=1;
+                        }elseif($editmanagerreportN!="on" and $seemanagerreportN=="on"){
+                            $managerreportN=0;
+                        }else{
+                            $managerreportN=-1;
+                        }
                     }else{
                         $managerreportN=-1;
                     }
@@ -1101,13 +1126,16 @@ SELECT * FROM (
                     $editHeadreportN = $request->post("editHeadreportN");
                     $seeHeadreportN = $request->post("seeHeadreportN");
 
-                    $HeadreportN= 0;
-                    if($deleteHeadreportN=="on"){
-                    $HeadreportN=2;
-                    }elseif($editHeadreportN=="on" and $deleteHeadreportN!="on"){
-                    $HeadreportN=1;
-                    }elseif($editHeadreportN!="on" and $seeHeadreportN=="on"){
-                        $HeadreportN=0;
+                    if($HeadreportN=="on"){
+                        if($deleteHeadreportN=="on"){
+                            $HeadreportN=2;
+                        }elseif($editHeadreportN=="on" and $deleteHeadreportN!="on"){
+                            $HeadreportN=1;
+                        }elseif($editHeadreportN!="on" and $seeHeadreportN=="on"){
+                            $HeadreportN=0;
+                        }else{
+                            $HeadreportN=-1;
+                        }
                     }else{
                         $HeadreportN=-1;
                     }
@@ -1119,13 +1147,16 @@ SELECT * FROM (
                     $editposhtibanreportN = $request->post("editposhtibanreportN");
                     $seeposhtibanreportN = $request->post("seeposhtibanreportN");
 
-                    $poshtibanreportN= 0;
-                    if($deleteposhtibanreportN=="on"){
-                    $poshtibanreportN=2;
-                    }elseif($editposhtibanreportN=="on" and $deleteposhtibanreportN!="on"){
-                    $poshtibanreportN=1;
-                    }elseif($editposhtibanreportN!="on" and $seeposhtibanreportN=="on"){
-                        $poshtibanreportN=0;
+                    if($poshtibanreportN=="on"){
+                        if($deleteposhtibanreportN=="on"){
+                            $poshtibanreportN=2;
+                        }elseif($editposhtibanreportN=="on" and $deleteposhtibanreportN!="on"){
+                            $poshtibanreportN=1;
+                        }elseif($editposhtibanreportN!="on" and $seeposhtibanreportN=="on"){
+                            $poshtibanreportN=0;
+                        }else{
+                            $poshtibanreportN=-1;
+                        }
                     }else{
                         $poshtibanreportN=-1;
                     }
@@ -1137,13 +1168,16 @@ SELECT * FROM (
                     $editbazaryabreportN = $request->post("editbazaryabreportN");
                     $seebazaryabreportN = $request->post("seebazaryabreportN");
 
-                    $bazaryabreportN= 0;
-                    if($deletebazaryabreportN=="on"){
-                    $bazaryabreportN=2;
-                    }elseif($editbazaryabreportN=="on" and $deletebazaryabreportN!="on"){
-                    $bazaryabreportN=1;
-                    }elseif($editbazaryabreportN!="on" and $seebazaryabreportN=="on"){
-                        $bazaryabreportN=0;
+                    if($bazaryabreportN=="on"){
+                        if($deletebazaryabreportN=="on"){
+                        $bazaryabreportN=2;
+                        }elseif($editbazaryabreportN=="on" and $deletebazaryabreportN!="on"){
+                        $bazaryabreportN=1;
+                        }elseif($editbazaryabreportN!="on" and $seebazaryabreportN=="on"){
+                            $bazaryabreportN=0;
+                        }else{
+                            $bazaryabreportN=-1;
+                        }
                     }else{
                         $bazaryabreportN=-1;
                     }
@@ -1155,18 +1189,22 @@ SELECT * FROM (
                     $editreportDriverN = $request->post("editreportDriverN");
                     $seereportDriverN = $request->post("seereportDriverN");
 
-                    $reportDriverN= 0;
-                    if($deletereportDriverN=="on"){
-                    $reportDriverN=2;
-                    }elseif($editreportDriverN=="on" and $deletereportDriverN!="on"){
-                    $reportDriverN=1;
-                    }elseif($editreportDriverN!="on" and $seereportDriverN=="on"){
-                        $reportDriverN=0;
+                    if($reportDriverN=="on"){
+                        if($deletereportDriverN=="on"){
+                            $reportDriverN=2;
+                        }elseif($editreportDriverN=="on" and $deletereportDriverN!="on"){
+                            $reportDriverN=1;
+                        }elseif($editreportDriverN!="on" and $seereportDriverN=="on"){
+                            $reportDriverN=0;
+                        }else{
+                            $reportDriverN=-1;
+                        }
                     }else{
                         $reportDriverN=-1;
                     }
 
              }else{
+                $amalKardreportN=-1;
                 $managerreportN = -1;
                 $HeadreportN = -1;
                 $poshtibanreportN = -1;
@@ -1183,13 +1221,16 @@ SELECT * FROM (
                 $edittrazEmployeeReportN = $request->post("edittrazEmployeeReportN");
                 $seetrazEmployeeReportN = $request->post("seetrazEmployeeReportN");
 
-                $trazEmployeeReportN= 0;
-                if($deletetrazEmployeeReportN=="on"){
-                $trazEmployeeReportN=2;
-                }elseif($edittrazEmployeeReportN=="on" and $deletetrazEmployeeReportN!="on"){
-                $trazEmployeeReportN=1;
-                }elseif($edittrazEmployeeReportN!="on" and $seetrazEmployeeReportN=="on"){
-                    $trazEmployeeReportN=0;
+                if($trazEmployeeReportN=="on"){
+                    if($deletetrazEmployeeReportN=="on"){
+                        $trazEmployeeReportN=2;
+                    }elseif($edittrazEmployeeReportN=="on" and $deletetrazEmployeeReportN!="on"){
+                        $trazEmployeeReportN=1;
+                    }elseif($edittrazEmployeeReportN!="on" and $seetrazEmployeeReportN=="on"){
+                        $trazEmployeeReportN=0;
+                    }else{
+                        $trazEmployeeReportN=-1;
+                    }
                 }else{
                     $trazEmployeeReportN=-1;
                 }
@@ -1204,13 +1245,16 @@ SELECT * FROM (
                         $editloginCustRepN = $request->post("editloginCustRepN");
                         $seeloginCustRepN = $request->post("seeloginCustRepN");
 
-                        $loginCustRepN= 0;
-                        if($deleteloginCustRepN=="on"){
-                        $loginCustRepN=2;
-                        }elseif($editloginCustRepN=="on" and $deleteloginCustRepN!="on"){
-                        $loginCustRepN=1;
-                        }elseif($editloginCustRepN!="on" and $seeloginCustRepN=="on"){
-                            $loginCustRepN=0;
+                        if($loginCustRepN=="on"){
+                            if($deleteloginCustRepN=="on"){
+                            $loginCustRepN=2;
+                            }elseif($editloginCustRepN=="on" and $deleteloginCustRepN!="on"){
+                            $loginCustRepN=1;
+                            }elseif($editloginCustRepN!="on" and $seeloginCustRepN=="on"){
+                                $loginCustRepN=0;
+                            }else{
+                                $loginCustRepN=-1;
+                            }
                         }else{
                             $loginCustRepN=-1;
                         }
@@ -1222,15 +1266,18 @@ SELECT * FROM (
                         $editinActiveCustRepN = $request->post("editinActiveCustRepN");
                         $seeinActiveCustRepN = $request->post("seeinActiveCustRepN");
 
-                            $inActiveCustRepN= 0;
-                        if($deleteinActiveCustRepN=="on"){
-                            $inActiveCustRepN=2;
-                        }elseif($editinActiveCustRepN=="on" and $deleteinActiveCustRepN!="on"){
-                            $inActiveCustRepN=1;
-                        }elseif($editinActiveCustRepN!="on" and $seeinActiveCustRepN=="on"){
-                            $inActiveCustRepN=0;
+                        if($inActiveCustRepN=="on"){
+                            if($deleteinActiveCustRepN=="on"){
+                                $inActiveCustRepN=2;
+                            }elseif($editinActiveCustRepN=="on" and $deleteinActiveCustRepN!="on"){
+                                $inActiveCustRepN=1;
+                            }elseif($editinActiveCustRepN!="on" and $seeinActiveCustRepN=="on"){
+                                $inActiveCustRepN=0;
+                            }else{
+                                    $inActiveCustRepN=-1;
+                            }
                         }else{
-                                $inActiveCustRepN=-1;
+                            $inActiveCustRepN=-1;
                         }
 
 
@@ -1241,15 +1288,18 @@ SELECT * FROM (
                         $editnoAdminCustRepN = $request->post("editnoAdminCustRepN");
                         $seenoAdminCustRepN = $request->post("seenoAdminCustRepN");
 
-                        $noAdminCustRepN= 0;
-                        if($deletenoAdminCustRepN=="on"){
-                            $noAdminCustRepN=2;
-                        }elseif($editnoAdminCustRepN=="on" and $deletenoAdminCustRepN!="on"){
-                            $noAdminCustRepN=1;
-                        }elseif($editnoAdminCustRepN!="on" and $seenoAdminCustRepN=="on"){
-                            $noAdminCustRepN=0;
-                        }else{
+                        if($noAdminCustRepN=="on"){
+                            if($deletenoAdminCustRepN=="on"){
+                                $noAdminCustRepN=2;
+                            }elseif($editnoAdminCustRepN=="on" and $deletenoAdminCustRepN!="on"){
+                                $noAdminCustRepN=1;
+                            }elseif($editnoAdminCustRepN!="on" and $seenoAdminCustRepN=="on"){
+                                $noAdminCustRepN=0;
+                            }else{
                                 $noAdminCustRepN=-1;
+                            }
+                        }else{
+                            $noAdminCustRepN=-1;
                         }
 
                         // مشتریان ارجاعی چک گردد
@@ -1258,18 +1308,22 @@ SELECT * FROM (
                         $editreturnedCustRepN = $request->post("editreturnedCustRepN");
                         $seereturnedCustRepN = $request->post("seereturnedCustRepN");
 
-                        $returnedCustRepN= 0;
-                        if($deletereturnedCustRepN=="on"){
-                            $returnedCustRepN=2;
-                        }elseif($editreturnedCustRepN=="on" and $deletereturnedCustRepN!="on"){
-                            $returnedCustRepN=1;
-                        }elseif($editreturnedCustRepN!="on" and $seereturnedCustRepN=="on"){
-                            $returnedCustRepN=0;
+                        if($returnedCustRepN=="on"){
+                            if($deletereturnedCustRepN=="on"){
+                                $returnedCustRepN=2;
+                            }elseif($editreturnedCustRepN=="on" and $deletereturnedCustRepN!="on"){
+                                $returnedCustRepN=1;
+                            }elseif($editreturnedCustRepN!="on" and $seereturnedCustRepN=="on"){
+                                $returnedCustRepN=0;
+                            }else{
+                                    $returnedCustRepN=-1;
+                            }
                         }else{
-                                $returnedCustRepN=-1;
+                            $returnedCustRepN=-1;
                         }
 
                  }else {
+                    $amalkardCustReportN=-1;
                     $loginCustRepN = -1;
                     $inActiveCustRepN = -1;
                     $noAdminCustRepN = -1;
@@ -1286,13 +1340,16 @@ SELECT * FROM (
                     $editsalegoodsReportN = $request->post("editsalegoodsReportN");
                     $seesalegoodsReportN = $request->post("seesalegoodsReportN");
 
-                    $salegoodsReportN= 0;
-                    if($deletesalegoodsReportN=="on"){
-                        $salegoodsReportN=2;
-                    }elseif($editsalegoodsReportN=="on" and $deletesalegoodsReportN!="on"){
-                        $salegoodsReportN=1;
-                    }elseif($editsalegoodsReportN!="on" and $seesalegoodsReportN=="on"){
-                        $salegoodsReportN=0;
+                    if($salegoodsReportN=="on"){
+                        if($deletesalegoodsReportN=="on"){
+                            $salegoodsReportN=2;
+                        }elseif($editsalegoodsReportN=="on" and $deletesalegoodsReportN!="on"){
+                            $salegoodsReportN=1;
+                        }elseif($editsalegoodsReportN!="on" and $seesalegoodsReportN=="on"){
+                            $salegoodsReportN=0;
+                        }else{
+                            $salegoodsReportN=-1;
+                        }
                     }else{
                         $salegoodsReportN=-1;
                     }
@@ -1303,13 +1360,16 @@ SELECT * FROM (
                         $editreturnedgoodsReportN = $request->post("editreturnedgoodsReportN");
                         $seereturnedgoodsReportN = $request->post("seereturnedgoodsReportN");
 
-                        $returnedgoodsReportN= 0;
-                        if($deletereturnedgoodsReportN=="on"){
-                            $returnedgoodsReportN=2;
-                        }elseif($editreturnedgoodsReportN=="on" and $deletereturnedgoodsReportN!="on"){
-                            $returnedgoodsReportN=1;
-                        }elseif($editreturnedgoodsReportN!="on" and $seereturnedgoodsReportN=="on"){
-                            $returnedgoodsReportN=0;
+                        if($returnedgoodsReportN=="on"){
+                            if($deletereturnedgoodsReportN=="on"){
+                                $returnedgoodsReportN=2;
+                            }elseif($editreturnedgoodsReportN=="on" and $deletereturnedgoodsReportN!="on"){
+                                $returnedgoodsReportN=1;
+                            }elseif($editreturnedgoodsReportN!="on" and $seereturnedgoodsReportN=="on"){
+                                $returnedgoodsReportN=0;
+                            }else{
+                                $returnedgoodsReportN=-1;
+                            }
                         }else{
                             $returnedgoodsReportN=-1;
                         }
@@ -1321,40 +1381,47 @@ SELECT * FROM (
                         $editNoExistgoodsReportN = $request->post("editNoExistgoodsReportN");
                         $seeNoExistgoodsReportN = $request->post("seeNoExistgoodsReportN");
 
-                        $NoExistgoodsReportN= 0;
-                        if($deleteNoExistgoodsReportN=="on"){
-                            $NoExistgoodsReportN=2;
-                        }elseif($editNoExistgoodsReportN=="on" and $deleteNoExistgoodsReportN!="on"){
-                            $NoExistgoodsReportN=1;
-                        }elseif($editNoExistgoodsReportN!="on" and $seeNoExistgoodsReportN=="on"){
-                            $NoExistgoodsReportN=0;
+                        if($NoExistgoodsReportN=="on"){
+                            if($deleteNoExistgoodsReportN=="on"){
+                                $NoExistgoodsReportN=2;
+                            }elseif($editNoExistgoodsReportN=="on" and $deleteNoExistgoodsReportN!="on"){
+                                $NoExistgoodsReportN=1;
+                            }elseif($editNoExistgoodsReportN!="on" and $seeNoExistgoodsReportN=="on"){
+                                $NoExistgoodsReportN=0;
+                            }else{
+                                $NoExistgoodsReportN=-1;
+                            }
                         }else{
                             $NoExistgoodsReportN=-1;
                         }
 
                         // کالاهای راکت چک گردد
 
-                         $nosalegoodsReportN = $request->post("nosalegoodsReportN");
+                        $nosalegoodsReportN = $request->post("nosalegoodsReportN");
 
                         $deletenosalegoodsReportN = $request->post("deletenosalegoodsReportN");
                         $editnosalegoodsReportN = $request->post("editnosalegoodsReportN");
                         $seenosalegoodsReportN = $request->post("seenosalegoodsReportN");
 
-                        $nosalegoodsReportN= 0;
-                        if($deletenosalegoodsReportN=="on"){
-                            $nosalegoodsReportN=2;
-                        }elseif($editnosalegoodsReportN=="on" and $deletenosalegoodsReportN!="on"){
-                            $nosalegoodsReportN=1;
-                        }elseif($editnosalegoodsReportN!="on" and $seenosalegoodsReportN=="on"){
-                            $nosalegoodsReportN=0;
+                        if($nosalegoodsReportN=="on"){
+                            if($deletenosalegoodsReportN=="on"){
+                                $nosalegoodsReportN=2;
+                            }elseif($editnosalegoodsReportN=="on" and $deletenosalegoodsReportN!="on"){
+                                $nosalegoodsReportN=1;
+                            }elseif($editnosalegoodsReportN!="on" and $seenosalegoodsReportN=="on"){
+                                $nosalegoodsReportN=0;
+                            }else{
+                                $nosalegoodsReportN=-1;
+                            }
                         }else{
                             $nosalegoodsReportN=-1;
                         }
                  }else {
-                    $nosalegoodsReportN = -1;
-                    $NoExistgoodsReportN = -1;
-                    $returnedgoodsReportN = -1;
-                    $salegoodsReportN = -1;
+                    $nosalegoodsReportN=-1;
+                    $NoExistgoodsReportN=-1;
+                    $returnedgoodsReportN=-1;
+                    $salegoodsReportN=-1;
+                    $goodsReportN=-1;
                  }
           
             //    اگر گزارش برگشتی کالا آن بود 
@@ -1362,11 +1429,11 @@ SELECT * FROM (
                 if($returnedReportgoodsReportN=="on"){
                     // تسویه نشده ها چک گردد
                     $returnedNTasReportgoodsReportN = $request->post("returnedNTasReportgoodsReportN");
-                       $deletereturnedNTasReportgoodsReportN = $request->post("deletereturnedNTasReportgoodsReportN");
-                        $editreturnedNTasReportgoodsReportN = $request->post("editreturnedNTasReportgoodsReportN");
-                        $seereturnedNTasReportgoodsReportN = $request->post("seereturnedNTasReportgoodsReportN");
+                    $deletereturnedNTasReportgoodsReportN = $request->post("deletereturnedNTasReportgoodsReportN");
+                    $editreturnedNTasReportgoodsReportN = $request->post("editreturnedNTasReportgoodsReportN");
+                    $seereturnedNTasReportgoodsReportN = $request->post("seereturnedNTasReportgoodsReportN");
 
-                        $returnedNTasReportgoodsReportN= 0;
+                    if($returnedNTasReportgoodsReportN=="on"){
                         if($deletereturnedNTasReportgoodsReportN=="on"){
                             $returnedNTasReportgoodsReportN=2;
                         }elseif($editreturnedNTasReportgoodsReportN=="on" and $deletereturnedNTasReportgoodsReportN!="on"){
@@ -1376,15 +1443,18 @@ SELECT * FROM (
                         }else{
                             $returnedNTasReportgoodsReportN=-1;
                         }
+                    }else{
+                        $returnedNTasReportgoodsReportN=-1;
+                    }
 
                         // تسویه شده ها چک گردد
-                     $tasgoodsReprtN = $request->post("tasgoodsReprtN");
+                    $tasgoodsReprtN = $request->post("tasgoodsReprtN");
 
-                        $deletetasgoodsReprtN = $request->post("deletetasgoodsReprtN");
-                        $edittasgoodsReprtN = $request->post("edittasgoodsReprtN");
-                        $seetasgoodsReprtN = $request->post("seetasgoodsReprtN");
+                    $deletetasgoodsReprtN = $request->post("deletetasgoodsReprtN");
+                    $edittasgoodsReprtN = $request->post("edittasgoodsReprtN");
+                    $seetasgoodsReprtN = $request->post("seetasgoodsReprtN");
 
-                        $tasgoodsReprtN= 0;
+                    if($tasgoodsReprtN=="on"){
                         if($deletetasgoodsReprtN=="on"){
                             $tasgoodsReprtN=2;
                         }elseif($editreturnedNTasReportgoodsReportN=="on" and $deletetasgoodsReprtN!="on"){
@@ -1394,10 +1464,14 @@ SELECT * FROM (
                         }else{
                             $tasgoodsReprtN=-1;
                         }
-                 }else {
-                    $returnedNTasReportgoodsReportN = -1;
-                    $tasgoodsReprtN = -1;
-                 }
+                    }else{
+                        $tasgoodsReprtN=-1;
+                    }
+                }else{
+                    $returnedNTasReportgoodsReportN=-1;
+                    $tasgoodsReprtN=-1;
+                    $returnedReportgoodsReportN=-1;
+                }
   
                 // گزارش بارگیری چک گردد
 
@@ -1407,25 +1481,44 @@ SELECT * FROM (
                 $editgoodsbargiriReportN = $request->post("editgoodsbargiriReportN");
                 $seegoodsbargiriReportN = $request->post("seegoodsbargiriReportN");
 
-                $goodsbargiriReportN= 0;
-                if($deletegoodsbargiriReportN=="on"){
-                    $goodsbargiriReportN=2;
-                }elseif($editgoodsbargiriReportN=="on" and $deletegoodsbargiriReportN!="on"){
-                    $goodsbargiriReportN=1;
-                }elseif($editgoodsbargiriReportN!="on" and $seegoodsbargiriReportN=="on"){
-                    $goodsbargiriReportN=0;
+                if($goodsbargiriReportN=="on"){
+                    if($deletegoodsbargiriReportN=="on"){
+                        $goodsbargiriReportN=2;
+                    }elseif($editgoodsbargiriReportN=="on" and $deletegoodsbargiriReportN!="on"){
+                        $goodsbargiriReportN=1;
+                    }elseif($editgoodsbargiriReportN!="on" and $seegoodsbargiriReportN=="on"){
+                        $goodsbargiriReportN=0;
+                    }else{
+                        $goodsbargiriReportN=-1;
+                    }
                 }else{
                     $goodsbargiriReportN=-1;
                 }
 
-         }else {
-            $amalKardreportN = -1;
-            $trazEmployeeReportN = -1;
-            $amalkardCustReportN = -1;
-            $goodsReportN = -1;
-            $returnedReportgoodsReportN = -1;
-            $goodsbargiriReportN = -1;
-         }
+        }else {
+            $reportN=-1;
+            $amalKardreportN=-1;
+            $managerreportN=-1;
+            $HeadreportN=-1;
+            $poshtibanreportN=-1;
+            $bazaryabreportN=-1;
+            $reportDriverN=-1;
+            $amalkardCustReportN=-1;
+            $loginCustRepN=-1;
+            $inActiveCustRepN=-1;
+            $noAdminCustRepN=-1;
+            $returnedCustRepN=-1;
+            $trazEmployeeReportN=-1;
+            $nosalegoodsReportN=-1;
+            $NoExistgoodsReportN=-1;
+            $returnedgoodsReportN=-1;
+            $salegoodsReportN=-1;
+            $goodsReportN=-1;
+            $returnedNTasReportgoodsReportN=-1;
+            $tasgoodsReprtN=-1;
+            $returnedReportgoodsReportN=-1;
+            $goodsbargiriReportN=-1;
+        }
         
 
         $bossId=0;
