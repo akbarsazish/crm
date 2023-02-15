@@ -972,7 +972,7 @@
                                             </fieldset>
                                             
                                             <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="goodsReport" name="goodsReport"/> عملکرد کالا </legend>
+                                              <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="reportPartN form-check-input d-inline-block" id="goodsReportN" name="goodsReportN"/> عملکرد کالا </legend>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
                                                     <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="salegoodsReportN" name="salegoodsReportN"/> گزارش فروش کالا  </legend>
                                                         <div class="form-check">
@@ -1004,7 +1004,7 @@
                                                         </div>
                                                     </fieldset>
                                                   <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="NoExistgoodsReportN" name="NoExistgoodsReportN"/> کالاهای فقد موجودی  </legend>
+                                                    <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="goodsReport form-check-input d-inline-block" id="NoExistgoodsReportN" name="NoExistgoodsReportN"/> کالاهای فاقد موجودی  </legend>
                                                         <div class="form-check">
                                                             <input class="form-check-input box-check" id="deleteNoExistgoodsReportN" type="checkbox" name="deleteNoExistgoodsReportN">
                                                             <label class="form-check-label">حذف</label>
@@ -1092,7 +1092,7 @@
                          </div>
                        </div>
                      </div> 
-                        <div class="modal-footer">
+                        <div class="modal-footer py-1">
                             <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal" id="cancelAddAddmin"> انصراف <i class="fa-solid fa-xmark"> </i> </button>
                             <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save" aria-hidden="true"> </i> </button> 
                         </div>
@@ -1102,6 +1102,42 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
