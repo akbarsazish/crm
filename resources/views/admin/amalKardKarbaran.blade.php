@@ -30,11 +30,10 @@
 
 #chartdiv12 {
   width: 100%;
-  height:400px;
+  height:100%;
   text-align:center;
   direction:ltr;
-  margin-top:22px !important;
-  z-index: 9999999;
+
 
 }
 
@@ -72,7 +71,7 @@
                     <div class="row mainContent"> 
 
                         <div class="col-lg-12">
-                            <div id="chartdiv12"></div>
+                             <div id="chartdiv12"></div>
                         </div>
 
                     </div>

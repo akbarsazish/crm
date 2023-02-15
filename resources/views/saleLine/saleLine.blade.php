@@ -42,7 +42,7 @@
         <div class="modal fade dragableModal" id="addSaleLineModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header py-2">
                         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLabel">افزودن خط فروش</h5>
                     </div>
@@ -53,17 +53,18 @@
                         </div>
                         <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-success">ذخیره <i class="fa fa-save"></i></button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"></i> </button>
                     </div>
                     </form>
                 </div>
             </div>
         </div>
+
         <!-- edit sale line -->
         <div class="modal fade dragableModal" id="editSaleLineModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header py-2">
                         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                         <h5 class="modal-title" id="exampleModalLabel">ویرایش خط فروش</h5>
                     </div>
@@ -75,7 +76,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="submit" class="btn btn-sm btn-success">ذخیره <i class="fa fa-save"></i></button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                        <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"></i></button>
                     </div>
                     </form>
                 </div>

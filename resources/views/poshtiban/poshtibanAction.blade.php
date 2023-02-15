@@ -1,230 +1,209 @@
 @extends('layout')
 @section('content')
-<div class="container" style="margin-top:66px;">
-    <div class="row text-center">
-      <div class="col-lg-7 col-sm-7 d-flex justify-content-start"> 
-            <button class="btn btn-sm btn-info" id="salesExpert" onclick="salesExpertSelfInfo({{$adminId}})"> عملکرد: {{$exactAdminInfo->name.' '.$exactAdminInfo->lastName}} </button>
-            <button class="btn btn-primary btn-sm " data-bs-toggle="modal" data-bs-target="#creditSetting"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
-            <input type="hidden" id="adminSn" value="{{$adminId}}">
-            <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
-        </div>
-        <div class="col-lg-4 col-sm-4 col-12 mt-2" id="advancedSearch">
-                <span class="row me-2">
-                    <div class="form-group col-sm-6 mb-2">
-                        <input type="text" name="" class="form-control publicTop" value="از تاریخ" id="firstDateSefSaleExpert">
+
+<div class="container-fluid containerDiv">
+    <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
+                <fieldset class="border rounded mt-5 sidefieldSet">
+                    <legend  class="float-none w-auto legendLabel mb-0"> عملکرد: {{$exactAdminInfo->name.' '.$exactAdminInfo->lastName}} </legend>
+                </fieldset>
+            </div>
+            <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
+                 <div class="row contentHeader" style="max-height:8% !important;">
+                    <div class="form-group col-sm-2 mt-2">
+                        <input type="text" name="" class="form-control form-control-sm" value="از تاریخ" id="firstDateSefSaleExpert">
                         <input type="hidden" id="adminId" value="{{$adminId}}">
                     </div> 
-                    <div class="form-group col-sm-6">
-                        <input type="text" name="" class="form-control publicTop" value="تا تاریخ" id="secondDateSefSaleExpert">
+                    <div class="form-group col-sm-2 mt-2">
+                        <input type="text" name="" class="form-control form-control-sm" value="تا تاریخ" id="secondDateSefSaleExpert">
                     </div> 
-            </span>
-        </div>
-    </div>
-    <div class="row">
-            <div class="forChangeState text-center" id="salesExpertTask">
-                <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
-                    <!-- item1 -->
-                    @foreach($specialBonuses as $base)
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10) onclick="getTodayBuyAghlamPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseOne" @endif
-                            @if($base->id==21) onclick="getTodayBuyAghlamDriver({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseOne" @endif
-                            @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) onclick="getAllBuyMoneyTodayPoshtiban({{$adminId}})" data-bs-target="#flush-collapseTwo"  @endif
-                            @if($base->id==3 or $base->id==6 or $base->id==9) onclick="getTodayPoshtibanBuy({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseThree" @endif
-                            @if($base->id==23) onclick="getTodayStrongService({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFour" @endif
-                            @if($base->id==26) onclick="getTodayStrongService({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFive" @endif
-                            @if($base->id==27) onclick="getTodayStrongService({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseSix" @endif
-                            @if($base->id==29) onclick="getTodayDriverFactors({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFifteen" @endif
-                            >
-                                {{$base->BaseName}} امروز
-                                <span class="count" @if($base->id==11) id="new_install_today"   @endif>
-                                    @if($base->id==3 or $base->id==6 or $base->id==9 ) {{$base->count_New_buy_Today}} @endif
-                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10 or $base->id==21) {{$base->count_aghlam_today}} @endif
-                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{number_format($base->sum_today_money/10)}}@endif
-                                    @if($base->id==23) {{number_format($base->countToday_StrongService)}} @endif
-                                    @if($base->id==26) {{number_format($base->today_MediumService)}} @endif
-                                    @if($base->id==27) {{number_format($base->today_WeakService)}} @endif
-                                    @if($base->id==29) {{number_format($base->count_All_Factor_Today)}} @endif
-                                </span>
-                            </button>
-                            </h2>
-                            <div class="accordion-collapse collapse"
-                            @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10 or $base->id==21)  id="flush-collapseOne"      @endif
-                            @if($base->id==14)  id="flush-collapseTwo"    @endif
-                            @if($base->id==3 or $base->id==6 or $base->id==9)  id="flush-collapseThree" @endif
-                            @if($base->id==23)  id="flush-collapseFour"   @endif
-                            @if($base->id==26)  id="flush-collapseFive"   @endif
-                            @if($base->id==27)  id="flush-collapseSix"   @endif
-                            @if($base->id==29)  id="flush-collapseFifteen"   @endif
-                            data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body pe-0">
-                                    <div class="row mb-2 me-1 rounded bg-primary text-white text-center">
-                                        <div class="col-9 col-sm-9"> هر {{number_format($base->limitAmount)}} {{$base->BaseName}} {{$base->Bonus}} امتیاز  </div>
-                                        <div class="col-3 col-sm-3">@if($base->id==11) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10) {{(int)($base->count_aghlam_today/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{(int)($base->sum_today_money/10/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==3 or $base->id==6 or $base->id==9) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
-                                                                    @if($base->id==23) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
-                                                                    @if($base->id==26) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
-                                                                    @if($base->id==27) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
-                                                                    @if($base->id==29) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
+                    <div class="col-sm-8 text-start">
+                        <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#selfHistoryModal"> تاریخچه عملکرد </button>
+                        <button class="btn btn-primary btn-sm " id="addingEmtyazBtn" data-bs-toggle="modal" data-bs-target="#creditSetting"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
+                        <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
+                        <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
+                        <input type="hidden" id="adminSn" value="{{$adminId}}">
+                    </div>
+                </div>
+                <div class="row mainContent">
+                        <div class="col-lg-12 px-0 pd-0">
+                    <div class="forChangeState text-center" id="salesExpertTask" style=" height: 500px !important; overflow-y: scroll !important; display: block !important;">
+                        <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
+                            <!-- item1 -->
+                            @foreach($specialBonuses as $base)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10) onclick="getTodayBuyAghlamPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseOne" @endif
+                                        @if($base->id==21) onclick="getTodayBuyAghlamDriver({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseOne" @endif
+                                        @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) onclick="getAllBuyMoneyTodayPoshtiban({{$adminId}})" data-bs-target="#flush-collapseTwo"  @endif
+                                        @if($base->id==3 or $base->id==6 or $base->id==9) onclick="getTodayPoshtibanBuy({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseThree" @endif
+                                        @if($base->id==23) onclick="getTodayStrongService({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFour" @endif
+                                        @if($base->id==26) onclick="getTodayStrongService({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFive" @endif
+                                        @if($base->id==27) onclick="getTodayStrongService({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseSix" @endif
+                                        @if($base->id==29) onclick="getTodayDriverFactors({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFifteen" @endif
+                                        >
+                                        {{$base->BaseName}} امروز
+                                        <span class="count" @if($base->id==11) id="new_install_today"   @endif>
+                                            @if($base->id==3 or $base->id==6 or $base->id==9 ) {{$base->count_New_buy_Today}} @endif
+                                            @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10 or $base->id==21) {{$base->count_aghlam_today}} @endif
+                                            @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{number_format($base->sum_today_money/10)}}@endif
+                                            @if($base->id==23) {{number_format($base->countToday_StrongService)}} @endif
+                                            @if($base->id==26) {{number_format($base->today_MediumService)}} @endif
+                                            @if($base->id==27) {{number_format($base->today_WeakService)}} @endif
+                                            @if($base->id==29) {{number_format($base->count_All_Factor_Today)}} @endif
+                                        </span>
+                                    </button>
+                                    </h2>
+                                    <div class="accordion-collapse collapse"
+                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10 or $base->id==21)  id="flush-collapseOne"      @endif
+                                    @if($base->id==14)  id="flush-collapseTwo"    @endif
+                                    @if($base->id==3 or $base->id==6 or $base->id==9)  id="flush-collapseThree" @endif
+                                    @if($base->id==23)  id="flush-collapseFour"   @endif
+                                    @if($base->id==26)  id="flush-collapseFive"   @endif
+                                    @if($base->id==27)  id="flush-collapseSix"   @endif
+                                    @if($base->id==29)  id="flush-collapseFifteen"   @endif
+                                    data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body pe-0">
+                                            <div class="row mb-2 me-1 rounded bg-primary text-white text-center">
+                                                <div class="col-9 col-sm-9"> هر {{number_format($base->limitAmount)}} {{$base->BaseName}} {{$base->Bonus}} امتیاز  </div>
+                                                <div class="col-3 col-sm-3">@if($base->id==11) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10) {{(int)($base->count_aghlam_today/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{(int)($base->sum_today_money/10/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==3 or $base->id==6 or $base->id==9) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
+                                                    @if($base->id==23) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
+                                                    @if($base->id==26) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
+                                                    @if($base->id==27) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
+                                                    @if($base->id==29) {{(int)($base->count_New_buy_Today/$base->limitAmount)*$base->Bonus}}@endif 
+                                                </div>
+                                            </div>
+                                            <div    @if($base->id==11) id="new_customer_today_div" @endif
+                                                    @if($base->id==3 or $base->id==6 or $base->id==9) id="new_buy_today_div"     @endif
+                                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10 or $base->id==21) id="today_aghlam_list" @endif
+                                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) id="today_mablagh_list"  @endif 
+                                                    @if($base->id==23) id="today_strong_list"  @endif 
+                                                    @if($base->id==26) id="today_strong_list"  @endif 
+                                                    @if($base->id==27) id="today_meium_list"  @endif
+                                                    @if($base->id==29) id="today_factor_list"  @endif
+                                                    >
+                                                    
+                                            </div>
                                         </div>
                                     </div>
-                                    <div    @if($base->id==11) id="new_customer_today_div" @endif
-                                            @if($base->id==3 or $base->id==6 or $base->id==9) id="new_buy_today_div"     @endif
-                                            @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10 or $base->id==21) id="today_aghlam_list" @endif
-                                            @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) id="today_mablagh_list"  @endif 
-                                            @if($base->id==23) id="today_strong_list"  @endif 
-                                            @if($base->id==26) id="today_strong_list"  @endif 
-                                            @if($base->id==27) id="today_meium_list"  @endif
-                                            @if($base->id==29) id="today_factor_list"  @endif
-                                             >
-                                            
-                                        
+                                </div>
+                                <!-- item -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <!-- کلیک شود تا نمایش داده شود -->
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                @if($base->id==11) onclick="getAllNewInstallSelf({{$adminId}},{{$base->Bonus}},{{$base->limitAmount}})" data-bs-target="#flush-collapseSeven"    @endif
+                                                @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10) onclick="getAllBuyAghlamPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})"  data-bs-target="#flush-collapseEight"    @endif
+                                                @if($base->id==21) onclick="getAllBuyAghlamDriver({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})"  data-bs-target="#flush-collapseEight"    @endif
+                                                @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) onclick="getAllBuyMoneyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})"  data-bs-target="#flush-collapseNine"  @endif
+                                                @if($base->id==3 or $base->id==6 or $base->id==9) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseTeen"  @endif
+                                                @if($base->id==23) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseEleven"  @endif
+                                                @if($base->id==26) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseTwelv"  @endif
+                                                @if($base->id==27) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseTherteen"  @endif
+                                                @if($base->id==29) onclick="getAllFactorDriver({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFourteen"  @endif  aria-expanded="false">
+                                                {{$base->BaseName}}
+                                        <!-- نمایش مقادر اساس -->
+                                            <span class="count" 
+                                                @if($base->id==11) id="all-installs"   @endif
+                                                @if($base->id==1) id="all-aqlam"       @endif 
+                                                @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) id="all-mablagh"     @endif 
+                                                @if($base->id==3 or $base->id==6 or $base->id==9) id="all-buys"        @endif> 
+                                                @if($base->id==11) {{$base->count_All_Install}}     @endif 
+                                                @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21) {{$base->count_All_aghlam}}      @endif 
+                                                @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{number_format($base->sum_all_money/10)}}      @endif 
+                                                @if($base->id==3 or $base->id==6 or $base->id==9) {{$base->count_All_New_buys}} @endif 
+                                                @if($base->id==23) {{$base->count_All_StrongService}} @endif 
+                                                @if($base->id==26) {{$base->count_All_MediumService}} @endif 
+                                                @if($base->id==27) {{$base->count_All_WeakService}} @endif 
+                                                @if($base->id==29) {{$base->count_All_Factor}} @endif 
+                                            </span>
+                                        </button>
+                                    </h2>
+                                    <div  class="accordion-collapse collapse" 
+                                        @if($base->id==12)  id="flush-collapseSeven"    @endif 
+                                                @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21)  id="flush-collapseEight"     @endif 
+                                                @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11)  id="flush-collapseNine"   @endif 
+                                                @if($base->id==3 or $base->id==6 or $base->id==9)  id="flush-collapseTeen"    @endif 
+                                                @if($base->id==23)  id="flush-collapseEleven"    @endif 
+                                                @if($base->id==26)  id="flush-collapseTwelv"    @endif 
+                                                @if($base->id==27)  id="flush-collapseTherteen"    @endif 
+                                                @if($base->id==29)  id="flush-collapseFourteen"    @endif 
+                                                data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body pe-0">
+                                            <div class="row mb-2 me-1 rounded bg-primary text-white text-center"> 
+                                                <div class="col-9 col-sm-9">  هر {{number_format($base->limitAmount)}} {{$base->BaseName}} {{$base->Bonus}} امتیاز  </div>
+                                                <div class="col-3 col-sm-3">@if($base->id==11) {{(int)($base->count_All_Install/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21) {{(int)($base->count_All_aghlam/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{(int)($base->sum_all_money/10/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==3 or $base->id==6 or $base->id==9) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif 
+                                                    @if($base->id==23) {{(int)($base->count_All_StrongService/$base->limitAmount)*$base->Bonus}} @endif 
+                                                    @if($base->id==26) {{(int)($base->count_All_MediumService/$base->limitAmount)*$base->Bonus}} @endif 
+                                                    @if($base->id==27) {{(int)($base->count_All_WeakService/$base->limitAmount)*$base->Bonus}} @endif
+                                                    @if($base->id==29) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif </div>
+                                                <input type="hidden" id="firstDateFilter">
+                                                <input type="hidden" id="secondDateFilter">
+                                            </div>
+                                            <div @if($base->id==11) id="all_new_install" @endif
+                                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21) id="all_aghlam_list" @endif
+                                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) id="all_mablagh_list" @endif
+                                                    @if($base->id==3 or $base->id==6 or $base->id==9) id="all_new_buys_list" @endif 
+                                                    @if($base->id==23) id="allStrongService_list" @endif 
+                                                    @if($base->id==26) id="allMediumService_list" @endif 
+                                                    @if($base->id==27) id="allWeakService_list" @endif
+                                                    @if($base->id==29) id="all_factor_list" @endif ></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                              @endforeach
+                            <!-- end -->
                         </div>
-
-                        <!-- item -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <!-- کلیک شود تا نمایش داده شود -->
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        @if($base->id==11) onclick="getAllNewInstallSelf({{$adminId}},{{$base->Bonus}},{{$base->limitAmount}})" data-bs-target="#flush-collapseSeven"    @endif
-                                        @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10) onclick="getAllBuyAghlamPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})"  data-bs-target="#flush-collapseEight"    @endif
-                                        @if($base->id==21) onclick="getAllBuyAghlamDriver({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})"  data-bs-target="#flush-collapseEight"    @endif
-                                        @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) onclick="getAllBuyMoneyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})"  data-bs-target="#flush-collapseNine"  @endif
-                                        @if($base->id==3 or $base->id==6 or $base->id==9) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseTeen"  @endif
-                                        @if($base->id==23) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseEleven"  @endif
-                                        @if($base->id==26) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseTwelv"  @endif
-                                        @if($base->id==27) onclick="getAllNewBuyPoshtiban({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseTherteen"  @endif
-                                        @if($base->id==29) onclick="getAllFactorDriver({{$adminId}},{{"'".$emptydate."'"}},{{$base->limitAmount}})" data-bs-target="#flush-collapseFourteen"  @endif  aria-expanded="false">
-                                         {{$base->BaseName}}
-                                   <!-- نمایش مقادر اساس -->
-                                    <span class="count" 
-                                        @if($base->id==11) id="all-installs"   @endif
-                                        @if($base->id==1) id="all-aqlam"       @endif 
-                                        @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) id="all-mablagh"     @endif 
-                                        @if($base->id==3 or $base->id==6 or $base->id==9) id="all-buys"        @endif> 
-                                        @if($base->id==11) {{$base->count_All_Install}}     @endif 
-                                        @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21) {{$base->count_All_aghlam}}      @endif 
-                                        @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{number_format($base->sum_all_money/10)}}      @endif 
-                                        @if($base->id==3 or $base->id==6 or $base->id==9) {{$base->count_All_New_buys}} @endif 
-                                        @if($base->id==23) {{$base->count_All_StrongService}} @endif 
-                                        @if($base->id==26) {{$base->count_All_MediumService}} @endif 
-                                        @if($base->id==27) {{$base->count_All_WeakService}} @endif 
-                                        @if($base->id==29) {{$base->count_All_Factor}} @endif 
-                                    </span>
-                                </button>
-                            </h2>
-                            <div  class="accordion-collapse collapse" 
-                                @if($base->id==12)  id="flush-collapseSeven"    @endif 
-                                @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21)  id="flush-collapseEight"     @endif 
-                                @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11)  id="flush-collapseNine"   @endif 
-                                @if($base->id==3 or $base->id==6 or $base->id==9)  id="flush-collapseTeen"    @endif 
-                                @if($base->id==23)  id="flush-collapseEleven"    @endif 
-                                @if($base->id==26)  id="flush-collapseTwelv"    @endif 
-                                @if($base->id==27)  id="flush-collapseTherteen"    @endif 
-                                @if($base->id==29)  id="flush-collapseFourteen"    @endif 
-                                data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body pe-0">
-                                    <div class="row mb-2 me-1 rounded bg-primary text-white text-center"> 
-                                        <div class="col-9 col-sm-9">  هر {{number_format($base->limitAmount)}} {{$base->BaseName}} {{$base->Bonus}} امتیاز  </div>
-                                        <div class="col-3 col-sm-3">@if($base->id==11) {{(int)($base->count_All_Install/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21) {{(int)($base->count_All_aghlam/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) {{(int)($base->sum_all_money/10/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==3 or $base->id==6 or $base->id==9) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif 
-                                                                    @if($base->id==23) {{(int)($base->count_All_StrongService/$base->limitAmount)*$base->Bonus}} @endif 
-                                                                    @if($base->id==26) {{(int)($base->count_All_MediumService/$base->limitAmount)*$base->Bonus}} @endif 
-                                                                    @if($base->id==27) {{(int)($base->count_All_WeakService/$base->limitAmount)*$base->Bonus}} @endif
-                                                                    @if($base->id==29) {{(int)($base->count_All_New_buys/$base->limitAmount)*$base->Bonus}} @endif </div>
-                                        <input type="hidden" id="firstDateFilter">
-                                        <input type="hidden" id="secondDateFilter">
-                                    </div>
-                                    <div    @if($base->id==11) id="all_new_install" @endif
-                                            @if($base->id==1 or $base->id==4 or $base->id==7 or $base->id==10  or $base->id==21) id="all_aghlam_list" @endif
-                                            @if($base->id==2 or $base->id==5 or $base->id==8 or $base->id==11) id="all_mablagh_list" @endif
-                                            @if($base->id==3 or $base->id==6 or $base->id==9) id="all_new_buys_list" @endif 
-                                            @if($base->id==23) id="allStrongService_list" @endif 
-                                            @if($base->id==26) id="allMediumService_list" @endif 
-                                            @if($base->id==27) id="allWeakService_list" @endif
-                                            @if($base->id==29) id="all_factor_list" @endif ></div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                <!-- end -->
+                     </div>
                 </div>
+                <div class="row contentFooter"> </div>
             </div>
-        </div>
-    <div class="row">
-        <div class="accordion accordion-flush AmalKardAccordion" id="accordionFlushExample" >
-            <div class="accordion-item pe-3">
-                <h2 class="accordion-header" id="flush-headingTotal">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTotal" aria-expanded="false" aria-controls="flush-collapseTotal">
-                        جمع کل امتیازات  (آذر) <span class="count"> {{$all_bonus_since_Empty}} </span>
-                    </button>
-                    </h2>
-                <div id="flush-collapseTotal" class="accordion-collapse collapse" aria-labelledby="flush-headingTotal">
-                    <div class="accordion-body">
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">امتیازات اضافی</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button" style="display:none;"> </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-primary btn-sm nasb-button text-white"> امتیاز {{$all_monthly_bonuses}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">اقلام</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_aghlam}}</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">{{$bonus_All_aghlam}}</button> </div>
-                            </div>
+    </div>
+</div>
+</div>
 
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">مبلغ خرید</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{number_format($sum_all_money/10)}} </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$bonus_all_money}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button">خرید جدید</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$count_All_New_buys}}</button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$bonus_All_New_buys}} </button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> تارگت های اقلام </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button" style="display:none;"> </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$aghlamComTg}}</button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> تارگت های خرید </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button" style="display:none;"> </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$countBuyComTg}}</button> </div>
-                            </div>
-                            <div class="row mb-2"> 
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> تارگت های مبلغ </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button" style="display:none;"> </button> </div>
-                                <div class="col-4 col-sm-4">  <button class="btn btn-info btn-sm nasb-button"> {{$monyComTg}}</button> </div>
-                            </div>
-                        </div>
-                    </div>
+
+<!-- Modal for total  Emtyaz -->
+<div class="modal fade dragableModal" id="totalEmtyaz" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="totalEmtyazLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h6 class="modal-title" id="totalEmtyazLabel">  جمع کل امتیاز:  </h6>
                 </div>
-        
-            <div class="accordion-item pe-3">
-                <h2 class="accordion-header" id="flush-headingHistory">
-                    <button class="accordion-button collapsed" type="button" onclick="openHistoryModal()">
-                        تاریخچه عملکرد 
-                    </button>
-                    </h2>
-                <div id="flush-collapseHistory" class="accordion-collapse collapse" aria-labelledby="flush-headingHistory" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                            <div class="row mb-2 totlalAction" > 
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button dateSytle">آذر</button> </div>
-                                <div class="col-6 col-sm-6">  <button class="btn btn-info btn-sm nasb-button">  200 مجموع امتیازات  </button> </div>
-                            </div>
-                        </div>
+                <div class="modal-body">
+                    <div class="totalEmteyaz-container">
+                        <div class="totalEmteyaz-item"> نصب خالص : {{$count_All_Install}}  </div>
+                        <div class="totalEmteyaz-item"> امتیاز نصب : {{$bonus_All_Install}}  </div>
+                        <div class="totalEmteyaz-item"> امتیازات اضافی : {{$all_monthly_bonuses}} </div>  
+                        <div class="totalEmteyaz-item"> اقلام: {{$count_All_aghlam}} </div>
+                        <div class="totalEmteyaz-item"> امتیاز اقلام: {{$bonus_All_aghlam}} </div>
+                        <div class="totalEmteyaz-item"> مبلغ خرید : {{number_format($sum_all_money/10)}}</div>  
+                        <div class="totalEmteyaz-item"> امتیاز مبلغ خرید : {{$bonus_all_money}} </div>
+                        <div class="totalEmteyaz-item"> خرید اولیه:  {{$count_All_New_buys}} </div>
+                        <div class="totalEmteyaz-item"> امتیاز خرید اولیه : {{$bonus_All_New_buys}}</div>  
+                        <div class="totalEmteyaz-item"> تارگت های نصب :  </div>  
+                        <div class="totalEmteyaz-item"> هیچ تارگت تکمیل نشده است  </div>  
+                        <div class="totalEmteyaz-item"> تارگت های اقلام :  </div>  
+                        <div class="totalEmteyaz-item"> هیچ تارگت تکمیل نشده است  </div>  
+                        <div class="totalEmteyaz-item"> هیچ تارگت تکمیل نشده است  </div>   
+                        <div class="totalEmteyaz-item"> تارگت های خرید : </div>  
+                        <div class="totalEmteyaz-item"> هیچ تارگت تکمیل نشده است  </div>   
+                        <div class="totalEmteyaz-item"> تارگت های مبلغ : </div> 
                     </div>
-                </div>
-            </div>
+             </div>
+       </div>
+    </div>
+
+    
+
     <div class="modal fade notScroll" id="customerDashboard" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable  modal-xl">
             <div class="modal-content">
@@ -477,15 +456,18 @@
             </div>
         </div>
     </div>
+    </div>
+    </div>
 
-    <div class="row">
-    <div class="col-lg-12">
+
+
+
     <div class="modal fade" id="selfHistoryModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-fullscreen" role="document" >
         <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header py-2">
+            <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             <h5 class="modal-title" id="exampleModalLabel">تاریخچه عملکرد  {{$exactAdminInfo->name.' '.$exactAdminInfo->lastName}}  </h5>
-            <button type="button" class="close bg-danger" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span> </button>
         </div>
             <div class="modal-body">
                     @foreach($selfHistory as $history)
@@ -588,9 +570,6 @@
                 </div>
             </div>
          </div>
-       </div>
-    </div>
-
 
     <!-- Modal for factor detail-->
     <div class="modal fade" id="viewFactorDetail" tabindex="0" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -723,7 +702,7 @@
 <div class="modal fade" id="creditSetting" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="creditSettingLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header py-2">
           <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
           <h6 class="modal-title" id="creditSettingLabel"> افزایش و کاهش امتیاز </h6>
       </div>
@@ -731,7 +710,7 @@
 
             <form action="{{url('/addUpDownBonus')}}" id="addingEmtyaz" method="get">
                 @csrf
-                        <input type="text" name="adminId" value="{{$adminId}}">
+                        <input type="hidden" name="adminId" value="{{$adminId}}">
                         <div class="row">
                                 <div class="col-lg-6">
                                     <label for="pwd" class="form-label">کاهش امتیاز </label>
@@ -762,7 +741,7 @@
 <div class="modal fade" id="adminEmtyazHistory" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="emtyazHistoryLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header py-2">
           <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
           <h6 class="modal-title" id="emtyazHistoryLabel"> تاریخچه امتیاز </h6>
       </div>

@@ -64,6 +64,7 @@ class Admin extends Controller
         $heads=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE employeeType=2  and deleted=0");
         return View('admin.listKarbaran',['admins'=>$admins,'regions'=>$regions,'cities'=>$cities,'saleLines'=>$saleLines,'managers'=>$managers,'heads'=>$heads]);
     }
+
     public function karbaranOperations(Request $request)
     {
         $admins=DB::table("CRM.dbo.crm_admin")->join("CRM.dbo.crm_adminType",'crm_adminType.id','=','crm_admin.adminType')->where('deleted',0)->select("crm_admin.id","crm_admin.name","crm_admin.lastName","crm_admin.adminType as adminTypeId","crm_adminType.adminType","crm_admin.discription")->orderby("admintype")->get();
@@ -338,8 +339,11 @@ SELECT * FROM (
                 'allEmptyCustomers'=>$allEmptyCustomers,'allGoods'=>$allGoods,'prebuyableGoods'=>$allPrebuyableGoods,'allboughtGoods'=>$boughtGoods,'allBrandGoods'=>$allBrandGoods
                 ,'allBrands'=>$allBrands,'allmainGroup'=>$allmainGroup,'allSubGroups'=>$allSubGroups,'allReturnedCustomer'=>$allReturnedCustomer,'admins'=>$admins]);
     }
-    public function AddAdmin(Request $request)
-    {
+
+
+
+
+    public function AddAdmin(Request $request){
         $name=$request->post("name");
         $userName=$request->post("userName");
         $lastName=$request->post("lastName");
@@ -358,8 +362,661 @@ SELECT * FROM (
         $manager=$request->post("manager");
         $head=$request->post("head");
         $saleLine=$request->post("saleLine");
+
+
+
+        $baseInfoN = $request->post("baseInfoN");
+        $baseInfoProfileN = $request->post("baseInfoProfileN");
+
+        $deleteProfileN = $request->post("deleteProfileN");
+        $editProfileN = $request->post("editProfileN");
+        $seeProfileN = $request->post("seeProfileN");
+
+        $baseInfoProfileN=0;
+
+        if($deleteProfileN=="on"){
+            $baseInfoProfileN=2;
+        }elseif($editProfileN=="on" and $deleteProfileN!="on"){
+            $baseInfoProfileN=1;
+        }elseif($editProfileN !="on" and $$seeProfileN =="on"){
+            $baseInfoProfileN=0;
+        }else{
+            $baseInfoProfileN=-1;
+        }
+
+
+
+        $infoRdN = $request->post("infoRdN");
+        $rdSentN = $request->post("rdSentN");
+
+        $deleteSentRdN = $request->post("deleteSentRdN");
+        $editSentRdN = $request->post("editSentRdN");
+        $seeSentRdN = $request->post("seeSentRdN");
+
+        $rdSentN = 0;
+        if($deleteSentRdN=="on"){
+            $rdSentN=2;
+        }elseif($editSentRdN=="on" and $deleteSentRdN!="on"){
+            $rdSentN=1;
+        }elseif($editSentRdN!="on" and $seeSentRdN=="on"){
+             $rdSentN=0;
+        }else{
+              $rdSentN=-1;
+        }
+
+
+        $rdNotSentN = $request->post("rdNotSentN");
+
+        $deleteRdNotSentN = $request->post("deleteRdNotSentN");
+        $editRdNotSentN = $request->post("editRdNotSentN");
+        $seeRdNotSentN = $request->post("seeRdNotSentN");
+
+         $rdNotSentN = 0;
+        if($deleteRdNotSentN=="on"){
+            $rdNotSentN=2;
+        }elseif($editRdNotSentN=="on" and $deleteRdNotSentN!="on"){
+            $rdNotSentN=1;
+        }elseif($editRdNotSentN!="on" and $seeRdNotSentN=="on"){
+             $rdNotSentN=0;
+        }else{
+              $rdNotSentN=-1;
+        }
+
+        $specialSettingN = $request->post("specialSettingN");
+
+        $deleteSaleLineN = $request->post("deleteSaleLineN");
+        $editSaleLineN = $request->post("editSaleLineN");
+        $seeSaleLineN = $request->post("seeSaleLineN");
+
+         $specialSettingN = 0;
+        if($deleteSaleLineN=="on"){
+           $specialSettingN=2;
+        }elseif($editSaleLineN=="on" and $deleteSaleLineN!="on"){
+           $specialSettingN=1;
+        }elseif($editSaleLineN!="on" and  $seeSaleLineN=="on"){
+            $specialSettingN=0;
+        }else{
+             $specialSettingN=-1;
+        }
+
+
+        $baseInfoSetting = $request->post("baseInfoSetting");
+        $InfoSettingAccess = $request->post("InfoSettingAccess");
+
+        $deleteSettingAccess = $request->post("deleteSettingAccess");
+        $editSettingAccess = $request->post("editSettingAccess");
+        $seeSettingAccess = $request->post("seeSettingAccess");
+
+          $InfoSettingAccess = 0;
+        if($deleteSettingAccess=="on"){
+           $InfoSettingAccess=2;
+        }elseif($editSettingAccess=="on" and $deleteSettingAccess!="on"){
+           $InfoSettingAccess=1;
+        }elseif($editSettingAccess!="on" and $seeSettingAccess=="on"){
+            $InfoSettingAccess=0;
+        }else{
+             $InfoSettingAccess=-1;
+        }
+
+
+
+        $InfoSettingTarget = $request->post("InfoSettingTarget");
+
+        $deleteSettingTargetN = $request->post("deleteSettingTargetN");
+        $editSettingTargetN = $request->post("editSettingTargetN");
+        $seeSettingTargetN = $request->post("seeSettingTargetN");
+
+           $InfoSettingTarget = 0;
+        if($deleteSettingTargetN=="on"){
+           $InfoSettingTarget=2;
+        }elseif($editSettingTargetN=="on" and $deleteSettingTargetN!="on"){
+           $InfoSettingTarget=1;
+        }elseif($editSettingTargetN!="on" and $seeSettingTargetN=="on"){
+            $InfoSettingTarget=0;
+        }else{
+             $InfoSettingTarget=-1;
+        }
+
+
+        $declareElementN = $request->post("declareElementN");
+
+        $deletedeclareElementN = $request->post("deletedeclareElementN");
+        $editdeclareElementN = $request->post("editdeclareElementN");
+        $seedeclareElementN = $request->post("seedeclareElementN");
+
+           $declareElementN = 0;
+        if($deletedeclareElementN=="on"){
+           $declareElementN=2;
+        }elseif($editdeclareElementN=="on" and $deletedeclareElementN!="on"){
+           $declareElementN=1;
+        }elseif($editdeclareElementN!="on" and $seedeclareElementN=="on"){
+            $declareElementN=0;
+        }else{
+             $declareElementN=-1;
+        }
+
+
+        $oppN = $request->post("oppN");
+        $oppTakhsisN = $request->post("oppTakhsisN");
+        $oppManagerN = $request->post("oppManagerN");
+
+        $deleteManagerOppN = $request->post("deleteManagerOppN");
+        $editManagerOppN = $request->post("editManagerOppN");
+        $seeManagerOppN = $request->post("seeManagerOppN");
+
+         $oppManagerN = 0;
+        if($deleteManagerOppN=="on"){
+           $oppManagerN=2;
+        }elseif($editManagerOppN=="on" and $deleteManagerOppN!="on"){
+           $oppManagerN=1;
+        }elseif($editManagerOppN!="on" and $seeManagerOppN=="on"){
+            $oppManagerN=0;
+        }else{
+             $oppManagerN=-1;
+        }
+
+
+        $oppHeadN = $request->post("oppHeadN");
+
+        $deleteHeadOppN = $request->post("deleteHeadOppN");
+        $editHeadOppN = $request->post("editHeadOppN");
+        $seeHeadOppN = $request->post("seeHeadOppN");
+
+          $oppHeadN = 0;
+        if($deleteHeadOppN=="on"){
+           $oppHeadN=2;
+        }elseif($editHeadOppN=="on" and $deleteHeadOppN!="on"){
+           $oppHeadN=1;
+        }elseif($editHeadOppN!="on" and $seeHeadOppN=="on"){
+            $oppHeadN=0;
+        }else{
+             $oppHeadN=-1;
+        }
+
+        $oppBazaryabN = $request->post("oppBazaryabN");
+
+        $deleteBazaryabOppN = $request->post("deleteBazaryabOppN");
+        $editBazaryabOppN = $request->post("editBazaryabOppN");
+        $seeBazaryabOppN = $request->post("seeBazaryabOppN");
+
+         $oppBazaryabN= 0;
+        if($deleteBazaryabOppN=="on"){
+           $oppBazaryabN=2;
+        }elseif($editBazaryabOppN=="on" and $deleteBazaryabOppN!="on"){
+           $oppBazaryabN=1;
+        }elseif($editBazaryabOppN!="on" and $seeBazaryabOppN=="on"){
+            $oppBazaryabN=0;
+        }else{
+             $oppBazaryabN=-1;
+        }
+
+
+        $oppDriverN = $request->post("oppDriverN");
+
+        $deleteoppDriverServiceN = $request->post("deleteoppDriverServiceN");
+        $editoppDriverServiceN = $request->post("editoppDriverServiceN");
+        $seeoppDriverServiceN = $request->post("seeoppDriverServiceN");
+
+         $oppDriverN= 0;
+        if($deleteoppDriverServiceN=="on"){
+           $oppDriverN=2;
+        }elseif($editoppDriverServiceN=="on" and $deleteoppDriverServiceN!="on"){
+           $oppDriverN=1;
+        }elseif($editoppDriverServiceN!="on" and $seeoppDriverServiceN=="on"){
+            $oppDriverN=0;
+        }else{
+             $oppDriverN=-1;
+        }
+
+
+        $oppBargiriN = $request->post("oppBargiriN");
+
+        $deleteoppBargiriN = $request->post("deleteoppBargiriN");
+        $editoppBargiriN = $request->post("editoppBargiriN");
+        $seeoppBargiriN = $request->post("seeoppBargiriN");
+
+          $oppBargiriN= 0;
+        if($deleteoppBargiriN=="on"){
+           $oppBargiriN=2;
+        }elseif($editoppBargiriN=="on" and $deleteoppBargiriN!="on"){
+           $oppBargiriN=1;
+        }elseif($editoppBargiriN!="on" and $seeoppBargiriN=="on"){
+            $oppBargiriN=0;
+        }else{
+             $oppBargiriN=-1;
+
+        }
+
+
+
+        $oppNazarSanjiN = $request->post("oppNazarSanjiN");
+
+        $deletetodayoppNazarsanjiN = $request->post("deletetodayoppNazarsanjiN");
+        $edittodayoppNazarsanjiN = $request->post("edittodayoppNazarsanjiN");
+        $seetodayoppNazarsanjiN = $request->post("seetodayoppNazarsanjiN");
+          $oppNazarSanjiN= 0;
+        if($deletetodayoppNazarsanjiN=="on"){
+           $oppNazarSanjiN=2;
+        }elseif($edittodayoppNazarsanjiN=="on" and $deletetodayoppNazarsanjiN!="on"){
+           $oppNazarSanjiN=1;
+        }elseif($edittodayoppNazarsanjiN!="on" and $seetodayoppNazarsanjiN=="on"){
+            $oppNazarSanjiN=0;
+        }else{
+             $oppNazarSanjiN=-1;
+        }
+
+
+        $pastoppNazarsanjiN = $request->post("pastoppNazarsanjiN");
+
+        $deletepastoppNazarsanjiN = $request->post("deletepastoppNazarsanjiN");
+        $editpastoppNazarsanjiN = $request->post("editpastoppNazarsanjiN");
+        $seepastoppNazarsanjiN = $request->post("seepastoppNazarsanjiN");
+           $pastoppNazarsanjiN= 0;
+        if($deletepastoppNazarsanjiN=="on"){
+           $pastoppNazarsanjiN=2;
+        }elseif($editpastoppNazarsanjiN=="on" and $deletepastoppNazarsanjiN!="on"){
+           $pastoppNazarsanjiN=1;
+        }elseif($editpastoppNazarsanjiN!="on" and $seepastoppNazarsanjiN=="on"){
+            $pastoppNazarsanjiN=0;
+        }else{
+             $pastoppNazarsanjiN=-1;
+        }
+
+
+        $DoneoppNazarsanjiN = $request->post("DoneoppNazarsanjiN");
+
+        $deleteDoneoppNazarsanjiN = $request->post("deleteDoneoppNazarsanjiN");
+        $editDoneoppNazarsanjiN = $request->post("editDoneoppNazarsanjiN");
+        $seeDoneoppNazarsanjiN = $request->post("seeDoneoppNazarsanjiN");
+           $DoneoppNazarsanjiN= 0;
+        if($deleteDoneoppNazarsanjiN=="on"){
+           $DoneoppNazarsanjiN=2;
+        }elseif($editDoneoppNazarsanjiN=="on" and $deleteDoneoppNazarsanjiN!="on"){
+           $DoneoppNazarsanjiN=1;
+        }elseif($editDoneoppNazarsanjiN!="on" and $seeDoneoppNazarsanjiN=="on"){
+            $DoneoppNazarsanjiN=0;
+        }else{
+             $DoneoppNazarsanjiN=-1;
+        }
+
+
+        $OppupDownBonusN = $request->post("OppupDownBonusN");
+        $AddOppupDownBonusN = $request->post("AddOppupDownBonusN");
+
+        $deleteAddOppupDownBonusN = $request->post("deleteAddOppupDownBonusN");
+        $editAddOppupDownBonusN = $request->post("editAddOppupDownBonusN");
+        $seeAddOppupDownBonusN = $request->post("seeAddOppupDownBonusN");
+
+          $AddOppupDownBonusN= 0;
+        if($deleteAddOppupDownBonusN=="on"){
+           $AddOppupDownBonusN=2;
+        }elseif($editAddOppupDownBonusN=="on" and $deleteAddOppupDownBonusN!="on"){
+           $AddOppupDownBonusN=1;
+        }elseif($editAddOppupDownBonusN!="on" and $seeAddOppupDownBonusN=="on"){
+            $AddOppupDownBonusN=0;
+        }else{
+             $AddOppupDownBonusN=-1;
+        }
+
+
+        $SubOppupDownBonusN = $request->post("SubOppupDownBonusN");
+
+        $deleteSubOppupDownBonusN = $request->post("deleteSubOppupDownBonusN");
+        $editSubOppupDownBonusN = $request->post("editSubOppupDownBonusN");
+        $seeSubOppupDownBonusN = $request->post("seeSubOppupDownBonusN");
+
+         $SubOppupDownBonusN= 0;
+        if($deleteSubOppupDownBonusN=="on"){
+           $SubOppupDownBonusN=2;
+        }elseif($editSubOppupDownBonusN=="on" and $deleteSubOppupDownBonusN!="on"){
+           $SubOppupDownBonusN=1;
+        }elseif($editSubOppupDownBonusN!="on" and $seeSubOppupDownBonusN=="on"){
+            $SubOppupDownBonusN=0;
+        }else{
+             $SubOppupDownBonusN=-1;
+        }
+
+
+        $oppRDN = $request->post("oppRDN");
+        $AddedoppRDN = $request->post("AddedoppRDN");
+
+        $deleteAddedoppRDN = $request->post("deleteAddedoppRDN");
+        $editAddedoppRDN = $request->post("editAddedoppRDN");
+        $seeAddedoppRDN = $request->post("seeAddedoppRDN");
+
+         $AddedoppRDN= 0;
+        if($deleteAddedoppRDN=="on"){
+           $AddedoppRDN=2;
+        }elseif($editAddedoppRDN=="on" and $deleteAddedoppRDN!="on"){
+           $AddedoppRDN=1;
+        }elseif($editAddedoppRDN!="on" and $seeAddedoppRDN=="on"){
+            $AddedoppRDN=0;
+        }else{
+             $AddedoppRDN=-1;
+        }
+
+
+
+        $NotAddedoppRDN = $request->post("NotAddedoppRDN");
+
+        $deleteNotAddedoppRDN = $request->post("deleteNotAddedoppRDN");
+        $editNotAddedoppRDN = $request->post("editNotAddedoppRDN");
+        $seeNotAddedoppRDN = $request->post("seeNotAddedoppRDN");
+           $NotAddedoppRDN= 0;
+        if($deleteNotAddedoppRDN=="on"){
+           $NotAddedoppRDN=2;
+        }elseif($editNotAddedoppRDN=="on" and $deleteNotAddedoppRDN!="on"){
+           $NotAddedoppRDN=1;
+        }elseif($editNotAddedoppRDN!="on" and $seeNotAddedoppRDN=="on"){
+            $NotAddedoppRDN=0;
+        }else{
+             $NotAddedoppRDN=-1;
+        }
+
+
+        $oppCalendarN = $request->post("oppCalendarN");
+        $oppjustCalendarN = $request->post("oppjustCalendarN");
+
+        $deleteoppjustCalendarN = $request->post("deleteoppjustCalendarN");
+        $editoppjustCalendarN = $request->post("editoppjustCalendarN");
+        $seeoppjustCalendarN = $request->post("seeoppjustCalendarN");
+
+         $oppjustCalendarN= 0;
+        if($deleteoppjustCalendarN=="on"){
+           $oppjustCalendarN=2;
+        }elseif($editoppjustCalendarN=="on" and $deleteoppjustCalendarN!="on"){
+           $oppjustCalendarN=1;
+        }elseif($editoppjustCalendarN!="on" and $seeoppjustCalendarN=="on"){
+            $oppjustCalendarN=0;
+        }else{
+             $oppjustCalendarN=-1;
+        }
+
+
+        $oppCustCalendarN = $request->post("oppCustCalendarN");
+
+        $deleteoppCustCalendarN = $request->post("deleteoppCustCalendarN");
+        $editoppCustCalendarN = $request->post("editoppCustCalendarN");
+        $seeoppCustCalendarN = $request->post("seeoppCustCalendarN");
+
+        $oppCustCalendarN= 0;
+        if($deleteoppCustCalendarN=="on"){
+           $oppCustCalendarN=2;
+        }elseif($editoppCustCalendarN=="on" and $deleteoppCustCalendarN!="on"){
+           $oppCustCalendarN=1;
+        }elseif($editoppCustCalendarN!="on" and $seeoppCustCalendarN=="on"){
+            $oppCustCalendarN=0;
+        }else{
+             $oppCustCalendarN=-1;
+        }
+
+
+        $alarmoppN = $request->post("alarmoppN");
+        $allalarmoppN = $request->post("allalarmoppN");
+
+        $deleteallalarmoppN = $request->post("deleteallalarmoppN");
+        $editallalarmoppN = $request->post("editallalarmoppN");
+        $seeallalarmoppN = $request->post("seeallalarmoppN");
+
+        $allalarmoppN= 0;
+        if($deleteallalarmoppN=="on"){
+           $allalarmoppN=2;
+        }elseif($editallalarmoppN=="on" and $deleteallalarmoppN!="on"){
+           $allalarmoppN=1;
+        }elseif($editallalarmoppN!="on" and $seeallalarmoppN=="on"){
+            $allalarmoppN=0;
+        }else{
+             $allalarmoppN=-1;
+        }
+
+
+        $donealarmoppN = $request->post("donealarmoppN");
+
+        $deletedonealarmoppN = $request->post("deletedonealarmoppN");
+        $editdonealarmoppN = $request->post("editdonealarmoppN");
+        $seedonealarmoppN = $request->post("seedonealarmoppN");
+
+          $donealarmoppN= 0;
+        if($deletedonealarmoppN=="on"){
+           $donealarmoppN=2;
+        }elseif($editdonealarmoppN=="on" and $deletedonealarmoppN!="on"){
+           $donealarmoppN=1;
+        }elseif($editdonealarmoppN!="on" and $seedonealarmoppN=="on"){
+            $donealarmoppN=0;
+        }else{
+             $donealarmoppN=-1;
+        }
+
+
+        $NoalarmoppN = $request->post("NoalarmoppN");
+
+        $deleteNoalarmoppN = $request->post("deleteNoalarmoppN");
+        $editNoalarmoppN = $request->post("editNoalarmoppN");
+        $seeNoalarmoppN = $request->post("seeNoalarmoppN");
+
+           $NoalarmoppN= 0;
+        if($deleteNoalarmoppN=="on"){
+           $NoalarmoppN=2;
+        }elseif($editNoalarmoppN=="on" and $deleteNoalarmoppN!="on"){
+           $NoalarmoppN=1;
+        }elseif($editNoalarmoppN!="on" and $seeNoalarmoppN=="on"){
+            $NoalarmoppN=0;
+        }else{
+             $NoalarmoppN=-1;
+        }
+
+
+        $massageOppN = $request->post("massageOppN");
+
+        $deletemassageOppN = $request->post("deletemassageOppN");
+        $editmassageOppN = $request->post("editmassageOppN");
+        $seemassageOppN = $request->post("seemassageOppN");
+
+        $massageOppN= 0;
+        if($deletemassageOppN=="on"){
+           $massageOppN=2;
+        }elseif($editmassageOppN=="on" and $deletemassageOppN!="on"){
+           $massageOppN=1;
+        }elseif($editmassageOppN!="on" and $seemassageOppN=="on"){
+            $massageOppN=0;
+        }else{
+             $massageOppN=-1;
+        }
+
+
+        $justBargiriOppN = $request->post("justBargiriOppN");
+
+        $deletejustBargiriOppN = $request->post("deletejustBargiriOppN");
+        $editjustBargiriOppN = $request->post("editjustBargiriOppN");
+        $seejustBargiriOppN = $request->post("seejustBargiriOppN");
+
+        $justBargiriOppN= 0;
+        if($deletejustBargiriOppN=="on"){
+           $justBargiriOppN=2;
+        }elseif($editjustBargiriOppN=="on" and $deletejustBargiriOppN!="on"){
+           $justBargiriOppN=1;
+        }elseif($editjustBargiriOppN!="on" and $seejustBargiriOppN=="on"){
+            $justBargiriOppN=0;
+        }else{
+             $justBargiriOppN=-1;
+        }
+
+
+        $reportN = $request->post("reportN");
+        $amalKardreportN = $request->post("amalKardreportN");
+        $managerreportN = $request->post("managerreportN");
+
+        $deletemanagerreportN = $request->post("deletemanagerreportN");
+        $editmanagerreportN = $request->post("editmanagerreportN");
+        $seemanagerreportN = $request->post("seemanagerreportN");
+
+         $managerreportN= 0;
+        if($deletemanagerreportN=="on"){
+           $managerreportN=2;
+        }elseif($editmanagerreportN=="on" and $deletemanagerreportN!="on"){
+           $managerreportN=1;
+        }elseif($editmanagerreportN!="on" and $seemanagerreportN=="on"){
+            $managerreportN=0;
+        }else{
+             $managerreportN=-1;
+        }
+
+
+
+        $HeadreportN = $request->post("HeadreportN");
+
+        $deleteHeadreportN = $request->post("deleteHeadreportN");
+        $editHeadreportN = $request->post("editHeadreportN");
+        $seeHeadreportN = $request->post("seeHeadreportN");
+
+          $HeadreportN= 0;
+        if($deleteHeadreportN=="on"){
+           $HeadreportN=2;
+        }elseif($editHeadreportN=="on" and $deleteHeadreportN!="on"){
+           $HeadreportN=1;
+        }elseif($editHeadreportN!="on" and $seeHeadreportN=="on"){
+            $HeadreportN=0;
+        }else{
+             $HeadreportN=-1;
+        }
+
+
+
+        $poshtibanreportN = $request->post("poshtibanreportN");
+
+        $deleteposhtibanreportN = $request->post("deleteposhtibanreportN");
+        $editposhtibanreportN = $request->post("editposhtibanreportN");
+        $seeposhtibanreportN = $request->post("seeposhtibanreportN");
+
+          $poshtibanreportN= 0;
+        if($deleteposhtibanreportN=="on"){
+           $poshtibanreportN=2;
+        }elseif($editposhtibanreportN=="on" and $deleteposhtibanreportN!="on"){
+           $poshtibanreportN=1;
+        }elseif($editposhtibanreportN!="on" and $seeposhtibanreportN=="on"){
+            $poshtibanreportN=0;
+        }else{
+             $poshtibanreportN=-1;
+        }
+
+
+        $bazaryabreportN = $request->post("bazaryabreportN");
+
+        $deletebazaryabreportN = $request->post("deletebazaryabreportN");
+        $editbazaryabreportN = $request->post("editbazaryabreportN");
+        $seebazaryabreportN = $request->post("seebazaryabreportN");
+
+        $bazaryabreportN= 0;
+        if($deletebazaryabreportN=="on"){
+           $bazaryabreportN=2;
+        }elseif($editbazaryabreportN=="on" and $deletebazaryabreportN!="on"){
+           $bazaryabreportN=1;
+        }elseif($editbazaryabreportN!="on" and $seebazaryabreportN=="on"){
+            $bazaryabreportN=0;
+        }else{
+             $bazaryabreportN=-1;
+        }
+
+
+        $reportDriverN = $request->post("reportDriverN");
+
+        $deletereportDriverN = $request->post("deletereportDriverN");
+        $editreportDriverN = $request->post("editreportDriverN");
+        $seereportDriverN = $request->post("seereportDriverN");
+
+        $reportDriverN= 0;
+        if($deletereportDriverN=="on"){
+           $reportDriverN=2;
+        }elseif($editreportDriverN=="on" and $deletereportDriverN!="on"){
+           $reportDriverN=1;
+        }elseif($editreportDriverN!="on" and $seereportDriverN=="on"){
+            $reportDriverN=0;
+        }else{
+             $reportDriverN=-1;
+        }
+
+
+        $trazEmployeeReportN = $request->post("trazEmployeeReportN");
+
+        $deletetrazEmployeeReportN = $request->post("deletetrazEmployeeReportN");
+        $changeOfficialsN = $request->post("edittrazEmployeeReportN");
+        $seetrazEmployeeReportN = $request->post("seetrazEmployeeReportN");
+
+        $trazEmployeeReportN= 0;
+        if($deletetrazEmployeeReportN=="on"){
+           $trazEmployeeReportN=2;
+        }elseif($edittrazEmployeeReportN=="on" and $deletetrazEmployeeReportN!="on"){
+           $trazEmployeeReportN=1;
+        }elseif($edittrazEmployeeReportN!="on" and $seetrazEmployeeReportN=="on"){
+            $trazEmployeeReportN=0;
+        }else{
+             $trazEmployeeReportN=-1;
+        }
+
+
+        $officialsN = $request->post("officialsN");
+
+        $deleteOfficialsN = $request->post("deleteOfficialsN");
+        $changeOfficialsN = $request->post("changeOfficialsN");
+        $seeOfficialsN = $request->post("seeOfficialsN");
+
+        $officialsN= 0;
+        if($deleteOfficialsN=="on"){
+           $officialsN=2;
+        }elseif($changeOfficialsN=="on" and $deleteOfficialsN!="on"){
+           $officialsN=1;
+        }elseif($changeOfficialsN!="on" and $seeOfficialsN=="on"){
+            $officialsN=0;
+        }else{
+             $officialsN=-1;
+        }
+
+
+
+        $deleteOfficialsN = $request->post("deleteOfficialsN");
+        $changeOfficialsN = $request->post("changeOfficialsN");
+        $seeOfficialsN = $request->post("seeOfficialsN");
+        $goodsReport = $request->post("goodsReport");
+        $salegoodsReportN = $request->post("salegoodsReportN");
+        $deletesalegoodsReportN = $request->post("deletesalegoodsReportN");
+        $editsalegoodsReportN = $request->post("editsalegoodsReportN");
+        $seesalegoodsReportN = $request->post("seesalegoodsReportN");
+        $returnedgoodsReportN = $request->post("returnedgoodsReportN");
+        $deletereturnedgoodsReportN = $request->post("deletereturnedgoodsReportN");
+        $editreturnedgoodsReportN = $request->post("editreturnedgoodsReportN");
+        $seereturnedgoodsReportN = $request->post("seereturnedgoodsReportN");
+        $NoExistgoodsReportN = $request->post("NoExistgoodsReportN");
+        $deleteNoExistgoodsReportN = $request->post("deleteNoExistgoodsReportN");
+        $editNoExistgoodsReportN = $request->post("editNoExistgoodsReportN");
+        $seeNoExistgoodsReportN = $request->post("seeNoExistgoodsReportN");
+        $nosalegoodsReportN = $request->post("nosalegoodsReportN");
+        $deletenosalegoodsReportN = $request->post("deletenosalegoodsReportN");
+        $editnosalegoodsReportN = $request->post("editnosalegoodsReportN");
+        $seenosalegoodsReportN = $request->post("seenosalegoodsReportN");
+        $returnedReportgoodsReportN = $request->post("returnedReportgoodsReportN");
+        $returnedNTasReportgoodsReportN = $request->post("returnedNTasReportgoodsReportN");
+        $deletereturnedNTasReportgoodsReportN = $request->post("deletereturnedNTasReportgoodsReportN");
+        $editreturnedNTasReportgoodsReportN = $request->post("editreturnedNTasReportgoodsReportN");
+        $seereturnedNTasReportgoodsReportN = $request->post("seereturnedNTasReportgoodsReportN");
+        $tasgoodsReprtN = $request->post("tasgoodsReprtN");
+        $deletetasgoodsReprtN = $request->post("deletetasgoodsReprtN");
+        $edittasgoodsReprtN = $request->post("edittasgoodsReprtN");
+        $seetasgoodsReprtN = $request->post("seetasgoodsReprtN");
+        $goodsbargiriReportN = $request->post("goodsbargiriReportN");
+        $deletegoodsbargiriReportN = $request->post("deletegoodsbargiriReportN");
+        $editgoodsbargiriReportN = $request->post("editgoodsbargiriReportN");
+        $seegoodsbargiriReportN = $request->post("seegoodsbargiriReportN");
+
+
+
+
+       return $request->all();
+        
+
         $bossId=0;
         $saleLineSn=0;
+
+
 
         if($manager){
             $bossId=$manager;  
@@ -392,6 +1049,7 @@ SELECT * FROM (
         'bossId'=>$bossId,'employeeType'=>$employeeType,'SaleLineId'=>$saleLineSn,'poshtibanType'=>$poshtibanType]);
         return redirect("/listKarbaran");
     }
+
     // public function addAdminFromList(Request $request)
     // {
     //     $name=$request->post("name");

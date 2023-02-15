@@ -7,7 +7,7 @@
                   <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
                       <div class="form-check">
                           <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
-                          <label class="form-check-label me-4" for="assesPast">  سطح دسترسی  </label>
+                          <label class="form-check-label me-4" for="assesPast">  تنظیمات فاصله </label>
                       </div>
                       <div class="form-check">
                           <input class="form-check-input p-2 float-end" type="radio" name="settings" id="settingAndTargetRadio">
@@ -545,20 +545,13 @@
 
             <!-- else setting  -->
              <div class="c-checkout container elseSettings" id="elseSettings" style="background-image: linear-gradient(to right, #ffffff,#3fa7ef,#3fa7ef); margin:0.2% 0; margin-bottom:0; padding:0.5% !important; border-radius:10px 10px 2px 2px; display:none;">
-                    <div class="col-sm-8" style="margin: 0; padding:0;">
+                    <div class="col-sm-3" style="margin: 0; padding:0;">
                         <ul class="header-list nav nav-tabs" data-tabs="tabs" style="margin: 0; padding:0;">
-                            <li><a data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#moRagiInfo">  سطح دسترسی کاربران</a></li>
                             <li><a class="active" data-toggle="tab" style="color:black; font-size:14px; font-weight:bold;"  href="#custAddress"> فاصله تا مقصد برای ثبت کامنت </a></li>
                         </ul>
                     </div>
                     <div class="c-checkout tab-content" style="background-color:#f5f5f5; margin:0;  padding:0.3%; border-radius:10px 10px 2px 2px; height:68vh">
-                          <div class="row c-checkout rounded-3 tab-pane" id="moRagiInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
-                            <div class="row c-checkout rounded-3 tab-pane active"  style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
-                                <div class="col-sm-12">
-                                    <label class="dashboardLabel form-label">  سطح دسترسی کاربران </label>
-                                </div>
-                            </div>
-                         </div>
+                    
                           <div class="row c-checkout rounded-3 tab-pane active" id="custAddress" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%; ">
                               <div class="col-sm-12 py-3">
                                    <div class="form-check form-check-inline">
@@ -693,8 +686,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
-          <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save "></i> </button>
+          <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
+          <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save "></i> </button>
         </div>
       </form>
     </div>
@@ -724,8 +717,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-        <button type="submit" class="btn btn-primary">ذخیره</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">بستن</button>
+        <button type="submit" class="btn btn-sm btn-primary">ذخیره</button>
         </form>
       </div>
     </div>
@@ -758,8 +751,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
-					<button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save"> </i> </button>
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
+					<button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save"> </i> </button>
                 </div>
             </form>
         </div>
@@ -797,8 +790,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
-          <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save"> </i> </button>
+          <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">بستن <i class="fa fa-xmark"> </i></button>
+          <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save"> </i> </button>
         </div>
       </form>
     </div>
@@ -865,8 +858,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
-          <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save "></i> </button>
+          <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
+          <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save "></i> </button>
         </div>
       </form>
     </div>
@@ -888,7 +881,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="mb-3">
-                <input type="text" id="baseId" name="baseId"> 
+                <input type="hidden" id="baseId" name="baseId"> 
                 <label for="exampleInputEmail1" class="form-label"> اساس تارگت </label>
                 <input type="text" class="form-control" disabled placeholder="خرید اولیه"  name="baseGName" id="baseGName" aria-describedby="emailHelp">
                 <input type="hidden" name="userTypeID" id="userTypeID">
@@ -935,8 +928,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
-          <button type="submit" class="btn btn-primary">ذخیره <i class="fa fa-save "></i> </button>
+          <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"> بستن <i class="fa fa-xmark"></i> </button>
+          <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save "></i> </button>
         </div>
       </form>
     </div>

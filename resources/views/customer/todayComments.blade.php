@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="row mainContent">
-                            <div id="assesNotDone">
+                            <div id="assesNotDone" class="px-0 mx-0">
                               <table class='table table-striped table-bordered table-sm'>
                                 <thead class="tableHeader">
                                     <tr>
@@ -74,44 +74,47 @@
                                                 <td> <input class="customerList form-check-input" name="factorId" type="radio" value="{{$customer->PSN.'_'.$customer->SerialNoHDS}}"></td>
                                             </tr>
                                             @empty
-                                            دیتایی وجود ندارد
                                         @endforelse
                                     </tbody>
                                 </table> 
                                 <hr>
                                 <div id="factorInfo">
-                                 <div class="row rounded-3" style=" border:1px solid #dee2e6; padding:10px">
-                                    <h6 style=" text-align:center;">فاکتور فروش </h6>
-                                    <div class="grid-container">
-                                        <div class="item1"> <b style="color:red; bold">تاریخ فاکتور   :  </b> <span id="factorDateP">  </span> </div>
-                                        <div class="item2"> <b style="color:red; bold"> مشتری  :  </b> <span  id="customerNameFactorP"> </span>    </div>
-                                        <div class="item3"> <b style="color:red; bold"> آدرس  :  </b> <span id="customerAddressFactorP"> </span>   </div>
-                                        <div class="item4"> <b style="color:red; bold"> تلفن :</b>    <span id="customerPhoneFactorP"> </span></div>
-                                        <div class="item5"> <b style="color:red; bold"> کاربر :  </b>   <span id="Admin1P"> </span></div>
-                                        <div class="item6"> <b style="color:red; bold">  شماره فاکتور :</b>  <span id="factorSnFactorP">  </span></div>
-                                    </div>
-                               </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 rounded-2">
+                                        <h6 style=" text-align:center;">فاکتور فروش </h6>
+                                        <div class="grid-container mx-1">
+                                            <div class="item1"> <b style="color:red; bold"> تاریخ فاکتور   :  </b> <span id="factorDateP">  </span> </div>
+                                            <div class="item2"> <b style="color:red; bold"> مشتری  :  </b> <span  id="customerNameFactorP"> </span>    </div>
+                                            <div class="item3"> <b style="color:red; bold"> آدرس  :  </b> <span id="customerAddressFactorP"> </span>   </div>
+                                            <div class="item4"> <b style="color:red; bold"> تلفن : </b>    <span id="customerPhoneFactorP"> </span></div>
+                                            <div class="item5"> <b style="color:red; bold"> کاربر :  </b>   <span id="Admin1P"> </span></div>
+                                            <div class="item6"> <b style="color:red; bold">  شماره فاکتور : </b>  <span id="factorSnFactorP">  </span></div>
+                                        </div>
+                                     </div>
+                                   </div> <br>
                             <div class="row">
-                                <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
-                                    <thead class="tableHeader">
-                                    <tr>
-                                        <th>ردیف</th>
-                                        <th>نام کالا </th>
-                                        <th>تعداد/مقدار</th>
-                                        <th>واحد کالا</th>
-                                        <th>فی (تومان)</th>
-                                        <th style="width:122px">مبلغ (تومان)</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="productListP" class="tableBody" style="height:250px !important">
+                                <div class="col-lg-12">
+                                    <table id="strCusDataTable"  class='table table-bordered table-striped table-sm'>
+                                        <thead class="tableHeader">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام کالا </th>
+                                            <th>تعداد/مقدار</th>
+                                            <th>واحد کالا</th>
+                                            <th>فی (تومان)</th>
+                                            <th style="width:122px">مبلغ (تومان)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="productListP" class="tableBody" style="height:200px !important;">
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                               </div>
                             </div>
                         </div>
                     </div>
                 
-                            <div id="assesDoneT" style="display:none">
+                            <div id="assesDoneT" style="display:none"  class="px-0 mx-0">
                                 <table id="" class='table table-bordered table-striped table-sm' >
                                     <thead class="tableHeader">
                                         <tr>
@@ -150,12 +153,12 @@
                             </div>
                             </div>
                                 <div class="row contentFooter">
-                                        <div class="col-lg-12 mt-3 text-start">
-                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('TODAY')"> نظرات امروز  <i class="fa fa-comments"></i> </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('YESTERDAY')"> دیروز  <i class="fa fa-comments"></i> </button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('LASTHUNDRED')"> صدتای آخر  <i class="fa fa-comments"></i></button>
-                                            <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('ALL')"> همه <i class="fa fa-comments"></i></button>
-                                        </div>
+                                    <div class="col-lg-12 mt-3 text-start">
+                                        <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('TODAY')"> نظرات امروز  <i class="fa fa-comments"></i> </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none" onclick="getDonComment('YESTERDAY')"> دیروز  <i class="fa fa-comments"></i> </button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('LASTHUNDRED')"> صدتای آخر  <i class="fa fa-comments"></i></button>
+                                        <button type="button" class="btn btn-sm btn-primary footerButton donComment" style="display:none"  onclick="getDonComment('ALL')"> همه <i class="fa fa-comments"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -247,7 +250,6 @@
                     </div>
                     <div class="c-checkout tab-content talbeDashboardTop">
                             <div class="row c-checkout rounded-3 tab-pane active tableDashboardMiddle" id="custAddress">
-                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm">
                                         <thead class="tableHeader">
                                         <tr>
@@ -261,12 +263,9 @@
                                         <tbody  id="factorTable" class="tableBody">
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
-
                         <div class="row c-checkout rounded-3 tab-pane talbeDashboardTop" id="moRagiInfo">
-                            <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                <div class="col-sm-12">
+                            <div class="row tableDashboardMiddle" id="custAddress">
                                     <table class="table table-bordered table-striped table-sm">
                                         <thead class="tableHeader">
                                         <tr>
@@ -281,13 +280,11 @@
 
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
 
                         <div class="row c-checkout rounded-3 tab-pane talbeDashboardTop" id="basketKalas">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm">
                                         <thead class="tableHeader">
                                         <tr>
@@ -307,13 +304,11 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
 
                         <div class="c-checkout tab-pane talbeDashboardTop" id="returnedFactors" >
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm">
                                         <thead class="tableHeader">
                                         <tr>
@@ -327,13 +322,11 @@
                                         <tbody id="returnedFactorsBody" class="tableBody">
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                                 
                         <div class="row c-checkout rounded-3 tab-pane" id="customerLoginInfo" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
                             <div class="row c-checkout rounded-3 tab-pane" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
-                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
@@ -352,13 +345,11 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
 
                         <div class="c-checkout tab-pane talbeDashboardTop" id="comments">
                             <div class="row c-checkout rounded-3 tab-pane tableDashboardMiddle" id="custAddress">
-                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm">
                                         <thead class="tableHeader">
                                         <tr>
@@ -372,12 +363,10 @@
                                         <tbody id="customerComments" class="tableBody">
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                         <div class="c-checkout tab-pane" id="assesments" style="margin:0; border-radius:10px 10px 2px 2px;">
                             <div class="row c-checkout rounded-3 tab-pane active" style="width:99%; margin:0 auto; padding:1% 0% 0% 0%">
-                                <div class="col-sm-12">
                                     <table class="table table-bordered table-striped table-sm" style="text-align:center;">
                                         <thead class="tableHeader">
                                         <tr>
@@ -392,7 +381,6 @@
                                         <tbody id="customerAssesments" class="tableBody">
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -445,12 +433,12 @@
                                     <table id="strCusDataTable" class='table table-bordered table-striped table-sm'>
                                         <thead class="tableHeader">
                                         <tr>
-                                            <th scope="col">ردیف</th>
-                                            <th scope="col">نام کالا </th>
-                                            <th scope="col">تعداد/مقدار</th>
-                                            <th scope="col">واحد کالا</th>
-                                            <th scope="col">فی (تومان)</th>
-                                            <th scope="col" style="width:122px">مبلغ (تومان)</th>
+                                            <th>ردیف</th>
+                                            <th>نام کالا </th>
+                                            <th>تعداد/مقدار</th>
+                                            <th>واحد کالا</th>
+                                            <th>فی (تومان)</th>
+                                            <th style="width:122px">مبلغ (تومان)</th>
                                         </tr>
                                         </thead>
                                         <tbody id="productList1" class="tableBody">
@@ -480,9 +468,7 @@
                               <label for="tahvilBar"> مشتری: &nbsp;</label>
                                 <span id="customerComenter" style="font-size:18px;margin-bottom:11px;"></span>
                             </div>
-                            <div class="col-lg-2" style="display:flex; justify-content:flex-end;">
-                                <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save"></i></button>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -521,6 +507,11 @@
                                     <label for="tahvilBar"> کامنت</label>
                                     <textarea class="form-control bg-light" required name="comment" rows="3" ></textarea>
                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-lg-12 text-start">
+                                <button type="submit" class="btn btn-sm btn-primary">ذخیره <i class="fa fa-save"></i></button>
                              </div>
                          </div>
                     </div>

@@ -144,7 +144,6 @@ text-align:right;
                                 </tbody>
                             </table> 
 
-
                             <div class="grid-today rounded-2">
                                 <div class="today-item">ساعت ورود: <span id="loginTimeToday"></span>  </div>
                                 <div class="today-item"> کامنت های امروز: <span id="countCommentsToday"></span>  </div>

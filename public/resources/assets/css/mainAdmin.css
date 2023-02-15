@@ -1208,12 +1208,6 @@ c-product__variants li {
     box-shadow: 0 5px 10px 0 hsla(0, 0%, 71%, 0.2);
 }
 
-.c-checkout,
-.c-checkout-summary,
-.cart-empty,
-.icon-wrapper {
-    box-shadow: 0 12px 12px 0 hsla(0, 0%, 71%, 0.1);
-}
 
 .c-params__list {
     list-style: none;
@@ -1340,14 +1334,6 @@ c-product__variants li {
     transition: 0.3s all ease-out;
 }
 
-.btn-checked:not(.disabled):not(.is-inactive):not([disabled])::before,
-.btn-checkout:not(.disabled):not(.is-inactive):not([disabled])::before,
-.btn-notify-me:not(.disabled):not(.is-inactive):not([disabled])::before,
-.btn-order-traking:not(.disabled):not(.is-inactive):not([disabled])::before,
-.btn-payment:not(.disabled):not(.is-inactive):not([disabled])::before,
-.c-checkout-pack {
-    transition: all 0.3s ease-in-out;
-}
 
 .btn-add-comment span {
     font-size: 1em;
@@ -2248,9 +2234,7 @@ c-product__variants li {
     font-size: 1.3rem;
 }
 
-.c-checkout__tab--active:before {
-    background-color: #9b9a9a;
-}
+
 
 .c-checkout__tab--active:before,
 .c-checkout__tab--active .c-checkout__tab-counter {
@@ -2328,26 +2312,10 @@ c-product__variants li {
     z-index: 1;
 }
 
-@media (max-width: 500px) {
-    .c-checkout__to-shipping-sticky {
-        bottom: 65px;
-    }
-}
 
-.c-checkout__to-shipping-link {
-    padding: 12px 10px;
-    background-color: #ef394e;
-    border-radius: 5px;
-    min-width: 100px;
-    text-align: center;
-    font-weight: 400;
-    color: #fff;
-    font-size: 13px;
-    font-size: 1rem;
-    line-height: 1.571;
-    border: none;
-    cursor: pointer;
-}
+
+
+
 
 .c-checkout__to-shipping-price-report {
     padding-left: 8px;
@@ -5561,15 +5529,6 @@ h3.page-title {
     overflow-y: hidden;
 }
 
-.scrollTd {
-    overflow-x: scroll;
-    display: block;
-    white-space: nowrap;
-}
-
-td.scrollTd::-webkit-scrollbar {
-    height: 10px !important;
-}
 #map {
     width: 100%;
     height: 60vh;
@@ -6057,16 +6016,8 @@ label {
         margin: 0 !important;
         padding: 0 !important;
     }
-    .c-gallery,
-    .c-checkout__col--information,
-    .c-checkout__col--message {
-        display: block;
-    }
-    .c-checkout__price {
-        text-align: left;
-        padding-left: 25px;
-    }
-
+  
+   
     .c-comments__evaluation-negative,
     .c-comments__evaluation-positive,
     c-comments__evaluation > div {
@@ -6091,17 +6042,9 @@ label {
     .account-box .register {
         width: 350px;
     }
-    .c-checkout-order-summary__col {
-        flex-basis: 60%;
-        margin-bottom: 10px;
-    }
-    .c-checkout-details__title {
-        font-size: 1.4rem;
-    }
-    .c-table-suppliers__row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+   
+    
+  
     .c-table-suppliers__row > span {
         margin-right: 8px;
         margin-bottom: 14px;
@@ -7019,4 +6962,35 @@ span.content {
 
 .footerButton {
     width: 122px;
+}
+
+
+.totalEmteyaz-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding: 5px;
+}
+.totalEmteyaz-item {
+  background-color: #abd2ed;
+  padding: 5px;
+  margin:2px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+}
+
+
+.flex-container {
+  display: flex;
+  align-items: stretch;
+}
+
+.flex-container > div {
+  background-color: #abd2ed;
+  color: white;
+  margin: 4px;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 5px;
 }

@@ -177,24 +177,8 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
-                             </table> -->
-
-                             <table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    ...
-  </tbody>
-</table>
-
-
-                             <div class="grid-today rounded-2">
+                             </table>
+                            <div class="grid-today rounded-2">
                                 <div class="today-item"> <span style="color:red; font-weight:bold;">   کامنت اختصاصی: </span> <span id="unAlarmLastComment"></span>  </div>
                             </div>
                         </div>
@@ -223,7 +207,7 @@
                 <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header py-2 text-white" style="margin:0; border:none">
-                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
                             <h5 class="modal-title" id="exampleModalLongTitle"> انتقال مشتری از کاربر به کاربر  </h5>
                         </div>
                         <div class="modal-body pt-0">
@@ -271,7 +255,7 @@
                 <div class="modal-dialog modal-dialog-scrollable  modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header py-2 text-white" style="margin:0; border:none">
-                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close bg-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
                             <h5 class="modal-title" id="exampleModalLongTitle"> انتقال مشتری از کاربر به کاربر  </h5>
                         </div>
                         <div class="modal-body pt-0">
@@ -321,79 +305,33 @@
                         <h5 class="modal-title" id="exampleModalLabel"> داشبورد </h5>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 text-end">
-                                <Button class="btn btn-sm buttonHover crmButtonColor float-end  mx-2" id="openAddCommentModal" type="button" value="" name="" > کامنت <i class="fas fa-comment fa-lg"> </i> </Button>
-                                <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                                    <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
-                                    <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                    <Button class="btn btn-sm buttonHover crmButtonColor float-end" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
-                                </form>
-                            </div>
-                        </div><hr>
-                            <div class="row">
+                         <div class="row">
                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <div class="form-outline">
-                                                <label class="dashboardLabel form-label">کد</label>
-                                                <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
-                                            </div>
+                                        <div class="flex-container">
+                                            <div style="flex-grow: 1"> کد:  <span id="customerCode"></span> </div>
+                                            <div style="flex-grow: 1">  نام و نام خانوادگی : <span id="customerName"> </span>  </div>
+                                            <div style="flex-grow: 1"> تعداد فاکتور : <span id="countFactor"> </span>  </div>
+                                            <div style="flex-grow: 1"> شماره های تماس :  <span id="mobile1"> </span>  </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <div class="form-outline">
-                                                <label class="dashboardLabel form-label">نام و نام خانوادگی</label>
-                                                <input type="text" class="form-control form-control-sm noChange" id="customerName"  value="علی حسینی" >
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label class="dashboardLabel form-label"> تعداد فاکتور </label>
-                                                <input type="text" class="form-control form-control-sm noChange" id="countFactor">
-                                            </div>
+                                        <div class="flex-container">
+                                            <div style="flex-grow: 1">  نام کاربری: <span id="username"> </span>  </div>
+                                            <div style="flex-grow: 1"> رمز کاربری:   <span  id="password"> </span>  </div>
+                                            <div style="flex-grow: 2"> ادرس :   <span id="customerAddress"> </span>  </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label class="dashboardLabel form-label"> شماره های تماس </label>
-                                                <input class="form-control noChange" type="text" id="mobile1" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label class="dashboardLabel form-label">نام کاربری</label>
-                                                <input class="form-control noChange" type="text" id="username" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <div class="form-group">
-                                                <label class="dashboardLabel form-label">رمز کاربری</label>
-                                                <input class="form-control noChange" type="text" id="password" >
-                                            </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
+                                        <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                                            <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
+                                                <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                                                <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
+                                                <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                            </form>
+                                        <div class="mb-2"> <br> <br>
+                                            <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
+                                            <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12">
-                                            <div class="form-group">
-                                                <label class="dashboardLabel form-label"> آدرس </label>
-                                                <input type="text" class="form-control form-control-sm noChange" id="customerAddress" value="آدرس">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-4">
-                                    <div class="col-lg-4 col-md-4 col-sm-12">
-                                        <div class="mb-3" style="width:350px;">
-                                            <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت</label>
-                                            <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="6"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
@@ -648,16 +586,18 @@
                 </div>
                 <div class="modal-body" id="readCustomerComment">
                     <div class="container">
-					 <h4 style="padding:10px; border-bottom: 1px solid #dee2e6; text-align:center;">فاکتور فروش </h4>
-						<div class="grid-container">
-							<div class="item1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate">  </span> </div>
-							<div class="item2"> <b> مشتری  :  </b> <span id="customerNameFactor"> </span>    </div>
-							<div class="item3"> <b> آدرس  :  </b> <span id="customerAddressFactor1"> </span>   </div>
-							<div class="item4"><span> تلفن :</span>    <span id="customerPhoneFactor"> </span></div>
-							<div class="item5"><span> کاربر :  </span>   <span id="Admin"> </span></div>
-							<div class="item6"><span>  شماره فاکتور :</span>  <span id="factorSnFactor">  </span></div>
-						</div>
-					
+                       <div class="flex-container">
+                            <div style="flex-grow: 1"> <b>تاریخ فاکتور   :  </b> <span id="factorDate">  </span>   </div>
+                            <div style="flex-grow: 1"> <b> مشتری  :  </b> <span id="customerNameFactor"> </div>
+                            <div style="flex-grow: 1"> <b>  شماره فاکتور :</b>  <span id="factorSnFactor"> </span> </div>
+                            
+                        </div>
+                        <div class="flex-container">
+                            <div style="flex-grow: 1"> <b> تلفن :</b>    <span id="customerPhoneFactor"> </span>  </div>
+                            <div style="flex-grow: 1"> <b> کاربر :  </b>   <span id="Admin"> </span> </div>
+                            <div style="flex-grow: 1"> <b> آدرس  :  </b> <span id="customerAddressFactor1"> </span>  </div>
+                        </div>
+
                             <div class="row">
                                 <table id="strCusDataTable" class='table table-bordered table-striped table-sm' >
                                     <thead class="tableHeader">
@@ -667,7 +607,7 @@
                                         <th>تعداد/مقدار</th>
                                         <th>واحد کالا</th>
                                         <th>فی (تومان)</th>
-                                        <th>مبلغ (تومان)</th>
+                                        <th style="width:120px;">مبلغ (تومان)</th>
                                     </tr>
                                     </thead>
                                     <tbody class="tableBody" id="productList">

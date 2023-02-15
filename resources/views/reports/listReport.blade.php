@@ -521,81 +521,35 @@
                     <button type="button" class="btn-close btn-danger" style="background-color:red;" data-bs-dismiss="modal" aria-label="Close"></button>
                     <h5 class="modal-title" id="exampleModalLabel"> داشبورد </h5>
                 </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 text-end">
-                            <Button class="btn btn-sm buttonHover crmButtonColor float-end  mx-2" id="openAddCommentModal" type="button" value="" name="" > کامنت <i class="fas fa-comment fa-lg"> </i> </Button>
-                            <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
-                                <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
-                                <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
-                                <Button class="btn btn-sm buttonHover crmButtonColor float-end" type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
-                            </form>
-                        </div>
-                    </div><hr>
+                    <div class="modal-body">
                         <div class="row">
-                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-outline">
-                                            <label class="dashboardLabel form-label">کد</label>
-                                            <input type="text" class="form-control form-control-sm noChange" id="customerCode" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-outline">
-                                            <label class="dashboardLabel form-label">نام و نام خانوادگی</label>
-                                            <input type="text" class="form-control form-control-sm noChange" id="customerName"  value="علی حسینی" >
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label"> تعداد فاکتور </label>
-                                            <input type="text" class="form-control form-control-sm noChange" id="countFactor">
-                                        </div>
-                                    </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="flex-container">
+                                    <div style="flex-grow: 1"> کد:  <span id="customerCode"></span> </div>
+                                    <div style="flex-grow: 1">  نام و نام خانوادگی : <span id="customerName"> </span>  </div>
+                                    <div style="flex-grow: 1"> تعداد فاکتور : <span id="countFactor"> </span>  </div>
+                                    <div style="flex-grow: 1"> شماره های تماس :  <span id="mobile1"> </span>  </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label"> شماره های تماس </label>
-                                            <input class="form-control noChange" type="text" id="mobile1" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label">نام کاربری</label>
-                                            <input class="form-control noChange" type="text" id="username" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label">رمز کاربری</label>
-                                            <input class="form-control noChange" type="text" id="password" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12">
-                                        <div class="form-group">
-                                            <label class="dashboardLabel form-label"> آدرس </label>
-                                            <input type="text" class="form-control form-control-sm noChange" id="customerAddress" value="آدرس">
-                                        </div>
-                                    </div>
+                                <div class="flex-container">
+                                    <div style="flex-grow: 1">  نام کاربری: <span id="username"> </span>  </div>
+                                    <div style="flex-grow: 1"> رمز کاربری:   <span  id="password"> </span>  </div>
+                                    <div style="flex-grow: 2"> ادرس :   <span id="customerAddress"> </span>  </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
-                                <div class="col-lg-4 col-md-4 col-sm-12">
-                                    <div class="mb-3" style="width:350px;">
-                                        <label for="exampleFormControlTextarea1" class="form-label fw-bold">یاداشت</label>
-                                        <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="6"></textarea>
-                                    </div>
+                                <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
+                                <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                                    <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
+                                        <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
+                                        <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
+                                        <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                    </form>
+                                <div class="mb-2"> <br> <br>
+                                    <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
+                                    <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
                                 </div>
                             </div>
-                        </div>
+                    </div>
 
                     <div class="c-checkout container" style="background-color:#c5c5c5; padding:0.5% !important; border-radius:10px 10px 2px 2px;">
                         <div class="col-sm-12" style="margin: 0; padding:0;">
