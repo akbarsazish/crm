@@ -378,6 +378,7 @@ SELECT * FROM (
             $rdNotSentN;
         //==========================
         if($baseInfoN=="on"){
+            $baseInfoN = 1;
                     // پروفایل با سه تا عنصر اش چک میشوند
                     $baseInfoProfileN = $request->post("baseInfoProfileN");
 
@@ -404,6 +405,7 @@ SELECT * FROM (
             $infoRdN = $request->post("infoRdN");
 
                 if($infoRdN=="on"){
+                    $infoRdN = 1;
                     // وارد شده ها چک میگردد
                     $rdSentN = $request->post("rdSentN");
 
@@ -413,6 +415,7 @@ SELECT * FROM (
 
                             
                     if($rdSentN=="on"){
+                        $rdSentN=1;
                         if($deleteSentRdN=="on"){
                             $rdSentN=2;
                         }elseif($editSentRdN=="on" and $deleteSentRdN!="on"){
@@ -434,6 +437,7 @@ SELECT * FROM (
                     $seeRdNotSentN = $request->post("seeRdNotSentN");
 
                     if($rdNotSentN=="one"){
+                        $rdNotSentN=1;
                         if($deleteRdNotSentN=="on"){
                             $rdNotSentN=2;
                         }elseif($editRdNotSentN=="on" and $deleteRdNotSentN!="on"){
@@ -460,6 +464,7 @@ SELECT * FROM (
                 $seeSaleLineN = $request->post("seeSaleLineN");
 
                 if($specialSettingN=="on"){
+                    $specialSettingN=1;
                     if($deleteSaleLineN=="on"){
                         $specialSettingOpN=2;
                     }elseif($editSaleLineN=="on" and $deleteSaleLineN!="on"){
@@ -483,6 +488,7 @@ SELECT * FROM (
                 $editSettingAccessN = $request->post("editSettingAccessN");
                 $seeSettingAccessN = $request->post("seeSettingAccessN");
                 if($InfoSettingAccessN=="on"){
+                    $InfoSettingAccessN=1;
                     if($deleteSettingAccessN=="on"){
                     $InfoSettingAccessOpN=2;
                     }elseif($editSettingAccessN=="on" and $deleteSettingAccessN!="on"){
@@ -544,6 +550,7 @@ SELECT * FROM (
     // ==========================
         $declareElementN = $request->post("declareElementN");
         if($declareElementN=="on"){
+            $declareElementN = 1;
             $deletedeclareElementN = $request->post("deletedeclareElementN");
             $editdeclareElementN = $request->post("editdeclareElementN");
             $seedeclareElementN = $request->post("seedeclareElementN");
@@ -565,6 +572,7 @@ SELECT * FROM (
        // اگر عملیات آن بود 
         $oppN = $request->post("oppN");
         if($oppN=="on"){
+            $oppN = 1;
             //
             $oppManagerN;
             $oppHeadN;
@@ -602,6 +610,7 @@ SELECT * FROM (
                 $editManagerOppN = $request->post("editManagerOppN");
                 $seeManagerOppN = $request->post("seeManagerOppN");
                 if($oppManagerN=="on"){
+                    $oppManagerN = 1;
                     if($deleteManagerOppN=="on"){
                     $oppManagerN=2;
                     }elseif($editManagerOppN=="on" and $deleteManagerOppN!="on"){
@@ -621,6 +630,7 @@ SELECT * FROM (
                 $seeHeadOppN = $request->post("seeHeadOppN");
 
                 if($oppHeadN == "on"){
+                    $oppHeadN = 1;
                     if($deleteHeadOppN=="on"){
                     $oppHeadN=2;
                     }elseif($editHeadOppN=="on" and $deleteHeadOppN!="on"){
@@ -642,6 +652,7 @@ SELECT * FROM (
                 $seeBazaryabOppN = $request->post("seeBazaryabOppN");
 
                 if($oppBazaryabN=="on"){
+                    $oppBazaryabN = 1;
                     if($deleteBazaryabOppN=="on"){
                     $oppBazaryabN=2;
                     }elseif($editBazaryabOppN=="on" and $deleteBazaryabOppN!="on"){
@@ -668,6 +679,7 @@ SELECT * FROM (
                 $seeoppDriverServiceN = $request->post("seeoppDriverServiceN");
 
                 if($oppDriverServiceN=="on"){
+                    $oppDriverServiceN = 1;
                     if($deleteoppDriverServiceN=="on"){
                         $oppDriverServiceN=2;
                     }elseif($editoppDriverServiceN=="on" and $deleteoppDriverServiceN!="on"){
@@ -690,6 +702,7 @@ SELECT * FROM (
                 $seeoppBargiriN = $request->post("seeoppBargiriN");
 
                 if($oppBargiriN=="on"){
+                    $oppBargiriN = 1;
                     if($deleteoppBargiriN=="on"){
                     $oppBargiriN=2;
                     }elseif($editoppBargiriN=="on" and $deleteoppBargiriN!="on"){
@@ -715,6 +728,7 @@ SELECT * FROM (
                 $edittodayoppNazarsanjiN = $request->post("edittodayoppNazarsanjiN");
                 $seetodayoppNazarsanjiN = $request->post("seetodayoppNazarsanjiN");
                 if($todayoppNazarsanjiN=="on"){
+                    $todayoppNazarsanjiN = 1;
                     if($deletetodayoppNazarsanjiN=="on"){
                         $todayoppNazarsanjiN=2;
                     }elseif($edittodayoppNazarsanjiN=="on" and $deletetodayoppNazarsanjiN!="on"){
@@ -736,6 +750,7 @@ SELECT * FROM (
             $seepastoppNazarsanjiN = $request->post("seepastoppNazarsanjiN");
 
             if($pastoppNazarsanjiN=="on"){
+                $pastoppNazarsanjiN = 1;
                 if($deletepastoppNazarsanjiN=="on"){
                 $pastoppNazarsanjiN=2;
                 }elseif($editpastoppNazarsanjiN=="on" and $deletepastoppNazarsanjiN!="on"){
@@ -756,6 +771,7 @@ SELECT * FROM (
             $editDoneoppNazarsanjiN = $request->post("editDoneoppNazarsanjiN");
             $seeDoneoppNazarsanjiN = $request->post("seeDoneoppNazarsanjiN");
             if($DoneoppNazarsanjiN=="on"){
+                $DoneoppNazarsanjiN = 1;
                 if($deleteDoneoppNazarsanjiN=="on"){
                 $DoneoppNazarsanjiN=2;
                 }elseif($editDoneoppNazarsanjiN=="on" and $deleteDoneoppNazarsanjiN!="on"){
@@ -783,6 +799,7 @@ SELECT * FROM (
                 $seeAddOppupDownBonusN = $request->post("seeAddOppupDownBonusN");
 
                 if($AddOppupDownBonusN=="on"){
+                    $AddOppupDownBonusN = 1;
                     if($deleteAddOppupDownBonusN=="on"){
                     $AddOppupDownBonusN=2;
                     }elseif($editAddOppupDownBonusN=="on" and $deleteAddOppupDownBonusN!="on"){
@@ -804,6 +821,7 @@ SELECT * FROM (
                 $seeSubOppupDownBonusN = $request->post("seeSubOppupDownBonusN");
 
                 if($SubOppupDownBonusN=="on"){
+                     $SubOppupDownBonusN = 1;
                     if($deleteSubOppupDownBonusN=="on"){
                         $SubOppupDownBonusN=2;
                     }elseif($editSubOppupDownBonusN=="on" and $deleteSubOppupDownBonusN!="on"){
@@ -829,6 +847,7 @@ SELECT * FROM (
                     $seeAddedoppRDN = $request->post("seeAddedoppRDN");
 
                     if($AddedoppRDN=="on"){
+                        $AddedoppRDN = 1;
                         if($deleteAddedoppRDN=="on"){
                             $AddedoppRDN=2;
                         }elseif($editAddedoppRDN=="on" and $deleteAddedoppRDN!="on"){
@@ -849,6 +868,7 @@ SELECT * FROM (
                     $editNotAddedoppRDN = $request->post("editNotAddedoppRDN");
                     $seeNotAddedoppRDN = $request->post("seeNotAddedoppRDN");
                     if($NotAddedoppRDN=="on"){
+                        $NotAddedoppRDN = 1;
                         if($deleteNotAddedoppRDN=="on"){
                         $NotAddedoppRDN=2;
                         }elseif($editNotAddedoppRDN=="on" and $deleteNotAddedoppRDN!="on"){
@@ -879,6 +899,7 @@ SELECT * FROM (
                     $seeoppjustCalendarN = $request->post("seeoppjustCalendarN");
 
                     if($oppjustCalendarN=="on"){
+                        $oppjustCalendarN = 1;
                         if($deleteoppjustCalendarN=="on"){
                         $oppjustCalendarN=2;
                         }elseif($editoppjustCalendarN=="on" and $deleteoppjustCalendarN!="on"){
@@ -901,6 +922,7 @@ SELECT * FROM (
                 $seeoppCustCalendarN = $request->post("seeoppCustCalendarN");
 
                 if($oppCustCalendarN=="on"){
+                    $oppCustCalendarN = 1;
                     if($deleteoppCustCalendarN=="on"){
                     $oppCustCalendarN=2;
                     }elseif($editoppCustCalendarN=="on" and $deleteoppCustCalendarN!="on"){
@@ -924,6 +946,7 @@ SELECT * FROM (
               // اگر آلارمها آن بود 
               $alarmoppN = $request->post("alarmoppN");
                 if($alarmoppN=="on"){
+                    $alarmoppN = 1;
                     // آلارمها چک گردد
                     $allalarmoppN = $request->post("allalarmoppN");
 
@@ -932,6 +955,7 @@ SELECT * FROM (
                     $seeallalarmoppN = $request->post("seeallalarmoppN");
 
                     if($allalarmoppN=="on"){
+                        $allalarmoppN = 1;
                         if($deleteallalarmoppN=="on"){
                             $allalarmoppN=2;
                         }elseif($editallalarmoppN=="on" and $deleteallalarmoppN!="on"){
@@ -953,6 +977,7 @@ SELECT * FROM (
                     $seedonealarmoppN = $request->post("seedonealarmoppN");
 
                     if($donealarmoppN=="on"){
+                        $donealarmoppN = 1;
                         if($deletedonealarmoppN=="on"){
                         $donealarmoppN=2;
                         }elseif($editdonealarmoppN=="on" and $deletedonealarmoppN!="on"){
@@ -974,6 +999,7 @@ SELECT * FROM (
                     $seeNoalarmoppN = $request->post("seeNoalarmoppN");
 
                     if($NoalarmoppN=="on"){
+                        $NoalarmoppN = 1;
                     if($deleteNoalarmoppN=="on"){
                     $NoalarmoppN=2;
                     }elseif($editNoalarmoppN=="on" and $deleteNoalarmoppN!="on"){
@@ -1001,6 +1027,7 @@ SELECT * FROM (
                 $editmassageOppN = $request->post("editmassageOppN");
                 $seemassageOppN = $request->post("seemassageOppN");
                 if($massageTopOppN=="on"){
+                    $massageTopOppN = 1;
                     $massageOppN= 0;
                     if($deletemassageOppN=="on"){
                         $massageOppN=2;
@@ -1019,6 +1046,7 @@ SELECT * FROM (
              // بارگیری چک میگردد
              $justBargiriTopOppN = $request->post("justBargiriOppN");
                 if($justBargiriTopOppN=="on"){
+                    $justBargiriTopOppN = 1;
                     $deletejustBargiriOppN = $request->post("deletejustBargiriOppN");
                     $editjustBargiriOppN = $request->post("editjustBargiriOppN");
                     $seejustBargiriOppN = $request->post("seejustBargiriOppN");
@@ -1073,6 +1101,7 @@ SELECT * FROM (
         // اگر گزارشات آن بود 
         $reportN = $request->post("reportN");
         if($reportN =="on"){
+            $reportN = 1;
             // اگر عملکرد کاربران آن بود 
              $amalKardreportN = $request->post("amalKardreportN");
              if($amalKardreportN=="on"){
@@ -1197,6 +1226,7 @@ SELECT * FROM (
                 // اگر عملکرد مشتریان آن بود
                  $amalkardCustReportN = $request->post("amalkardCustReportN");
                  if($amalkardCustReportN=="on"){
+                    $amalkardCustReportN = 1;
                     // گزارش ورود چک گردد
                        $loginCustRepN = $request->post("loginCustRepN");
 
@@ -1280,13 +1310,14 @@ SELECT * FROM (
                 // اگر عملکرد کالا آن بود 
                  $goodsReportN = $request->post("goodsReportN");
                  if($goodsReportN=="on"){
+                    $goodsReportN = 1;
                     //گزارش فروش کالا چک گردد
                     $salegoodsReportN = $request->post("salegoodsReportN");
                     $deletesalegoodsReportN = $request->post("deletesalegoodsReportN");
                     $editsalegoodsReportN = $request->post("editsalegoodsReportN");
                     $seesalegoodsReportN = $request->post("seesalegoodsReportN");
 
-                    $salegoodsReportN= 0;
+                    $salegoodsReportN = 0;
                     if($deletesalegoodsReportN=="on"){
                         $salegoodsReportN=2;
                     }elseif($editsalegoodsReportN=="on" and $deletesalegoodsReportN!="on"){
@@ -1360,9 +1391,10 @@ SELECT * FROM (
             //    اگر گزارش برگشتی کالا آن بود 
             $returnedReportgoodsReportN = $request->post("returnedReportgoodsReportN");
                 if($returnedReportgoodsReportN=="on"){
+                    $returnedReportgoodsReportN = 1;
                     // تسویه نشده ها چک گردد
-                    $returnedNTasReportgoodsReportN = $request->post("returnedNTasReportgoodsReportN");
-                       $deletereturnedNTasReportgoodsReportN = $request->post("deletereturnedNTasReportgoodsReportN");
+                        $returnedNTasReportgoodsReportN = $request->post("returnedNTasReportgoodsReportN");
+                        $deletereturnedNTasReportgoodsReportN = $request->post("deletereturnedNTasReportgoodsReportN");
                         $editreturnedNTasReportgoodsReportN = $request->post("editreturnedNTasReportgoodsReportN");
                         $seereturnedNTasReportgoodsReportN = $request->post("seereturnedNTasReportgoodsReportN");
 
