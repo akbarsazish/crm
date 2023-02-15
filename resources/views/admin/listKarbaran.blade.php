@@ -254,6 +254,7 @@
                                         <div class="form-group">
                                             <label class="dashboardLabel form-label"> نوع کاربر </label>
                                             <select class="form-select form-select-sm" name="employeeType"  id="employeeType">
+                                                    <option value="0" > -- </option>
                                                     <option value="1" > مدیر </option>
                                                     <option value="2" > سرپرست </option>
                                                     <option value="3" > کارمند </option>
@@ -264,6 +265,7 @@
                                         <div class="form-group" style="display:none" id="employeeJobDiv">
                                             <label class="dashboardLabel form-label">وظیفه کارمند</label>
                                             <select class="form-select form-select-sm" name="poshtibanType" id="poshtibanType">
+                                                    <option value="0" >--</option>
                                                     <option value="4" >راننده</option>
                                                     <option value="2" >پشتیبان حضوری</option>
                                                     <option value="2" >پشتیبان هماهنگی</option>
@@ -1217,6 +1219,7 @@
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نوع کاربر </label>
                                         <select class="form-select form-select-sm" name="employeeType"  id="employeeTypeEdit">
+                                                <option value="0" id="managerEdit0" > -- </option>
                                                 <option value="1" id="managerEdit" > مدیر </option>
                                                 <option value="2" id="headEdit"> سرپرست </option>
                                                 <option value="3" id="employeeEdit"> کارمند </option>
@@ -1226,7 +1229,8 @@
                             <div class="col-md-2">
                                 <div class="form-group"  style="display:none" id="employeeJobDivEdit">
                                 <label class="dashboardLabel form-label">وظیفه کارمند</label>
-                                <select class="form-select form-select-sm" name="poshtibanType" >
+                                <select class="form-select form-select-sm" name="poshtibanType" id="poshtibanTypeEdit">
+                                        <option value="0" id="jobEdit0">--</option>
                                         <option value="4" id="jobEdit1">راننده</option>
                                         <option value="2" id="jobEdit2">پشتیبان حضوری</option>
                                         <option value="2" id="jobEdit3">پشتیبان هماهنگی</option>
@@ -1350,7 +1354,7 @@
                                                                         </div>
                                                                     </fieldset>
                                                                 <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
-                                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="rdNotSentED" id="rdNotSentN" class="rdED form-check-input d-inline-block"/> وارد نشده ها    &nbsp;</legend>
+                                                                        <legend  class="float-none w-auto fs-6"> <input type="checkbox" name="rdNotSentED" id="rdNotSentED" class="rdED form-check-input d-inline-block"/> وارد نشده ها    &nbsp;</legend>
                                                                         <div class="form-check">
                                                                             <input class="form-check-input box-check" id="deleteRdNotSentED" type="checkbox" name="deleteRdNotSentED">
                                                                             <label class="form-check-label">حذف</label>

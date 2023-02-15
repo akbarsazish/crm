@@ -13473,6 +13473,7 @@ $("#employeeType").on("change", function () {
 });
 
 $("#employeeTypeEdit").on("change", function () {
+    setAccessLevelEdit($("#employeeTypeEdit").val());
     if ($("#employeeTypeEdit").val() == 1) {
         $("#saleLineDivEdit").css("display", "inline");
         $("#headDivEdit").css("display", "none");
@@ -13498,6 +13499,1624 @@ $("#employeeTypeEdit").on("change", function () {
         $("#managerIdEdit").prop("selected", true);
     }
 });
+
+$("#poshtibanTypeEdit").on("change",function(){
+    setAccessLevelEmployeeEdit($("#poshtibanTypeEdit").val());
+});
+
+function setAccessLevelEdit(employeeType){
+    if(employeeType==1){
+        //گزارشات
+        $("#reportED").prop("checked",true);
+        $("#amalKardreportED").prop("checked",true);
+        $("#managerreportED").prop("checked",true);
+        $("#deletemanagerreportED").prop("checked",true);
+        $("#editmanagerreportED").prop("checked",true);
+        $("#seemanagerreportED").prop("checked",true);
+
+
+        $("#HeadreportED").prop("checked",true);
+        $("#deleteHeadreportED").prop("checked",true);
+        $("#editHeadreportED").prop("checked",true);
+        $("#seeHeadreportED").prop("checked",true);
+
+
+        $("#poshtibanreportED").prop("checked",true);
+        $("#deleteposhtibanreportED").prop("checked",true);
+        $("#editposhtibanreportED").prop("checked",true);
+        $("#seeposhtibanreportED").prop("checked",true);
+
+
+        $("#bazaryabreportED").prop("checked",true);
+        $("#deletebazaryabreportED").prop("checked",true);
+        $("#editbazaryabreportED").prop("checked",true);
+        $("#seebazaryabreportED").prop("checked",true);
+
+
+        $("#reportDriverED").prop("checked",true);
+        $("#deletereportDriverED").prop("checked",true);
+        $("#editreportDriverED").prop("checked",true);
+        $("#seereportDriverED").prop("checked",true);
+
+
+        $("#trazEmployeeReportED").prop("checked",true);
+        $("#deletetrazEmployeeReportED").prop("checked",true);
+        $("#edittrazEmployeeReportED").prop("checked",true);
+        $("#seetrazEmployeeReportED").prop("checked",true);
+
+
+        $("#amalkardCustReportED").prop("checked",true);
+        
+        $("#customerReportED").prop("checked",true);
+        $("#deletecustomerReportED").prop("checked",true);
+        $("#editcustomerReportED").prop("checked",true);
+        $("#seecustomerReportED").prop("checked",true);
+
+        $("#loginCustRepED").prop("checked",true);
+        $("#deleteloginCustRepED").prop("checked",true);
+        $("#editloginCustRepED").prop("checked",true);
+        $("#seeloginCustRepED").prop("checked",true);
+
+        $("#inActiveCustRepED").prop("checked",true);
+        $("#deleteinActiveCustRepED").prop("checked",true);
+        $("#editinActiveCustRepED").prop("checked",true);
+        $("#seeinActiveCustRepED").prop("checked",true);
+
+        $("#noAdminCustRepED").prop("checked",true);
+        $("#deletenoAdminCustRepED").prop("checked",true);
+        $("#editnoAdminCustRepED").prop("checked",true);
+        $("#seenoAdminCustRepED").prop("checked",true);
+
+        $("#returnedCustRepED").prop("checked",true);
+        $("#deletereturnedCustRepED").prop("checked",true);
+        $("#editreturnedCustRepED").prop("checked",true);
+        $("#seereturnedCustRepED").prop("checked",true);
+
+        $("#goodsReportED").prop("checked",true);
+        $("#salegoodsReportED").prop("checked",true);
+        $("#deletesalegoodsReportED").prop("checked",true);
+        $("#editsalegoodsReportED").prop("checked",true);
+        $("#seesalegoodsReportED").prop("checked",true);
+
+
+        $("#returnedgoodsReportED").prop("checked",true);
+        $("#deletereturnedgoodsReportED").prop("checked",true);
+        $("#editreturnedgoodsReportED").prop("checked",true);
+        $("#seereturnedgoodsReportED").prop("checked",true);
+        
+
+        $("#NoExistgoodsReportED").prop("checked",true);
+        $("#deleteNoExistgoodsReportED").prop("checked",true);
+        $("#editNoExistgoodsReportED").prop("checked",true);
+        $("#seeNoExistgoodsReportED").prop("checked",true);
+
+
+        $("#nosalegoodsReportED").prop("checked",true);
+        $("#deletenosalegoodsReportED").prop("checked",true);
+        $("#editnosalegoodsReportED").prop("checked",true);
+        $("#seenosalegoodsReportED").prop("checked",true);
+
+
+        $("#returnedReportgoodsReportED").prop("checked",true);
+        $("#returnedNTasReportgoodsReportED").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",true);
+        
+
+        $("#tasgoodsReprtED").prop("checked",true);
+        $("#deletetasgoodsReprtED").prop("checked",true);
+        $("#edittasgoodsReprtED").prop("checked",true);
+        $("#seetasgoodsReprtED").prop("checked",true);
+
+
+        $("#goodsbargiriReportED").prop("checked",true);
+        $("#deletegoodsbargiriReportED").prop("checked",true);
+        $("#editgoodsbargiriReportED").prop("checked",true);
+        $("#seegoodsbargiriReportED").prop("checked",true);
+        //عملیات
+        $("#oppED").prop("checked",true);
+        $("#oppTakhsisED").prop("checked",true);
+        $("#oppManagerED").prop("checked",true);
+        $("#deleteManagerOppED").prop("checked",true);
+        $("#editManagerOppED").prop("checked",true);
+        $("#seeManagerOppED").prop("checked",true);
+        
+        
+        $("#oppHeadED").prop("checked",true);
+        $("#deleteHeadOppED").prop("checked",true);
+        $("#editHeadOppED").prop("checked",true);
+        $("#seeHeadOppED").prop("checked",true);
+        
+        
+        $("#oppBazaryabED").prop("checked",true);
+        $("#deleteBazaryabOppED").prop("checked",true);
+        $("#editBazaryabOppED").prop("checked",true);
+        $("#seeBazaryabOppED").prop("checked",true);
+        
+        
+        $("#oppDriverED").prop("checked",true);
+        $("#oppDriverServiceED").prop("checked",true);
+        $("#deleteoppDriverServiceED").prop("checked",true);
+        $("#editoppDriverServiceED").prop("checked",true);
+        $("#seeoppDriverServiceED").prop("checked",true);
+        
+        
+        $("#oppBargiriED").prop("checked",true);
+        $("#deleteoppBargiriED").prop("checked",true);
+        $("#editoppBargiriED").prop("checked",true);
+        $("#seeoppBargiriED").prop("checked",true);
+        
+        $("#oppNazarSanjiED").prop("checked",true);
+        $("#todayoppNazarsanjiED").prop("checked",true);
+        $("#deletetodayoppNazarsanjiED").prop("checked",true);
+        $("#edittodayoppNazarsanjiED").prop("checked",true);
+        $("#seetodayoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiED").prop("checked",true);
+        $("#deletepastoppNazarsanjiED").prop("checked",true);
+        $("#editpastoppNazarsanjiED").prop("checked",true);
+        $("#seepastoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiED").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiED").prop("checked",true);
+        $("#editDoneoppNazarsanjiED").prop("checked",true);
+        $("#seeDoneoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#OppupDownBonusED").prop("checked",true);
+        $("#AddOppupDownBonusED").prop("checked",true);
+        $("#deleteAddOppupDownBonusED").prop("checked",true);
+        $("#editAddOppupDownBonusED").prop("checked",true);
+        $("#seeAddOppupDownBonusED").prop("checked",true);
+        
+        
+        $("#SubOppupDownBonusED").prop("checked",true);
+        $("#deleteSubOppupDownBonusED").prop("checked",true);
+        $("#editSubOppupDownBonusED").prop("checked",true);
+        $("#seeSubOppupDownBonusED").prop("checked",true);
+        
+        
+        $("#oppRDED").prop("checked",true);
+        $("#AddedoppRDED").prop("checked",true);
+        $("#deleteAddedoppRDED").prop("checked",true);
+        $("#editAddedoppRDED").prop("checked",true);
+        $("#seeAddedoppRDED").prop("checked",true);
+        
+        
+        $("#NotAddedoppRDED").prop("checked",true);
+        $("#deleteNotAddedoppRDED").prop("checked",true);
+        $("#editNotAddedoppRDED").prop("checked",true);
+        $("#seeNotAddedoppRDED").prop("checked",true);
+        
+        
+        $("#oppCalendarED").prop("checked",true);
+        $("#oppjustCalendarED").prop("checked",true);
+        $("#deleteoppjustCalendarED").prop("checked",true);
+        $("#editoppjustCalendarED").prop("checked",true);
+        $("#seeoppjustCalendarED").prop("checked",true);
+        
+        
+        $("#oppCustCalendarED").prop("checked",true);
+        $("#deleteoppCustCalendarED").prop("checked",true);
+        $("#editoppCustCalendarED").prop("checked",true);
+        $("#seeoppCustCalendarED").prop("checked",true);
+        
+        
+        $("#alarmoppED").prop("checked",true);
+        $("#allalarmoppED").prop("checked",true);
+        $("#deleteallalarmoppED").prop("checked",true);
+        $("#editallalarmoppED").prop("checked",true);
+        $("#seeallalarmoppED").prop("checked",true);
+        
+        
+        $("#donealarmoppED").prop("checked",true);
+        $("#deletedonealarmoppED").prop("checked",true);
+        $("#editdonealarmoppED").prop("checked",true);
+        $("#seedonealarmoppED").prop("checked",true);
+        
+        
+        $("#NoalarmoppED").prop("checked",true);
+        $("#deleteNoalarmoppED").prop("checked",true);
+        $("#editNoalarmoppED").prop("checked",true);
+        $("#seeNoalarmoppED").prop("checked",true);
+        
+        
+        $("#massageOppED").prop("checked",true);
+        $("#deletemassageOppED").prop("checked",true);
+        $("#editmassageOppED").prop("checked",true);
+        $("#seemassageOppED").prop("checked",true);
+        
+        
+        $("#justBargiriOppED").prop("checked",true);
+        $("#deletejustBargiriOppED").prop("checked",true);
+        $("#editjustBargiriOppED").prop("checked",true);
+        $("#seejustBargiriOppED").prop("checked",true); 
+        //تعریف عناصر
+        $("#declareElementED").prop("checked",true);
+        $("#editdeclareElementED").prop("checked",true);
+        $("#deletedeclareElementED").prop("checked",true);
+        $("#seedeclareElementED").prop("checked",true);
+        //اطلاعات پایه
+        $("#baseInfoED").prop("checked",true);
+        $("#rdSentED").prop("checked",true);
+        $("#infoRdED").prop("checked",true);
+        $("#deleteSentRdED").prop("checked",true);
+        $("#editSentRdED").prop("checked",true);
+        $("#seeSentRdED").prop("checked",true);
+
+        $("#rdNotSentED").prop("checked",true);
+        $("#deleteRdNotSentED").prop("checked",true);
+        $("#editRdNotSentED").prop("checked",true);
+        $("#seeRdNotSentED").prop("checked",true);
+
+        $("#deleteProfileED").prop("checked",true);
+        $("#editProfileED").prop("checked",true);
+        $("#seeProfileED").prop("checked",true);
+        $("#baseInfoProfileED").prop("checked",true);
+
+        $("#addSaleLineED").prop("checked",true);
+        $("#deleteSaleLineED").prop("checked",true);
+        $("#editSaleLineED").prop("checked",true);
+        $("#seeSaleLineED").prop("checked",true);
+
+        $("#baseInfoSettingED").prop("checked",true);
+        $("#InfoSettingAccessED").prop("checked",true);
+        $("#deleteSettingAccessED").prop("checked",true);
+        $("#editSettingAccessED").prop("checked",true);
+        $("#seeSettingAccessED").prop("checked",true);
+
+        $("#InfoSettingTargetED").prop("checked",true);
+        $("#deleteSettingTargetED").prop("checked",true);
+        $("#editSettingTargetED").prop("checked",true);
+        $("#seeSettingTargetED").prop("checked",true);
+    }else{if(employeeType==2){
+
+        $("#reportED").prop("checked",true);
+        $("#amalKardreportED").prop("checked",true);
+
+        $("#managerreportED").prop("checked",false);
+        $("#deletemanagerreportED").prop("checked",false);
+        $("#editmanagerreportED").prop("checked",false);
+        $("#seemanagerreportED").prop("checked",false);
+
+
+        $("#HeadreportED").prop("checked",false);
+        $("#deleteHeadreportED").prop("checked",false);
+        $("#editHeadreportED").prop("checked",false);
+        $("#seeHeadreportED").prop("checked",false);
+
+
+        $("#poshtibanreportED").prop("checked",true);
+        $("#deleteposhtibanreportED").prop("checked",true);
+        $("#editposhtibanreportED").prop("checked",true);
+        $("#seeposhtibanreportED").prop("checked",true);
+
+
+        $("#bazaryabreportED").prop("checked",true);
+        $("#deletebazaryabreportED").prop("checked",true);
+        $("#editbazaryabreportED").prop("checked",true);
+        $("#seebazaryabreportED").prop("checked",true);
+
+
+        $("#reportDriverED").prop("checked",true);
+        $("#deletereportDriverED").prop("checked",true);
+        $("#editreportDriverED").prop("checked",true);
+        $("#seereportDriverED").prop("checked",true);
+
+
+        $("#trazEmployeeReportED").prop("checked",true);
+        $("#deletetrazEmployeeReportED").prop("checked",true);
+        $("#edittrazEmployeeReportED").prop("checked",true);
+        $("#seetrazEmployeeReportED").prop("checked",true);
+
+        
+        $("#amalkardCustReportED").prop("checked",true);
+        
+        $("#customerReportED").prop("checked",true);
+        $("#deletecustomerReportED").prop("checked",true);
+        $("#editcustomerReportED").prop("checked",true);
+        $("#seecustomerReportED").prop("checked",true);
+
+        $("#loginCustRepED").prop("checked",true);
+        $("#deleteloginCustRepED").prop("checked",true);
+        $("#editloginCustRepED").prop("checked",true);
+        $("#seeloginCustRepED").prop("checked",true);
+
+        $("#inActiveCustRepED").prop("checked",true);
+        $("#deleteinActiveCustRepED").prop("checked",true);
+        $("#editinActiveCustRepED").prop("checked",true);
+        $("#seeinActiveCustRepED").prop("checked",true);
+
+        $("#noAdminCustRepED").prop("checked",true);
+        $("#deletenoAdminCustRepED").prop("checked",true);
+        $("#editnoAdminCustRepED").prop("checked",true);
+        $("#seenoAdminCustRepED").prop("checked",true);
+        
+        $("#returnedCustRepED").prop("checked",true);
+        $("#deletereturnedCustRepED").prop("checked",true);
+        $("#editreturnedCustRepED").prop("checked",true);
+        $("#seereturnedCustRepED").prop("checked",true);
+
+        $("#goodsReportED").prop("checked",true);
+        $("#salegoodsReportED").prop("checked",true);
+        $("#deletesalegoodsReportED").prop("checked",true);
+        $("#editsalegoodsReportED").prop("checked",true);
+        $("#seesalegoodsReportED").prop("checked",true);
+
+
+        $("#returnedgoodsReportED").prop("checked",true);
+        $("#deletereturnedgoodsReportED").prop("checked",true);
+        $("#editreturnedgoodsReportED").prop("checked",true);
+        $("#seereturnedgoodsReportED").prop("checked",true);
+
+
+        $("#NoExistgoodsReportED").prop("checked",true);
+        $("#deleteNoExistgoodsReportED").prop("checked",true);
+        $("#editNoExistgoodsReportED").prop("checked",true);
+        $("#seeNoExistgoodsReportED").prop("checked",true);
+
+
+        $("#nosalegoodsReportED").prop("checked",true);
+        $("#deletenosalegoodsReportED").prop("checked",true);
+        $("#editnosalegoodsReportED").prop("checked",true);
+        $("#seenosalegoodsReportED").prop("checked",true);
+        
+
+        $("#returnedReportgoodsReportED").prop("checked",true);
+        $("#returnedNTasReportgoodsReportED").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",true);
+
+        
+        $("#tasgoodsReprtED").prop("checked",true);
+        $("#deletetasgoodsReprtED").prop("checked",true);
+        $("#edittasgoodsReprtED").prop("checked",true);
+        $("#seetasgoodsReprtED").prop("checked",true);
+
+
+        $("#goodsbargiriReportED").prop("checked",true);
+        $("#deletegoodsbargiriReportED").prop("checked",true);
+        $("#editgoodsbargiriReportED").prop("checked",true);
+        $("#seegoodsbargiriReportED").prop("checked",true);
+        //عملیات
+        $("#oppED").prop("checked",true);
+        $("#oppTakhsisED").prop("checked",true);
+        $("#oppManagerED").prop("checked",false);
+        $("#deleteManagerOppED").prop("checked",false);
+        $("#editManagerOppED").prop("checked",false);
+        $("#seeManagerOppED").prop("checked",false);
+        
+        
+        $("#oppHeadED").prop("checked",false);
+        $("#deleteHeadOppED").prop("checked",false);
+        $("#editHeadOppED").prop("checked",false);
+        $("#seeHeadOppED").prop("checked",false);
+        
+        
+        $("#oppBazaryabED").prop("checked",true);
+        $("#deleteBazaryabOppED").prop("checked",true);
+        $("#editBazaryabOppED").prop("checked",true);
+        $("#seeBazaryabOppED").prop("checked",true);
+        
+        
+        $("#oppDriverED").prop("checked",true);
+        $("#oppDriverServiceED").prop("checked",true);
+        $("#deleteoppDriverServiceED").prop("checked",true);
+        $("#editoppDriverServiceED").prop("checked",true);
+        $("#seeoppDriverServiceED").prop("checked",true);
+        
+        
+        $("#oppBargiriED").prop("checked",false);
+        $("#deleteoppBargiriED").prop("checked",false);
+        $("#editoppBargiriED").prop("checked",false);
+        $("#seeoppBargiriED").prop("checked",false);
+        
+        $("#oppNazarSanjiED").prop("checked",true);
+        $("#todayoppNazarsanjiED").prop("checked",true);
+        $("#deletetodayoppNazarsanjiED").prop("checked",true);
+        $("#edittodayoppNazarsanjiED").prop("checked",true);
+        $("#seetodayoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiED").prop("checked",true);
+        $("#deletepastoppNazarsanjiED").prop("checked",true);
+        $("#editpastoppNazarsanjiED").prop("checked",true);
+        $("#seepastoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiED").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiED").prop("checked",true);
+        $("#editDoneoppNazarsanjiED").prop("checked",true);
+        $("#seeDoneoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#OppupDownBonusED").prop("checked",false);
+        $("#AddOppupDownBonusED").prop("checked",false);
+        $("#deleteAddOppupDownBonusED").prop("checked",false);
+        $("#editAddOppupDownBonusED").prop("checked",false);
+        $("#seeAddOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusED").prop("checked",false);
+        $("#deleteSubOppupDownBonusED").prop("checked",false);
+        $("#editSubOppupDownBonusED").prop("checked",false);
+        $("#seeSubOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#oppRDED").prop("checked",false);
+        $("#AddedoppRDED").prop("checked",false);
+        $("#deleteAddedoppRDED").prop("checked",false);
+        $("#editAddedoppRDED").prop("checked",false);
+        $("#seeAddedoppRDED").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDED").prop("checked",false);
+        $("#deleteNotAddedoppRDED").prop("checked",false);
+        $("#editNotAddedoppRDED").prop("checked",false);
+        $("#seeNotAddedoppRDED").prop("checked",false);
+        
+        
+        $("#oppCalendarED").prop("checked",true);
+        $("#oppjustCalendarED").prop("checked",false);
+        $("#deleteoppjustCalendarED").prop("checked",false);
+        $("#editoppjustCalendarED").prop("checked",false);
+        $("#seeoppjustCalendarED").prop("checked",false);
+        
+        
+        $("#oppCustCalendarED").prop("checked",true);
+        $("#deleteoppCustCalendarED").prop("checked",true);
+        $("#editoppCustCalendarED").prop("checked",true);
+        $("#seeoppCustCalendarED").prop("checked",true);
+        
+        
+        $("#alarmoppED").prop("checked",true);
+        $("#allalarmoppED").prop("checked",true);
+        $("#deleteallalarmoppED").prop("checked",true);
+        $("#editallalarmoppED").prop("checked",true);
+        $("#seeallalarmoppED").prop("checked",true);
+        
+        
+        $("#donealarmoppED").prop("checked",true);
+        $("#deletedonealarmoppED").prop("checked",true);
+        $("#editdonealarmoppED").prop("checked",true);
+        $("#seedonealarmoppED").prop("checked",true);
+        
+        
+        $("#NoalarmoppED").prop("checked",true);
+        $("#deleteNoalarmoppED").prop("checked",true);
+        $("#editNoalarmoppED").prop("checked",true);
+        $("#seeNoalarmoppED").prop("checked",true);
+        
+        
+        $("#massageOppED").prop("checked",true);
+        $("#deletemassageOppED").prop("checked",true);
+        $("#editmassageOppED").prop("checked",true);
+        $("#seemassageOppED").prop("checked",true);
+        
+        
+        $("#justBargiriOppED").prop("checked",false);
+        $("#deletejustBargiriOppED").prop("checked",false);
+        $("#editjustBargiriOppED").prop("checked",false);
+        $("#seejustBargiriOppED").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementED").prop("checked",false);
+        $("#editdeclareElementED").prop("checked",false);
+        $("#deletedeclareElementED").prop("checked",false);
+        $("#seedeclareElementED").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoED").prop("checked",true);
+        $("#rdSentED").prop("checked",false);
+        $("#infoRdED").prop("checked",false);
+        $("#deleteSentRdED").prop("checked",false);
+        $("#editSentRdED").prop("checked",false);
+        $("#seeSentRdED").prop("checked",false);
+
+        $("#rdNotSentED").prop("checked",false);
+        $("#deleteRdNotSentED").prop("checked",false);
+        $("#editRdNotSentED").prop("checked",false);
+        $("#seeRdNotSentED").prop("checked",false);
+
+        $("#deleteProfileED").prop("checked",true);
+        $("#editProfileED").prop("checked",true);
+        $("#seeProfileED").prop("checked",true);
+        $("#baseInfoProfileED").prop("checked",true);
+
+        $("#addSaleLineED").prop("checked",false);
+        $("#deleteSaleLineED").prop("checked",false);
+        $("#editSaleLineED").prop("checked",false);
+        $("#seeSaleLineED").prop("checked",false);
+
+        $("#baseInfoSettingED").prop("checked",false);
+        $("#InfoSettingAccessED").prop("checked",false);
+        $("#deleteSettingAccessED").prop("checked",false);
+        $("#editSettingAccessED").prop("checked",false);
+        $("#seeSettingAccessED").prop("checked",false);
+
+        $("#InfoSettingTargetED").prop("checked",false);
+        $("#deleteSettingTargetED").prop("checked",false);
+        $("#editSettingTargetED").prop("checked",false);
+        $("#seeSettingTargetED").prop("checked",false);
+    }else{
+        $("#reportED").prop("checked",false);
+        $("#amalKardreportED").prop("checked",false);
+        $("#managerreportED").prop("checked",false);
+        $("#deletemanagerreportED").prop("checked",false);
+        $("#editmanagerreportED").prop("checked",false);
+        $("#seemanagerreportED").prop("checked",false);
+
+
+        $("#HeadreportED").prop("checked",false);
+        $("#deleteHeadreportED").prop("checked",false);
+        $("#editHeadreportED").prop("checked",false);
+        $("#seeHeadreportED").prop("checked",false);
+
+
+        $("#poshtibanreportED").prop("checked",false);
+        $("#deleteposhtibanreportED").prop("checked",false);
+        $("#editposhtibanreportED").prop("checked",false);
+        $("#seeposhtibanreportED").prop("checked",false);
+
+
+        $("#bazaryabreportED").prop("checked",false);
+        $("#deletebazaryabreportED").prop("checked",false);
+        $("#editbazaryabreportED").prop("checked",false);
+        $("#seebazaryabreportED").prop("checked",false);
+
+
+        $("#reportDriverED").prop("checked",false);
+        $("#deletereportDriverED").prop("checked",false);
+        $("#editreportDriverED").prop("checked",false);
+        $("#seereportDriverED").prop("checked",false);
+
+
+        $("#trazEmployeeReportED").prop("checked",false);
+        $("#deletetrazEmployeeReportED").prop("checked",false);
+        $("#edittrazEmployeeReportED").prop("checked",false);
+        $("#seetrazEmployeeReportED").prop("checked",false);
+
+
+        $("#amalkardCustReportED").prop("checked",false);
+        
+        $("#customerReportED").prop("checked",false);
+        $("#deletecustomerReportED").prop("checked",false);
+        $("#editcustomerReportED").prop("checked",false);
+        $("#seecustomerReportED").prop("checked",false);
+
+        $("#loginCustRepED").prop("checked",false);
+        $("#deleteloginCustRepED").prop("checked",false);
+        $("#editloginCustRepED").prop("checked",false);
+        $("#seeloginCustRepED").prop("checked",false);
+
+        $("#inActiveCustRepED").prop("checked",false);
+        $("#deleteinActiveCustRepED").prop("checked",false);
+        $("#editinActiveCustRepED").prop("checked",false);
+        $("#seeinActiveCustRepED").prop("checked",false);
+
+        $("#noAdminCustRepED").prop("checked",false);
+        $("#deletenoAdminCustRepED").prop("checked",false);
+        $("#editnoAdminCustRepED").prop("checked",false);
+        $("#seenoAdminCustRepED").prop("checked",false);
+
+        $("#returnedCustRepED").prop("checked",false);
+        $("#deletereturnedCustRepED").prop("checked",false);
+        $("#editreturnedCustRepED").prop("checked",false);
+        $("#seereturnedCustRepED").prop("checked",false);
+        
+        $("#goodsReportED").prop("checked",false);
+        $("#salegoodsReportED").prop("checked",false);
+        $("#deletesalegoodsReportED").prop("checked",false);
+        $("#editsalegoodsReportED").prop("checked",false);
+        $("#seesalegoodsReportED").prop("checked",false);
+
+        
+        $("#returnedgoodsReportED").prop("checked",false);
+        $("#deletereturnedgoodsReportED").prop("checked",false);
+        $("#editreturnedgoodsReportED").prop("checked",false);
+        $("#seereturnedgoodsReportED").prop("checked",false);
+
+
+        $("#NoExistgoodsReportED").prop("checked",false);
+        $("#deleteNoExistgoodsReportED").prop("checked",false);
+        $("#editNoExistgoodsReportED").prop("checked",false);
+        $("#seeNoExistgoodsReportED").prop("checked",false);
+
+
+        $("#nosalegoodsReportED").prop("checked",false);
+        $("#deletenosalegoodsReportED").prop("checked",false);
+        $("#editnosalegoodsReportED").prop("checked",false);
+        $("#seenosalegoodsReportED").prop("checked",false);
+
+        $("#returnedReportgoodsReportED").prop("checked",false);
+        $("#returnedNTasReportgoodsReportED").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",false);
+
+
+        $("#tasgoodsReprtED").prop("checked",false);
+        $("#deletetasgoodsReprtED").prop("checked",false);
+        $("#edittasgoodsReprtED").prop("checked",false);
+        $("#seetasgoodsReprtED").prop("checked",false);
+
+
+        $("#goodsbargiriReportED").prop("checked",false);
+        $("#deletegoodsbargiriReportED").prop("checked",false);
+        $("#editgoodsbargiriReportED").prop("checked",false);
+        $("#seegoodsbargiriReportED").prop("checked",false);
+        //عملیات
+        $("#oppED").prop("checked",false);
+        $("#oppTakhsisED").prop("checked",false);
+        $("#oppManagerED").prop("checked",false);
+        $("#deleteManagerOppED").prop("checked",false);
+        $("#editManagerOppED").prop("checked",false);
+        $("#seeManagerOppED").prop("checked",false);
+        
+        
+        $("#oppHeadED").prop("checked",false);
+        $("#deleteHeadOppED").prop("checked",false);
+        $("#editHeadOppED").prop("checked",false);
+        $("#seeHeadOppED").prop("checked",false);
+        
+        
+        $("#oppBazaryabED").prop("checked",false);
+        $("#deleteBazaryabOppED").prop("checked",false);
+        $("#editBazaryabOppED").prop("checked",false);
+        $("#seeBazaryabOppED").prop("checked",false);
+        
+        
+        $("#oppDriverED").prop("checked",false);
+        $("#oppDriverServiceED").prop("checked",false);
+        $("#deleteoppDriverServiceED").prop("checked",false);
+        $("#editoppDriverServiceED").prop("checked",false);
+        $("#seeoppDriverServiceED").prop("checked",false);
+        
+        
+        $("#oppBargiriED").prop("checked",false);
+        $("#deleteoppBargiriED").prop("checked",false);
+        $("#editoppBargiriED").prop("checked",false);
+        $("#seeoppBargiriED").prop("checked",false);
+        
+        $("#oppNazarSanjiED").prop("checked",false);
+        $("#todayoppNazarsanjiED").prop("checked",false);
+        $("#deletetodayoppNazarsanjiED").prop("checked",false);
+        $("#edittodayoppNazarsanjiED").prop("checked",false);
+        $("#seetodayoppNazarsanjiED").prop("checked",false);
+        
+        
+        $("#pastoppNazarsanjiED").prop("checked",false);
+        $("#deletepastoppNazarsanjiED").prop("checked",false);
+        $("#editpastoppNazarsanjiED").prop("checked",false);
+        $("#seepastoppNazarsanjiED").prop("checked",false);
+        
+        
+        $("#DoneoppNazarsanjiED").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiED").prop("checked",false);
+        $("#editDoneoppNazarsanjiED").prop("checked",false);
+        $("#seeDoneoppNazarsanjiED").prop("checked",false);
+        
+        
+        $("#OppupDownBonusED").prop("checked",false);
+        $("#AddOppupDownBonusED").prop("checked",false);
+        $("#deleteAddOppupDownBonusED").prop("checked",false);
+        $("#editAddOppupDownBonusED").prop("checked",false);
+        $("#seeAddOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusED").prop("checked",false);
+        $("#deleteSubOppupDownBonusED").prop("checked",false);
+        $("#editSubOppupDownBonusED").prop("checked",false);
+        $("#seeSubOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#oppRDED").prop("checked",false);
+        $("#AddedoppRDED").prop("checked",false);
+        $("#deleteAddedoppRDED").prop("checked",false);
+        $("#editAddedoppRDED").prop("checked",false);
+        $("#seeAddedoppRDED").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDED").prop("checked",false);
+        $("#deleteNotAddedoppRDED").prop("checked",false);
+        $("#editNotAddedoppRDED").prop("checked",false);
+        $("#seeNotAddedoppRDED").prop("checked",false);
+        
+        
+        $("#oppCalendarED").prop("checked",false);
+        $("#oppjustCalendarED").prop("checked",false);
+        $("#deleteoppjustCalendarED").prop("checked",false);
+        $("#editoppjustCalendarED").prop("checked",false);
+        $("#seeoppjustCalendarED").prop("checked",false);
+        
+        
+        $("#oppCustCalendarED").prop("checked",false);
+        $("#deleteoppCustCalendarED").prop("checked",false);
+        $("#editoppCustCalendarED").prop("checked",false);
+        $("#seeoppCustCalendarED").prop("checked",false);
+        
+        
+        $("#alarmoppED").prop("checked",false);
+        $("#allalarmoppED").prop("checked",false);
+        $("#deleteallalarmoppED").prop("checked",false);
+        $("#editallalarmoppED").prop("checked",false);
+        $("#seeallalarmoppED").prop("checked",false);
+        
+        
+        $("#donealarmoppED").prop("checked",false);
+        $("#deletedonealarmoppED").prop("checked",false);
+        $("#editdonealarmoppED").prop("checked",false);
+        $("#seedonealarmoppED").prop("checked",false);
+        
+        
+        $("#NoalarmoppED").prop("checked",false);
+        $("#deleteNoalarmoppED").prop("checked",false);
+        $("#editNoalarmoppED").prop("checked",false);
+        $("#seeNoalarmoppED").prop("checked",false);
+        
+        
+        $("#massageOppED").prop("checked",false);
+        $("#deletemassageOppED").prop("checked",false);
+        $("#editmassageOppED").prop("checked",false);
+        $("#seemassageOppED").prop("checked",false);
+        
+        
+        $("#justBargiriOppED").prop("checked",false);
+        $("#deletejustBargiriOppED").prop("checked",false);
+        $("#editjustBargiriOppED").prop("checked",false);
+        $("#seejustBargiriOppED").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementED").prop("checked",false);
+        $("#editdeclareElementED").prop("checked",false);
+        $("#deletedeclareElementED").prop("checked",false);
+        $("#seedeclareElementED").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoED").prop("checked",false);
+        $("#rdSentED").prop("checked",false);
+        $("#infoRdED").prop("checked",false);
+        $("#deleteSentRdED").prop("checked",false);
+        $("#editSentRdED").prop("checked",false);
+        $("#seeSentRdED").prop("checked",false);
+
+        $("#rdNotSentED").prop("checked",false);
+        $("#deleteRdNotSentED").prop("checked",false);
+        $("#editRdNotSentED").prop("checked",false);
+        $("#seeRdNotSentED").prop("checked",false);
+
+        $("#deleteProfileED").prop("checked",false);
+        $("#editProfileED").prop("checked",false);
+        $("#seeProfileED").prop("checked",false);
+        $("#baseInfoProfileED").prop("checked",false);
+
+        $("#addSaleLineED").prop("checked",false);
+        $("#deleteSaleLineED").prop("checked",false);
+        $("#editSaleLineED").prop("checked",false);
+        $("#seeSaleLineED").prop("checked",false);
+
+        $("#baseInfoSettingED").prop("checked",false);
+        $("#InfoSettingAccessED").prop("checked",false);
+        $("#deleteSettingAccessED").prop("checked",false);
+        $("#editSettingAccessED").prop("checked",false);
+        $("#seeSettingAccessED").prop("checked",false);
+
+        $("#InfoSettingTargetED").prop("checked",false);
+        $("#deleteSettingTargetED").prop("checked",false);
+        $("#editSettingTargetED").prop("checked",false);
+        $("#seeSettingTargetED").prop("checked",false);
+            }
+        }
+}
+
+function setAccessLevelEmployeeEdit(employeeType){
+    if(employeeType==4){
+        //گزارشات
+        $("#reportED").prop("checked",false);
+        $("#amalKardreportED").prop("checked",false);
+
+        $("#managerreportED").prop("checked",false);
+        $("#deletemanagerreportED").prop("checked",false);
+        $("#editmanagerreportED").prop("checked",false);
+        $("#seemanagerreportED").prop("checked",false);
+
+
+        $("#HeadreportED").prop("checked",false);
+        $("#deleteHeadreportED").prop("checked",false);
+        $("#editHeadreportED").prop("checked",false);
+        $("#seeHeadreportED").prop("checked",false);
+
+
+        $("#poshtibanreportED").prop("checked",false);
+        $("#deleteposhtibanreportED").prop("checked",false);
+        $("#editposhtibanreportED").prop("checked",false);
+        $("#seeposhtibanreportED").prop("checked",false);
+
+
+        $("#bazaryabreportED").prop("checked",false);
+        $("#deletebazaryabreportED").prop("checked",false);
+        $("#editbazaryabreportED").prop("checked",false);
+        $("#seebazaryabreportED").prop("checked",false);
+
+
+        $("#reportDriverED").prop("checked",false);
+        $("#deletereportDriverED").prop("checked",false);
+        $("#editreportDriverED").prop("checked",false);
+        $("#seereportDriverED").prop("checked",false);
+
+
+        $("#trazEmployeeReportED").prop("checked",false);
+        $("#deletetrazEmployeeReportED").prop("checked",false);
+        $("#edittrazEmployeeReportED").prop("checked",false);
+        $("#seetrazEmployeeReportED").prop("checked",false);
+
+        
+        $("#amalkardCustReportED").prop("checked",false);
+        
+        $("#customerReportED").prop("checked",false);
+        $("#deletecustomerReportED").prop("checked",false);
+        $("#editcustomerReportED").prop("checked",false);
+        $("#seecustomerReportED").prop("checked",false);
+
+        $("#loginCustRepED").prop("checked",false);
+        $("#deleteloginCustRepED").prop("checked",false);
+        $("#editloginCustRepED").prop("checked",false);
+        $("#seeloginCustRepED").prop("checked",false);
+
+        $("#inActiveCustRepED").prop("checked",false);
+        $("#deleteinActiveCustRepED").prop("checked",false);
+        $("#editinActiveCustRepED").prop("checked",false);
+        $("#seeinActiveCustRepED").prop("checked",false);
+
+        $("#noAdminCustRepED").prop("checked",false);
+        $("#deletenoAdminCustRepED").prop("checked",false);
+        $("#editnoAdminCustRepED").prop("checked",false);
+        $("#seenoAdminCustRepED").prop("checked",false);
+        
+        $("#returnedCustRepED").prop("checked",false);
+        $("#deletereturnedCustRepED").prop("checked",false);
+        $("#editreturnedCustRepED").prop("checked",false);
+        $("#seereturnedCustRepED").prop("checked",false);
+
+        $("#goodsReportED").prop("checked",false);
+        $("#salegoodsReportED").prop("checked",false);
+        $("#deletesalegoodsReportED").prop("checked",false);
+        $("#editsalegoodsReportED").prop("checked",false);
+        $("#seesalegoodsReportED").prop("checked",false);
+
+
+        $("#returnedgoodsReportED").prop("checked",false);
+        $("#deletereturnedgoodsReportED").prop("checked",false);
+        $("#editreturnedgoodsReportED").prop("checked",false);
+        $("#seereturnedgoodsReportED").prop("checked",false);
+
+
+        $("#NoExistgoodsReportED").prop("checked",false);
+        $("#deleteNoExistgoodsReportED").prop("checked",false);
+        $("#editNoExistgoodsReportED").prop("checked",false);
+        $("#seeNoExistgoodsReportED").prop("checked",false);
+
+
+        $("#nosalegoodsReportED").prop("checked",false);
+        $("#deletenosalegoodsReportED").prop("checked",false);
+        $("#editnosalegoodsReportED").prop("checked",false);
+        $("#seenosalegoodsReportED").prop("checked",false);
+        
+
+        $("#returnedReportgoodsReportED").prop("checked",false);
+        $("#returnedNTasReportgoodsReportED").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",false);
+
+
+        $("#tasgoodsReprtED").prop("checked",false);
+        $("#deletetasgoodsReprtED").prop("checked",false);
+        $("#edittasgoodsReprtED").prop("checked",false);
+        $("#seetasgoodsReprtED").prop("checked",false);
+
+
+        $("#goodsbargiriReportED").prop("checked",false);
+        $("#deletegoodsbargiriReportED").prop("checked",false);
+        $("#editgoodsbargiriReportED").prop("checked",false);
+        $("#seegoodsbargiriReportED").prop("checked",false);
+        //عملیات
+        $("#oppED").prop("checked",true);
+        $("#oppTakhsisED").prop("checked",false);
+        $("#oppManagerED").prop("checked",false);
+        $("#deleteManagerOppED").prop("checked",false);
+        $("#editManagerOppED").prop("checked",false);
+        $("#seeManagerOppED").prop("checked",false);
+        
+        
+        $("#oppHeadED").prop("checked",false);
+        $("#deleteHeadOppED").prop("checked",false);
+        $("#editHeadOppED").prop("checked",false);
+        $("#seeHeadOppED").prop("checked",false);
+        
+        
+        $("#oppBazaryabED").prop("checked",false);
+        $("#deleteBazaryabOppED").prop("checked",false);
+        $("#editBazaryabOppED").prop("checked",false);
+        $("#seeBazaryabOppED").prop("checked",false);
+        
+        
+        $("#oppDriverED").prop("checked",false);
+        $("#oppDriverServiceED").prop("checked",false);
+        $("#deleteoppDriverServiceED").prop("checked",false);
+        $("#editoppDriverServiceED").prop("checked",false);
+        $("#seeoppDriverServiceED").prop("checked",false);
+        
+        
+        $("#oppBargiriED").prop("checked",false);
+        $("#deleteoppBargiriED").prop("checked",false);
+        $("#editoppBargiriED").prop("checked",false);
+        $("#seeoppBargiriED").prop("checked",false);
+        
+        $("#oppNazarSanjiED").prop("checked",false);
+        $("#todayoppNazarsanjiED").prop("checked",false);
+        $("#deletetodayoppNazarsanjiED").prop("checked",false);
+        $("#edittodayoppNazarsanjiED").prop("checked",false);
+        $("#seetodayoppNazarsanjiED").prop("checked",false);
+        
+        
+        $("#pastoppNazarsanjiED").prop("checked",false);
+        $("#deletepastoppNazarsanjiED").prop("checked",false);
+        $("#editpastoppNazarsanjiED").prop("checked",false);
+        $("#seepastoppNazarsanjiED").prop("checked",false);
+        
+        
+        $("#DoneoppNazarsanjiED").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiED").prop("checked",false);
+        $("#editDoneoppNazarsanjiED").prop("checked",false);
+        $("#seeDoneoppNazarsanjiED").prop("checked",false);
+        
+        
+        $("#OppupDownBonusED").prop("checked",false);
+        $("#AddOppupDownBonusED").prop("checked",false);
+        $("#deleteAddOppupDownBonusED").prop("checked",false);
+        $("#editAddOppupDownBonusED").prop("checked",false);
+        $("#seeAddOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusED").prop("checked",false);
+        $("#deleteSubOppupDownBonusED").prop("checked",false);
+        $("#editSubOppupDownBonusED").prop("checked",false);
+        $("#seeSubOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#oppRDED").prop("checked",false);
+        $("#AddedoppRDED").prop("checked",false);
+        $("#deleteAddedoppRDED").prop("checked",false);
+        $("#editAddedoppRDED").prop("checked",false);
+        $("#seeAddedoppRDED").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDED").prop("checked",false);
+        $("#deleteNotAddedoppRDED").prop("checked",false);
+        $("#editNotAddedoppRDED").prop("checked",false);
+        $("#seeNotAddedoppRDED").prop("checked",false);
+        
+        
+        $("#oppCalendarED").prop("checked",false);
+        $("#oppjustCalendarED").prop("checked",false);
+        $("#deleteoppjustCalendarED").prop("checked",false);
+        $("#editoppjustCalendarED").prop("checked",false);
+        $("#seeoppjustCalendarED").prop("checked",false);
+        
+        
+        $("#oppCustCalendarED").prop("checked",false);
+        $("#deleteoppCustCalendarED").prop("checked",false);
+        $("#editoppCustCalendarED").prop("checked",false);
+        $("#seeoppCustCalendarED").prop("checked",false);
+        
+        
+        $("#alarmoppED").prop("checked",false);
+        $("#allalarmoppED").prop("checked",false);
+        $("#deleteallalarmoppED").prop("checked",false);
+        $("#editallalarmoppED").prop("checked",false);
+        $("#seeallalarmoppED").prop("checked",false);
+        
+        
+        $("#donealarmoppED").prop("checked",false);
+        $("#deletedonealarmoppED").prop("checked",false);
+        $("#editdonealarmoppED").prop("checked",false);
+        $("#seedonealarmoppED").prop("checked",false);
+        
+        
+        $("#NoalarmoppED").prop("checked",false);
+        $("#deleteNoalarmoppED").prop("checked",false);
+        $("#editNoalarmoppED").prop("checked",false);
+        $("#seeNoalarmoppED").prop("checked",false);
+        
+        
+        $("#massageOppED").prop("checked",true);
+        $("#deletemassageOppED").prop("checked",true);
+        $("#editmassageOppED").prop("checked",true);
+        $("#seemassageOppED").prop("checked",true);
+        
+        
+        $("#justBargiriOppED").prop("checked",true);
+        $("#deletejustBargiriOppED").prop("checked",true);
+        $("#editjustBargiriOppED").prop("checked",true);
+        $("#seejustBargiriOppED").prop("checked",true); 
+        //تعریف عناصر
+        $("#declareElementED").prop("checked",false);
+        $("#editdeclareElementED").prop("checked",false);
+        $("#deletedeclareElementED").prop("checked",false);
+        $("#seedeclareElementED").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoED").prop("checked",true);
+        $("#rdSentED").prop("checked",false);
+        $("#infoRdED").prop("checked",false);
+        $("#deleteSentRdED").prop("checked",false);
+        $("#editSentRdED").prop("checked",false);
+        $("#seeSentRdED").prop("checked",false);
+
+        $("#rdNotSentED").prop("checked",false);
+        $("#deleteRdNotSentED").prop("checked",false);
+        $("#editRdNotSentED").prop("checked",false);
+        $("#seeRdNotSentED").prop("checked",false);
+
+        $("#deleteProfileED").prop("checked",true);
+        $("#editProfileED").prop("checked",true);
+        $("#seeProfileED").prop("checked",true);
+        $("#baseInfoProfileED").prop("checked",true);
+
+        $("#addSaleLineED").prop("checked",false);
+        $("#deleteSaleLineED").prop("checked",false);
+        $("#editSaleLineED").prop("checked",false);
+        $("#seeSaleLineED").prop("checked",false);
+
+        $("#baseInfoSettingED").prop("checked",false);
+        $("#InfoSettingAccessED").prop("checked",false);
+        $("#deleteSettingAccessED").prop("checked",false);
+        $("#editSettingAccessED").prop("checked",false);
+        $("#seeSettingAccessED").prop("checked",false);
+
+        $("#InfoSettingTargetED").prop("checked",false);
+        $("#deleteSettingTargetED").prop("checked",false);
+        $("#editSettingTargetED").prop("checked",false);
+        $("#seeSettingTargetED").prop("checked",false);
+    }else{if(employeeType==2){
+
+        $("#reportED").prop("checked",true);
+        $("#amalKardreportED").prop("checked",false);
+
+        $("#managerreportED").prop("checked",false);
+        $("#deletemanagerreportED").prop("checked",false);
+        $("#editmanagerreportED").prop("checked",false);
+        $("#seemanagerreportED").prop("checked",false);
+
+
+        $("#HeadreportED").prop("checked",false);
+        $("#deleteHeadreportED").prop("checked",false);
+        $("#editHeadreportED").prop("checked",false);
+        $("#seeHeadreportED").prop("checked",false);
+
+
+        $("#poshtibanreportED").prop("checked",false);
+        $("#deleteposhtibanreportED").prop("checked",false);
+        $("#editposhtibanreportED").prop("checked",false);
+        $("#seeposhtibanreportED").prop("checked",false);
+
+
+        $("#bazaryabreportED").prop("checked",false);
+        $("#deletebazaryabreportED").prop("checked",false);
+        $("#editbazaryabreportED").prop("checked",false);
+        $("#seebazaryabreportED").prop("checked",false);
+
+
+        $("#reportDriverED").prop("checked",false);
+        $("#deletereportDriverED").prop("checked",false);
+        $("#editreportDriverED").prop("checked",false);
+        $("#seereportDriverED").prop("checked",false);
+
+
+        $("#trazEmployeeReportED").prop("checked",false);
+        $("#deletetrazEmployeeReportED").prop("checked",false);
+        $("#edittrazEmployeeReportED").prop("checked",false);
+        $("#seetrazEmployeeReportED").prop("checked",false);
+
+        
+        $("#amalkardCustReportED").prop("checked",true);
+        
+        $("#customerReportED").prop("checked",true);
+        $("#deletecustomerReportED").prop("checked",true);
+        $("#editcustomerReportED").prop("checked",true);
+        $("#seecustomerReportED").prop("checked",true);
+
+        $("#loginCustRepED").prop("checked",true);
+        $("#deleteloginCustRepED").prop("checked",true);
+        $("#editloginCustRepED").prop("checked",true);
+        $("#seeloginCustRepED").prop("checked",true);
+
+        $("#inActiveCustRepED").prop("checked",true);
+        $("#deleteinActiveCustRepED").prop("checked",true);
+        $("#editinActiveCustRepED").prop("checked",true);
+        $("#seeinActiveCustRepED").prop("checked",true);
+
+        $("#noAdminCustRepED").prop("checked",true);
+        $("#deletenoAdminCustRepED").prop("checked",true);
+        $("#editnoAdminCustRepED").prop("checked",true);
+        $("#seenoAdminCustRepED").prop("checked",true);
+        
+        $("#returnedCustRepED").prop("checked",false);
+        $("#deletereturnedCustRepED").prop("checked",false);
+        $("#editreturnedCustRepED").prop("checked",false);
+        $("#seereturnedCustRepED").prop("checked",false);
+
+        $("#goodsReportED").prop("checked",true);
+        $("#salegoodsReportED").prop("checked",true);
+        $("#deletesalegoodsReportED").prop("checked",true);
+        $("#editsalegoodsReportED").prop("checked",true);
+        $("#seesalegoodsReportED").prop("checked",true);
+
+
+        $("#returnedgoodsReportED").prop("checked",true);
+        $("#deletereturnedgoodsReportED").prop("checked",true);
+        $("#editreturnedgoodsReportED").prop("checked",true);
+        $("#seereturnedgoodsReportED").prop("checked",true);
+
+
+        $("#NoExistgoodsReportED").prop("checked",true);
+        $("#deleteNoExistgoodsReportED").prop("checked",true);
+        $("#editNoExistgoodsReportED").prop("checked",true);
+        $("#seeNoExistgoodsReportED").prop("checked",true);
+
+
+        $("#nosalegoodsReportED").prop("checked",true);
+        $("#deletenosalegoodsReportED").prop("checked",true);
+        $("#editnosalegoodsReportED").prop("checked",true);
+        $("#seenosalegoodsReportED").prop("checked",true);
+        
+
+        $("#returnedReportgoodsReportED").prop("checked",true);
+        $("#returnedNTasReportgoodsReportED").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",true);
+
+
+        $("#tasgoodsReprtED").prop("checked",true);
+        $("#deletetasgoodsReprtED").prop("checked",true);
+        $("#edittasgoodsReprtED").prop("checked",true);
+        $("#seetasgoodsReprtED").prop("checked",true);
+
+
+        $("#goodsbargiriReportED").prop("checked",false);
+        $("#deletegoodsbargiriReportED").prop("checked",false);
+        $("#editgoodsbargiriReportED").prop("checked",false);
+        $("#seegoodsbargiriReportED").prop("checked",false);
+        //عملیات
+        $("#oppED").prop("checked",true);
+        $("#oppTakhsisED").prop("checked",false);
+        $("#oppManagerED").prop("checked",false);
+        $("#deleteManagerOppED").prop("checked",false);
+        $("#editManagerOppED").prop("checked",false);
+        $("#seeManagerOppED").prop("checked",false);
+        
+        
+        $("#oppHeadED").prop("checked",false);
+        $("#deleteHeadOppED").prop("checked",false);
+        $("#editHeadOppED").prop("checked",false);
+        $("#seeHeadOppED").prop("checked",false);
+        
+        
+        $("#oppBazaryabED").prop("checked",false);
+        $("#deleteBazaryabOppED").prop("checked",false);
+        $("#editBazaryabOppED").prop("checked",false);
+        $("#seeBazaryabOppED").prop("checked",false);
+        
+        
+        $("#oppDriverED").prop("checked",false);
+        $("#oppDriverServiceED").prop("checked",false);
+        $("#deleteoppDriverServiceED").prop("checked",false);
+        $("#editoppDriverServiceED").prop("checked",false);
+        $("#seeoppDriverServiceED").prop("checked",false);
+        
+        
+        $("#oppBargiriED").prop("checked",false);
+        $("#deleteoppBargiriED").prop("checked",false);
+        $("#editoppBargiriED").prop("checked",false);
+        $("#seeoppBargiriED").prop("checked",false);
+        
+        $("#oppNazarSanjiED").prop("checked",true);
+        $("#todayoppNazarsanjiED").prop("checked",true);
+        $("#deletetodayoppNazarsanjiED").prop("checked",true);
+        $("#edittodayoppNazarsanjiED").prop("checked",true);
+        $("#seetodayoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiED").prop("checked",true);
+        $("#deletepastoppNazarsanjiED").prop("checked",true);
+        $("#editpastoppNazarsanjiED").prop("checked",true);
+        $("#seepastoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiED").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiED").prop("checked",true);
+        $("#editDoneoppNazarsanjiED").prop("checked",true);
+        $("#seeDoneoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#OppupDownBonusED").prop("checked",false);
+        $("#AddOppupDownBonusED").prop("checked",false);
+        $("#deleteAddOppupDownBonusED").prop("checked",false);
+        $("#editAddOppupDownBonusED").prop("checked",false);
+        $("#seeAddOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusED").prop("checked",false);
+        $("#deleteSubOppupDownBonusED").prop("checked",false);
+        $("#editSubOppupDownBonusED").prop("checked",false);
+        $("#seeSubOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#oppRDED").prop("checked",false);
+        $("#AddedoppRDED").prop("checked",false);
+        $("#deleteAddedoppRDED").prop("checked",false);
+        $("#editAddedoppRDED").prop("checked",false);
+        $("#seeAddedoppRDED").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDED").prop("checked",false);
+        $("#deleteNotAddedoppRDED").prop("checked",false);
+        $("#editNotAddedoppRDED").prop("checked",false);
+        $("#seeNotAddedoppRDED").prop("checked",false);
+        
+        
+        $("#oppCalendarED").prop("checked",true);
+        $("#oppjustCalendarED").prop("checked",true);
+        $("#deleteoppjustCalendarED").prop("checked",true);
+        $("#editoppjustCalendarED").prop("checked",true);
+        $("#seeoppjustCalendarED").prop("checked",true);
+        
+        
+        $("#oppCustCalendarED").prop("checked",true);
+        $("#deleteoppCustCalendarED").prop("checked",true);
+        $("#editoppCustCalendarED").prop("checked",true);
+        $("#seeoppCustCalendarED").prop("checked",true);
+        
+        
+        $("#alarmoppED").prop("checked",true);
+        $("#allalarmoppED").prop("checked",true);
+        $("#deleteallalarmoppED").prop("checked",true);
+        $("#editallalarmoppED").prop("checked",true);
+        $("#seeallalarmoppED").prop("checked",true);
+        
+        
+        $("#donealarmoppED").prop("checked",true);
+        $("#deletedonealarmoppED").prop("checked",true);
+        $("#editdonealarmoppED").prop("checked",true);
+        $("#seedonealarmoppED").prop("checked",true);
+        
+        
+        $("#NoalarmoppED").prop("checked",true);
+        $("#deleteNoalarmoppED").prop("checked",true);
+        $("#editNoalarmoppED").prop("checked",true);
+        $("#seeNoalarmoppED").prop("checked",true);
+        
+        
+        $("#massageOppED").prop("checked",true);
+        $("#deletemassageOppED").prop("checked",true);
+        $("#editmassageOppED").prop("checked",true);
+        $("#seemassageOppED").prop("checked",true);
+        
+        
+        $("#justBargiriOppED").prop("checked",false);
+        $("#deletejustBargiriOppED").prop("checked",false);
+        $("#editjustBargiriOppED").prop("checked",false);
+        $("#seejustBargiriOppED").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementED").prop("checked",false);
+        $("#editdeclareElementED").prop("checked",false);
+        $("#deletedeclareElementED").prop("checked",false);
+        $("#seedeclareElementED").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoED").prop("checked",true);
+        $("#rdSentED").prop("checked",false);
+        $("#infoRdED").prop("checked",false);
+        $("#deleteSentRdED").prop("checked",false);
+        $("#editSentRdED").prop("checked",false);
+        $("#seeSentRdED").prop("checked",false);
+
+        $("#rdNotSentED").prop("checked",false);
+        $("#deleteRdNotSentED").prop("checked",false);
+        $("#editRdNotSentED").prop("checked",false);
+        $("#seeRdNotSentED").prop("checked",false);
+
+        $("#deleteProfileED").prop("checked",true);
+        $("#editProfileED").prop("checked",true);
+        $("#seeProfileED").prop("checked",true);
+        $("#baseInfoProfileED").prop("checked",true);
+
+        $("#addSaleLineED").prop("checked",false);
+        $("#deleteSaleLineED").prop("checked",false);
+        $("#editSaleLineED").prop("checked",false);
+        $("#seeSaleLineED").prop("checked",false);
+
+        $("#baseInfoSettingED").prop("checked",false);
+        $("#InfoSettingAccessED").prop("checked",false);
+        $("#deleteSettingAccessED").prop("checked",false);
+        $("#editSettingAccessED").prop("checked",false);
+        $("#seeSettingAccessED").prop("checked",false);
+
+        $("#InfoSettingTargetED").prop("checked",false);
+        $("#deleteSettingTargetED").prop("checked",false);
+        $("#editSettingTargetED").prop("checked",false);
+        $("#seeSettingTargetED").prop("checked",false);
+    }else{ if(employeeType==3){
+        $("#reportED").prop("checked",true);
+        $("#amalKardreportED").prop("checked",false);
+
+        $("#managerreportED").prop("checked",false);
+        $("#deletemanagerreportED").prop("checked",false);
+        $("#editmanagerreportED").prop("checked",false);
+        $("#seemanagerreportED").prop("checked",false);
+
+
+        $("#HeadreportED").prop("checked",false);
+        $("#deleteHeadreportED").prop("checked",false);
+        $("#editHeadreportED").prop("checked",false);
+        $("#seeHeadreportED").prop("checked",false);
+
+
+        $("#poshtibanreportED").prop("checked",false);
+        $("#deleteposhtibanreportED").prop("checked",false);
+        $("#editposhtibanreportED").prop("checked",false);
+        $("#seeposhtibanreportED").prop("checked",false);
+
+
+        $("#bazaryabreportED").prop("checked",false);
+        $("#deletebazaryabreportED").prop("checked",false);
+        $("#editbazaryabreportED").prop("checked",false);
+        $("#seebazaryabreportED").prop("checked",false);
+
+
+        $("#reportDriverED").prop("checked",false);
+        $("#deletereportDriverED").prop("checked",false);
+        $("#editreportDriverED").prop("checked",false);
+        $("#seereportDriverED").prop("checked",false);
+
+
+        $("#trazEmployeeReportED").prop("checked",false);
+        $("#deletetrazEmployeeReportED").prop("checked",false);
+        $("#edittrazEmployeeReportED").prop("checked",false);
+        $("#seetrazEmployeeReportED").prop("checked",false);
+
+        
+        $("#amalkardCustReportED").prop("checked",true);
+        
+        $("#customerReportED").prop("checked",true);
+        $("#deletecustomerReportED").prop("checked",true);
+        $("#editcustomerReportED").prop("checked",true);
+        $("#seecustomerReportED").prop("checked",true);
+
+        $("#loginCustRepED").prop("checked",true);
+        $("#deleteloginCustRepED").prop("checked",true);
+        $("#editloginCustRepED").prop("checked",true);
+        $("#seeloginCustRepED").prop("checked",true);
+
+        $("#inActiveCustRepED").prop("checked",true);
+        $("#deleteinActiveCustRepED").prop("checked",true);
+        $("#editinActiveCustRepED").prop("checked",true);
+        $("#seeinActiveCustRepED").prop("checked",true);
+
+        $("#noAdminCustRepED").prop("checked",true);
+        $("#deletenoAdminCustRepED").prop("checked",true);
+        $("#editnoAdminCustRepED").prop("checked",true);
+        $("#seenoAdminCustRepED").prop("checked",true);
+        
+        $("#returnedCustRepED").prop("checked",false);
+        $("#deletereturnedCustRepED").prop("checked",false);
+        $("#editreturnedCustRepED").prop("checked",false);
+        $("#seereturnedCustRepED").prop("checked",false);
+
+        $("#goodsReportED").prop("checked",true);
+        $("#salegoodsReportED").prop("checked",true);
+        $("#deletesalegoodsReportED").prop("checked",true);
+        $("#editsalegoodsReportED").prop("checked",true);
+        $("#seesalegoodsReportED").prop("checked",true);
+
+        
+        $("#returnedgoodsReportED").prop("checked",true);
+        $("#deletereturnedgoodsReportED").prop("checked",true);
+        $("#editreturnedgoodsReportED").prop("checked",true);
+        $("#seereturnedgoodsReportED").prop("checked",true);
+
+
+        $("#NoExistgoodsReportED").prop("checked",true);
+        $("#deleteNoExistgoodsReportED").prop("checked",true);
+        $("#editNoExistgoodsReportED").prop("checked",true);
+        $("#seeNoExistgoodsReportED").prop("checked",true);
+
+
+        $("#nosalegoodsReportED").prop("checked",true);
+        $("#deletenosalegoodsReportED").prop("checked",true);
+        $("#editnosalegoodsReportED").prop("checked",true);
+        $("#seenosalegoodsReportED").prop("checked",true);
+        
+
+        $("#returnedReportgoodsReportED").prop("checked",true);
+        $("#returnedNTasReportgoodsReportED").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",true);
+
+
+        $("#tasgoodsReprtED").prop("checked",true);
+        $("#deletetasgoodsReprtED").prop("checked",true);
+        $("#edittasgoodsReprtED").prop("checked",true);
+        $("#seetasgoodsReprtED").prop("checked",true);
+
+
+        $("#goodsbargiriReportED").prop("checked",false);
+        $("#deletegoodsbargiriReportED").prop("checked",false);
+        $("#editgoodsbargiriReportED").prop("checked",false);
+        $("#seegoodsbargiriReportED").prop("checked",false);
+        //عملیات
+        $("#oppED").prop("checked",true);
+        $("#oppTakhsisED").prop("checked",false);
+        $("#oppManagerED").prop("checked",false);
+        $("#deleteManagerOppED").prop("checked",false);
+        $("#editManagerOppED").prop("checked",false);
+        $("#seeManagerOppED").prop("checked",false);
+        
+        
+        $("#oppHeadED").prop("checked",false);
+        $("#deleteHeadOppED").prop("checked",false);
+        $("#editHeadOppED").prop("checked",false);
+        $("#seeHeadOppED").prop("checked",false);
+        
+        
+        $("#oppBazaryabED").prop("checked",false);
+        $("#deleteBazaryabOppED").prop("checked",false);
+        $("#editBazaryabOppED").prop("checked",false);
+        $("#seeBazaryabOppED").prop("checked",false);
+        
+        
+        $("#oppDriverED").prop("checked",false);
+        $("#oppDriverServiceED").prop("checked",false);
+        $("#deleteoppDriverServiceED").prop("checked",false);
+        $("#editoppDriverServiceED").prop("checked",false);
+        $("#seeoppDriverServiceED").prop("checked",false);
+        
+        
+        $("#oppBargiriED").prop("checked",false);
+        $("#deleteoppBargiriED").prop("checked",false);
+        $("#editoppBargiriED").prop("checked",false);
+        $("#seeoppBargiriED").prop("checked",false);
+        
+        $("#oppNazarSanjiED").prop("checked",true);
+        $("#todayoppNazarsanjiED").prop("checked",true);
+        $("#deletetodayoppNazarsanjiED").prop("checked",true);
+        $("#edittodayoppNazarsanjiED").prop("checked",true);
+        $("#seetodayoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiED").prop("checked",true);
+        $("#deletepastoppNazarsanjiED").prop("checked",true);
+        $("#editpastoppNazarsanjiED").prop("checked",true);
+        $("#seepastoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiED").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiED").prop("checked",true);
+        $("#editDoneoppNazarsanjiED").prop("checked",true);
+        $("#seeDoneoppNazarsanjiED").prop("checked",true);
+        
+        
+        $("#OppupDownBonusED").prop("checked",false);
+        $("#AddOppupDownBonusED").prop("checked",false);
+        $("#deleteAddOppupDownBonusED").prop("checked",false);
+        $("#editAddOppupDownBonusED").prop("checked",false);
+        $("#seeAddOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusED").prop("checked",false);
+        $("#deleteSubOppupDownBonusED").prop("checked",false);
+        $("#editSubOppupDownBonusED").prop("checked",false);
+        $("#seeSubOppupDownBonusED").prop("checked",false);
+        
+        
+        $("#oppRDED").prop("checked",false);
+        $("#AddedoppRDED").prop("checked",false);
+        $("#deleteAddedoppRDED").prop("checked",false);
+        $("#editAddedoppRDED").prop("checked",false);
+        $("#seeAddedoppRDED").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDED").prop("checked",false);
+        $("#deleteNotAddedoppRDED").prop("checked",false);
+        $("#editNotAddedoppRDED").prop("checked",false);
+        $("#seeNotAddedoppRDED").prop("checked",false);
+        
+        
+        $("#oppCalendarED").prop("checked",true);
+        $("#oppjustCalendarED").prop("checked",true);
+        $("#deleteoppjustCalendarED").prop("checked",true);
+        $("#editoppjustCalendarED").prop("checked",true);
+        $("#seeoppjustCalendarED").prop("checked",true);
+        
+        
+        $("#oppCustCalendarED").prop("checked",true);
+        $("#deleteoppCustCalendarED").prop("checked",true);
+        $("#editoppCustCalendarED").prop("checked",true);
+        $("#seeoppCustCalendarED").prop("checked",true);
+        
+        
+        $("#alarmoppED").prop("checked",true);
+        $("#allalarmoppED").prop("checked",true);
+        $("#deleteallalarmoppED").prop("checked",true);
+        $("#editallalarmoppED").prop("checked",true);
+        $("#seeallalarmoppED").prop("checked",true);
+        
+        
+        $("#donealarmoppED").prop("checked",true);
+        $("#deletedonealarmoppED").prop("checked",true);
+        $("#editdonealarmoppED").prop("checked",true);
+        $("#seedonealarmoppED").prop("checked",true);
+        
+        
+        $("#NoalarmoppED").prop("checked",true);
+        $("#deleteNoalarmoppED").prop("checked",true);
+        $("#editNoalarmoppED").prop("checked",true);
+        $("#seeNoalarmoppED").prop("checked",true);
+        
+        
+        $("#massageOppED").prop("checked",true);
+        $("#deletemassageOppED").prop("checked",true);
+        $("#editmassageOppED").prop("checked",true);
+        $("#seemassageOppED").prop("checked",true);
+        
+        
+        $("#justBargiriOppED").prop("checked",false);
+        $("#deletejustBargiriOppED").prop("checked",false);
+        $("#editjustBargiriOppED").prop("checked",false);
+        $("#seejustBargiriOppED").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementED").prop("checked",false);
+        $("#editdeclareElementED").prop("checked",false);
+        $("#deletedeclareElementED").prop("checked",false);
+        $("#seedeclareElementED").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoED").prop("checked",true);
+        $("#rdSentED").prop("checked",false);
+        $("#infoRdED").prop("checked",false);
+        $("#deleteSentRdED").prop("checked",false);
+        $("#editSentRdED").prop("checked",false);
+        $("#seeSentRdED").prop("checked",false);
+
+        $("#rdNotSentED").prop("checked",false);
+        $("#deleteRdNotSentED").prop("checked",false);
+        $("#editRdNotSentED").prop("checked",false);
+        $("#seeRdNotSentED").prop("checked",false);
+
+        $("#deleteProfileED").prop("checked",true);
+        $("#editProfileED").prop("checked",true);
+        $("#seeProfileED").prop("checked",true);
+        $("#baseInfoProfileED").prop("checked",true);
+
+        $("#addSaleLineED").prop("checked",false);
+        $("#deleteSaleLineED").prop("checked",false);
+        $("#editSaleLineED").prop("checked",false);
+        $("#seeSaleLineED").prop("checked",false);
+
+        $("#baseInfoSettingED").prop("checked",false);
+        $("#InfoSettingAccessED").prop("checked",false);
+        $("#deleteSettingAccessED").prop("checked",false);
+        $("#editSettingAccessED").prop("checked",false);
+        $("#seeSettingAccessED").prop("checked",false);
+
+        $("#InfoSettingTargetED").prop("checked",false);
+        $("#deleteSettingTargetED").prop("checked",false);
+        $("#editSettingTargetED").prop("checked",false);
+        $("#seeSettingTargetED").prop("checked",false);
+    }
+    }
+    }
+}
 
 // R an D script
 
