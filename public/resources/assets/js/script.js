@@ -13302,7 +13302,7 @@ $("#allCustomerReportRadio").on("change", () => {
     $("#allCustomerStaff").css("display", "inline");
     $("#customerActionTable").css("display", "inline");
     $(".inActiveBtn").css("display", "none");
-    $(".customerDashboarBtn ").css("display", "inline");
+    $(".customerDashboarBtn").css("display", "inline");
     $("#inActiveTools").css("display", "none");
     $("#inActiveCustomerTable").css("display", "none");
     $(".referencialTools").css("display", "none");
@@ -13323,7 +13323,7 @@ $("#customerLoginReportRadio").on("change", () => {
     $("#allCustomerStaff").css("display", "none");
     $("#customerActionTable").css("display", "none");
     $(".inActiveBtn").css("display", "none");
-    $(".customerDashboarBtn ").css("display", "none");
+    $(".customerDashboarBtn").css("display", "none");
     $("#inActiveTools").css("display", "none");
     $("#inActiveCustomerTable").css("display", "none");
     $(".referencialTools").css("display", "none");
@@ -13452,6 +13452,7 @@ $("#employeeType").on("change", function () {
         $("#headDiv").css("display", "none");
         $("#managerDiv").css("display", "none");
         $("#employeeJobDiv").css("display", "none");
+        setAccessLevel($("#employeeType").val());
     }
 
     if ($("#employeeType").val() == 2) {
@@ -13459,6 +13460,7 @@ $("#employeeType").on("change", function () {
         $("#saleLineDive").css("display", "none");
         $("#headDiv").css("display", "none");
         $("#employeeJobDiv").css("display", "none");
+        setAccessLevel($("#employeeType").val());
     }
 
     if ($("#employeeType").val() == 3) {
@@ -13466,6 +13468,7 @@ $("#employeeType").on("change", function () {
         $("#employeeJobDiv").css("display", "inline");
         $("#saleLineDive").css("display", "none");
         $("#managerDiv").css("display", "none");
+        setAccessLevel($("#employeeType").val());
     }
 });
 
@@ -15120,6 +15123,1625 @@ $("#customerListRadioBtn").on("change", ()=>{
     $("#year").css("display", "none")
 })
 
+$("#poshtibanType").on("change",()=>{
+    setEmployeeAccessLevel($("#poshtibanType").val());
+});
+
+function setEmployeeAccessLevel(employeeType){
+    if(employeeType==4){
+        //گزارشات
+        $("#reportN").prop("checked",false);
+        $("#amalKardreportN").prop("checked",false);
+
+        $("#managerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#seemanagerreportN").prop("checked",false);
+
+
+        $("#HeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+
+
+        $("#poshtibanreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#seeposhtibanreportN").prop("checked",false);
+
+
+        $("#bazaryabreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#seebazaryabreportN").prop("checked",false);
+
+
+        $("#reportDriverN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+        $("#seereportDriverN").prop("checked",false);
+
+
+        $("#trazEmployeeReportN").prop("checked",false);
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
+        $("#seetrazEmployeeReportN").prop("checked",false);
+
+        
+        $("#amalkardCustReportN").prop("checked",false);
+        
+        $("#customerReportN").prop("checked",false);
+        $("#deletecustomerReportN").prop("checked",false);
+        $("#editcustomerReportN").prop("checked",false);
+        $("#seecustomerReportN").prop("checked",false);
+
+        $("#loginCustRepN").prop("checked",false);
+        $("#deleteloginCustRepN").prop("checked",false);
+        $("#editloginCustRepN").prop("checked",false);
+        $("#seeloginCustRepN").prop("checked",false);
+
+        $("#inActiveCustRepN").prop("checked",false);
+        $("#deleteinActiveCustRepN").prop("checked",false);
+        $("#editinActiveCustRepN").prop("checked",false);
+        $("#seeinActiveCustRepN").prop("checked",false);
+
+        $("#noAdminCustRepN").prop("checked",false);
+        $("#deletenoAdminCustRepN").prop("checked",false);
+        $("#editnoAdminCustRepN").prop("checked",false);
+        $("#seenoAdminCustRepN").prop("checked",false);
+        
+        $("#returnedCustRepN").prop("checked",false);
+        $("#deletereturnedCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
+        $("#seereturnedCustRepN").prop("checked",false);
+
+        $("#goodsReportN").prop("checked",false);
+        $("#salegoodsReportN").prop("checked",false);
+        $("#deletesalegoodsReportN").prop("checked",false);
+        $("#editsalegoodsReportN").prop("checked",false);
+        $("#seesalegoodsReportN").prop("checked",false);
+
+
+        $("#returnedgoodsReportN").prop("checked",false);
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
+        $("#seereturnedgoodsReportN").prop("checked",false);
+
+
+        $("#NoExistgoodsReportN").prop("checked",false);
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
+        $("#seeNoExistgoodsReportN").prop("checked",false);
+
+
+        $("#nosalegoodsReportN").prop("checked",false);
+        $("#deletenosalegoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
+        $("#seenosalegoodsReportN").prop("checked",false);
+        
+
+        $("#returnedReportgoodsReportN").prop("checked",false);
+        $("#returnedNTasReportgoodsReportN").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
+
+
+        $("#tasgoodsReprtN").prop("checked",false);
+        $("#deletetasgoodsReprtN").prop("checked",false);
+        $("#edittasgoodsReprtN").prop("checked",false);
+        $("#seetasgoodsReprtN").prop("checked",false);
+
+
+        $("#goodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#seegoodsbargiriReportN").prop("checked",false);
+        //عملیات
+        $("#oppN").prop("checked",false);
+        $("#oppTakhsisN").prop("checked",false);
+        $("#oppManagerN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        
+        
+        $("#oppHeadN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+        
+        
+        $("#oppBazaryabN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#seeBazaryabOppN").prop("checked",false);
+        
+        
+        $("#oppDriverN").prop("checked",false);
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#seeoppDriverServiceN").prop("checked",false);
+        
+        
+        $("#oppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+        
+        $("#oppNazarSanjiN").prop("checked",false);
+        $("#todayoppNazarsanjiN").prop("checked",false);
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
+        $("#edittodayoppNazarsanjiN").prop("checked",false);
+        $("#seetodayoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",false);
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
+        $("#editpastoppNazarsanjiN").prop("checked",false);
+        $("#seepastoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
+        $("#editDoneoppNazarsanjiN").prop("checked",false);
+        $("#seeDoneoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#OppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#oppRDN").prop("checked",false);
+        $("#AddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#seeAddedoppRDN").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+        
+        
+        $("#oppCalendarN").prop("checked",false);
+        $("#oppjustCalendarN").prop("checked",false);
+        $("#deleteoppjustCalendarN").prop("checked",false);
+        $("#editoppjustCalendarN").prop("checked",false);
+        $("#seeoppjustCalendarN").prop("checked",false);
+        
+        
+        $("#oppCustCalendarN").prop("checked",false);
+        $("#deleteoppCustCalendarN").prop("checked",false);
+        $("#editoppCustCalendarN").prop("checked",false);
+        $("#seeoppCustCalendarN").prop("checked",false);
+        
+        
+        $("#alarmoppN").prop("checked",false);
+        $("#allalarmoppN").prop("checked",false);
+        $("#deleteallalarmoppN").prop("checked",false);
+        $("#editallalarmoppN").prop("checked",false);
+        $("#seeallalarmoppN").prop("checked",false);
+        
+        
+        $("#donealarmoppN").prop("checked",false);
+        $("#deletedonealarmoppN").prop("checked",false);
+        $("#editdonealarmoppN").prop("checked",false);
+        $("#seedonealarmoppN").prop("checked",false);
+        
+        
+        $("#NoalarmoppN").prop("checked",false);
+        $("#deleteNoalarmoppN").prop("checked",false);
+        $("#editNoalarmoppN").prop("checked",false);
+        $("#seeNoalarmoppN").prop("checked",false);
+        
+        
+        $("#massageOppN").prop("checked",true);
+        $("#deletemassageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#seemassageOppN").prop("checked",true);
+        
+        
+        $("#justBargiriOppN").prop("checked",true);
+        $("#deletejustBargiriOppN").prop("checked",true);
+        $("#editjustBargiriOppN").prop("checked",true);
+        $("#seejustBargiriOppN").prop("checked",true); 
+        //تعریف عناصر
+        $("#declareElementN").prop("checked",false);
+        $("#editdeclareElementN").prop("checked",false);
+        $("#deletedeclareElementN").prop("checked",false);
+        $("#seedeclareElementN").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoN").prop("checked",true);
+        $("#rdSentN").prop("checked",false);
+        $("#infoRdN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+
+        $("#addSaleLineN").prop("checked",false);
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+
+        $("#baseInfoSettingN").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
+
+        $("#InfoSettingTargetN").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+    }else{if(employeeType==2){
+
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+
+        $("#managerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#seemanagerreportN").prop("checked",false);
+
+
+        $("#HeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+
+
+        $("#poshtibanreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#seeposhtibanreportN").prop("checked",false);
+
+
+        $("#bazaryabreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#seebazaryabreportN").prop("checked",false);
+
+
+        $("#reportDriverN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+        $("#seereportDriverN").prop("checked",false);
+
+
+        $("#trazEmployeeReportN").prop("checked",false);
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
+        $("#seetrazEmployeeReportN").prop("checked",false);
+
+        
+        $("#amalkardCustReportN").prop("checked",true);
+        
+        $("#customerReportN").prop("checked",true);
+        $("#deletecustomerReportN").prop("checked",true);
+        $("#editcustomerReportN").prop("checked",true);
+        $("#seecustomerReportN").prop("checked",true);
+
+        $("#loginCustRepN").prop("checked",true);
+        $("#deleteloginCustRepN").prop("checked",true);
+        $("#editloginCustRepN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#deleteinActiveCustRepN").prop("checked",true);
+        $("#editinActiveCustRepN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#deletenoAdminCustRepN").prop("checked",true);
+        $("#editnoAdminCustRepN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+        
+        $("#returnedCustRepN").prop("checked",false);
+        $("#deletereturnedCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
+        $("#seereturnedCustRepN").prop("checked",false);
+
+        $("#goodsReportN").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#deletesalegoodsReportN").prop("checked",true);
+        $("#editsalegoodsReportN").prop("checked",true);
+        $("#seesalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#deletereturnedgoodsReportN").prop("checked",true);
+        $("#editreturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+
+
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#deleteNoExistgoodsReportN").prop("checked",true);
+        $("#editNoExistgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+
+
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#deletenosalegoodsReportN").prop("checked",true);
+        $("#editnosalegoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+        
+
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+
+
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#deletetasgoodsReprtN").prop("checked",true);
+        $("#edittasgoodsReprtN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+
+
+        $("#goodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#seegoodsbargiriReportN").prop("checked",false);
+        //عملیات
+        $("#oppN").prop("checked",false);
+        $("#oppTakhsisN").prop("checked",false);
+        $("#oppManagerN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        
+        
+        $("#oppHeadN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+        
+        
+        $("#oppBazaryabN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#seeBazaryabOppN").prop("checked",false);
+        
+        
+        $("#oppDriverN").prop("checked",false);
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#seeoppDriverServiceN").prop("checked",false);
+        
+        
+        $("#oppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+        
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#deletetodayoppNazarsanjiN").prop("checked",true);
+        $("#edittodayoppNazarsanjiN").prop("checked",true);
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#deletepastoppNazarsanjiN").prop("checked",true);
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",true);
+        $("#editDoneoppNazarsanjiN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#OppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#oppRDN").prop("checked",false);
+        $("#AddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#seeAddedoppRDN").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+        
+        
+        $("#oppCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#deleteoppjustCalendarN").prop("checked",true);
+        $("#editoppjustCalendarN").prop("checked",true);
+        $("#seeoppjustCalendarN").prop("checked",true);
+        
+        
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#deleteoppCustCalendarN").prop("checked",true);
+        $("#editoppCustCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+        
+        
+        $("#alarmoppN").prop("checked",true);
+        $("#allalarmoppN").prop("checked",true);
+        $("#deleteallalarmoppN").prop("checked",true);
+        $("#editallalarmoppN").prop("checked",true);
+        $("#seeallalarmoppN").prop("checked",true);
+        
+        
+        $("#donealarmoppN").prop("checked",true);
+        $("#deletedonealarmoppN").prop("checked",true);
+        $("#editdonealarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+        
+        
+        $("#NoalarmoppN").prop("checked",true);
+        $("#deleteNoalarmoppN").prop("checked",true);
+        $("#editNoalarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+        
+        
+        $("#massageOppN").prop("checked",true);
+        $("#deletemassageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#seemassageOppN").prop("checked",true);
+        
+        
+        $("#justBargiriOppN").prop("checked",false);
+        $("#deletejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
+        $("#seejustBargiriOppN").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementN").prop("checked",false);
+        $("#editdeclareElementN").prop("checked",false);
+        $("#deletedeclareElementN").prop("checked",false);
+        $("#seedeclareElementN").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoN").prop("checked",true);
+        $("#rdSentN").prop("checked",false);
+        $("#infoRdN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+
+        $("#addSaleLineN").prop("checked",false);
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+
+        $("#baseInfoSettingN").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
+
+        $("#InfoSettingTargetN").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+    }else{ if(employeeType==3){
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+
+        $("#managerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#seemanagerreportN").prop("checked",false);
+
+
+        $("#HeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+
+
+        $("#poshtibanreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#seeposhtibanreportN").prop("checked",false);
+
+
+        $("#bazaryabreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#seebazaryabreportN").prop("checked",false);
+
+
+        $("#reportDriverN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+        $("#seereportDriverN").prop("checked",false);
+
+
+        $("#trazEmployeeReportN").prop("checked",false);
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
+        $("#seetrazEmployeeReportN").prop("checked",false);
+
+        
+        $("#amalkardCustReportN").prop("checked",true);
+        
+        $("#customerReportN").prop("checked",true);
+        $("#deletecustomerReportN").prop("checked",true);
+        $("#editcustomerReportN").prop("checked",true);
+        $("#seecustomerReportN").prop("checked",true);
+
+        $("#loginCustRepN").prop("checked",true);
+        $("#deleteloginCustRepN").prop("checked",true);
+        $("#editloginCustRepN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#deleteinActiveCustRepN").prop("checked",true);
+        $("#editinActiveCustRepN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#deletenoAdminCustRepN").prop("checked",true);
+        $("#editnoAdminCustRepN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+        
+        $("#returnedCustRepN").prop("checked",false);
+        $("#deletereturnedCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
+        $("#seereturnedCustRepN").prop("checked",false);
+
+        $("#goodsReportN").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#deletesalegoodsReportN").prop("checked",true);
+        $("#editsalegoodsReportN").prop("checked",true);
+        $("#seesalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#deletereturnedgoodsReportN").prop("checked",true);
+        $("#editreturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+
+
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#deleteNoExistgoodsReportN").prop("checked",true);
+        $("#editNoExistgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+
+
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#deletenosalegoodsReportN").prop("checked",true);
+        $("#editnosalegoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+        
+
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+
+
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#deletetasgoodsReprtN").prop("checked",true);
+        $("#edittasgoodsReprtN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+
+
+        $("#goodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#seegoodsbargiriReportN").prop("checked",false);
+        //عملیات
+        $("#oppN").prop("checked",false);
+        $("#oppTakhsisN").prop("checked",false);
+        $("#oppManagerN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        
+        
+        $("#oppHeadN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+        
+        
+        $("#oppBazaryabN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#seeBazaryabOppN").prop("checked",false);
+        
+        
+        $("#oppDriverN").prop("checked",false);
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#seeoppDriverServiceN").prop("checked",false);
+        
+        
+        $("#oppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+        
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#deletetodayoppNazarsanjiN").prop("checked",true);
+        $("#edittodayoppNazarsanjiN").prop("checked",true);
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#deletepastoppNazarsanjiN").prop("checked",true);
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",true);
+        $("#editDoneoppNazarsanjiN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#OppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#oppRDN").prop("checked",false);
+        $("#AddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#seeAddedoppRDN").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+        
+        
+        $("#oppCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#deleteoppjustCalendarN").prop("checked",true);
+        $("#editoppjustCalendarN").prop("checked",true);
+        $("#seeoppjustCalendarN").prop("checked",true);
+        
+        
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#deleteoppCustCalendarN").prop("checked",true);
+        $("#editoppCustCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+        
+        
+        $("#alarmoppN").prop("checked",true);
+        $("#allalarmoppN").prop("checked",true);
+        $("#deleteallalarmoppN").prop("checked",true);
+        $("#editallalarmoppN").prop("checked",true);
+        $("#seeallalarmoppN").prop("checked",true);
+        
+        
+        $("#donealarmoppN").prop("checked",true);
+        $("#deletedonealarmoppN").prop("checked",true);
+        $("#editdonealarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+        
+        
+        $("#NoalarmoppN").prop("checked",true);
+        $("#deleteNoalarmoppN").prop("checked",true);
+        $("#editNoalarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+        
+        
+        $("#massageOppN").prop("checked",true);
+        $("#deletemassageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#seemassageOppN").prop("checked",true);
+        
+        
+        $("#justBargiriOppN").prop("checked",false);
+        $("#deletejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
+        $("#seejustBargiriOppN").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementN").prop("checked",false);
+        $("#editdeclareElementN").prop("checked",false);
+        $("#deletedeclareElementN").prop("checked",false);
+        $("#seedeclareElementN").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoN").prop("checked",true);
+        $("#rdSentN").prop("checked",false);
+        $("#infoRdN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+
+        $("#addSaleLineN").prop("checked",false);
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+
+        $("#baseInfoSettingN").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
+
+        $("#InfoSettingTargetN").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+    }
+    }
+    }
+}
+
+function setAccessLevel(employeeType) {
+
+    if(employeeType==1){
+        //گزارشات
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+        $("#managerreportN").prop("checked",true);
+        $("#deletemanagerreportN").prop("checked",true);
+        $("#editmanagerreportN").prop("checked",true);
+        $("#seemanagerreportN").prop("checked",true);
+
+
+        $("#HeadreportN").prop("checked",true);
+        $("#deleteHeadreportN").prop("checked",true);
+        $("#editHeadreportN").prop("checked",true);
+        $("#seeHeadreportN").prop("checked",true);
+
+
+        $("#poshtibanreportN").prop("checked",true);
+        $("#deleteposhtibanreportN").prop("checked",true);
+        $("#editposhtibanreportN").prop("checked",true);
+        $("#seeposhtibanreportN").prop("checked",true);
+
+
+        $("#bazaryabreportN").prop("checked",true);
+        $("#deletebazaryabreportN").prop("checked",true);
+        $("#editbazaryabreportN").prop("checked",true);
+        $("#seebazaryabreportN").prop("checked",true);
+
+
+        $("#reportDriverN").prop("checked",true);
+        $("#deletereportDriverN").prop("checked",true);
+        $("#editreportDriverN").prop("checked",true);
+        $("#seereportDriverN").prop("checked",true);
+
+
+        $("#trazEmployeeReportN").prop("checked",true);
+        $("#deletetrazEmployeeReportN").prop("checked",true);
+        $("#edittrazEmployeeReportN").prop("checked",true);
+        $("#seetrazEmployeeReportN").prop("checked",true);
+
+
+        $("#amalkardCustReportN").prop("checked",true);
+        
+        $("#customerReportN").prop("checked",true);
+        $("#deletecustomerReportN").prop("checked",true);
+        $("#editcustomerReportN").prop("checked",true);
+        $("#seecustomerReportN").prop("checked",true);
+
+        $("#loginCustRepN").prop("checked",true);
+        $("#deleteloginCustRepN").prop("checked",true);
+        $("#editloginCustRepN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#deleteinActiveCustRepN").prop("checked",true);
+        $("#editinActiveCustRepN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#deletenoAdminCustRepN").prop("checked",true);
+        $("#editnoAdminCustRepN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+
+        $("#returnedCustRepN").prop("checked",true);
+        $("#deletereturnedCustRepN").prop("checked",true);
+        $("#editreturnedCustRepN").prop("checked",true);
+        $("#seereturnedCustRepN").prop("checked",true);
+
+        $("#goodsReportN").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#deletesalegoodsReportN").prop("checked",true);
+        $("#editsalegoodsReportN").prop("checked",true);
+        $("#seesalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#deletereturnedgoodsReportN").prop("checked",true);
+        $("#editturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+
+
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#deleteNoExistgoodsReportN").prop("checked",true);
+        $("#editNoExistgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+
+
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#deletenosalegoodsReportN").prop("checked",true);
+        $("#editnosalegoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#editreturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+
+
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#deletetasgoodsReprtN").prop("checked",true);
+        $("#edittasgoodsReprtN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+
+
+        $("#goodsbargiriReportN").prop("checked",true);
+        $("#deletegoodsbargiriReportN").prop("checked",true);
+        $("#editgoodsbargiriReportN").prop("checked",true);
+        $("#seegoodsbargiriReportN").prop("checked",true);
+        //عملیات
+        $("#oppN").prop("checked",true);
+        $("#oppTakhsisN").prop("checked",true);
+        $("#oppManagerN").prop("checked",true);
+        $("#deleteManagerOppN").prop("checked",true);
+        $("#editManagerOppN").prop("checked",true);
+        $("#seeManagerOppN").prop("checked",true);
+        
+        
+        $("#oppHeadN").prop("checked",true);
+        $("#deleteHeadOppN").prop("checked",true);
+        $("#editHeadOppN").prop("checked",true);
+        $("#seeHeadOppN").prop("checked",true);
+        
+        
+        $("#oppBazaryabN").prop("checked",true);
+        $("#deleteBazaryabOppN").prop("checked",true);
+        $("#editBazaryabOppN").prop("checked",true);
+        $("#seeBazaryabOppN").prop("checked",true);
+        
+        
+        $("#oppDriverN").prop("checked",true);
+        $("#oppDriverServiceN").prop("checked",true);
+        $("#deleteoppDriverServiceN").prop("checked",true);
+        $("#editoppDriverServiceN").prop("checked",true);
+        $("#seeoppDriverServiceN").prop("checked",true);
+        
+        
+        $("#oppBargiriN").prop("checked",true);
+        $("#deleteoppBargiriN").prop("checked",true);
+        $("#editoppBargiriN").prop("checked",true);
+        $("#seeoppBargiriN").prop("checked",true);
+        
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#deletetodayoppNazarsanjiN").prop("checked",true);
+        $("#edittodayoppNazarsanjiN").prop("checked",true);
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#deletepastoppNazarsanjiN").prop("checked",true);
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",true);
+        $("#editDoneoppNazarsanjiN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#OppupDownBonusN").prop("checked",true);
+        $("#AddOppupDownBonusN").prop("checked",true);
+        $("#deleteAddOppupDownBonusN").prop("checked",true);
+        $("#editAddOppupDownBonusN").prop("checked",true);
+        $("#seeAddOppupDownBonusN").prop("checked",true);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",true);
+        $("#deleteSubOppupDownBonusN").prop("checked",true);
+        $("#editSubOppupDownBonusN").prop("checked",true);
+        $("#seeSubOppupDownBonusN").prop("checked",true);
+        
+        
+        $("#oppRDN").prop("checked",true);
+        $("#AddedoppRDN").prop("checked",true);
+        $("#deleteAddedoppRDN").prop("checked",true);
+        $("#editAddedoppRDN").prop("checked",true);
+        $("#seeAddedoppRDN").prop("checked",true);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",true);
+        $("#deleteNotAddedoppRDN").prop("checked",true);
+        $("#editNotAddedoppRDN").prop("checked",true);
+        $("#seeNotAddedoppRDN").prop("checked",true);
+        
+        
+        $("#oppCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").prop("checked",true);
+        $("#deleteoppjustCalendarN").prop("checked",true);
+        $("#editoppjustCalendarN").prop("checked",true);
+        $("#seeoppjustCalendarN").prop("checked",true);
+        
+        
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#deleteoppCustCalendarN").prop("checked",true);
+        $("#editoppCustCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+        
+        
+        $("#alarmoppN").prop("checked",true);
+        $("#allalarmoppN").prop("checked",true);
+        $("#deleteallalarmoppN").prop("checked",true);
+        $("#editallalarmoppN").prop("checked",true);
+        $("#seeallalarmoppN").prop("checked",true);
+        
+        
+        $("#donealarmoppN").prop("checked",true);
+        $("#deletedonealarmoppN").prop("checked",true);
+        $("#editdonealarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+        
+        
+        $("#NoalarmoppN").prop("checked",true);
+        $("#deleteNoalarmoppN").prop("checked",true);
+        $("#editNoalarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+        
+        
+        $("#massageOppN").prop("checked",true);
+        $("#deletemassageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#seemassageOppN").prop("checked",true);
+        
+        
+        $("#justBargiriOppN").prop("checked",true);
+        $("#deletejustBargiriOppN").prop("checked",true);
+        $("#editjustBargiriOppN").prop("checked",true);
+        $("#seejustBargiriOppN").prop("checked",true); 
+        //تعریف عناصر
+        $("#declareElementN").prop("checked",true);
+        $("#editdeclareElementN").prop("checked",true);
+        $("#deletedeclareElementN").prop("checked",true);
+        $("#seedeclareElementN").prop("checked",true);
+        //اطلاعات پایه
+        $("#baseInfoN").prop("checked",true);
+        $("#rdSentN").prop("checked",true);
+        $("#infoRdN").prop("checked",true);
+        $("#deleteSentRdN").prop("checked",true);
+        $("#editSentRdN").prop("checked",true);
+        $("#seeSentRdN").prop("checked",true);
+
+        $("#rdNotSentN").prop("checked",true);
+        $("#deleteRdNotSentN").prop("checked",true);
+        $("#editRdNotSentN").prop("checked",true);
+        $("#seeRdNotSentN").prop("checked",true);
+
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+
+        $("#addSaleLineN").prop("checked",true);
+        $("#deleteSaleLineN").prop("checked",true);
+        $("#editSaleLineN").prop("checked",true);
+        $("#seeSaleLineN").prop("checked",true);
+
+        $("#baseInfoSettingN").prop("checked",true);
+        $("#InfoSettingAccessN").prop("checked",true);
+        $("#deleteSettingAccessN").prop("checked",true);
+        $("#editSettingAccessN").prop("checked",true);
+        $("#seeSettingAccessN").prop("checked",true);
+
+        $("#InfoSettingTargetN").prop("checked",true);
+        $("#deleteSettingTargetN").prop("checked",true);
+        $("#editSettingTargetN").prop("checked",true);
+        $("#seeSettingTargetN").prop("checked",true);
+    }else{if(employeeType==2){
+
+        $("#reportN").prop("checked",true);
+        $("#amalKardreportN").prop("checked",true);
+
+        $("#managerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#seemanagerreportN").prop("checked",false);
+
+
+        $("#HeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+
+
+        $("#poshtibanreportN").prop("checked",true);
+        $("#deleteposhtibanreportN").prop("checked",true);
+        $("#editposhtibanreportN").prop("checked",true);
+        $("#seeposhtibanreportN").prop("checked",true);
+
+
+        $("#bazaryabreportN").prop("checked",true);
+        $("#deletebazaryabreportN").prop("checked",true);
+        $("#editbazaryabreportN").prop("checked",true);
+        $("#seebazaryabreportN").prop("checked",true);
+
+
+        $("#reportDriverN").prop("checked",true);
+        $("#deletereportDriverN").prop("checked",true);
+        $("#editreportDriverN").prop("checked",true);
+        $("#seereportDriverN").prop("checked",true);
+
+
+        $("#trazEmployeeReportN").prop("checked",true);
+        $("#deletetrazEmployeeReportN").prop("checked",true);
+        $("#edittrazEmployeeReportN").prop("checked",true);
+        $("#seetrazEmployeeReportN").prop("checked",true);
+
+        
+        $("#amalkardCustReportN").prop("checked",true);
+        
+        $("#customerReportN").prop("checked",true);
+        $("#deletecustomerReportN").prop("checked",true);
+        $("#editcustomerReportN").prop("checked",true);
+        $("#seecustomerReportN").prop("checked",true);
+
+        $("#loginCustRepN").prop("checked",true);
+        $("#deleteloginCustRepN").prop("checked",true);
+        $("#editloginCustRepN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#deleteinActiveCustRepN").prop("checked",true);
+        $("#editinActiveCustRepN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#deletenoAdminCustRepN").prop("checked",true);
+        $("#editnoAdminCustRepN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+        
+        $("#returnedCustRepN").prop("checked",true);
+        $("#deletereturnedCustRepN").prop("checked",true);
+        $("#editreturnedCustRepN").prop("checked",true);
+        $("#seereturnedCustRepN").prop("checked",true);
+
+        $("#goodsReportN").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#deletesalegoodsReportN").prop("checked",true);
+        $("#editsalegoodsReportN").prop("checked",true);
+        $("#seesalegoodsReportN").prop("checked",true);
+
+
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#deletereturnedgoodsReportN").prop("checked",true);
+        $("#editreturnedgoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+
+
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#deleteNoExistgoodsReportN").prop("checked",true);
+        $("#editNoExistgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+
+
+        $("#nosalegoodsReportN").prop("checked",true);
+        $("#deletenosalegoodsReportN").prop("checked",true);
+        $("#editnosalegoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+        
+
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+
+
+        $("#tasgoodsReprtN").prop("checked",true);
+        $("#deletetasgoodsReprtN").prop("checked",true);
+        $("#edittasgoodsReprtN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+
+
+        $("#goodsbargiriReportN").prop("checked",true);
+        $("#deletegoodsbargiriReportN").prop("checked",true);
+        $("#editgoodsbargiriReportN").prop("checked",true);
+        $("#seegoodsbargiriReportN").prop("checked",true);
+        //عملیات
+        $("#oppN").prop("checked",true);
+        $("#oppTakhsisN").prop("checked",true);
+        $("#oppManagerN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        
+        
+        $("#oppHeadN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+        
+        
+        $("#oppBazaryabN").prop("checked",true);
+        $("#deleteBazaryabOppN").prop("checked",true);
+        $("#editBazaryabOppN").prop("checked",true);
+        $("#seeBazaryabOppN").prop("checked",true);
+        
+        
+        $("#oppDriverN").prop("checked",true);
+        $("#oppDriverServiceN").prop("checked",true);
+        $("#deleteoppDriverServiceN").prop("checked",true);
+        $("#editoppDriverServiceN").prop("checked",true);
+        $("#seeoppDriverServiceN").prop("checked",true);
+        
+        
+        $("#oppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+        
+        $("#oppNazarSanjiN").prop("checked",true);
+        $("#todayoppNazarsanjiN").prop("checked",true);
+        $("#deletetodayoppNazarsanjiN").prop("checked",true);
+        $("#edittodayoppNazarsanjiN").prop("checked",true);
+        $("#seetodayoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",true);
+        $("#deletepastoppNazarsanjiN").prop("checked",true);
+        $("#editpastoppNazarsanjiN").prop("checked",true);
+        $("#seepastoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",true);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",true);
+        $("#editDoneoppNazarsanjiN").prop("checked",true);
+        $("#seeDoneoppNazarsanjiN").prop("checked",true);
+        
+        
+        $("#OppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#oppRDN").prop("checked",false);
+        $("#AddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#seeAddedoppRDN").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+        
+        
+        $("#oppCalendarN").prop("checked",true);
+        $("#oppjustCalendarN").prop("checked",false);
+        $("#deleteoppjustCalendarN").prop("checked",false);
+        $("#editoppjustCalendarN").prop("checked",false);
+        $("#seeoppjustCalendarN").prop("checked",false);
+        
+        
+        $("#oppCustCalendarN").prop("checked",true);
+        $("#deleteoppCustCalendarN").prop("checked",true);
+        $("#editoppCustCalendarN").prop("checked",true);
+        $("#seeoppCustCalendarN").prop("checked",true);
+        
+        
+        $("#alarmoppN").prop("checked",true);
+        $("#allalarmoppN").prop("checked",true);
+        $("#deleteallalarmoppN").prop("checked",true);
+        $("#editallalarmoppN").prop("checked",true);
+        $("#seeallalarmoppN").prop("checked",true);
+        
+        
+        $("#donealarmoppN").prop("checked",true);
+        $("#deletedonealarmoppN").prop("checked",true);
+        $("#editdonealarmoppN").prop("checked",true);
+        $("#seedonealarmoppN").prop("checked",true);
+        
+        
+        $("#NoalarmoppN").prop("checked",true);
+        $("#deleteNoalarmoppN").prop("checked",true);
+        $("#editNoalarmoppN").prop("checked",true);
+        $("#seeNoalarmoppN").prop("checked",true);
+        
+        
+        $("#massageOppN").prop("checked",true);
+        $("#deletemassageOppN").prop("checked",true);
+        $("#editmassageOppN").prop("checked",true);
+        $("#seemassageOppN").prop("checked",true);
+        
+        
+        $("#justBargiriOppN").prop("checked",false);
+        $("#deletejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
+        $("#seejustBargiriOppN").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementN").prop("checked",false);
+        $("#editdeclareElementN").prop("checked",false);
+        $("#deletedeclareElementN").prop("checked",false);
+        $("#seedeclareElementN").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoN").prop("checked",true);
+        $("#rdSentN").prop("checked",false);
+        $("#infoRdN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+
+        $("#deleteProfileN").prop("checked",true);
+        $("#editProfileN").prop("checked",true);
+        $("#seeProfileN").prop("checked",true);
+        $("#baseInfoProfileN").prop("checked",true);
+
+        $("#addSaleLineN").prop("checked",false);
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+
+        $("#baseInfoSettingN").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
+
+        $("#InfoSettingTargetN").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+    }else{
+        $("#reportN").prop("checked",false);
+        $("#amalKardreportN").prop("checked",false);
+        $("#managerreportN").prop("checked",false);
+        $("#deletemanagerreportN").prop("checked",false);
+        $("#editmanagerreportN").prop("checked",false);
+        $("#seemanagerreportN").prop("checked",false);
+
+
+        $("#HeadreportN").prop("checked",false);
+        $("#deleteHeadreportN").prop("checked",false);
+        $("#editHeadreportN").prop("checked",false);
+        $("#seeHeadreportN").prop("checked",false);
+
+
+        $("#poshtibanreportN").prop("checked",false);
+        $("#deleteposhtibanreportN").prop("checked",false);
+        $("#editposhtibanreportN").prop("checked",false);
+        $("#seeposhtibanreportN").prop("checked",false);
+
+
+        $("#bazaryabreportN").prop("checked",false);
+        $("#deletebazaryabreportN").prop("checked",false);
+        $("#editbazaryabreportN").prop("checked",false);
+        $("#seebazaryabreportN").prop("checked",false);
+
+
+        $("#reportDriverN").prop("checked",false);
+        $("#deletereportDriverN").prop("checked",false);
+        $("#editreportDriverN").prop("checked",false);
+        $("#seereportDriverN").prop("checked",false);
+
+
+        $("#trazEmployeeReportN").prop("checked",false);
+        $("#deletetrazEmployeeReportN").prop("checked",false);
+        $("#edittrazEmployeeReportN").prop("checked",false);
+        $("#seetrazEmployeeReportN").prop("checked",false);
+
+
+        $("#amalkardCustReportN").prop("checked",false);
+        
+        $("#customerReportN").prop("checked",false);
+        $("#deletecustomerReportN").prop("checked",false);
+        $("#editcustomerReportN").prop("checked",false);
+        $("#seecustomerReportN").prop("checked",false);
+
+        $("#loginCustRepN").prop("checked",false);
+        $("#deleteloginCustRepN").prop("checked",false);
+        $("#editloginCustRepN").prop("checked",false);
+        $("#seeloginCustRepN").prop("checked",false);
+
+        $("#inActiveCustRepN").prop("checked",false);
+        $("#deleteinActiveCustRepN").prop("checked",false);
+        $("#editinActiveCustRepN").prop("checked",false);
+        $("#seeinActiveCustRepN").prop("checked",false);
+
+        $("#noAdminCustRepN").prop("checked",false);
+        $("#deletenoAdminCustRepN").prop("checked",false);
+        $("#editnoAdminCustRepN").prop("checked",false);
+        $("#seenoAdminCustRepN").prop("checked",false);
+
+        $("#returnedCustRepN").prop("checked",false);
+        $("#deletereturnedCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
+        $("#seereturnedCustRepN").prop("checked",false);
+        
+        $("#goodsReportN").prop("checked",false);
+        $("#salegoodsReportN").prop("checked",false);
+        $("#deletesalegoodsReportN").prop("checked",false);
+        $("#editsalegoodsReportN").prop("checked",false);
+        $("#seesalegoodsReportN").prop("checked",false);
+
+
+        $("#returnedgoodsReportN").prop("checked",false);
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
+        $("#seereturnedgoodsReportN").prop("checked",false);
+
+
+        $("#NoExistgoodsReportN").prop("checked",false);
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
+        $("#seeNoExistgoodsReportN").prop("checked",false);
+
+
+        $("#nosalegoodsReportN").prop("checked",false);
+        $("#deletenosalegoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
+        $("#seenosalegoodsReportN").prop("checked",false);
+
+        $("#returnedReportgoodsReportN").prop("checked",false);
+        $("#returnedNTasReportgoodsReportN").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
+
+
+        $("#tasgoodsReprtN").prop("checked",false);
+        $("#deletetasgoodsReprtN").prop("checked",false);
+        $("#edittasgoodsReprtN").prop("checked",false);
+        $("#seetasgoodsReprtN").prop("checked",false);
+
+
+        $("#goodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#seegoodsbargiriReportN").prop("checked",false);
+        //عملیات
+        $("#oppN").prop("checked",false);
+        $("#oppTakhsisN").prop("checked",false);
+        $("#oppManagerN").prop("checked",false);
+        $("#deleteManagerOppN").prop("checked",false);
+        $("#editManagerOppN").prop("checked",false);
+        $("#seeManagerOppN").prop("checked",false);
+        
+        
+        $("#oppHeadN").prop("checked",false);
+        $("#deleteHeadOppN").prop("checked",false);
+        $("#editHeadOppN").prop("checked",false);
+        $("#seeHeadOppN").prop("checked",false);
+        
+        
+        $("#oppBazaryabN").prop("checked",false);
+        $("#deleteBazaryabOppN").prop("checked",false);
+        $("#editBazaryabOppN").prop("checked",false);
+        $("#seeBazaryabOppN").prop("checked",false);
+        
+        
+        $("#oppDriverN").prop("checked",false);
+        $("#oppDriverServiceN").prop("checked",false);
+        $("#deleteoppDriverServiceN").prop("checked",false);
+        $("#editoppDriverServiceN").prop("checked",false);
+        $("#seeoppDriverServiceN").prop("checked",false);
+        
+        
+        $("#oppBargiriN").prop("checked",false);
+        $("#deleteoppBargiriN").prop("checked",false);
+        $("#editoppBargiriN").prop("checked",false);
+        $("#seeoppBargiriN").prop("checked",false);
+        
+        $("#oppNazarSanjiN").prop("checked",false);
+        $("#todayoppNazarsanjiN").prop("checked",false);
+        $("#deletetodayoppNazarsanjiN").prop("checked",false);
+        $("#edittodayoppNazarsanjiN").prop("checked",false);
+        $("#seetodayoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#pastoppNazarsanjiN").prop("checked",false);
+        $("#deletepastoppNazarsanjiN").prop("checked",false);
+        $("#editpastoppNazarsanjiN").prop("checked",false);
+        $("#seepastoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#DoneoppNazarsanjiN").prop("checked",false);
+        $("#deleteDoneoppNazarsanjiN").prop("checked",false);
+        $("#editDoneoppNazarsanjiN").prop("checked",false);
+        $("#seeDoneoppNazarsanjiN").prop("checked",false);
+        
+        
+        $("#OppupDownBonusN").prop("checked",false);
+        $("#AddOppupDownBonusN").prop("checked",false);
+        $("#deleteAddOppupDownBonusN").prop("checked",false);
+        $("#editAddOppupDownBonusN").prop("checked",false);
+        $("#seeAddOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#SubOppupDownBonusN").prop("checked",false);
+        $("#deleteSubOppupDownBonusN").prop("checked",false);
+        $("#editSubOppupDownBonusN").prop("checked",false);
+        $("#seeSubOppupDownBonusN").prop("checked",false);
+        
+        
+        $("#oppRDN").prop("checked",false);
+        $("#AddedoppRDN").prop("checked",false);
+        $("#deleteAddedoppRDN").prop("checked",false);
+        $("#editAddedoppRDN").prop("checked",false);
+        $("#seeAddedoppRDN").prop("checked",false);
+        
+        
+        $("#NotAddedoppRDN").prop("checked",false);
+        $("#deleteNotAddedoppRDN").prop("checked",false);
+        $("#editNotAddedoppRDN").prop("checked",false);
+        $("#seeNotAddedoppRDN").prop("checked",false);
+        
+        
+        $("#oppCalendarN").prop("checked",false);
+        $("#oppjustCalendarN").prop("checked",false);
+        $("#deleteoppjustCalendarN").prop("checked",false);
+        $("#editoppjustCalendarN").prop("checked",false);
+        $("#seeoppjustCalendarN").prop("checked",false);
+        
+        
+        $("#oppCustCalendarN").prop("checked",false);
+        $("#deleteoppCustCalendarN").prop("checked",false);
+        $("#editoppCustCalendarN").prop("checked",false);
+        $("#seeoppCustCalendarN").prop("checked",false);
+        
+        
+        $("#alarmoppN").prop("checked",false);
+        $("#allalarmoppN").prop("checked",false);
+        $("#deleteallalarmoppN").prop("checked",false);
+        $("#editallalarmoppN").prop("checked",false);
+        $("#seeallalarmoppN").prop("checked",false);
+        
+        
+        $("#donealarmoppN").prop("checked",false);
+        $("#deletedonealarmoppN").prop("checked",false);
+        $("#editdonealarmoppN").prop("checked",false);
+        $("#seedonealarmoppN").prop("checked",false);
+        
+        
+        $("#NoalarmoppN").prop("checked",false);
+        $("#deleteNoalarmoppN").prop("checked",false);
+        $("#editNoalarmoppN").prop("checked",false);
+        $("#seeNoalarmoppN").prop("checked",false);
+        
+        
+        $("#massageOppN").prop("checked",false);
+        $("#deletemassageOppN").prop("checked",false);
+        $("#editmassageOppN").prop("checked",false);
+        $("#seemassageOppN").prop("checked",false);
+        
+        
+        $("#justBargiriOppN").prop("checked",false);
+        $("#deletejustBargiriOppN").prop("checked",false);
+        $("#editjustBargiriOppN").prop("checked",false);
+        $("#seejustBargiriOppN").prop("checked",false); 
+        //تعریف عناصر
+        $("#declareElementN").prop("checked",false);
+        $("#editdeclareElementN").prop("checked",false);
+        $("#deletedeclareElementN").prop("checked",false);
+        $("#seedeclareElementN").prop("checked",false);
+        //اطلاعات پایه
+        $("#baseInfoN").prop("checked",false);
+        $("#rdSentN").prop("checked",false);
+        $("#infoRdN").prop("checked",false);
+        $("#deleteSentRdN").prop("checked",false);
+        $("#editSentRdN").prop("checked",false);
+        $("#seeSentRdN").prop("checked",false);
+
+        $("#rdNotSentN").prop("checked",false);
+        $("#deleteRdNotSentN").prop("checked",false);
+        $("#editRdNotSentN").prop("checked",false);
+        $("#seeRdNotSentN").prop("checked",false);
+
+        $("#deleteProfileN").prop("checked",false);
+        $("#editProfileN").prop("checked",false);
+        $("#seeProfileN").prop("checked",false);
+        $("#baseInfoProfileN").prop("checked",false);
+
+        $("#addSaleLineN").prop("checked",false);
+        $("#deleteSaleLineN").prop("checked",false);
+        $("#editSaleLineN").prop("checked",false);
+        $("#seeSaleLineN").prop("checked",false);
+
+        $("#baseInfoSettingN").prop("checked",false);
+        $("#InfoSettingAccessN").prop("checked",false);
+        $("#deleteSettingAccessN").prop("checked",false);
+        $("#editSettingAccessN").prop("checked",false);
+        $("#seeSettingAccessN").prop("checked",false);
+
+        $("#InfoSettingTargetN").prop("checked",false);
+        $("#deleteSettingTargetN").prop("checked",false);
+        $("#editSettingTargetN").prop("checked",false);
+        $("#seeSettingTargetN").prop("checked",false);
+            }
+        }
+    }
+
 
 $("#rdSentN").on("change",function(){
     if($("#rdSentN").is(":checked")){
@@ -15507,6 +17129,7 @@ $("#baseInfoN").on("change",function(){
         $("#seeSentRdN").prop("checked",true);
 
         $("#rdNotSentN").prop("checked",true);
+        $("#baseInfoSettingN").prop("checked",true);
         $("#seeRdNotSentN").prop("checked",true);
 
         $("#addSaleLineN").prop("checked",true);
@@ -15553,8 +17176,72 @@ $("#baseInfoN").on("change",function(){
     }
 });
 
+$("#salegoodsReportN").on("change",function(){
+    if($("#salegoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReportN").prop("checked",true);
+        $("#seesalegoodsReportN").prop("checked",true);
+    }else{
+        if(!$(".goodsReportN").is(":checked")){
+            // $("#reportN").prop("checked",false);
+            $("#goodsReportN").prop("checked",false);
+            $("#goodsReportN").trigger("change");
+        }
+        $("#seesalegoodsReportN").prop("checked",false);
+        $("#editsalegoodsReportN").prop("checked",false);
+        $("#deletesalegoodsReportN").prop("checked",false);
+    }
+});
 
 
+$("#returnedgoodsReportN").on("change",function(){
+    if($("#returnedgoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+    }else{
+        if(!$(".goodsReportN").is(":checked")){
+            // $("#reportN").prop("checked",false);
+            $("#goodsReportN").prop("checked",false);
+            $("#goodsReportN").trigger("change");
+        }
+        $("#seereturnedgoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+    }
+});
+$("#NoExistgoodsReportN").on("change",function(){
+    if($("#NoExistgoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+    }else{
+        if(!$(".goodsReportN").is(":checked")){
+            // $("#reportN").prop("checked",false);
+            $("#goodsReportN").prop("checked",false);
+            $("#goodsReportN").trigger("change");
+        }
+        $("#seeNoExistgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+    }
+});
+$("#nosalegoodsReportN").on("change",function(){
+    if($("#nosalegoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#goodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
+    }else{
+        if(!$(".goodsReportN").is(":checked")){
+            // $("#reportN").prop("checked",false);
+            $("#goodsReportN").prop("checked",false);
+            $("#goodsReportN").trigger("change");
+        }
+        $("#seenosalegoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
+        $("#deletenosalegoodsReportN").prop("checked",false);
+    }
+});
 $("#oppTakhsisN").on("change",function(){
     if($("#oppTakhsisN").is(":checked")){
         $("#oppN").prop("checked",true);
@@ -15805,8 +17492,9 @@ $("#oppManagerN").on("change",function(){
         $("#seeManagerOppN").prop("checked",true);
     }else{
         if(!$(".oppTakhsisN").is(":checked")){
-            $("#oppN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
             $("#oppTakhsisN").prop("checked",false);
+            $("#oppTakhsisN").trigger("change");
         }
         $("#seeManagerOppN").prop("checked",false);
         $("#editManagerOppN").prop("checked",false);
@@ -15821,8 +17509,9 @@ $("#oppHeadN").on("change",function(){
         $("#seeHeadOppN").prop("checked",true);
     }else{
         if(!$(".oppTakhsisN").is(":checked")){
-            $("#oppN").prop("checked",false);
-            $("#oppTakhsisN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
+           $("#oppTakhsisN").prop("checked",false);
+           $("#oppTakhsisN").trigger("change");
         }
         $("#seeHeadOppN").prop("checked",false);
         $("#editHeadOppN").prop("checked",false);
@@ -15837,8 +17526,9 @@ $("#oppBazaryabN").on("change",function(){
         $("#seeBazaryabOppN").prop("checked",true);
     }else{
         if(!$(".oppTakhsisN").is(":checked")){
-            $("#oppN").prop("checked",false);
-            $("#oppTakhsisN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
+           $("#oppTakhsisN").prop("checked",false);
+           $("#oppTakhsisN").trigger("change");
         }
         $("#seeBazaryabOppN").prop("checked",false);
         $("#editBazaryabOppN").prop("checked",false);
@@ -15852,9 +17542,10 @@ $("#oppDriverServiceN").on("change",function(){
         $("#oppDriverN").prop("checked",true);
         $("#seeoppDriverServiceN").prop("checked",true);
     }else{
-        if(!$(".oppTakhsisN").is(":checked")){
-            $("#oppN").prop("checked",false);
+        if(!$(".oppDriverN").is(":checked")){
+            //$("#oppN").prop("checked",false);
             $("#oppDriverN").prop("checked",false);
+            $("#oppDriverN").trigger("change");
         }
         $("#seeoppDriverServiceN").prop("checked",false);
         $("#editoppDriverServiceN").prop("checked",false);
@@ -15868,9 +17559,10 @@ $("#oppBargiriN").on("change",function(){
         $("#oppDriverN").prop("checked",true);
         $("#seeoppBargiriN").prop("checked",true);
     }else{
-        if(!$(".oppTakhsisN").is(":checked")){
-            $("#oppN").prop("checked",false);
+        if(!$(".oppDriverN").is(":checked")){
+            //$("#oppN").prop("checked",false);
             $("#oppDriverN").prop("checked",false);
+            $("#oppDriverN").trigger("change");
         }
         $("#seeoppBargiriN").prop("checked",false);
         $("#editoppBargiriN").prop("checked",false);
@@ -15885,8 +17577,9 @@ $("#todayoppNazarsanjiN").on("change",function(){
         $("#seetodayoppNazarsanjiN").prop("checked",true);
     }else{
         if(!$(".oppNazarSanjiN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            //$("#oppN").prop("checked",false);
             $("#oppNazarSanjiN").prop("checked",false);
+            $("#oppNazarSanjiN").trigger("change");
         }
         $("#seetodayoppNazarsanjiN").prop("checked",false);
         $("#edittodayoppNazarsanjiN").prop("checked",false);
@@ -15901,8 +17594,9 @@ $("#pastoppNazarsanjiN").on("change",function(){
         $("#seepastoppNazarsanjiN").prop("checked",true);
     }else{
         if(!$(".oppNazarSanjiN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            //$("#oppN").prop("checked",false);
             $("#oppNazarSanjiN").prop("checked",false);
+            $("#oppNazarSanjiN").trigger("change");
         }
         $("#seepastoppNazarsanjiN").prop("checked",false);
         $("#editpastoppNazarsanjiN").prop("checked",false);
@@ -15913,12 +17607,13 @@ $("#pastoppNazarsanjiN").on("change",function(){
 $("#DoneoppNazarsanjiN").on("change",function(){
     if($("#DoneoppNazarsanjiN").is(":checked")){
         $("#oppN").prop("checked",true);
-        $("#oppNazarSanjiN").prop("checked",false);
+        $("#oppNazarSanjiN").prop("checked",true);
         $("#seeDoneoppNazarsanjiN").prop("checked",true);
     }else{
         if(!$(".oppNazarSanjiN").is(":checked")){
-            $("#oppN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
             $("#oppNazarSanjiN").prop("checked",false);
+            $("#oppNazarSanjiN").trigger("change");
         }
         $("#seeDoneoppNazarsanjiN").prop("checked",false);
         $("#editDoneoppNazarsanjiN").prop("checked",false);
@@ -15933,8 +17628,9 @@ $("#AddOppupDownBonusN").on("change",function(){
         $("#seeAddOppupDownBonusN").prop("checked",true);
     }else{
         if(!$(".OppupDownBonusN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            //$("#oppN").prop("checked",false);
             $("#OppupDownBonusN").prop("checked",false);
+            $("#OppupDownBonusN").trigger("change");
         }
         $("#seeAddOppupDownBonusN").prop("checked",false);
         $("#editAddOppupDownBonusN").prop("checked",false);
@@ -15949,8 +17645,9 @@ $("#SubOppupDownBonusN").on("change",function(){
         $("#seeSubOppupDownBonusN").prop("checked",true);
     }else{
         if(!$(".OppupDownBonusN").is(":checked")){
-            $("#oppN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
             $("#OppupDownBonusN").prop("checked",false);
+            $("#OppupDownBonusN").trigger("change");
         }
         $("#seeSubOppupDownBonusN").prop("checked",false);
         $("#editSubOppupDownBonusN").prop("checked",false);
@@ -15966,8 +17663,9 @@ $("#AddedoppRDN").on("change",function(){
         $("#seeAddedoppRDN").prop("checked",true);
     }else{
         if(!$(".oppRDN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            // $("#oppN").prop("checked",false);
             $("#oppRDN").prop("checked",false);
+            $("#oppRDN").trigger("change")
         }
         $("#seeAddedoppRDN").prop("checked",false);
         $("#editAddedoppRDN").prop("checked",false);
@@ -15982,8 +17680,9 @@ $("#NotAddedoppRDN").on("change",function(){
         $("#seeNotAddedoppRDN").prop("checked",true);
     }else{
         if(!$(".oppRDN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            //$("#oppN").prop("checked",false);
             $("#oppRDN").prop("checked",false);
+            $("#oppRDN").trigger("change")
         }
         $("#seeNotAddedoppRDN").prop("checked",false);
         $("#editNotAddedoppRDN").prop("checked",false);
@@ -15998,8 +17697,9 @@ $("#oppjustCalendarN").on("change",function(){
         $("#seeoppjustCalendarN").prop("checked",true);
     }else{
         if(!$(".oppCalendarN").is(":checked")){
-            $("#oppN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
             $("#oppCalendarN").prop("checked",false);
+            $("#oppCalendarN").trigger("change")
         }
         $("#seeoppjustCalendarN").prop("checked",false);
         $("#editoppjustCalendarN").prop("checked",false);
@@ -16014,8 +17714,9 @@ $("#oppCustCalendarN").on("change",function(){
         $("#seeoppCustCalendarN").prop("checked",true);
     }else{
         if(!$(".oppCalendarN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            //$("#oppN").prop("checked",false);
             $("#oppCalendarN").prop("checked",false);
+            $("#oppCalendarN").trigger("change")
         }
         $("#seeoppCustCalendarN").prop("checked",false);
         $("#editoppCustCalendarN").prop("checked",false);
@@ -16030,8 +17731,9 @@ $("#allalarmoppN").on("change",function(){
         $("#seeallalarmoppN").prop("checked",true);
     }else{
         if(!$(".alarmoppN").is(":checked")){
-            $("#oppN").prop("checked",false);
+            //$("#oppN").prop("checked",false);
             $("#alarmoppN").prop("checked",false);
+            $("#alarmoppN").trigger("change");
         }
         $("#seeallalarmoppN").prop("checked",false);
         $("#editallalarmoppN").prop("checked",false);
@@ -16062,8 +17764,9 @@ $("#NoalarmoppN").on("change",function(){
         $("#seeNoalarmoppN").prop("checked",true);
     }else{
         if(!$(".alarmoppN").is(":checked")){
-            $("#oppN").prop("checked",false);
-            $("#alarmoppN").prop("checked",false);
+           // $("#oppN").prop("checked",false);
+           $("#alarmoppN").prop("checked",false);
+           $("#alarmoppN").trigger("change");
         }
         $("#seeNoalarmoppN").prop("checked",false);
         $("#editNoalarmoppN").prop("checked",false);
@@ -17030,8 +18733,9 @@ $("#loginCustRepN").on("change",function(){
         $("#seeloginCustRepN").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
+            //$("#reportN").prop("checked",false);
             $("#amalkardCustReportN").prop("checked",false);
+            $("#amalkardCustReportN").trigger("change");
         }
         $("#seeloginCustRepN").prop("checked",false);
     }
@@ -17044,8 +18748,9 @@ $("#inActiveCustRepN").on("change",function(){
         $("#seeinActiveCustRepN").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
+            //$("#reportN").prop("checked",false);
             $("#amalkardCustReportN").prop("checked",false);
+            $("#amalkardCustReportN").trigger("change");
         }
         $("#seeinActiveCustRepN").prop("checked",false);
     }
@@ -17057,8 +18762,9 @@ $("#noAdminCustRepN").on("change",function(){
         $("#seenoAdminCustRepN").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
+            //$("#reportN").prop("checked",false);
             $("#amalkardCustReportN").prop("checked",false);
+            $("#amalkardCustReportN").trigger("change");
         }
         $("#seenoAdminCustRepN").prop("checked",false);
     }
@@ -17070,8 +18776,9 @@ $("#returnedCustRepN").on("change",function(){
         $("#seereturnedCustRepN").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
+            //$("#reportN").prop("checked",false);
             $("#amalkardCustReportN").prop("checked",false);
+            $("#amalkardCustReportN").trigger("change");
         }
         $("#seereturnedCustRepN").prop("checked",false);
     }
@@ -17083,16 +18790,17 @@ $("#loginCustRepN").on("change",function(){
         $("#seeloginCustRepN").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
+            //$("#reportN").prop("checked",false);
             $("#amalkardCustReportN").prop("checked",false);
+            $("#amalkardCustReportN").trigger("change");
         }
         $("#seeloginCustRepN").prop("checked",false);
     }
 });
 
 
-$("#goodsReport").on("change",function(){
-    if($("#goodsReport").is(":checked")){
+$("#goodsReportN").on("change",function(){
+    if($("#goodsReportN").is(":checked")){
         $("#reportN").prop("checked",true);
         $("#salegoodsReportN").prop("checked",true);
         $("#returnedgoodsReportN").prop("checked",true);
@@ -17177,8 +18885,9 @@ $("#managerreportN").on("change",function(){
         $("#seemanagerreportN").prop("checked",true);
     }else{
         if(!$(".amalKardreportN").is(":checked")){
-            $("#reportN").prop("checked",false);
+           // $("#reportN").prop("checked",false);
             $("#amalKardreportN").prop("checked",false);
+            $("#amalKardreportN").trigger("change");
         }
         $("#seemanagerreportN").prop("checked",false);
         $("#editmanagerreportN").prop("checked",false);
@@ -17193,8 +18902,9 @@ $("#HeadreportN").on("change",function(){
         $("#seeHeadreportN").prop("checked",true);
     }else{
         if(!$(".amalKardreportN").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#amalKardreportN").prop("checked",false);
+           // $("#reportN").prop("checked",false);
+           $("#amalKardreportN").prop("checked",false);
+           $("#amalKardreportN").trigger("change");
         }
         $("#seeHeadreportN").prop("checked",false);
         $("#editHeadreportN").prop("checked",false);
@@ -17209,8 +18919,9 @@ $("#poshtibanreportN").on("change",function(){
         $("#seeposhtibanreportN").prop("checked",true);
     }else{
         if(!$(".amalKardreportN").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#amalKardreportN").prop("checked",false);
+           // $("#reportN").prop("checked",false);
+           $("#amalKardreportN").prop("checked",false);
+           $("#amalKardreportN").trigger("change");
         }
         $("#seeposhtibanreportN").prop("checked",false);
         $("#editposhtibanreportN").prop("checked",false);
@@ -17226,8 +18937,9 @@ $("#bazaryabreportN").on("change",function(){
         $("#seebazaryabreportN").prop("checked",true);
     }else{
         if(!$(".amalKardreportN").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#amalKardreportN").prop("checked",false);
+           // $("#reportN").prop("checked",false);
+           $("#amalKardreportN").prop("checked",false);
+           $("#amalKardreportN").trigger("change");
         }
         $("#seebazaryabreportN").prop("checked",false);
         $("#editbazaryabreportN").prop("checked",false);
@@ -17242,8 +18954,9 @@ $("#reportDriverN").on("change",function(){
         $("#seereportDriverN").prop("checked",true);
     }else{
         if(!$(".amalKardreportN").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#amalKardreportN").prop("checked",false);
+           // $("#reportN").prop("checked",false);
+           $("#amalKardreportN").prop("checked",false);
+           $("#amalKardreportN").trigger("change");
         }
         $("#seereportDriverN").prop("checked",false);
         $("#editreportDriverN").prop("checked",false);
@@ -17251,101 +18964,88 @@ $("#reportDriverN").on("change",function(){
     }
 });
 
- 
-$("#salegoodsReportN ").on("change",function(){
-    if($("#salegoodsReportN ").is(":checked")){
+
+$("#goodsReport").on("change",function(){
+    if($("#goodsReport").is(":checked")){
         $("#reportN").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seesalegoodsReportN ").prop("checked",true);
+        $("#salegoodsReportN").prop("checked",true);
+        $("#returnedgoodsReportN").prop("checked",true);
+        $("#NoExistgoodsReportN").prop("checked",true);
+        $("#nosalegoodsReportN").prop("checked",true);
+
+        $("#seesalegoodsReportN").prop("checked",true);
+        $("#seereturnedgoodsReportN").prop("checked",true);
+        $("#seeNoExistgoodsReportN").prop("checked",true);
+        $("#seenosalegoodsReportN").prop("checked",true);
     }else{
-        if(!$(".goodsReport").is(":checked")){
+        if(!$(".reportPartN").is(":checked")){
             $("#reportN").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
         }
-        $("#seesalegoodsReportN ").prop("checked",false);
-        $("#editsalegoodsReportN ").prop("checked",false);
-        $("#deletesalegoodsReportN ").prop("checked",false);
+        $("#salegoodsReportN").prop("checked",false);
+        $("#returnedgoodsReportN").prop("checked",false);
+        $("#NoExistgoodsReportN").prop("checked",false);
+        $("#nosalegoodsReportN").prop("checked",false);
+
+        $("#seesalegoodsReportN").prop("checked",false);
+        $("#seereturnedgoodsReportN").prop("checked",false);
+        $("#seeNoExistgoodsReportN").prop("checked",false);
+        $("#seenosalegoodsReportN").prop("checked",false);
+
+        $("#editsalegoodsReportN").prop("checked",false);
+        $("#editreturnedgoodsReportN").prop("checked",false);
+        $("#editNoExistgoodsReportN").prop("checked",false);
+        $("#editnosalegoodsReportN").prop("checked",false);
+
+        $("#deletesalegoodsReportN").prop("checked",false);
+        $("#deletereturnedgoodsReportN").prop("checked",false);
+        $("#deleteNoExistgoodsReportN").prop("checked",false);
+        $("#deletenosalegoodsReportN").prop("checked",false);
+    }
+});
+
+$("#returnedReportgoodsReportN").on("change",function(){
+    if($("#returnedReportgoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#returnedNTasReportgoodsReportN").prop("checked",true);
+        $("#tasgoodsReprtN").prop("checked",true);
+
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+    }else{
+        if(!$(".reportPartN").is(":checked")){
+            $("#reportN").prop("checked",false);
+        }
+        $("#returnedNTasReportgoodsReportN").prop("checked",false);
+        $("#tasgoodsReprtN").prop("checked",false);
+
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#seetasgoodsReprtN").prop("checked",false);
+
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#edittasgoodsReprtN").prop("checked",false);
+
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#deletetasgoodsReprtN").prop("checked",false);
     }
 });
 
 
-$("#returnedgoodsReportN ").on("change",function(){
-    if($("#returnedgoodsReportN ").is(":checked")){
+$("#goodsbargiriReportN").on("change",function(){
+    if($("#goodsbargiriReportN").is(":checked")){
         $("#reportN").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seereturnedgoodsReportN ").prop("checked",true);
+        $("#seegoodsbargiriReportN").prop("checked",true);
     }else{
-        if(!$(".goodsReport").is(":checked")){
+        if(!$(".reportPartN").is(":checked")){
             $("#reportN").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
         }
-        $("#seereturnedgoodsReportN ").prop("checked",false);
-        $("#editreturnedgoodsReportN ").prop("checked",false);
-        $("#deletereturnedgoodsReportN ").prop("checked",false);
-    }
-});
-$("#NoExistgoodsReportN ").on("change",function(){
-    if($("#NoExistgoodsReportN ").is(":checked")){
-        $("#reportN").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seeNoExistgoodsReportN ").prop("checked",true);
-    }else{
-        if(!$(".goodsReport").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
-        }
-        $("#seeNoExistgoodsReportN ").prop("checked",false);
-        $("#editNoExistgoodsReportN ").prop("checked",false);
-        $("#deleteNoExistgoodsReportN ").prop("checked",false);
-    }
-});
-$("#nosalegoodsReportN ").on("change",function(){
-    if($("#nosalegoodsReportN ").is(":checked")){
-        $("#reportN").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seenosalegoodsReportN ").prop("checked",true);
-    }else{
-        if(!$(".goodsReport").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
-        }
-        $("#seenosalegoodsReportN ").prop("checked",false);
-        $("#editnosalegoodsReportN ").prop("checked",false);
-        $("#deletenosalegoodsReportN ").prop("checked",false);
+        $("#seegoodsbargiriReportN").prop("checked",false);
+        $("#editgoodsbargiriReportN").prop("checked",false);
+        $("#deletegoodsbargiriReportN").prop("checked",false);
     }
 });
 
-$("#returnedNTasReportgoodsReportN ").on("change",function(){
-    if($("#returnedNTasReportgoodsReportN ").is(":checked")){
-        $("#reportN").prop("checked",true);
-        $("#returnedReportgoodsReportN").prop("checked",true);
-        $("#seereturnedNTasReportgoodsReportN ").prop("checked",true);
-    }else{
-        if(!$(".returnedReportgoodsReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#returnedReportgoodsReportN").prop("checked",false);
-        }
-        $("#seereturnedNTasReportgoodsReportN ").prop("checked",false);
-        $("#editreturnedNTasReportgoodsReportN ").prop("checked",false);
-        $("#deletereturnedNTasReportgoodsReportN ").prop("checked",false);
-    }
-});
 
-$("#tasgoodsReprtN ").on("change",function(){
-    if($("#tasgoodsReprtN ").is(":checked")){
-        $("#reportN").prop("checked",true);
-        $("#returnedReportgoodsReportN").prop("checked",true);
-        $("#seetasgoodsReprtN ").prop("checked",true);
-    }else{
-        if(!$(".returnedReportgoodsReportN").is(":checked")){
-            $("#reportN").prop("checked",false);
-            $("#returnedReportgoodsReportN").prop("checked",false);
-        }
-        $("#seetasgoodsReprtN ").prop("checked",false);
-        $("#editasgoodsReprtN ").prop("checked",false);
-        $("#deleteasgoodsReprtN ").prop("checked",false);
-    }
-});
+
 
 //
 $("#seemanagerreportN").on("change",function(){
@@ -17692,6 +19392,38 @@ $("#deletereturnedNTasReportgoodsReportN").on("change",function(){
     }
 });
 
+$("#returnedNTasReportgoodsReportN").on("change",function(){
+    if($("#returnedNTasReportgoodsReportN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",true);
+    }else{
+        if(!$(".returnedReportgoodsReportN").is(":checked")){
+            // $("#reportN").prop("checked",false);
+            $("#returnedReportgoodsReportN").prop("checked",false);
+            $("#returnedReportgoodsReportN").trigger("change");
+        }
+        $("#seereturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportN").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportN").prop("checked",false);
+    }
+});
+
+$("#tasgoodsReprtN").on("change",function(){
+    if($("#tasgoodsReprtN").is(":checked")){
+        $("#reportN").prop("checked",true);
+        $("#returnedReportgoodsReportN").prop("checked",true);
+        $("#seetasgoodsReprtN").prop("checked",true);
+    }else{
+        if(!$(".returnedReportgoodsReportN").is(":checked")){
+            $("#returnedReportgoodsReportN").prop("checked",false);
+            $("#returnedReportgoodsReportN").trigger("change");
+        }
+        $("#seetasgoodsReprtN").prop("checked",false);
+        $("#editasgoodsReprtN").prop("checked",false);
+        $("#deleteasgoodsReprtN").prop("checked",false);
+    }
+});
 
 //
 $("#seetasgoodsReprtN").on("change",function(){
@@ -17905,12 +19637,13 @@ $(".reportN").on("change",function(){
         $("#trazEmployeeReportN").prop("checked",true);
         $("#seetrazEmployeeReportN").prop("checked",true);
 
+        $("#amalkardCustReportN").prop("checked",true);
 
         $("#customerReportN").prop("checked",true);
         $("#seecustomerReportN").prop("checked",true);
 
 
-        $("#goodsReport").prop("checked",true);
+        $("#goodsReportN").prop("checked",true);
         $("#salegoodsReportN").prop("checked",true);
         $("#seesalegoodsReportN").prop("checked",true);
 
@@ -17938,6 +19671,18 @@ $(".reportN").on("change",function(){
 
         $("#goodsbargiriReportN").prop("checked",true);
         $("#seegoodsbargiriReportN").prop("checked",true);
+
+        $("#loginCustRepN").prop("checked",true);
+        $("#seeloginCustRepN").prop("checked",true);
+
+        $("#inActiveCustRepN").prop("checked",true);
+        $("#seeinActiveCustRepN").prop("checked",true);
+
+        $("#noAdminCustRepN").prop("checked",true);
+        $("#seenoAdminCustRepN").prop("checked",true);
+
+        $("#returnedCustRepN").prop("checked",true);
+        $("#seereturnedCustRepN").prop("checked",true);
 
     }else{
         $("#amalKardreportN").prop("checked",false);
@@ -17977,13 +19722,34 @@ $(".reportN").on("change",function(){
         $("#seetrazEmployeeReportN").prop("checked",false);
 
 
+        $("#amalkardCustReportN").prop("checked",false);
+        
         $("#customerReportN").prop("checked",false);
         $("#deletecustomerReportN").prop("checked",false);
         $("#editcustomerReportN").prop("checked",false);
         $("#seecustomerReportN").prop("checked",false);
 
+        $("#loginCustRepN").prop("checked",false);
+        $("#deleteloginCustRepN").prop("checked",false);
+        $("#editloginCustRepN").prop("checked",false);
+        $("#seeloginCustRepN").prop("checked",false);
 
-        $("#goodsReport").prop("checked",false);
+        $("#inActiveCustRepN").prop("checked",false);
+        $("#deleteinActiveCustRepN").prop("checked",false);
+        $("#editinActiveCustRepN").prop("checked",false);
+        $("#seeinActiveCustRepN").prop("checked",false);
+
+        $("#noAdminCustRepN").prop("checked",false);
+        $("#deletenoAdminCustRepN").prop("checked",false);
+        $("#editnoAdminCustRepN").prop("checked",false);
+        $("#seenoAdminCustRepN").prop("checked",false);
+
+        $("#returnedCustRepN").prop("checked",false);
+        $("#deletereturnedCustRepN").prop("checked",false);
+        $("#editreturnedCustRepN").prop("checked",false);
+        $("#seereturnedCustRepN").prop("checked",false);
+
+        $("#goodsReportN").prop("checked",false);
         $("#salegoodsReportN").prop("checked",false);
         $("#deletesalegoodsReportN").prop("checked",false);
         $("#editsalegoodsReportN").prop("checked",false);
@@ -18415,6 +20181,7 @@ $("#baseInfoED").on("change",function(){
         $("#seeSentRdED").prop("checked",true);
 
         $("#rdNotSentED").prop("checked",true);
+        $("#baseInfoSettingED").prop("checked",true);
         $("#seeRdNotSentED").prop("checked",true);
 
         $("#addSaleLineED").prop("checked",true);
@@ -18461,8 +20228,72 @@ $("#baseInfoED").on("change",function(){
     }
 });
 
+$("#salegoodsReportED").on("change",function(){
+    if($("#salegoodsReportED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#goodsReportED").prop("checked",true);
+        $("#seesalegoodsReportED").prop("checked",true);
+    }else{
+        if(!$(".goodsReportED").is(":checked")){
+            // $("#reportED").prop("checked",false);
+            $("#goodsReportED").prop("checked",false);
+            $("#goodsReportED").trigger("change");
+        }
+        $("#seesalegoodsReportED").prop("checked",false);
+        $("#editsalegoodsReportED").prop("checked",false);
+        $("#deletesalegoodsReportED").prop("checked",false);
+    }
+});
 
 
+$("#returnedgoodsReportED").on("change",function(){
+    if($("#returnedgoodsReportED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#goodsReportED").prop("checked",true);
+        $("#seereturnedgoodsReportED").prop("checked",true);
+    }else{
+        if(!$(".goodsReportED").is(":checked")){
+            // $("#reportED").prop("checked",false);
+            $("#goodsReportED").prop("checked",false);
+            $("#goodsReportED").trigger("change");
+        }
+        $("#seereturnedgoodsReportED").prop("checked",false);
+        $("#editreturnedgoodsReportED").prop("checked",false);
+        $("#deletereturnedgoodsReportED").prop("checked",false);
+    }
+});
+$("#NoExistgoodsReportED").on("change",function(){
+    if($("#NoExistgoodsReportED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#goodsReportED").prop("checked",true);
+        $("#seeNoExistgoodsReportED").prop("checked",true);
+    }else{
+        if(!$(".goodsReportED").is(":checked")){
+            // $("#reportED").prop("checked",false);
+            $("#goodsReportED").prop("checked",false);
+            $("#goodsReportED").trigger("change");
+        }
+        $("#seeNoExistgoodsReportED").prop("checked",false);
+        $("#editNoExistgoodsReportED").prop("checked",false);
+        $("#deleteNoExistgoodsReportED").prop("checked",false);
+    }
+});
+$("#nosalegoodsReportED").on("change",function(){
+    if($("#nosalegoodsReportED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#goodsReportED").prop("checked",true);
+        $("#seenosalegoodsReportED").prop("checked",true);
+    }else{
+        if(!$(".goodsReportED").is(":checked")){
+            // $("#reportED").prop("checked",false);
+            $("#goodsReportED").prop("checked",false);
+            $("#goodsReportED").trigger("change");
+        }
+        $("#seenosalegoodsReportED").prop("checked",false);
+        $("#editnosalegoodsReportED").prop("checked",false);
+        $("#deletenosalegoodsReportED").prop("checked",false);
+    }
+});
 $("#oppTakhsisED").on("change",function(){
     if($("#oppTakhsisED").is(":checked")){
         $("#oppED").prop("checked",true);
@@ -18713,8 +20544,9 @@ $("#oppManagerED").on("change",function(){
         $("#seeManagerOppED").prop("checked",true);
     }else{
         if(!$(".oppTakhsisED").is(":checked")){
-            $("#oppED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
             $("#oppTakhsisED").prop("checked",false);
+            $("#oppTakhsisED").trigger("change");
         }
         $("#seeManagerOppED").prop("checked",false);
         $("#editManagerOppED").prop("checked",false);
@@ -18729,8 +20561,9 @@ $("#oppHeadED").on("change",function(){
         $("#seeHeadOppED").prop("checked",true);
     }else{
         if(!$(".oppTakhsisED").is(":checked")){
-            $("#oppED").prop("checked",false);
-            $("#oppTakhsisED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
+           $("#oppTakhsisED").prop("checked",false);
+           $("#oppTakhsisED").trigger("change");
         }
         $("#seeHeadOppED").prop("checked",false);
         $("#editHeadOppED").prop("checked",false);
@@ -18745,8 +20578,9 @@ $("#oppBazaryabED").on("change",function(){
         $("#seeBazaryabOppED").prop("checked",true);
     }else{
         if(!$(".oppTakhsisED").is(":checked")){
-            $("#oppED").prop("checked",false);
-            $("#oppTakhsisED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
+           $("#oppTakhsisED").prop("checked",false);
+           $("#oppTakhsisED").trigger("change");
         }
         $("#seeBazaryabOppED").prop("checked",false);
         $("#editBazaryabOppED").prop("checked",false);
@@ -18760,9 +20594,10 @@ $("#oppDriverServiceED").on("change",function(){
         $("#oppDriverED").prop("checked",true);
         $("#seeoppDriverServiceED").prop("checked",true);
     }else{
-        if(!$(".oppTakhsisED").is(":checked")){
-            $("#oppED").prop("checked",false);
+        if(!$(".oppDriverED").is(":checked")){
+            //$("#oppED").prop("checked",false);
             $("#oppDriverED").prop("checked",false);
+            $("#oppDriverED").trigger("change");
         }
         $("#seeoppDriverServiceED").prop("checked",false);
         $("#editoppDriverServiceED").prop("checked",false);
@@ -18776,9 +20611,10 @@ $("#oppBargiriED").on("change",function(){
         $("#oppDriverED").prop("checked",true);
         $("#seeoppBargiriED").prop("checked",true);
     }else{
-        if(!$(".oppTakhsisED").is(":checked")){
-            $("#oppED").prop("checked",false);
+        if(!$(".oppDriverED").is(":checked")){
+            //$("#oppED").prop("checked",false);
             $("#oppDriverED").prop("checked",false);
+            $("#oppDriverED").trigger("change");
         }
         $("#seeoppBargiriED").prop("checked",false);
         $("#editoppBargiriED").prop("checked",false);
@@ -18793,8 +20629,9 @@ $("#todayoppNazarsanjiED").on("change",function(){
         $("#seetodayoppNazarsanjiED").prop("checked",true);
     }else{
         if(!$(".oppNazarSanjiED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            //$("#oppED").prop("checked",false);
             $("#oppNazarSanjiED").prop("checked",false);
+            $("#oppNazarSanjiED").trigger("change");
         }
         $("#seetodayoppNazarsanjiED").prop("checked",false);
         $("#edittodayoppNazarsanjiED").prop("checked",false);
@@ -18809,8 +20646,9 @@ $("#pastoppNazarsanjiED").on("change",function(){
         $("#seepastoppNazarsanjiED").prop("checked",true);
     }else{
         if(!$(".oppNazarSanjiED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            //$("#oppED").prop("checked",false);
             $("#oppNazarSanjiED").prop("checked",false);
+            $("#oppNazarSanjiED").trigger("change");
         }
         $("#seepastoppNazarsanjiED").prop("checked",false);
         $("#editpastoppNazarsanjiED").prop("checked",false);
@@ -18821,12 +20659,13 @@ $("#pastoppNazarsanjiED").on("change",function(){
 $("#DoneoppNazarsanjiED").on("change",function(){
     if($("#DoneoppNazarsanjiED").is(":checked")){
         $("#oppED").prop("checked",true);
-        $("#oppNazarSanjiED").prop("checked",false);
+        $("#oppNazarSanjiED").prop("checked",true);
         $("#seeDoneoppNazarsanjiED").prop("checked",true);
     }else{
         if(!$(".oppNazarSanjiED").is(":checked")){
-            $("#oppED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
             $("#oppNazarSanjiED").prop("checked",false);
+            $("#oppNazarSanjiED").trigger("change");
         }
         $("#seeDoneoppNazarsanjiED").prop("checked",false);
         $("#editDoneoppNazarsanjiED").prop("checked",false);
@@ -18841,8 +20680,9 @@ $("#AddOppupDownBonusED").on("change",function(){
         $("#seeAddOppupDownBonusED").prop("checked",true);
     }else{
         if(!$(".OppupDownBonusED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            //$("#oppED").prop("checked",false);
             $("#OppupDownBonusED").prop("checked",false);
+            $("#OppupDownBonusED").trigger("change");
         }
         $("#seeAddOppupDownBonusED").prop("checked",false);
         $("#editAddOppupDownBonusED").prop("checked",false);
@@ -18857,8 +20697,9 @@ $("#SubOppupDownBonusED").on("change",function(){
         $("#seeSubOppupDownBonusED").prop("checked",true);
     }else{
         if(!$(".OppupDownBonusED").is(":checked")){
-            $("#oppED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
             $("#OppupDownBonusED").prop("checked",false);
+            $("#OppupDownBonusED").trigger("change");
         }
         $("#seeSubOppupDownBonusED").prop("checked",false);
         $("#editSubOppupDownBonusED").prop("checked",false);
@@ -18874,8 +20715,9 @@ $("#AddedoppRDED").on("change",function(){
         $("#seeAddedoppRDED").prop("checked",true);
     }else{
         if(!$(".oppRDED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            // $("#oppED").prop("checked",false);
             $("#oppRDED").prop("checked",false);
+            $("#oppRDED").trigger("change")
         }
         $("#seeAddedoppRDED").prop("checked",false);
         $("#editAddedoppRDED").prop("checked",false);
@@ -18890,8 +20732,9 @@ $("#NotAddedoppRDED").on("change",function(){
         $("#seeNotAddedoppRDED").prop("checked",true);
     }else{
         if(!$(".oppRDED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            //$("#oppED").prop("checked",false);
             $("#oppRDED").prop("checked",false);
+            $("#oppRDED").trigger("change")
         }
         $("#seeNotAddedoppRDED").prop("checked",false);
         $("#editNotAddedoppRDED").prop("checked",false);
@@ -18906,8 +20749,9 @@ $("#oppjustCalendarED").on("change",function(){
         $("#seeoppjustCalendarED").prop("checked",true);
     }else{
         if(!$(".oppCalendarED").is(":checked")){
-            $("#oppED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
             $("#oppCalendarED").prop("checked",false);
+            $("#oppCalendarED").trigger("change")
         }
         $("#seeoppjustCalendarED").prop("checked",false);
         $("#editoppjustCalendarED").prop("checked",false);
@@ -18922,8 +20766,9 @@ $("#oppCustCalendarED").on("change",function(){
         $("#seeoppCustCalendarED").prop("checked",true);
     }else{
         if(!$(".oppCalendarED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            //$("#oppED").prop("checked",false);
             $("#oppCalendarED").prop("checked",false);
+            $("#oppCalendarED").trigger("change")
         }
         $("#seeoppCustCalendarED").prop("checked",false);
         $("#editoppCustCalendarED").prop("checked",false);
@@ -18938,8 +20783,9 @@ $("#allalarmoppED").on("change",function(){
         $("#seeallalarmoppED").prop("checked",true);
     }else{
         if(!$(".alarmoppED").is(":checked")){
-            $("#oppED").prop("checked",false);
+            //$("#oppED").prop("checked",false);
             $("#alarmoppED").prop("checked",false);
+            $("#alarmoppED").trigger("change");
         }
         $("#seeallalarmoppED").prop("checked",false);
         $("#editallalarmoppED").prop("checked",false);
@@ -18970,8 +20816,9 @@ $("#NoalarmoppED").on("change",function(){
         $("#seeNoalarmoppED").prop("checked",true);
     }else{
         if(!$(".alarmoppED").is(":checked")){
-            $("#oppED").prop("checked",false);
-            $("#alarmoppED").prop("checked",false);
+           // $("#oppED").prop("checked",false);
+           $("#alarmoppED").prop("checked",false);
+           $("#alarmoppED").trigger("change");
         }
         $("#seeNoalarmoppED").prop("checked",false);
         $("#editNoalarmoppED").prop("checked",false);
@@ -19938,8 +21785,9 @@ $("#loginCustRepED").on("change",function(){
         $("#seeloginCustRepED").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
+            //$("#reportED").prop("checked",false);
             $("#amalkardCustReportED").prop("checked",false);
+            $("#amalkardCustReportED").trigger("change");
         }
         $("#seeloginCustRepED").prop("checked",false);
     }
@@ -19952,8 +21800,9 @@ $("#inActiveCustRepED").on("change",function(){
         $("#seeinActiveCustRepED").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
+            //$("#reportED").prop("checked",false);
             $("#amalkardCustReportED").prop("checked",false);
+            $("#amalkardCustReportED").trigger("change");
         }
         $("#seeinActiveCustRepED").prop("checked",false);
     }
@@ -19965,8 +21814,9 @@ $("#noAdminCustRepED").on("change",function(){
         $("#seenoAdminCustRepED").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
+            //$("#reportED").prop("checked",false);
             $("#amalkardCustReportED").prop("checked",false);
+            $("#amalkardCustReportED").trigger("change");
         }
         $("#seenoAdminCustRepED").prop("checked",false);
     }
@@ -19978,8 +21828,9 @@ $("#returnedCustRepED").on("change",function(){
         $("#seereturnedCustRepED").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
+            //$("#reportED").prop("checked",false);
             $("#amalkardCustReportED").prop("checked",false);
+            $("#amalkardCustReportED").trigger("change");
         }
         $("#seereturnedCustRepED").prop("checked",false);
     }
@@ -19991,16 +21842,17 @@ $("#loginCustRepED").on("change",function(){
         $("#seeloginCustRepED").prop("checked",true);
     }else{
         if(!$(".amalkardCustReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
+            //$("#reportED").prop("checked",false);
             $("#amalkardCustReportED").prop("checked",false);
+            $("#amalkardCustReportED").trigger("change");
         }
         $("#seeloginCustRepED").prop("checked",false);
     }
 });
 
 
-$("#goodsReport").on("change",function(){
-    if($("#goodsReport").is(":checked")){
+$("#goodsReportED").on("change",function(){
+    if($("#goodsReportED").is(":checked")){
         $("#reportED").prop("checked",true);
         $("#salegoodsReportED").prop("checked",true);
         $("#returnedgoodsReportED").prop("checked",true);
@@ -20085,8 +21937,9 @@ $("#managerreportED").on("change",function(){
         $("#seemanagerreportED").prop("checked",true);
     }else{
         if(!$(".amalKardreportED").is(":checked")){
-            $("#reportED").prop("checked",false);
+           // $("#reportED").prop("checked",false);
             $("#amalKardreportED").prop("checked",false);
+            $("#amalKardreportED").trigger("change");
         }
         $("#seemanagerreportED").prop("checked",false);
         $("#editmanagerreportED").prop("checked",false);
@@ -20101,8 +21954,9 @@ $("#HeadreportED").on("change",function(){
         $("#seeHeadreportED").prop("checked",true);
     }else{
         if(!$(".amalKardreportED").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#amalKardreportED").prop("checked",false);
+           // $("#reportED").prop("checked",false);
+           $("#amalKardreportED").prop("checked",false);
+           $("#amalKardreportED").trigger("change");
         }
         $("#seeHeadreportED").prop("checked",false);
         $("#editHeadreportED").prop("checked",false);
@@ -20117,8 +21971,9 @@ $("#poshtibanreportED").on("change",function(){
         $("#seeposhtibanreportED").prop("checked",true);
     }else{
         if(!$(".amalKardreportED").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#amalKardreportED").prop("checked",false);
+           // $("#reportED").prop("checked",false);
+           $("#amalKardreportED").prop("checked",false);
+           $("#amalKardreportED").trigger("change");
         }
         $("#seeposhtibanreportED").prop("checked",false);
         $("#editposhtibanreportED").prop("checked",false);
@@ -20134,8 +21989,9 @@ $("#bazaryabreportED").on("change",function(){
         $("#seebazaryabreportED").prop("checked",true);
     }else{
         if(!$(".amalKardreportED").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#amalKardreportED").prop("checked",false);
+           // $("#reportED").prop("checked",false);
+           $("#amalKardreportED").prop("checked",false);
+           $("#amalKardreportED").trigger("change");
         }
         $("#seebazaryabreportED").prop("checked",false);
         $("#editbazaryabreportED").prop("checked",false);
@@ -20150,8 +22006,9 @@ $("#reportDriverED").on("change",function(){
         $("#seereportDriverED").prop("checked",true);
     }else{
         if(!$(".amalKardreportED").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#amalKardreportED").prop("checked",false);
+           // $("#reportED").prop("checked",false);
+           $("#amalKardreportED").prop("checked",false);
+           $("#amalKardreportED").trigger("change");
         }
         $("#seereportDriverED").prop("checked",false);
         $("#editreportDriverED").prop("checked",false);
@@ -20159,101 +22016,88 @@ $("#reportDriverED").on("change",function(){
     }
 });
 
- 
-$("#salegoodsReportN ").on("change",function(){
-    if($("#salegoodsReportN ").is(":checked")){
+
+$("#goodsReport").on("change",function(){
+    if($("#goodsReport").is(":checked")){
         $("#reportED").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seesalegoodsReportN ").prop("checked",true);
+        $("#salegoodsReportED").prop("checked",true);
+        $("#returnedgoodsReportED").prop("checked",true);
+        $("#NoExistgoodsReportED").prop("checked",true);
+        $("#nosalegoodsReportED").prop("checked",true);
+
+        $("#seesalegoodsReportED").prop("checked",true);
+        $("#seereturnedgoodsReportED").prop("checked",true);
+        $("#seeNoExistgoodsReportED").prop("checked",true);
+        $("#seenosalegoodsReportED").prop("checked",true);
     }else{
-        if(!$(".goodsReport").is(":checked")){
+        if(!$(".reportPartED").is(":checked")){
             $("#reportED").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
         }
-        $("#seesalegoodsReportN ").prop("checked",false);
-        $("#editsalegoodsReportN ").prop("checked",false);
-        $("#deletesalegoodsReportN ").prop("checked",false);
+        $("#salegoodsReportED").prop("checked",false);
+        $("#returnedgoodsReportED").prop("checked",false);
+        $("#NoExistgoodsReportED").prop("checked",false);
+        $("#nosalegoodsReportED").prop("checked",false);
+
+        $("#seesalegoodsReportED").prop("checked",false);
+        $("#seereturnedgoodsReportED").prop("checked",false);
+        $("#seeNoExistgoodsReportED").prop("checked",false);
+        $("#seenosalegoodsReportED").prop("checked",false);
+
+        $("#editsalegoodsReportED").prop("checked",false);
+        $("#editreturnedgoodsReportED").prop("checked",false);
+        $("#editNoExistgoodsReportED").prop("checked",false);
+        $("#editnosalegoodsReportED").prop("checked",false);
+
+        $("#deletesalegoodsReportED").prop("checked",false);
+        $("#deletereturnedgoodsReportED").prop("checked",false);
+        $("#deleteNoExistgoodsReportED").prop("checked",false);
+        $("#deletenosalegoodsReportED").prop("checked",false);
+    }
+});
+
+$("#returnedReportgoodsReportED").on("change",function(){
+    if($("#returnedReportgoodsReportED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#returnedNTasReportgoodsReportED").prop("checked",true);
+        $("#tasgoodsReprtED").prop("checked",true);
+
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",true);
+        $("#seetasgoodsReprtED").prop("checked",true);
+    }else{
+        if(!$(".reportPartED").is(":checked")){
+            $("#reportED").prop("checked",false);
+        }
+        $("#returnedNTasReportgoodsReportED").prop("checked",false);
+        $("#tasgoodsReprtED").prop("checked",false);
+
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#seetasgoodsReprtED").prop("checked",false);
+
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#edittasgoodsReprtED").prop("checked",false);
+
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#deletetasgoodsReprtED").prop("checked",false);
     }
 });
 
 
-$("#returnedgoodsReportN ").on("change",function(){
-    if($("#returnedgoodsReportN ").is(":checked")){
+$("#goodsbargiriReportED").on("change",function(){
+    if($("#goodsbargiriReportED").is(":checked")){
         $("#reportED").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seereturnedgoodsReportN ").prop("checked",true);
+        $("#seegoodsbargiriReportED").prop("checked",true);
     }else{
-        if(!$(".goodsReport").is(":checked")){
+        if(!$(".reportPartED").is(":checked")){
             $("#reportED").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
         }
-        $("#seereturnedgoodsReportN ").prop("checked",false);
-        $("#editreturnedgoodsReportN ").prop("checked",false);
-        $("#deletereturnedgoodsReportN ").prop("checked",false);
-    }
-});
-$("#NoExistgoodsReportN ").on("change",function(){
-    if($("#NoExistgoodsReportN ").is(":checked")){
-        $("#reportED").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seeNoExistgoodsReportN ").prop("checked",true);
-    }else{
-        if(!$(".goodsReport").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
-        }
-        $("#seeNoExistgoodsReportN ").prop("checked",false);
-        $("#editNoExistgoodsReportN ").prop("checked",false);
-        $("#deleteNoExistgoodsReportN ").prop("checked",false);
-    }
-});
-$("#nosalegoodsReportN ").on("change",function(){
-    if($("#nosalegoodsReportN ").is(":checked")){
-        $("#reportED").prop("checked",true);
-        $("#goodsReport").prop("checked",true);
-        $("#seenosalegoodsReportN ").prop("checked",true);
-    }else{
-        if(!$(".goodsReport").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#goodsReport").prop("checked",false);
-        }
-        $("#seenosalegoodsReportN ").prop("checked",false);
-        $("#editnosalegoodsReportN ").prop("checked",false);
-        $("#deletenosalegoodsReportN ").prop("checked",false);
+        $("#seegoodsbargiriReportED").prop("checked",false);
+        $("#editgoodsbargiriReportED").prop("checked",false);
+        $("#deletegoodsbargiriReportED").prop("checked",false);
     }
 });
 
-$("#returnedNTasReportgoodsReportN ").on("change",function(){
-    if($("#returnedNTasReportgoodsReportN ").is(":checked")){
-        $("#reportED").prop("checked",true);
-        $("#returnedReportgoodsReportED").prop("checked",true);
-        $("#seereturnedNTasReportgoodsReportN ").prop("checked",true);
-    }else{
-        if(!$(".returnedReportgoodsReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#returnedReportgoodsReportED").prop("checked",false);
-        }
-        $("#seereturnedNTasReportgoodsReportN ").prop("checked",false);
-        $("#editreturnedNTasReportgoodsReportN ").prop("checked",false);
-        $("#deletereturnedNTasReportgoodsReportN ").prop("checked",false);
-    }
-});
 
-$("#tasgoodsReprtN ").on("change",function(){
-    if($("#tasgoodsReprtN ").is(":checked")){
-        $("#reportED").prop("checked",true);
-        $("#returnedReportgoodsReportED").prop("checked",true);
-        $("#seetasgoodsReprtN ").prop("checked",true);
-    }else{
-        if(!$(".returnedReportgoodsReportED").is(":checked")){
-            $("#reportED").prop("checked",false);
-            $("#returnedReportgoodsReportED").prop("checked",false);
-        }
-        $("#seetasgoodsReprtN ").prop("checked",false);
-        $("#editasgoodsReprtN ").prop("checked",false);
-        $("#deleteasgoodsReprtN ").prop("checked",false);
-    }
-});
+
 
 //
 $("#seemanagerreportED").on("change",function(){
@@ -20600,6 +22444,38 @@ $("#deletereturnedNTasReportgoodsReportED").on("change",function(){
     }
 });
 
+$("#returnedNTasReportgoodsReportED").on("change",function(){
+    if($("#returnedNTasReportgoodsReportED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#returnedReportgoodsReportED").prop("checked",true);
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",true);
+    }else{
+        if(!$(".returnedReportgoodsReportED").is(":checked")){
+            // $("#reportED").prop("checked",false);
+            $("#returnedReportgoodsReportED").prop("checked",false);
+            $("#returnedReportgoodsReportED").trigger("change");
+        }
+        $("#seereturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#editreturnedNTasReportgoodsReportED").prop("checked",false);
+        $("#deletereturnedNTasReportgoodsReportED").prop("checked",false);
+    }
+});
+
+$("#tasgoodsReprtED").on("change",function(){
+    if($("#tasgoodsReprtED").is(":checked")){
+        $("#reportED").prop("checked",true);
+        $("#returnedReportgoodsReportED").prop("checked",true);
+        $("#seetasgoodsReprtED").prop("checked",true);
+    }else{
+        if(!$(".returnedReportgoodsReportED").is(":checked")){
+            $("#returnedReportgoodsReportED").prop("checked",false);
+            $("#returnedReportgoodsReportED").trigger("change");
+        }
+        $("#seetasgoodsReprtED").prop("checked",false);
+        $("#editasgoodsReprtED").prop("checked",false);
+        $("#deleteasgoodsReprtED").prop("checked",false);
+    }
+});
 
 //
 $("#seetasgoodsReprtED").on("change",function(){
@@ -20818,7 +22694,7 @@ $(".reportED").on("change",function(){
         $("#seecustomerReportED").prop("checked",true);
 
 
-        $("#goodsReport").prop("checked",true);
+        $("#goodsReportED").prop("checked",true);
         $("#salegoodsReportED").prop("checked",true);
         $("#seesalegoodsReportED").prop("checked",true);
 
@@ -20846,6 +22722,24 @@ $(".reportED").on("change",function(){
 
         $("#goodsbargiriReportED").prop("checked",true);
         $("#seegoodsbargiriReportED").prop("checked",true);
+
+        $("#amalkardCustReportED").prop("checked",true);
+        
+        $("#customerReportED").prop("checked",true);
+        $("#seecustomerReportED").prop("checked",true);
+
+        $("#loginCustRepED").prop("checked",true);
+        $("#seeloginCustRepED").prop("checked",true);
+
+        $("#inActiveCustRepED").prop("checked",true);
+        $("#seeinActiveCustRepED").prop("checked",true);
+
+        $("#noAdminCustRepED").prop("checked",true);
+        $("#seenoAdminCustRepED").prop("checked",true);
+
+        $("#returnedCustRepED").prop("checked",true);
+        $("#seereturnedCustRepED").prop("checked",true);
+
 
     }else{
         $("#amalKardreportED").prop("checked",false);
@@ -20890,8 +22784,36 @@ $(".reportED").on("change",function(){
         $("#editcustomerReportED").prop("checked",false);
         $("#seecustomerReportED").prop("checked",false);
 
+        
+        $("#amalkardCustReportED").prop("checked",false);
+        
+        $("#customerReportED").prop("checked",false);
+        $("#deletecustomerReportED").prop("checked",false);
+        $("#editcustomerReportED").prop("checked",false);
+        $("#seecustomerReportED").prop("checked",false);
 
-        $("#goodsReport").prop("checked",false);
+        $("#loginCustRepED").prop("checked",false);
+        $("#deleteloginCustRepED").prop("checked",false);
+        $("#editloginCustRepED").prop("checked",false);
+        $("#seeloginCustRepED").prop("checked",false);
+
+        $("#inActiveCustRepED").prop("checked",false);
+        $("#deleteinActiveCustRepED").prop("checked",false);
+        $("#editinActiveCustRepED").prop("checked",false);
+        $("#seeinActiveCustRepED").prop("checked",false);
+
+        $("#noAdminCustRepED").prop("checked",false);
+        $("#deletenoAdminCustRepED").prop("checked",false);
+        $("#editnoAdminCustRepED").prop("checked",false);
+        $("#seenoAdminCustRepED").prop("checked",false);
+
+        $("#returnedCustRepED").prop("checked",false);
+        $("#deletereturnedCustRepED").prop("checked",false);
+        $("#editreturnedCustRepED").prop("checked",false);
+        $("#seereturnedCustRepED").prop("checked",false);
+
+
+        $("#goodsReportED").prop("checked",false);
         $("#salegoodsReportED").prop("checked",false);
         $("#deletesalegoodsReportED").prop("checked",false);
         $("#editsalegoodsReportED").prop("checked",false);
@@ -20935,7 +22857,6 @@ $(".reportED").on("change",function(){
         $("#seegoodsbargiriReportED").prop("checked",false);
     }
 })
-
 // Create root and chart
 var root = am5.Root.new("chartdiv");
 root.setThemes([am5themes_Animated.new(root)]);
