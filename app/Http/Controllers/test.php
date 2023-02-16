@@ -1233,16 +1233,9 @@
             $fileName=$maxId.".jpg";
             $picture->move("resources/assets/images/admins/",$fileName);
         }
-        DB::table("CRM.dbo.crm_admin")->insert(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",
-        'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,'address'=>$address,
-        'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'driverId'=>0,'hasAllCustomer'=>$hasAllCustomer,
-        'bossId'=>$bossId,'employeeType'=>$employeeType,'SaleLineId'=>$saleLineSn,'poshtibanType'=>$poshtibanType]);
-
-
-        $lastId=DB::table("CRM.dbo.crm_admin")->max('id');
 
           DB::table("CRM.dbo.crm_hasAccess3")->WHERE()->update(
-            [  "adminId"=>$lastId
+            [ "adminId"=>$lastId
            , "declareElementOppN"=>$declareElementOppED
             
             ,"baseInfoN"=>$baseInfoED
