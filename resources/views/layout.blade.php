@@ -49,6 +49,7 @@
                         <button onclick="closeNav()" class="closeMenuButton"><i class="fad fa-times"></i></button>
                         <div id='cssmenu' style="direction: rtl;">
                             <ul>
+                                @if(hasPermission(Session::get("asn"),"baseInfoN") > -1)
                                     <li class='has-sub'>
                                         <a class="mySidenav__item" href="#">
                                             <span>
@@ -56,12 +57,21 @@
                                             </span>
                                         </a>
                                         <ul>
+                                            @if(hasPermission(Session::get("asn"),"baseInfoProfileN") > -1)
                                             <li class=''><a class="mySidenav__item" href="{{url('/userProfile')}}"> &nbsp;&nbsp; <i class="fa-solid fa-user fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; پروفایل </span></a> </li>
+                                            @endif
+                                            @if(hasPermission(Session::get("asn"),"infoRdN") > -1)
                                             <li class=''><a class="mySidenav__item" href="{{url('/randt')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; R&D</span></a> </li>
+                                            @endif
+                                            @if(hasPermission(Session::get("asn"),"specialSettingN") > -1)
                                             <li class=''><a class="mySidenav__item" href="{{url('/saleLine')}}"> &nbsp;&nbsp; <i class="fa-solid fa-tasks fa-lg"style="margin-right:15px; color:#ba7802;"></i>&nbsp; افزودن خط فروش</span></a> </li>
+                                            @endif
+                                            @if(hasPermission(Session::get("asn"),"baseInfoSettingN") > -1)
                                             <li class=''><a class="mySidenav__item" href="{{url('/bonusSetting')}}"> &nbsp;&nbsp; <i class="fa fa-cog fa-lg" style="margin-right:15px; color:#ba7802;"></i>&nbsp; تنظیمات  </span></a></li>
+                                            @endif
                                         </ul>
                                     </li>
+                                @endif
                                     <li class='has-sub'>
                                         <a class="mySidenav__item" href="#">
                                             <span>

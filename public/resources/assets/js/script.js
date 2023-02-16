@@ -11,8 +11,7 @@ $(document).ready(
         });
     } // document-ready
 );
-document
-    .querySelector(".fa-bars")
+document.querySelector(".fa-bars")
     .parentElement.addEventListener("click", () => {
         // backdrop.classList.add('show');
     });
