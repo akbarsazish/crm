@@ -4021,6 +4021,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
         $manager=$request->post("manager");
         $head=$request->post("head");
         $saleLine=$request->post("saleLine");
+
         // اگر اطلاعات پایه آن بود 
         $baseInfoED = $request->post("baseInfoN");
         $baseInfoProfileED;
@@ -4187,6 +4188,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
 
         }else{
             $InfoSettingAccessOpED=-1;
+            $InfoSettingAccessED=-1;
             $InfoSettingTargetOpED=-1;
             $baseInfoSettingED=-1;
             //
@@ -4197,6 +4199,8 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
             //
             $specialSettingED = -1;
             $baseInfoED=-1;
+            $InfoSettingAccessED=-1;
+            $InfoSettingTargetED=-1;
         }
 
 

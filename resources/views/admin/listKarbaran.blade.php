@@ -207,13 +207,13 @@
                         <form action="{{url('/addAdmin')}}" method="POST"  enctype="multipart/form-data">
                             {{ csrf_field() }}
                            <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نام </label>
                                         <input type="text" required minlength="3" maxlength="12" class="form-control form-control-sm" autocomplete="off" name="name">
                                     </div>
                                </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نام خانوادگی</label>
                                         <input type="text" required  minlength="3" maxlength="12" class="form-control form-control-sm" autocomplete="off" name="lastName">
@@ -241,13 +241,24 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label class="form-label"> عکس </label>
-                                        <input type="file" class="form-control form-control-sm" name="picture" placeholder="">
+                            </div>
+                            <div class="row">
+                                    <div class="col-lg-3">
+                                        <label class="dashboardLabel form-label"> تلفن </label>
+                                        <input type="number" required minlength="10" maxlength="12" class="form-control form-control-sm" autocomplete="off" name="phone">
+                                   </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label"> عکس </label>
+                                            <input type="file" class="form-control form-control-sm" name="picture" placeholder="">
+                                       </div>
+                                   </div>
+                                    <div class="col-lg-6">
+                                       <label class="dashboardLabel form-label"> آدرس </label>
+                                       <input type="text" required minlength="3" class="form-control form-control-sm" autocomplete="off" name="address">
                                     </div>
-                                </div>
-                            </div> <br>
+                            </div>
+                            <br>
 
                             <div class="row rounded px-0 mx-0" style="background-color:#abd2ed; padding-bottom:5px;"> 
                                    <div class="col-md-2">
@@ -1208,13 +1219,13 @@
                         <input type="hidden" id="adminId" name="adminId">
                         @csrf
                             <div class="row"> 
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نام </label>
                                         <input type="text" required class="form-control form-control-sm" autocomplete="off" name="name" id="adminName">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="dashboardLabel form-label"> نام خانوادگی</label>
                                         <input type="text" required class="form-control form-control-sm" autocomplete="off" name="lastName" id="adminLastName">
@@ -1227,13 +1238,6 @@
                                         <input type="text" required class="form-control form-control-sm" autocomplete="off" name="userName" id="adminUserName">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label class="dashboardLabel form-label"> شماره تماس </label>
-                                        <input type="number" required class="form-control form-control-sm" autocomplete="off" name="phone" id="adminPhone">
-                                    </div>
-                                </div>
-                            
                             
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -1249,7 +1253,26 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div> <br>
+                            </div>
+                             <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="dashboardLabel form-label"> شماره تماس </label>
+                                            <input type="number" required class="form-control form-control-sm" autocomplete="off" name="phone" id="adminPhone">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                           <label class="dashboardLabel form-label"> عکس </label>
+                                           <input type="file" class="form-control form-control-sm" name="picture">
+                                         </div>
+                                   </div>
+                                    <div class="col-lg-6">
+                                       <label class="dashboardLabel form-label"> آدرس </label>
+                                       <input type="text" required minlength="3" class="form-control form-control-sm" autocomplete="off" name="address">
+                                    </div>
+                            </div>
+                            <br>
                         <div class="row rounded px-0 mx-0" style="background-color:#abd2ed; padding-bottom:5px;"> 
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -1312,13 +1335,9 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
+                    </div> <br>
                         <div class="row"> 
                             <div class="col-md-4">
-                                    <div class="form-group">
-                                    <label class="dashboardLabel form-label"> عکس </label>
-                                    <input type="file" class="form-control form-control-sm" name="picture">
-                                </div>
                                 <div class="form-check form-switch text-end">
                                     <input class="form-check-input ms-1" name="hasAsses" type="checkbox" id="adminHasAssess" checked style="font-size:22px;">
                                     <label class="form-check-label" for="flexSwitchCheckChecked">آیا نظر سنجی داشته باشد؟</label>
@@ -1335,7 +1354,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label class="form-label"> توضیحات</label>
-                                    <textarea class="form-control" cols="10" rows="4" name="discription" style="background-color:blanchedalmond" id="adminDiscription"></textarea>
+                                    <textarea class="form-control" rows="3" name="discription" style="background-color:blanchedalmond" id="adminDiscription"></textarea>
                                 </div>
                             </div>
                         </div> <br>
