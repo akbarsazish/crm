@@ -138,7 +138,7 @@ Route::get("/searchMap",[Customer::class,"searchMap"])->middleware('checkUser');
 Route::get("/getAdminForEmpty",[Admin::class,"getAdminForEmpty"])->middleware('checkUser');
 Route::get("/emptyAdmin",[Admin::class,"emptyAdmin"])->middleware('checkUser');
 Route::get("/moveCustomerToAdmin",[Admin::class,"moveCustomerToAdmin"])->middleware('checkUser');
-Route::get("/getAdminForMove",[Admin::class,"getAdminForMove"])->middleware('checkUser');
+Route::get("/getAdminForMove",[Admin::class,"getAdminForMove"])->middleware('CheckCommon');
 Route::post("/editAdmintStuff",[Admin::class,"editAdmintStuff"])->middleware('checkUser');
 Route::post("/editAdmintListStuff",[Admin::class,"editAdmintListStuff"])->middleware('checkUser');
 Route::get("/deleteAdmin",[Admin::class,"deleteAdmin"])->middleware('checkUser');
@@ -184,7 +184,7 @@ Route::get("/orderAllCustomerByCName",[Admin::class,"orderAllCustomerByCName"])-
 Route::get("/searchAddedCustomerByRegion",[Customer::class,"searchAddedCustomerByRegion"])->middleware('checkUser');
 Route::get("/searchAddedCustomerByNameMNM",[Customer::class,"searchAddedCustomerByNameMNM"])->middleware('checkUser');
 Route::get("/searchCustomerByNameMNM",[Customer::class,"searchCustomerByNameMNM"])->middleware('checkUser');
-Route::get("/listKarbaran",[Admin::class,"listKarbaran"])->middleware('checkUser');
+Route::get("/listKarbaran",[Admin::class,"listKarbaran"])->middleware('CheckCommon');
 Route::get("/testRoute",[Admin::class,"testRoute"])->middleware('checkUser');
 Route::get("/getAssesComment",[Admin::class,"getAssesComment"])->middleware('checkUser');
 Route::get("/getCustomerLoginInfo",[Admin::class,"getCustomerLoginInfo"])->middleware('checkUser');

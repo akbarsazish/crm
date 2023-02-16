@@ -16,7 +16,7 @@ document.querySelector(".fa-bars")
         // backdrop.classList.add('show');
     });
 
-var baseUrl = "http://192.168.10.26:8080";
+var baseUrl = "http://192.168.10.27:8080";
 var myVar;
 function setAdminStuffForAdmin(element,adminTypeId,driverId) {
     $(element).find("input:radio").prop("checked", true);
@@ -5576,6 +5576,671 @@ function setKarbarEditStuff() {
             $(".modal-dialog").draggable({
                 handle: ".modal-header",
             });
+// قسمت base Info
+alert(admin.rdSentN)
+            switch (parseInt(admin.rdSentN)) {
+                case 1:
+                    $("#editSentRdED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeSentRdED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeSentRdED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteSentRdED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.baseInfoProfileN)) {
+                case 1:
+                    $("#editProfileED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeProfileED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeProfileED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteProfileED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.rdNotSentN)) {
+                case 1:
+                    $("#editRdNotSentED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeRdNotSentED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeRdNotSentED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteRdNotSentED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.specialSettingN)) {
+                case 1:
+                    $("#editSaleLineED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeSaleLineED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeSaleLineED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteSaleLineED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.InfoSettingAccessN)) {
+                case 1:
+                    $("#editSettingAccessED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeSettingAccessED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeSettingAccessED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteSettingAccessED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.InfoSettingTargetN)) {
+                case 1:
+                    $("#editSettingTargetED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeSettingTargetED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeSettingTargetED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteSettingTargetED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.InfoSettingTargetN)) {
+                case 1:
+                    $("#editSettingTargetED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeSettingTargetED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeSettingTargetED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteSettingTargetED").prop("checked",true).change();
+                    break;
+            }
+            
+            switch (parseInt(admin.declareElementOppN)) {
+                case 1:
+                    $("#editdeclareElementED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seedeclareElementED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seedeclareElementED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletedeclareElementED").prop("checked",true).change();
+                    break;
+            }
+  
+            switch (parseInt(admin.oppManagerN)) {
+                case 1:
+                    $("#editManagerOppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeManagerOppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeManagerOppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteManagerOppED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.oppHeadN)) {
+                case 1:
+                    $("#editHeadOppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeHeadOppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeHeadOppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteHeadOppED").prop("checked",true).change();
+                    break;
+            }
+            
+            switch (parseInt(admin.oppBazaryabN)) {
+                case 1:
+                    $("#editBazaryabOppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeBazaryabOppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeBazaryabOppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteBazaryabOppED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.oppDriverServiceN)) {
+                case 1:
+                    $("#editoppDriverServiceED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeoppDriverServiceED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeoppDriverServiceED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteoppDriverServiceED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.oppBargiriN)) {
+                case 1:
+                    $("#editoppBargiriED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeoppBargiriED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeoppBargiriED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteoppBargiriED").prop("checked",true).change();
+                    break;
+            }
+            
+            switch (parseInt(admin.todayoppNazarsanjiN)) {
+                case 1:
+                    $("#edittodayoppNazarsanjiED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seetodayoppNazarsanjiED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seetodayoppNazarsanjiED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletetodayoppNazarsanjiED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.pastoppNazarsanjiN)) {
+                case 1:
+                    $("#editpastoppNazarsanjiED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seepastoppNazarsanjiED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seepastoppNazarsanjiED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletepastoppNazarsanjiED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.DoneoppNazarsanjiN)) {
+                case 1:
+                    $("#editDoneoppNazarsanjiED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeDoneoppNazarsanjiED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeDoneoppNazarsanjiED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteDoneoppNazarsanjiED").prop("checked",true).change();
+                    break;
+            }
+            
+            switch (parseInt(admin.AddOppupDownBonusN)) {
+                case 1:
+                    $("#editAddOppupDownBonusED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeAddOppupDownBonusED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeAddOppupDownBonusED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteAddOppupDownBonusED").prop("checked",true).change();
+                    break;
+            }
+            
+            switch (parseInt(admin.SubOppupDownBonusN)) {
+                case 1:
+                    $("#editSubOppupDownBonusED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeSubOppupDownBonusED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeSubOppupDownBonusED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteSubOppupDownBonusED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.AddedoppRDN)) {
+                case 1:
+                    $("#editAddedoppRDED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeAddedoppRDED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeAddedoppRDED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteAddedoppRDED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.oppjustCalendarN)) {
+                case 1:
+                    $("#editoppjustCalendarED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeoppjustCalendarED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeoppjustCalendarED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteoppjustCalendarED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.oppCustCalendarN)) {
+                case 1:
+                    $("#editoppCustCalendarED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeoppCustCalendarED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeoppCustCalendarED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteoppCustCalendarED").prop("checked",true).change();
+                    break;
+            }
+
+            switch (parseInt(admin.allalarmoppN)) {
+                case 1:
+                    $("#editallalarmoppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeallalarmoppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeallalarmoppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteallalarmoppED").prop("checked",true).change();
+                    break;
+            }
+            
+            switch (parseInt(admin.donealarmoppN)) {
+                case 1:
+                    $("#editdonealarmoppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seedonealarmoppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seedonealarmoppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletedonealarmoppED").prop("checked",true).change();
+                    break;
+            }
+                       
+            switch (parseInt(admin.NoalarmoppN)) {
+                case 1:
+                    $("#editNoalarmoppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeNoalarmoppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeNoalarmoppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteNoalarmoppED").prop("checked",true).change();
+                    break;
+            } 
+                                   
+            switch (parseInt(admin.massageOppN)) {
+                case 1:
+                    $("#editmassageOppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seemassageOppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seemassageOppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletemassageOppED").prop("checked",true).change();
+                    break;
+            } 
+            switch (parseInt(admin.justBargiriOppN)) {
+                case 1:
+                    $("#editjustBargiriOppED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seejustBargiriOppED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seejustBargiriOppED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletejustBargiriOppED").prop("checked",true).change();
+                    break;
+            } 
+            
+            switch (parseInt(admin.NotAddedoppRDN)) {
+                case 1:
+                    $("#editNotAddedoppRDED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeNotAddedoppRDED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeNotAddedoppRDED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteNotAddedoppRDED").prop("checked",true).change();
+                    break;
+            } 
+            //گزارشات
+            
+                        
+            switch (parseInt(admin.managerreportN)) {
+                case 1:
+                    $("#editmanagerreportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seemanagerreportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seemanagerreportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletemanagerreportED").prop("checked",true).change();
+                    break;
+            } 
+                        
+                        
+            switch (parseInt(admin.HeadreportN)) {
+                case 1:
+                    $("#editHeadreportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeHeadreportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeHeadreportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteHeadreportED").prop("checked",true).change();
+                    break;
+            } 
+                                    
+            switch (parseInt(admin.poshtibanreportN)) {
+                case 1:
+                    $("#editposhtibanreportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeposhtibanreportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeposhtibanreportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteposhtibanreportED").prop("checked",true).change();
+                    break;
+            } 
+                                   
+            switch (parseInt(admin.bazaryabreportN)) {
+                case 1:
+                    $("#editbazaryabreportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seebazaryabreportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seebazaryabreportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletebazaryabreportED").prop("checked",true).change();
+                    break;
+            }
+                                   
+            switch (parseInt(admin.reportDriverN)) {
+                case 1:
+                    $("#editreportDriverED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seereportDriverED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seereportDriverED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletereportDriverED").prop("checked",true).change();
+                    break;
+            }
+                                               
+            switch (parseInt(admin.trazEmployeeReportN)) {
+                case 1:
+                    $("#edittrazEmployeeReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seetrazEmployeeReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seetrazEmployeeReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletetrazEmployeeReportED").prop("checked",true).change();
+                    break;
+            }
+                                                           
+            switch (parseInt(admin.loginCustRepN)) {
+                case 1:
+                    $("#editloginCustRepED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeloginCustRepED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeloginCustRepED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteloginCustRepED").prop("checked",true).change();
+                    break;
+            }
+                                                           
+            switch (parseInt(admin.inActiveCustRepN)) {
+                case 1:
+                    $("#editinActiveCustRepED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeinActiveCustRepED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeinActiveCustRepED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteinActiveCustRepED").prop("checked",true).change();
+                    break;
+            }
+                                                                       
+            switch (parseInt(admin.noAdminCustRepN)) {
+                case 1:
+                    $("#editnoAdminCustRepED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seenoAdminCustRepED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seenoAdminCustRepED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletenoAdminCustRepED").prop("checked",true).change();
+                    break;
+            }
+                                                                                   
+            switch (parseInt(admin.salegoodsReportN)) {
+                case 1:
+                    $("#editsalegoodsReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seesalegoodsReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seesalegoodsReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletesalegoodsReportED").prop("checked",true).change();
+                    break;
+            }
+                                                                                           
+            switch (parseInt(admin.returnedgoodsReportN)) {
+                case 1:
+                    $("#editreturnedgoodsReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seereturnedgoodsReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seereturnedgoodsReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletereturnedgoodsReportED").prop("checked",true).change();
+                    break;
+            }
+                                                                                           
+            switch (parseInt(admin.returnedNTasReportgoodsReportN)) {
+                case 1:
+                    $("#editreturnedNTasReportgoodsReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seereturnedNTasReportgoodsReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seereturnedNTasReportgoodsReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletereturnedNTasReportgoodsReportED").prop("checked",true).change();
+                    break;
+            }
+                                                                                     
+            switch (parseInt(admin.tasgoodsReprtN)) {
+                case 1:
+                    $("#edittasgoodsReprtED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seetasgoodsReprtED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seetasgoodsReprtED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletetasgoodsReprtED").prop("checked",true).change();
+                    break;
+            }
+                                                                               
+            switch (parseInt(admin.goodsbargiriReportN)) {
+                case 1:
+                    $("#editgoodsbargiriReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seegoodsbargiriReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seegoodsbargiriReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletegoodsbargiriReportED").prop("checked",true).change();
+                    break;
+            }
+
+                                                                                           
+            switch (parseInt(admin.nosalegoodsReportN)) {
+                case 1:
+                    $("#editnosalegoodsReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seenosalegoodsReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seenosalegoodsReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletenosalegoodsReportED").prop("checked",true).change();
+                    break;
+            }
+            
+                                                                                           
+            switch (parseInt(admin.NoExistgoodsReportN)) {
+                case 1:
+                    $("#editNoExistgoodsReportED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seeNoExistgoodsReportED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seeNoExistgoodsReportED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deleteNoExistgoodsReportED").prop("checked",true).change();
+                    break;
+            }
+                                                                                                  
+            switch (parseInt(admin.returnedCustRepN)) {
+                case 1:
+                    $("#editreturnedCustRepED").prop("checked",true).change();
+                    break;
+                case -1:
+                    $("#seereturnedCustRepED").prop("checked",false).change();
+                    break;
+                case 0:
+                    $("#seereturnedCustRepED").prop("checked",true).change();
+                    break;
+                case 2:
+                   $("#deletereturnedCustRepED").prop("checked",true).change();
+                    break;
+            }
             $("#editProfile").modal("show");
         },
         error: function (data) {},
@@ -21575,6 +22240,7 @@ $("#editSentRdED").on("change",function(){
     if(!$("#editSentRdED").is(":checked")){
         $("#deleteSentRdED").prop("checked",false);
     }else{
+        $("#seeSentRdED").prop("checked",true);
         $("#rdSentED").prop("checked",true);
         $("#rdSentED").trigger("change");
     }
@@ -21604,7 +22270,7 @@ $("#editRdNotSentED").on("change",function(){
     if(!$("#editRdNotSentED").is(":checked")){
         $("#deleteRdNotSentED").prop("checked",false);
     }else{
-        $("#seeSentRdED").prop("checked",false);
+        $("#seeRdNotSentED").prop("checked",true);
         $("#rdNotSentED").prop("checked",true);
         $("#rdNotSentED").trigger("change");
     }

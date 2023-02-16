@@ -1606,7 +1606,7 @@ SELECT * FROM (
 
         $lastId=DB::table("CRM.dbo.crm_admin")->max('id');
 
-          DB::table("CRM.dbo.crm_hasAccess3")->insert(
+          DB::table("CRM.dbo.crm_hasAccess")->insert(
             [  "adminId"=>$lastId
            , "declareElementOppN"=>$declareElementOppN
             
@@ -3207,7 +3207,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
     public function getAdminForMove(Request $request)
     {
         $adminId=$request->get("asn");
-        $admin=DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->get();
+        $admin=DB::select("SELECT * FROM CRM.dbo.crm_admin admin JOIN CRM.dbo.crm_hasAccess access ON admin.id=access.adminId WHERE id =$adminId AND deleted=0");
         $otherAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id !=".$adminId." and (adminType!=5 and  adminType!=1 and  adminType!=4 and deleted=0 )");
         $bossAdmins=DB::select("SELECT * FROM CRM.dbo.crm_admin WHERE id !=".$adminId." and deleted=0 and (adminType!=4)");
 
@@ -4023,7 +4023,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
         $saleLine=$request->post("saleLine");
 
         // اگر اطلاعات پایه آن بود 
-        $baseInfoED = $request->post("baseInfoN");
+        $baseInfoED = $request->post("baseInfoED");
         $baseInfoProfileED;
         $infoRdED;
         $specialSettingED;
@@ -4146,13 +4146,13 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                 if($InfoSettingAccessED=="on"){
                     $InfoSettingAccessED=1;
                     if($deleteSettingAccessED=="on"){
-                    $InfoSettingAccessOpED=2;
+                        $InfoSettingAccessED=2;
                     }elseif($editSettingAccessED=="on" and $deleteSettingAccessED!="on"){
-                    $InfoSettingAccessOpED=1;
+                        $InfoSettingAccessED=1;
                     }elseif($editSettingAccessED!="on" and $seeSettingAccessED=="on"){
-                        $InfoSettingAccessOpED=0;
+                        $InfoSettingAccessED=0;
                     }else{
-                        $InfoSettingAccessOpED=-1;
+                        $InfoSettingAccessED=-1;
                     }
                 }else{
                     $InfoSettingAccessOpED=-1;
@@ -4167,22 +4167,22 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                 if($InfoSettingTargetED=="on"){
                     $InfoSettingTargetED=1;
                     if($deleteSettingTargetED=="on"){
-                        $InfoSettingTargetOpED=2;
+                        $InfoSettingTargetED=2;
                     }elseif($editSettingTargetED=="on" and $deleteSettingTargetED!="on"){
-                        $InfoSettingTargetOpED=1;
+                        $InfoSettingTargetED=1;
                     }elseif($editSettingTargetED!="on" and $seeSettingTargetED=="on"){
-                        $InfoSettingTargetOpED=0;
+                        $InfoSettingTargetED=0;
                     }else{
-                        $InfoSettingTargetOpED=-1;
+                        $InfoSettingTargetED=-1;
                     }
                 }else{
-                    $InfoSettingTargetOpED=-1;
+                    $InfoSettingTargetED=-1;
                 }
 
 
             }else {
                 $InfoSettingAccessOpED=-1;
-                $InfoSettingTargetOpED=-1;
+                $InfoSettingTargetED=-1;
                 $baseInfoSettingED=-1;
             }
 
@@ -4424,7 +4424,7 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                     $pastoppNazarsanjiED = 1;
                     if($deletepastoppNazarsanjiED=="on"){
                     $pastoppNazarsanjiED=2;
-                    }elseif($editpastoppEDazarsanjiED=="on" and $deletepastoppNazarsanjiED!="on"){
+                    }elseif($editpastoppNazarsanjiED=="on" and $deletepastoppNazarsanjiED!="on"){
                     $pastoppNazarsanjiED=1;
                     }elseif($editpastoppNazarsanjiED!="on" and $seepastoppNazarsanjiED=="on"){
                         $pastoppNazarsanjiED=0;
@@ -4445,9 +4445,9 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                     $DoneoppNazarsanjiED = 1;
                     if($deleteDoneoppNazarsanjiED=="on"){
                     $DoneoppNazarsanjiED=2;
-                    }elseif($editDoneoppEDazarsanjiED=="on" and $deleteDoneoppNazarsanjiED!="on"){
+                    }elseif($editDoneoppNazarsanjiED=="on" and $deleteDoneoppNazarsanjiED!="on"){
                     $DoneoppNazarsanjiED=1;
-                    }elseif($editDoneoppEDazarsanjiED!="on" and $seeDoneoppNazarsanjiED=="on"){
+                    }elseif($editDoneoppNazarsanjiED!="on" and $seeDoneoppNazarsanjiED=="on"){
                         $DoneoppNazarsanjiED=0;
                     }else{
                         $DoneoppNazarsanjiED=-1;
@@ -5168,9 +5168,9 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
                     if($tasgoodsReprtED=="on"){
                         if($deletetasgoodsReprtED=="on"){
                             $tasgoodsReprtED=2;
-                        }elseif($editreturnedEDTasReportgoodsReportED=="on" and $deletetasgoodsReprtED!="on"){
+                        }elseif($editreturnedNTasReportgoodsReportED=="on" and $deletetasgoodsReprtED!="on"){
                             $tasgoodsReprtED=1;
-                        }elseif($editreturnedEDTasReportgoodsReportED!="on" and $seereturnedEDTasReportgoodsReportED=="on"){
+                        }elseif($editreturnedNTasReportgoodsReportED!="on" and $seereturnedNTasReportgoodsReportED=="on"){
                             $tasgoodsReprtED=0;
                         }else{
                             $tasgoodsReprtED=-1;
@@ -5255,10 +5255,10 @@ $customer->PassedDays=\Morilog\Jalali\CalendarUtils::createCarbonFromFormat('Y/m
        DB::table("CRM.dbo.crm_admin")->where("id",$adminId)->update(['username'=>"".$userName."",'name'=>"".$name."",'lastName'=>"".$lastName."",'poshtibanType'=>$poshtibanType,
                                                                        'adminType'=>$adminType,'password'=>"".$password."",'activeState'=>1,'phone'=>$phone,
                                                                        'address'=>$address,'sex'=>"".$sex."",'discription'=>"".$discription."",'hasAsses'=>$hasAsses,'hasAllCustomer'=>$hasAllCustomer,'hasAlarm'=>$hasAlarm]);
-                                                                       $baseInfoED = $request->post("baseInfoED");
+                                                                       
                                        // اطلاعات پایه============
         
-        DB::table("CRM.dbo.crm_hasAccess3")->WHERE("adminId",$adminId)->update(
+        DB::table("CRM.dbo.crm_hasAccess")->WHERE("adminId",$adminId)->update(
             [ "declareElementOppN"=>$declareElementOppED
             
             ,"baseInfoN"=>$baseInfoED
