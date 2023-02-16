@@ -3,21 +3,21 @@
 
 <style>
 .grid-amalKard {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
-  margin-bottom:5px;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    margin-bottom:5px;
 }
 .amalKarItem {
-  background-color:#b3d1ef;
-  padding: 3px;
-  font-size: 14px;
-  text-align: center;
-  border-radius:5px;
-  margin:2px;
-  
+    background-color:#b3d1ef;
+    padding: 3px;
+    font-size: 14px;
+    text-align: center;
+    border-radius:5px;
+    margin:2px;
 }
+
 .today{
-  color:red;
+   color:red;
 }
 
 .amalKardContent {
@@ -25,7 +25,6 @@
     border-radius:8px; 
     padding:5px;
     margin-bottom:15px;
-
 }
 
 #chartdiv12 {
@@ -33,45 +32,47 @@
   height:100%;
   text-align:center;
   direction:ltr;
-
-
 }
 
-
 </style>
+
     <div class="container-fluid containerDiv">
       <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded">
                         <legend  class="float-none w-auto legendLabel mb-0">  عملکرد کاربران </legend>
                             <div class="row mt-2">
+                              @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 0)
                                 <div class="form-group col-sm-12">
-                                    <select class="form-select form-select-sm " id="searchManagerByLine">
+                                    <select class="form-select form-select-sm" id="searchManagerByLine">
                                         <option value="-1" hidden>  خطوط  </option>
                                         @foreach($saleLine as $line)
-                                            <option value="{{$line->SaleLineSn}}"> {{$line->LineName}} </option>
+                                          <option value="{{$line->SaleLineSn}}"> {{$line->LineName}} </option>
                                         @endforeach
                                     </select>
                                 </div>
                             
                                 <div class="form-group col-sm-12 mt-1">
-                                    <select class="form-select form-select-sm " id="searchManagerSelect">
-                                    <option value="-1" hidden>  مدیران   </option>
-                                        @foreach($admins as $admin)
+                                    <select class="form-select form-select-sm" id="searchManagerSelect">
+                                         <option value="-1" hidden>  مدیران   </option>
+                                          @foreach($admins as $admin)
                                             <option value="{{$admin->id}}">{{$admin->name.' '.$admin->lastName}}</option>
-                                        @endforeach
+                                          @endforeach
                                     </select>
                                 </div>
+                                @endif
                             </div>
-                        <button class='btn btn-sm btn-primary text-warning w-75' type="button" id='openDashboard' style="margin-top:33vh"> تراز نامه  <i class="fal fa-dashboard"></i></button>
-                    </fieldset>
+                            @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1)
+                               <button class='btn btn-sm btn-primary text-warning w-75' type="button" id='openDashboard' style="margin-top:33vh"> تراز نامه  <i class="fal fa-dashboard"></i></button>
+                            @endif
+                          </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"></div>
                     <div class="row mainContent"> 
 
                         <div class="col-lg-12">
-                             <div id="chartdiv12"></div>
+                              <div id="chartdiv12"></div>
                         </div>
 
                     </div>
@@ -79,9 +80,6 @@
                 </div>
         </div>
     </div>
-
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="amalKardModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="amalKardModalLabel" aria-hidden="true">

@@ -18,10 +18,14 @@
                         <input type="text" name="" class="form-control form-control-sm" value="تا تاریخ" id="secondDateSefSaleExpert">
                     </div> 
                     <div class="col-sm-8 text-start">
+                       @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 0)
                         <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#selfHistoryModal"> تاریخچه عملکرد </button>
-                        <button class="btn btn-primary btn-sm " id="addingEmtyazBtn" data-bs-toggle="modal" data-bs-target="#creditSetting"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
                         <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
                         <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
+                       @endif
+                      @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1)
+                        <button class="btn btn-primary btn-sm " id="addingEmtyazBtn" data-bs-toggle="modal" data-bs-target="#creditSetting"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
+                      @endif
                         <input type="hidden" id="adminSn" value="{{$adminId}}">
                     </div>
                 </div>

@@ -49,8 +49,9 @@ text-align:right;
          <div class="row">
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                     <fieldset class="border rounded mt-5 sidefieldSet">
+                      <legend  class="float-none w-auto legendLabel mb-0"> عملکرد کارمندان </legend>
+                       @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1)
                         <form action="{{url('/getPersonals')}}" id="getPersonalsForm" method="get">
-                            <legend  class="float-none w-auto legendLabel mb-0"> عملکرد کارمندان </legend>
                             <div class="form-check">
                                 <input class="form-check-input p-2 float-end" type="radio" name="personal" value="all" id="karbarnRadioBtn">
                                 <label class="form-check-label me-4" for="assesPast">همه</label>
@@ -84,12 +85,15 @@ text-align:right;
                                 </div>
                             </div>
                         </form>
+                        @endif
                         <div class="row" id="bazaryabInfo">
                             <div class="col-lg-12" style="margin-top:44vh">
                                 <form action="{{url('/saleExpertActionInfo')}}" method="get">
                                     <input type="hidden" id="subBazaryabId" name="subId">
-                                    <button class="btn btn-sm btn-primary" disabled id="subListDashboardBtn"> رفتن به جزئیات <i class="fa fa-info-circle" aria-hidden="true"></i> </button>
-                                </form>
+                                     @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1 )
+                                       <button class="btn btn-sm btn-primary" disabled id="subListDashboardBtn"> رفتن به جزئیات <i class="fa fa-info-circle" aria-hidden="true"></i> </button>
+                                     @endif
+                                  </form>
                             </div>
                         </div>
                         <div class="row"  id="poshtibanInfo" style="display:none">
@@ -106,9 +110,11 @@ text-align:right;
                     <div class="row contentHeader">
                         <div class="col-lg-12 text-start">
                             <input type="text" name="" id="adminSn" style="display: none">
-                            <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="openkarabarDashboard" type="button">عملکرد <i class="fas fa-balance-scale fa-lg"></i></button>
-                            <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="chart" type="button" data-toggle="modal" data-bs-target="#karbarChart">نمودار عملکرد <i class="fas fa-bar-chart fa-lg"></i></button>
-                        </div>
+                            @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1 )
+                              <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="openkarabarDashboard" type="button">عملکرد <i class="fas fa-balance-scale fa-lg"></i></button>
+                              <button class='enableBtn btn-sm btn btn-primary mx-1 text-warning' id="chart" type="button" data-toggle="modal" data-bs-target="#karbarChart">نمودار عملکرد <i class="fas fa-bar-chart fa-lg"></i></button>
+                            @endif
+                          </div>
                     </div>
                     <div class="row mainContent">
                 

@@ -48,6 +48,7 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> راننده ها </legend>
+                        @if(hasPermission(Session::get("asn"),"justBargiriOppN") > 0)
                         <form action="{{url('/searchBargeriByDate')}}" method="get" id="searchBargiriSelfForm">
                         <div class="form-group">
                                 <input type="text" name="firstDate" class="form-control form-control-sm" id="bargeriFirstDate" placeholder=" از تاریخ " />
@@ -63,6 +64,7 @@
                                 <button class='btn btn-primary btn-sm text-warning' type="submit" id='getBargiriSearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                             </div>
                         </form>
+                        @endif
                     </fieldset>
                 </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">

@@ -75,11 +75,13 @@
                         <legend  class="float-none w-auto legendLabel mb-0"> کاربران </legend>
                         <div class="col-lg-12" style="margin-top:40vh">
                             <div class="row px-3">
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" id="newAdminBtn">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()"> ویرایش  <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()"> حذف  <i class="fa fa-trash fa-lg" aria-hidden="true" style="color:red;"></i></button>
-                                <button type="button" class="btn btn-primary btn-sm text-warning buttonHover"  id="moveEmployee"> انتقال  <i class="fa fa-send fa-lg" aria-hidden="true" style="color:red;"></i></button>
-                                <input type="hidden" id="AdminForAdd"/>
+                                 @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                                    <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" id="newAdminBtn">جدید <i class="fa fa-plus fa-lg" aria-hidden="true"></i></a>
+                                    <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="editAdmin" onclick="setKarbarEditStuff()"> ویرایش  <i class="fa fa-edit fa-lg" aria-hidden="true"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm text-warning buttonHover" disabled id="deleteAdmin" onclick="deleteAdminList()"> حذف  <i class="fa fa-trash fa-lg" aria-hidden="true" style="color:red;"></i></button>
+                                    <button type="button" class="btn btn-primary btn-sm text-warning buttonHover"  id="moveEmployee"> انتقال  <i class="fa fa-send fa-lg" aria-hidden="true" style="color:red;"></i></button>
+                                    <input type="hidden" id="AdminForAdd"/>
+                                @endif
                             </div>
                         </div>
                     </fieldset>
@@ -729,7 +731,6 @@
                                                     </div>
                                                 </fieldset>
                                         </fieldset>
-
                                         
                                         <fieldset class="border rounded-3" style="display: justify-content:flex-start; float: right;">
                                             <legend  class="float-none w-auto fs-6"> <input type="checkbox" class="oppPartN form-check-input d-inline-block" id="alarmoppN" name="alarmoppN" /> آلارم  </legend>

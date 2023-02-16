@@ -5,6 +5,7 @@
                     <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                             <fieldset class="border rounded mt-5">
                                 <legend  class="float-none w-auto legendLabel mb-0"> نظر سنجی  </legend>
+                                @if(hasPermission(Session::get("asn"),"oppNazarSanjiN") > 0)
                                 <form action="{{url('/getAsses')}}" method="get">
                                     <div class="form-check">
                                         <input class="form-check-input p-2 float-end" type="radio" name="assessName" id="assesToday">
@@ -29,6 +30,7 @@
                                     </div>
                                     <button class='btn btn-primary btn-sm text-warning' type="button" id='getAssesBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                                 </form>
+                                @endif
                             </fieldset>
                     </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -44,11 +46,17 @@
                                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get">
                                         <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
                                         <input type="text"  style="display: none" name="otherName" value="{{trim(Session::get('username'))}}" />
+                                         @if(hasPermission(Session::get("asn"),"oppNazarSanjiN") > 0)
                                         <Button class="btn btn-primary btn-sm float-start" id="fakeLogin" disabled type="submit"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </Button>
+                                        @endif
                                     </form>
-                                    <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard' >داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
-                                    <button class="btn btn-primary btn-sm text-warning" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
-                                </div>
+                                      @if(hasPermission(Session::get("asn"),"oppNazarSanjiN") > 0)
+                                       <button class='btn btn-primary btn-sm text-warning' type="button" disabled id='openDashboard' >داشبورد <i class="fal fa-dashboard fa-lg"></i></button>
+                                      @endif
+                                      @if(hasPermission(Session::get("asn"),"oppNazarSanjiN") > 1)
+                                       <button class="btn btn-primary btn-sm text-warning" onclick="openAssesmentStuff()" id="openAssessmentModal1"  disabled  type="button"  > افزودن نظر <i class="fa fa-address-card"> </i> </button>
+                                       @endif
+                                    </div>
                             </div>
                             <div class="row mainContent">
                             <div id="assesNotDone" class="px-0 mx-0">

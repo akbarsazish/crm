@@ -6,10 +6,12 @@
                 <fieldset class="border rounded mt-5 sidefieldSet">
                     <legend  class="float-none w-auto legendLabel mb-0"> خط فروش </legend>
                      <div class="col-lg-12 sideBarBottomBtn">
-                         <button type="button" class="btn w-50 btn-sm  btn-primary" id="addSaleLineBtn"> افزودن <i class="fa fa-plus"></i> </button>
-                        <button type="button" class="btn w-50 btn-sm  btn-primary" id="editSaleLineBtn"> ویرایش <i class="fa fa-edit"></i> </button>
-                        <button type="button" class="btn w-50 btn-sm  btn-danger" id="deleteSaleLineBtn"> حذف <i class="fa fa-trash"></i> </button>
-                     </div>
+                         @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                            <button type="button" class="btn w-50 btn-sm  btn-primary" id="addSaleLineBtn"> افزودن <i class="fa fa-plus"></i> </button>
+                            <button type="button" class="btn w-50 btn-sm  btn-primary" id="editSaleLineBtn"> ویرایش <i class="fa fa-edit"></i> </button>
+                            <button type="button" class="btn w-50 btn-sm  btn-danger" id="deleteSaleLineBtn"> حذف <i class="fa fa-trash"></i> </button>
+                         @endif
+                    </div>
                 </fieldset>
             </div>
             <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -38,7 +40,8 @@
             </div>
         </div>
     </div>
-<!-- add sale line -->
+
+     <!-- add sale line -->
         <div class="modal fade dragableModal" id="addSaleLineModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable  modal-dialog-centered">
                 <div class="modal-content">

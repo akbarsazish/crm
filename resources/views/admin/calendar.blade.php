@@ -19,6 +19,8 @@
                  <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                      <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> تقویم روزانه  </legend>
+
+                             @if(hasPermission(Session::get("asn"),"oppCalendarN") > 0)
                             <div class="form-check">
                                 <input class="form-check-input p-2 float-end" type="radio" name="settings" id="calendarRadioBtn">
                                 <label class="form-check-label me-4" for="assesPast"> تقویم روزانه </label>
@@ -87,6 +89,7 @@
                             </select>
                             <button type="submit" class="btn btn-primary btn-sm"> بازخوانی <i class="fa fa-edit"></i> </button>
                         </form>
+                        @endif
                       </fieldset>
                   </div>
 
@@ -119,8 +122,10 @@
                                 </select>
                             </div>
                             <div class="col-sm-3 text-start">
-                                <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button>
-                                <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='returnCustomer'> ارجاع به مدیر<i class="fal fa-history"></i></button>
+                                 @if(hasPermission(Session::get("asn"),"oppCalendarN") > 1)
+                                  <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='openDashboard'> داشبورد <i class="fal fa-dashboard"></i></button>
+                                  <button class='enableBtn btn-sm btn btn-primary text-warning customerStaff' type="button" disabled id='returnCustomer'> ارجاع به مدیر<i class="fal fa-history"></i></button>
+                                @endif
                             </div>
                         </div>
                         

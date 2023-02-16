@@ -29,6 +29,7 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> عملکرد مشتریان </legend>
+                           @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > 1)
                             <div class="form-check bg-gray">
                                 <input class="reportRadio form-check-input p-2 float-end" value="all" type="radio" name="reportRadio" id="allCustomerReportRadio" checked>
                                 <label class="form-check-label me-4" for="assesPast"> همه  </label>
@@ -214,8 +215,10 @@
                                 <button class='btn btn-primary btn-sm text-warning' id="filterReturnedsBtn" type="button"> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                             </div>
                         </div>
+                        @endif
                     </fieldset>
                 </div>
+
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> 
                         <div class="col-sm-8 text-end">
@@ -285,15 +288,19 @@
                         </div>
                         <div class="col-sm-4 text-start">
                               <!-- Button trigger modal -->
+                         @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > 0)
                             <button class='enableBtn btn btn-sm btn-primary text-warning' type="button"  onclick="openDashboard(this.value)" disabled> داشبورد <i class="fal fa-dashboard"></i></button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' id="takhsisButton" disabled>تخصیص کاربر  <i class="fal fa-tasks fa-lg"> </i> </button>
-                            <!-- evacuated customer buttons -->
+                             <!-- evacuated customer buttons -->
                             <button class='enableBtn btn btn-primary btn-sm text-warning evcuatedCustomer' disabled id="inactiveButton">غیر فعال کردن <i class="fal fa-ban fa-lg"> </i> </button>
                             <input type="text" id="customerSn"  value="" style="display: none;" />
                             <input type="text" id="adminSn"  value="" style="display: none;"/>
                             <!-- referencial customer buttons -->
-                        
                             <button class='enableBtn btn btn-primary btn-sm text-warning referencialTools' disabled id="returnComment">علت ارجاع<i class="fal fa-eye fa-lg"> </i> </button>
+                        @endif
+                         @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > 1)
+                            <button class='enableBtn btn btn-sm btn-primary text-warning' id="takhsisButton" disabled>تخصیص کاربر  <i class="fal fa-tasks fa-lg"> </i> </button>
+                         @endif
+                           
                         </div>
                     </div>
                     <div class="row mainContent">
@@ -538,7 +545,8 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-4">
                                 <span class="fw-bold fs-4"  id="dashboardTitle" style="display:none;"></span>
-                                <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
+                                @if(hasPermission(Session::get("asn"),"amalkardCustReportN") > 1)
+                                  <button class="btn btn-sm btn-primary d-inline" id="openAddCommentModal" type="button" value="" name="" style="float:left; display:inline;" > کامنت <i class="fas fa-comment fa-lg"> </i> </button>
                                     <form action="https://starfoods.ir/crmLogin" target="_blank"  method="get" style="display:inine !important;">
                                         <input type="text" id="customerSnLogin" style="display: none" name="psn" value="" />
                                         <button class="btn btn-sm btn-primary d-inline" type="submit" style="float:left;"> ورود جعلی  <i class="fas fa-sign-in fa-lg"> </i> </button>
@@ -548,6 +556,7 @@
                                     <label for="exampleFormControlTextarea1" class="form-label mb-0">یاداشت</label>
                                     <textarea class="form-control" id="customerProperty" onblur="saveCustomerCommentProperty(this)" rows="2"></textarea>
                                 </div>
+                                @endif
                             </div>
                     </div>
 

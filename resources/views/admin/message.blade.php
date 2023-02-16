@@ -13,7 +13,9 @@
                         </div>
                        -->
                         <div class="col-sm-12">
-                            <button class="btn btn-primary mb-2" id="addMessageButton"> فرستادن پیام <i class="fa fa-plus"> </i></button>
+                            @if(hasPermission(Session::get("asn"),"alarmoppN") > 1)
+                               <button class="btn btn-primary mb-2" id="addMessageButton"> فرستادن پیام <i class="fa fa-plus"> </i></button>
+                            @endif
                             <input type="text" style="display: none;" name="" id="senderId">
                         </div>
                         
@@ -23,6 +25,7 @@
                     <div class="row contentHeader">  </div>
                     <div class="row mainContent"> 
                             <div class="col-sm-12 px-0">
+                             @if(hasPermission(Session::get("asn"),"alarmoppN") > 1)
                                 <table class="table table-bordered table-striped table-sm">
                                     <thead class="tableHeader">
                                         <tr>
@@ -47,10 +50,12 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                              
                                  <div class="grid-today rounded-2 mx-2">
                                         <div class="today-item"> <span style="color:red; font-weight:bold;">  پیام :  </span> <span id="">  </span>  </div>
                                         <div class="today-item"> <span style="color:red; font-weight:bold;">  پاسخ پیام :</span> <span id="" ></span>  </div>
                                 </div>
+                                  @endif
                             </div>
                      </div>
                     <div class="row contentFooter"> </div>

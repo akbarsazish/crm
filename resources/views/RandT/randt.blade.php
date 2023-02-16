@@ -10,6 +10,7 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
+                         @if(hasPermission(Session::get("asn"),"infoRdN") > -1)
                         <div class="form-check">
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
                             <label class="form-check-label me-4" for="assesPast"> همه  </label>
@@ -22,9 +23,9 @@
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="notLoginRadio">
                             <label class="form-check-label me-4" for="assesPast">  وارد نشده </label>
                         </div>
-                        <button class='btn btn-sm btn-primary text-warning w-50 sideBarBottomBtn' type="button" id='openDashboard' style="margin-top:33vh">  اخراج  <i class="fal fa-sign-out"></i></button>
+                          <button class='btn btn-sm btn-primary text-warning w-50 sideBarBottomBtn' type="button" id='openDashboard' style="margin-top:33vh">  اخراج  <i class="fal fa-sign-out"></i></button>
                         <div class="form-group col-sm-2 mt-2 px-1">
-                            
+                     @endif
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -50,11 +51,11 @@
                             </select>
                         </div>
                         <div class="col-sm-6 text-start">
-                            @if(Session::get('adminType')==1 or Session::get('adminType')==5)
-                            <button class='btn btn-primary btn-sm text-warning forMobileDisplay' disabled id="takhsisButton"> انتقال به دفتر حساب <i class="fal fa-exchange"> </i> </button>
+                            @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                                <button class='btn btn-primary btn-sm text-warning forMobileDisplay' disabled id="takhsisButton"> انتقال به دفتر حساب <i class="fal fa-exchange"> </i> </button>
+                                <button class='btn btn-primary btn-sm text-warning enableBtn' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square"></i></button>            
+                                <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square"></i></button>            
                             @endif
-                            <button class='btn btn-primary btn-sm text-warning enableBtn' type="button" disabled id="editRTbtn"> ویرایش <i class="fa fa-plus-square"></i></button>            
-                            <button class='btn btn-primary btn-sm text-warning' type="button" id="addingNewCustomerBtn"> مشتری جدید  <i class="fa fa-plus-square"></i></button>            
                          </div>
                     </div>
                     <div class="row mainContent">

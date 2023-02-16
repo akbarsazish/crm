@@ -78,6 +78,7 @@ Route::get("/AddCustomerToAdmin",[Admin::class,"AddCustomerToAdmin"])->middlewar
 Route::get("/RemoveCustomerFromAdmin",[Admin::class,"RemoveCustomerFromAdmin"])->middleware('checkUser');
 
 Route::get("/karbarAction",[Admin::class,"karbarAction"])->middleware('checkUser');
+
 Route::get("/amalKardKarbarn",[Admin::class,"amalKardKarbarn"])->middleware('checkUser');
 
 Route::get("/getProducts",[Product::class,"getProducts"])->middleware('checkUser');
@@ -125,6 +126,7 @@ Route::post('/addDescKala',[Admin::class,'setDescribeKala'])->middleware('checkU
 
 
 Route::get("/sendBackReport",[Admin::class,"sendBackReport"])->middleware('checkUser');
+
 Route::get("/kalaSettings",[Admin::class,"kalaSettings"])->middleware('checkUser');
 Route::get("/adminDashboard",[Admin::class,"adminDashboard"])->middleware('checkUser');
 Route::get("/getAdminTodayInfo",[Admin::class,"getAdminTodayInfo"])->middleware('checkUser');
@@ -224,7 +226,9 @@ Route::get("/getSpecialBonusInfo",[SalseExper::class,"getSpecialBonusInfo"])->mi
 Route::get("/deleteSpecialBonus",[SalseExper::class,"deleteSpecialBonus"])->middleware('CheckCommon');
 Route::get("/deleteTarget",[SalseExper::class,"deleteTarget"])->middleware('CheckCommon');
 Route::get("/subTrees",[SalseExper::class,"subTrees"])->middleware('CheckCommon');
+
 Route::get("/saleExpertActionInfo",[SalseExper::class,"saleExpertActionInfo"])->middleware('CheckCommon');
+
 Route::get("/getAllBuyAghlamSelf",[SalseExper::class,"getAllBuyAghlamSelf"])->middleware('CheckCommon');
 Route::get("/getTodayBuyAghlamSelf",[SalseExper::class,"getTodayBuyAghlamSelf"])->middleware('CheckCommon');
 Route::get("/getAllBuyMoneySelf",[SalseExper::class,"getAllBuyMoneySelf"])->middleware('CheckCommon');
