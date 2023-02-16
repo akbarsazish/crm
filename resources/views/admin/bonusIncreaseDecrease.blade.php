@@ -5,6 +5,7 @@
             <div class="col-lg-2 col-md-2 col-sm-2 sideBar">
                 <fieldset class="border rounded mt-5 sidefieldSet">
                     <legend  class="float-none w-auto legendLabel mb-0"> افزایش و کاهش امتیازات </legend>
+                     @if(hasPermission(Session::get("asn"),"OppupDownBonusN") > 0)
                         <div class="form-check">
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="positiveBonusRadio">
                             <label class="form-check-label me-4" for="assesPast"> امتیاز های اضافه شده</label>
@@ -24,12 +25,15 @@
                         <div class="form-group col-sm-12 mb-2">
                             <button class='btn btn-primary btn-sm text-warning' type="button" id='getHistorySearchBtn'> بازخوانی <i class="fal fa-refresh fa-lg"></i></button>
                         </div>
+                        @endif
+                         @if(hasPermission(Session::get("asn"),"OppupDownBonusN") > 1)
                         <div class="col-lg-12" style="margin-top:40vh">
                             <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#creditSetting" data-bs-toggle="modal" > افزایش <i class="fa fa-plus"></i> </button>
                             <button type="button" class="btn d-block w-50 btn-primary btn-sm" data-bs-target="#decreasingCredit" data-bs-toggle="modal" > کاهش <i class="fa fa-minus"></i> </button>
                             <button type="button" class="btn d-block w-50 btn-primary btn-sm" id="editCreditBtn"> اصلاح <i class="fa fa-edit"></i> </button>
                             <button type="button" class="btn d-block w-50 btn-danger btn-sm" id="deleteCreditBtn"> حذف <i class="fa fa-trash"></i>  </button>
                         </div>
+                        @endif
                 </fieldset>
             </div>
             <div class="col-sm-10 col-md-10 col-sm-10 contentDiv">

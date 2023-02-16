@@ -5912,10 +5912,7 @@ public function amalKardKarbarn(Request $request){
         //لیست سرپرستها
         $bosses=DB::table("CRM.dbo.crm_admin")->where('adminType','!=',5)->where('deleted',0)->get();
 
-
         $adminTypes=DB::select("SELECT * FROM CRM.dbo.crm_adminType WHERE  id=2 or id=3");
-
-
 
         $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',SESSION::get("asn"))->get();
         $adminId=SESSION::get("asn");
@@ -5927,8 +5924,6 @@ public function amalKardKarbarn(Request $request){
                 $saleLine=DB::select("SELECT * FROM CRM.dbo.crm_SaleLine WHERE deleted=0");
         }
 
-
-    
         $adminId=Session::get("asn");
         $exactAdmin=DB::table("CRM.dbo.crm_admin")->where('id',$adminId)->get();
         $exactAdminInfo=$exactAdmin[0];

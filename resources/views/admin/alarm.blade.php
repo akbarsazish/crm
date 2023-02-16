@@ -13,6 +13,8 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> فیلتر آلارمها </legend>
+                        
+                        @if(hasPermission(Session::get("asn"),"alarmoppN") > 0)
                         <form action="{{url('/filteralarms')}}" method="get" id="filterAlarmsForm">
                             <div class="form-check">
                                 <input class="form-check-input p-2 float-end alarmRighRdios" type="radio" value="0" name="alarmState" id="customerWithAlarm">
@@ -56,6 +58,7 @@
                                 </div>
                             </div>
                         </form>
+                        @endif
                         
                     </fieldset>
                   </div>
@@ -99,12 +102,18 @@
                         <div class="col-sm-7 text-start">
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
                             <input type="text" id="adminSn" style="display: none" name="adminSn" value="" />
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id='openDashboardForAlarm'> داشبورد <i class="fal fa-dashboard "></i></button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="takhsisCustomerAlarm()"> تخصیص <i class="fa-solid fa-list-check"></i> </button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="changeAdminAlarm()"> تغییر کاربر  <i class="fa-solid fa-edit"></i> </button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="changeAlarm()"> تغیر آلارم  <i class="fal fa-warning "></i></button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="alarmHistory()"> گردش آلارم  <i class="fal fa-history "></i></button>
-                            <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id="inactiveButton">غیر فعال <i class="fal fa-ban"></i> </button>
+                            @if(hasPermission(Session::get("asn"),"alarmoppN") > 0)
+                               <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id='openDashboardForAlarm'> داشبورد <i class="fal fa-dashboard "></i></button>
+                            @endif
+                            @if(hasPermission(Session::get("asn"),"alarmoppN") > 1)
+                                <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="takhsisCustomerAlarm()"> تخصیص <i class="fa-solid fa-list-check"></i> </button>
+                                <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" onclick="changeAdminAlarm()"> تغییر کاربر  <i class="fa-solid fa-edit"></i> </button>
+                                <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="changeAlarm()"> تغیر آلارم  <i class="fal fa-warning "></i></button>
+                                <button class='enableBtn btn btn-sm btn-primary text-warning alarmBtn' disabled type="button"  onclick="alarmHistory()"> گردش آلارم  <i class="fal fa-history "></i></button>
+                            @endif
+                            @if(hasPermission(Session::get("asn"),"alarmoppN") > 0)
+                             <button class='enableBtn btn btn-sm btn-primary text-warning' disabled type="button" id="inactiveButton">غیر فعال <i class="fal fa-ban"></i> </button>
+                            @endif
                             <input type="text" id="customerSn" style="display: none" name="customerSn" value="" />
                         </div>
                    </div>

@@ -9,31 +9,35 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0">  تخصیص کاربران   </legend>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" value="1" type="radio" name="settings" id="takhsisManagerRadio">
-                            <label class="form-check-label me-4" for="assesPast">  مدیران </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" value="2" type="radio" name="settings" id="takhsisHeadRadio">
-                            <label class="form-check-label me-4" for="assesPast"> سرپرستان </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input p-2 float-end" value="3" type="radio" name="settings" id="takhsisEmployeeRadio">
-                            <label class="form-check-label me-4"  for="assesPast"> کارمندان </label>
-                        </div>
-                        <div class="col-lg-12" style="margin-top:50vh;">
-                        <form action="{{url('editAssignCustomer')}}" method="get">
-                            <input type="hidden" name="adminId" id="editAssingId">
-                          <button type="submit" id="editAssingBtn" class="btn btn-primary btn-sm text-warning w-50" disabled>ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
-                        </form>
-                        </div>
+                      @if(hasPermission(Session::get("asn"),"infoRdN") > 0)
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" value="1" type="radio" name="settings" id="takhsisManagerRadio">
+                                <label class="form-check-label me-4" for="assesPast">  مدیران </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" value="2" type="radio" name="settings" id="takhsisHeadRadio">
+                                <label class="form-check-label me-4" for="assesPast"> سرپرستان </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input p-2 float-end" value="3" type="radio" name="settings" id="takhsisEmployeeRadio">
+                                <label class="form-check-label me-4"  for="assesPast"> کارمندان </label>
+                            </div>
+                            <div class="col-lg-12" style="margin-top:50vh;">
+                                <form action="{{url('editAssignCustomer')}}" method="get">
+                                    <input type="hidden" name="adminId" id="editAssingId">
+                                <button type="submit" id="editAssingBtn" class="btn btn-primary btn-sm text-warning w-50" disabled>ویرایش <i class="fa fa-edit fa-lg" aria-hidden="true"></i></a>
+                                </form>
+                          </div>
+                        @endif
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader">
                         <div class="col-lg-12 text-start">
-                            <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="emptyKarbarButton" >تخلیه کاربر <i class="fa fas fa-upload fa-lg" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="moveKarbarButton">تغییر کاربر <i class="fa fas fa-sync fa-lg" aria-hidden="true"></i></button>
+                             @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                                <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="emptyKarbarButton" >تخلیه کاربر <i class="fa fas fa-upload fa-lg" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-primary btn-sm buttonHover text-warning" disabled id="moveKarbarButton">تغییر کاربر <i class="fa fas fa-sync fa-lg" aria-hidden="true"></i></button>
+                              @endif
                         </div>
                     </div>
                     <div class="row mainContent">

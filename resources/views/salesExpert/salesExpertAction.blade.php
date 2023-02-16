@@ -23,11 +23,17 @@
                             <input type="text" name="" class="form-control form-control-sm" value="تا تاریخ" id="secondDateSefSaleExpert">
                         </div> 
                         <div class="col-sm-8 text-start">
-                                <button class="btn btn-primary btn-sm" type="button" onclick="openHistoryModal()"> تاریخچه عملکرد </button>
-                                <button class="btn btn-primary btn-sm " id="addingEmtyazBtn"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
-                                <input type="hidden" id="adminSn" value="{{$adminId}}">
-                                <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
-                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
+                                @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 0)
+                                    <button class="btn btn-primary btn-sm" type="button" onclick="openHistoryModal()"> تاریخچه عملکرد </button>
+                                @endif
+                                @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 1)
+                                    <button class="btn btn-primary btn-sm " id="addingEmtyazBtn"> افزودن امتیاز  <i class="fa fa-plus" aria-hidden="true"></i> </button>
+                                @endif
+                                @if(hasPermission(Session::get("asn"),"trazEmployeeReportN") > 0)
+                                    <input type="hidden" id="adminSn" value="{{$adminId}}">
+                                    <button class="btn btn-primary btn-sm" id="showEmtiyazHistoryBtn"> تاریخچه امتیاز <i class="fa fa-history" aria-hidden="true"></i> </button>
+                                    <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#totalEmtyaz"> جمع کل امتیازات  (آذر) </button>
+                                @endif
                         </div>
                 </div>
                 <div class="row mainContent">

@@ -5,6 +5,7 @@
           <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
               <fieldset class="border rounded mt-5 sidefieldSet">
                   <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
+                   @if(hasPermission(Session::get("asn"),"infoRdN") > 0)
                       <div class="form-check">
                           <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
                           <label class="form-check-label me-4" for="assesPast">  تنظیمات فاصله </label>
@@ -16,6 +17,7 @@
                         <form action="{{url('/getAsses')}}" method="get">
                               <button class='btn btn-primary btn-sm text-warning refreshBtn' type="button" id='getAssesBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                           </form>
+                    @endif
                     </fieldset>
                   </div>
                     <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -50,8 +52,10 @@
                                           </select>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-9 text-start">
+                                           @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                             <button class='btn btn-primary btn-sm text-warning' id="targetEditBtn" type="button" disabled  data-toggle="modal" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
-                                        </div>
+                                            @endif
+                                          </div>
                                 </div>
                                <div class="row px-2">
                                     <table class="table table table-bordered">
@@ -96,8 +100,10 @@
                                     <!-- <span data-toggle="modal" data-target="#addSpecialBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
                                   <div class="col-lg-9 col-md-9 col-sm-9 text-start">
+                                      @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                           <button class='btn btn-primary btn-sm text-warning' id="specialBonusBtn" type="button" disabled  data-toggle="modal" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
-                                    <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
+                                      @endif
+                                          <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
                                 </div>
                                 <table class="table table-bordered border-secondary">
@@ -145,7 +151,9 @@
                                           <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                         </div>
                                         <div class="col-lg-8 col-md-8 col-sm-8 text-start">
-                                          <button class='btn btn-primary btn-sm  text-warning' id="generalTargetBtn3" type="button" disabled onclick="editGeneralBase(this)" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                           @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                                               <button class='btn btn-primary btn-sm  text-warning' id="generalTargetBtn3" type="button" disabled onclick="editGeneralBase(this)" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                           @endif
                                           <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                         </div>
                                  </div>
@@ -195,8 +203,10 @@
                                     <!-- <span data-toggle="modal" data-target="#addgeneralBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
                                  <div class="col-lg-9 col-md-9 col-sm-9 text-start">
+                                      @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                           <button class='btn btn-primary btn-sm text-warning' id="generalBonusBtn3" type="button" disabled    onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
-                                    <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deletegeneralBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
+                                      @endif
+                                          <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deletegeneralBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
                                 </div>
                                 <table class="table table-bordered">
@@ -247,7 +257,9 @@
                                           <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                         </div>
                                        <div class="col-lg-8 col-md-8 col-sm-8 text-start">
-                                          <button class='btn btn-primary btn-sm text-warning' id="generalTargetBtn1" type="button" disabled onclick="editGeneralBase(this)"   style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                         @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                                            <button class='btn btn-primary btn-sm text-warning' id="generalTargetBtn1" type="button" disabled onclick="editGeneralBase(this)"   style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                         @endif
                                           <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                         </div>
                                 </div>
@@ -298,8 +310,10 @@
                                     <!-- <span data-toggle="modal" data-target="#addgeneralBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
                                   <div class="col-lg-9 col-md-9 col-sm-9 text-start">
+                                      @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                           <button class='btn btn-primary btn-sm text-warning' id="generalBonusBtn1" type="button" disabled  onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
-                                    <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deletegeneralBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
+                                      @endif
+                                          <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deletegeneralBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
                                 </div>
                                 <table class="table table-bordered">
@@ -350,7 +364,9 @@
                                   <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                 </div>
                                <div class="col-lg-6 col-md-6 col-sm-6 text-start">
+                                 @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                   <button class='btn btn-primary btn-sm  text-warning' type="button" disabled onclick="editGeneralBase(this)"  id="generalTargetBtn2" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                 @endif
                                   <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                 </div>
                               </div>
@@ -400,8 +416,10 @@
                                     <!-- <span data-toggle="modal" data-target="#addSpecialBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
                                   <div class="col-lg-9 col-md-9 col-sm-9 text-start">
+                                      @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                           <button class='btn btn-primary btn-sm  text-warning' id="generalBonusBtn2" type="button" disabled    onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
-                                    <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
+                                      @endif
+                                          <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
                                 </div>
                                 <table class="table table-bordered">
@@ -454,8 +472,10 @@
                                   <!-- <span data-toggle="modal" data-target="#addingTargetModal"><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 text-start">
-                                  <button class='btn btn-primary btn-sm  text-warning' type="button" disabled onclick="editGeneralBase(this)"  id="generalTargetBtn4" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
-                                  <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
+                                   @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
+                                    <button class='btn btn-primary btn-sm  text-warning' type="button" disabled onclick="editGeneralBase(this)"  id="generalTargetBtn4" style="margin-top:-3px;">ویرایش تارگت<i class="fa fa-edit fa-lg"></i></button> 
+                                   @endif
+                                    <!-- <button class='btn btn-danger text-warning' disabled style="margin-top:-3px;" id="deleteTargetBtn"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                 </div>
                               </div>
                               <div class="row px-2">
@@ -505,8 +525,10 @@
                                     <!-- <span data-toggle="modal" data-target="#addSpecialBonusModal" ><i class="fa fa-plus-circle fa-lg" style="color:#1684db; font-size:33px"></i></span> -->
                                   </div>
                                   <div class="col-lg-11 col-md-11 col-sm-11 text-start">
+                                      @if(hasPermission(Session::get("asn"),"infoRdN") > 1)
                                           <button class='btn btn-primary btn-sm  text-warning' id="generalBonusBtn4" type="button" disabled    onclick="openGeneralSettingModal(this)" style="margin-top:-3px;">ویرایش  امتیاز <i class="fa fa-edit fa-lg"></i></button> 
-                                    <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
+                                      @endif
+                                          <!-- <button class='btn btn-danger text-warning' style="margin-top:-3px;" disabled id="deleteSpecialBonus"> حذف <i class="fa fa-trash fa-lg"></i></button>  -->
                                   </div>
                                 </div>
                                 <table class="table table-bordered border-secondary">

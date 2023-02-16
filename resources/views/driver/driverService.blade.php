@@ -29,6 +29,7 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                     <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> سرویس راننده ها  </legend>
+                         @if(hasPermission(Session::get("asn"),"oppDriverN") > 0)
                           <div class="form-check">
                               <input class="form-check-input p-2 float-end" checked type="radio" name="settings" id="dirverServiceRadio">
                               <label class="form-check-label me-4" for="assesPast"> سرویس راننده ها </label>
@@ -58,6 +59,7 @@
                             <button class='btn btn-primary btn-sm text-warning' type="submit" id='getServiceSearchBtn'> بازخوانی <i class="fal fa-dashboard fa-lg"></i></button>
                           </form>
                         </div> 
+                        @endif
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
@@ -71,9 +73,11 @@
                               </select>
                           </div>
                           <div class="col-sm-10 text-start">
-                              <button class="btn btn-primary btn-sm driverServicesTable" id="driverServicesBtn"> افزودن سرویس <i class="fa fa-plus"></i> </button>
-                              <button class="btn btn-primary btn-sm driverServicesTable" id="editDriverServicesBtn" disabled> ویرایش سرویس <i class="fa fa-edit"></i> </button>
-                          </div>
+                             @if(hasPermission(Session::get("asn"),"oppDriverN") > 1)
+                                <button class="btn btn-primary btn-sm driverServicesTable" id="driverServicesBtn"> افزودن سرویس <i class="fa fa-plus"></i> </button>
+                                <button class="btn btn-primary btn-sm driverServicesTable" id="editDriverServicesBtn" disabled> ویرایش سرویس <i class="fa fa-edit"></i> </button>
+                              @endif
+                            </div>
                     </div>
                     <div class="row mainContent">
                         <table class="table table-bordered table-striped driverServicesTable px-0" id="driverServicesTable">
@@ -89,7 +93,6 @@
                               </thead>
                               <tbody class="tableBody" id="driverServiceBodyList">
                                 @foreach($services as $service)
-
                                   <tr onclick="setDriverServiceStuff(this,{{$service->ServiceSn}})">
                                       <th>{{$loop->iteration}}</th>
                                       <td> {{$service->name.' '.$service->lastName}}</td>

@@ -10,6 +10,7 @@
                <div class="col-lg-2 col-md-2 col-sm-3 sideBar">
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
+                        @if(hasPermission(Session::get("asn"),"returnedReportgoodsReportN") > 0)
                         <div class="form-check">
                             <input class="form-check-input p-2 float-end" type="radio" name="settings" id="elseSettingsRadio">
                             <label class="form-check-label me-4" for="assesPast"> تسویه شده  </label>
@@ -86,6 +87,7 @@
                             <span class="input-group-text" id="" style="font-size:10px;"> انتخاب فاکتور به شماره </span>
                             <input type="number" min="0" class="form-control" id="">
                         </div>
+                        @endif
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">

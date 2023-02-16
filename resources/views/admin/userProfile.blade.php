@@ -61,7 +61,9 @@
                                   <div class="flex-left">   آدرس   </div>
                                   <div class="flex-right">  {{$admin->address}} </div>
                                 </div>
-                                <button class="w-50 btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
+                              @if(hasPermission(Session::get("asn"),"baseInfoProfileN") > 1)
+                                 <button class="w-50 btn btn-sm btn-primary" data-toggle="modal" data-target="#editProfile"> ویرایش <i class="fa fa-edit"> </i>  </button>
+                              @endif
                               </div>
                               
 

@@ -46,6 +46,7 @@ input[type=checkbox] {
                    <fieldset class="border rounded mt-5 sidefieldSet">
                         <legend  class="float-none w-auto legendLabel mb-0"> تنظیمات </legend>
                           <div class="row">
+                             @if(hasPermission(Session::get("asn"),"goodsReportN") > 0)
                                 <div class="form-check">
                                     <input class="form-check-input p-2 float-end" type="radio" name="settings" id="allKalaRadio" checked>
                                     <label class="form-check-label me-4" for="assesPast"> همه کالا ها </label>
@@ -110,23 +111,27 @@ input[type=checkbox] {
                                     <span class="input-group-text" id="inputGroup-sizing-sm"> تا تاریخ  </span>
                                     <input type="text" class="form-control" id="assesSecondDate">
                                 </div>
-
-                                <div class="col-lg-12">
-                                     <button type="button" class="btn btn-primary btn-sm text-warning" style="margin-top:11vh" id="kalaSettingsBtn" disabled> تنظیمات کالا  <i class="fal fa-cog" aria-hidden="true"></i></button>
-                                </div>
-                             </div>
+                            @endif
+                            <div class="col-lg-12">
+                                @if(hasPermission(Session::get("asn"),"goodsReportN") > 1)
+                                    <button type="button" class="btn btn-primary btn-sm text-warning" style="margin-top:11vh" id="kalaSettingsBtn" disabled> تنظیمات کالا  <i class="fal fa-cog" aria-hidden="true"></i></button>
+                                @endif
+                            </div>
+                        </div>
                     </fieldset>
                   </div>
                 <div class="col-sm-10 col-md-10 col-sm-12 contentDiv">
                     <div class="row contentHeader"> 
                         <div class="col-sm-12 text-start">
-                            <form action="#" method="#" style="display: inline;">
+                            @if(hasPermission(Session::get("asn"),"goodsReportN") > 1)
+                             <form action="#" method="#" style="display: inline;">
                                <button type="submit" class="btn btn-primary btn-sm text-warning" disabled> 10 گردش آخر <i class="fal fa-history" aria-hidden="true"></i></button>
                                <button type="submit" class="btn btn-primary btn-sm text-warning"> رویت <i class="fal fa-eye" aria-hidden="true"></i></button>
                                <button type="submit" class="btn btn-primary btn-sm text-warning"> گردش کالا <i class="fal fa-history" aria-hidden="true"></i></button>
                                <button type="submit" class="btn btn-primary btn-sm text-warning"> ارسال به اکسل  <i class="fal fa-file-excel" aria-hidden="true"></i></button>
                                <button type="submit" class="btn btn-primary btn-sm text-warning" onclick="window.print()"> پرنت <i class="fal fa-print" aria-hidden="true"></i></button>
                             </form>
+                            @endif
                        </div>
                     </div>
                     <div class="row mainContent">
